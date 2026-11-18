@@ -35,1189 +35,1106 @@ public final class TablerNumbers_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "box-multiple-0 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.BOX_MULTIPLE_0)",
-            tagIcons::box_multiple_0));
+            "box-multiple-0", "TablerIcons.box_multiple_0()", tagIcons::box_multiple_0));
     icons.add(
         new IconCatalogEntry<>(
-            "box-multiple-1 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.BOX_MULTIPLE_1)",
-            tagIcons::box_multiple_1));
+            "box-multiple-1", "TablerIcons.box_multiple_1()", tagIcons::box_multiple_1));
     icons.add(
         new IconCatalogEntry<>(
-            "box-multiple-2 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.BOX_MULTIPLE_2)",
-            tagIcons::box_multiple_2));
+            "box-multiple-2", "TablerIcons.box_multiple_2()", tagIcons::box_multiple_2));
     icons.add(
         new IconCatalogEntry<>(
-            "box-multiple-3 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.BOX_MULTIPLE_3)",
-            tagIcons::box_multiple_3));
+            "box-multiple-3", "TablerIcons.box_multiple_3()", tagIcons::box_multiple_3));
     icons.add(
         new IconCatalogEntry<>(
-            "box-multiple-4 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.BOX_MULTIPLE_4)",
-            tagIcons::box_multiple_4));
+            "box-multiple-4", "TablerIcons.box_multiple_4()", tagIcons::box_multiple_4));
     icons.add(
         new IconCatalogEntry<>(
-            "box-multiple-5 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.BOX_MULTIPLE_5)",
-            tagIcons::box_multiple_5));
+            "box-multiple-5", "TablerIcons.box_multiple_5()", tagIcons::box_multiple_5));
     icons.add(
         new IconCatalogEntry<>(
-            "box-multiple-6 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.BOX_MULTIPLE_6)",
-            tagIcons::box_multiple_6));
+            "box-multiple-6", "TablerIcons.box_multiple_6()", tagIcons::box_multiple_6));
     icons.add(
         new IconCatalogEntry<>(
-            "box-multiple-7 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.BOX_MULTIPLE_7)",
-            tagIcons::box_multiple_7));
+            "box-multiple-7", "TablerIcons.box_multiple_7()", tagIcons::box_multiple_7));
     icons.add(
         new IconCatalogEntry<>(
-            "box-multiple-8 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.BOX_MULTIPLE_8)",
-            tagIcons::box_multiple_8));
+            "box-multiple-8", "TablerIcons.box_multiple_8()", tagIcons::box_multiple_8));
     icons.add(
         new IconCatalogEntry<>(
-            "box-multiple-9 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.BOX_MULTIPLE_9)",
-            tagIcons::box_multiple_9));
+            "box-multiple-9", "TablerIcons.box_multiple_9()", tagIcons::box_multiple_9));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dashed-number-0 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_DASHED_NUMBER_0)",
+            "circle-dashed-number-0",
+            "TablerIcons.circle_dashed_number_0()",
             tagIcons::circle_dashed_number_0));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dashed-number-1 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_DASHED_NUMBER_1)",
+            "circle-dashed-number-1",
+            "TablerIcons.circle_dashed_number_1()",
             tagIcons::circle_dashed_number_1));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dashed-number-2 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_DASHED_NUMBER_2)",
+            "circle-dashed-number-2",
+            "TablerIcons.circle_dashed_number_2()",
             tagIcons::circle_dashed_number_2));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dashed-number-3 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_DASHED_NUMBER_3)",
+            "circle-dashed-number-3",
+            "TablerIcons.circle_dashed_number_3()",
             tagIcons::circle_dashed_number_3));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dashed-number-4 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_DASHED_NUMBER_4)",
+            "circle-dashed-number-4",
+            "TablerIcons.circle_dashed_number_4()",
             tagIcons::circle_dashed_number_4));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dashed-number-5 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_DASHED_NUMBER_5)",
+            "circle-dashed-number-5",
+            "TablerIcons.circle_dashed_number_5()",
             tagIcons::circle_dashed_number_5));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dashed-number-6 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_DASHED_NUMBER_6)",
+            "circle-dashed-number-6",
+            "TablerIcons.circle_dashed_number_6()",
             tagIcons::circle_dashed_number_6));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dashed-number-7 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_DASHED_NUMBER_7)",
+            "circle-dashed-number-7",
+            "TablerIcons.circle_dashed_number_7()",
             tagIcons::circle_dashed_number_7));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dashed-number-8 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_DASHED_NUMBER_8)",
+            "circle-dashed-number-8",
+            "TablerIcons.circle_dashed_number_8()",
             tagIcons::circle_dashed_number_8));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dashed-number-9 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_DASHED_NUMBER_9)",
+            "circle-dashed-number-9",
+            "TablerIcons.circle_dashed_number_9()",
             tagIcons::circle_dashed_number_9));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-0 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_NUMBER_0)",
+            "circle-number-0",
+            "TablerIcons.circle_number_0()",
             tagIcons::circle_number_0));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-1 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_NUMBER_1)",
+            "circle-number-1",
+            "TablerIcons.circle_number_1()",
             tagIcons::circle_number_1));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-2 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_NUMBER_2)",
+            "circle-number-2",
+            "TablerIcons.circle_number_2()",
             tagIcons::circle_number_2));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-3 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_NUMBER_3)",
+            "circle-number-3",
+            "TablerIcons.circle_number_3()",
             tagIcons::circle_number_3));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-4 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_NUMBER_4)",
+            "circle-number-4",
+            "TablerIcons.circle_number_4()",
             tagIcons::circle_number_4));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-5 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_NUMBER_5)",
+            "circle-number-5",
+            "TablerIcons.circle_number_5()",
             tagIcons::circle_number_5));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-6 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_NUMBER_6)",
+            "circle-number-6",
+            "TablerIcons.circle_number_6()",
             tagIcons::circle_number_6));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-7 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_NUMBER_7)",
+            "circle-number-7",
+            "TablerIcons.circle_number_7()",
             tagIcons::circle_number_7));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-8 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_NUMBER_8)",
+            "circle-number-8",
+            "TablerIcons.circle_number_8()",
             tagIcons::circle_number_8));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-9 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.CIRCLE_NUMBER_9)",
+            "circle-number-9",
+            "TablerIcons.circle_number_9()",
             tagIcons::circle_number_9));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-0 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.HEXAGON_NUMBER_0)",
+            "hexagon-number-0",
+            "TablerIcons.hexagon_number_0()",
             tagIcons::hexagon_number_0));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-1 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.HEXAGON_NUMBER_1)",
+            "hexagon-number-1",
+            "TablerIcons.hexagon_number_1()",
             tagIcons::hexagon_number_1));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-2 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.HEXAGON_NUMBER_2)",
+            "hexagon-number-2",
+            "TablerIcons.hexagon_number_2()",
             tagIcons::hexagon_number_2));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-3 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.HEXAGON_NUMBER_3)",
+            "hexagon-number-3",
+            "TablerIcons.hexagon_number_3()",
             tagIcons::hexagon_number_3));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-4 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.HEXAGON_NUMBER_4)",
+            "hexagon-number-4",
+            "TablerIcons.hexagon_number_4()",
             tagIcons::hexagon_number_4));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-5 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.HEXAGON_NUMBER_5)",
+            "hexagon-number-5",
+            "TablerIcons.hexagon_number_5()",
             tagIcons::hexagon_number_5));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-6 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.HEXAGON_NUMBER_6)",
+            "hexagon-number-6",
+            "TablerIcons.hexagon_number_6()",
             tagIcons::hexagon_number_6));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-7 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.HEXAGON_NUMBER_7)",
+            "hexagon-number-7",
+            "TablerIcons.hexagon_number_7()",
             tagIcons::hexagon_number_7));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-8 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.HEXAGON_NUMBER_8)",
+            "hexagon-number-8",
+            "TablerIcons.hexagon_number_8()",
             tagIcons::hexagon_number_8));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-9 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.HEXAGON_NUMBER_9)",
+            "hexagon-number-9",
+            "TablerIcons.hexagon_number_9()",
             tagIcons::hexagon_number_9));
+    icons.add(new IconCatalogEntry<>("number", "TablerIcons.number()", tagIcons::number));
+    icons.add(
+        new IconCatalogEntry<>("number-0", "TablerIcons.number_0()", tagIcons::number_0));
     icons.add(
         new IconCatalogEntry<>(
-            "number (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER)",
-            tagIcons::number));
+            "number-0-small", "TablerIcons.number_0_small()", tagIcons::number_0_small));
+    icons.add(
+        new IconCatalogEntry<>("number-1", "TablerIcons.number_1()", tagIcons::number_1));
     icons.add(
         new IconCatalogEntry<>(
-            "number-0 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_0)",
-            tagIcons::number_0));
+            "number-1-small", "TablerIcons.number_1_small()", tagIcons::number_1_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-0-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_0_SMALL)",
-            tagIcons::number_0_small));
+            "number-10", "TablerIcons.number_10()", tagIcons::number_10));
     icons.add(
         new IconCatalogEntry<>(
-            "number-1 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_1)",
-            tagIcons::number_1));
-    icons.add(
-        new IconCatalogEntry<>(
-            "number-1-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_1_SMALL)",
-            tagIcons::number_1_small));
-    icons.add(
-        new IconCatalogEntry<>(
-            "number-10 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_10)",
-            tagIcons::number_10));
-    icons.add(
-        new IconCatalogEntry<>(
-            "number-10-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_10_SMALL)",
+            "number-10-small",
+            "TablerIcons.number_10_small()",
             tagIcons::number_10_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-100-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_100_SMALL)",
+            "number-100-small",
+            "TablerIcons.number_100_small()",
             tagIcons::number_100_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-11 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_11)",
-            tagIcons::number_11));
+            "number-11", "TablerIcons.number_11()", tagIcons::number_11));
     icons.add(
         new IconCatalogEntry<>(
-            "number-11-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_11_SMALL)",
+            "number-11-small",
+            "TablerIcons.number_11_small()",
             tagIcons::number_11_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-12-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_12_SMALL)",
+            "number-12-small",
+            "TablerIcons.number_12_small()",
             tagIcons::number_12_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-123 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_123)",
-            tagIcons::number_123));
+            "number-123", "TablerIcons.number_123()", tagIcons::number_123));
     icons.add(
         new IconCatalogEntry<>(
-            "number-13-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_13_SMALL)",
+            "number-13-small",
+            "TablerIcons.number_13_small()",
             tagIcons::number_13_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-14-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_14_SMALL)",
+            "number-14-small",
+            "TablerIcons.number_14_small()",
             tagIcons::number_14_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-15-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_15_SMALL)",
+            "number-15-small",
+            "TablerIcons.number_15_small()",
             tagIcons::number_15_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-16-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_16_SMALL)",
+            "number-16-small",
+            "TablerIcons.number_16_small()",
             tagIcons::number_16_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-17-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_17_SMALL)",
+            "number-17-small",
+            "TablerIcons.number_17_small()",
             tagIcons::number_17_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-18-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_18_SMALL)",
+            "number-18-small",
+            "TablerIcons.number_18_small()",
             tagIcons::number_18_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-19-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_19_SMALL)",
+            "number-19-small",
+            "TablerIcons.number_19_small()",
             tagIcons::number_19_small));
     icons.add(
-        new IconCatalogEntry<>(
-            "number-2 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_2)",
-            tagIcons::number_2));
+        new IconCatalogEntry<>("number-2", "TablerIcons.number_2()", tagIcons::number_2));
     icons.add(
         new IconCatalogEntry<>(
-            "number-2-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_2_SMALL)",
-            tagIcons::number_2_small));
+            "number-2-small", "TablerIcons.number_2_small()", tagIcons::number_2_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-20-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_20_SMALL)",
+            "number-20-small",
+            "TablerIcons.number_20_small()",
             tagIcons::number_20_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-21-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_21_SMALL)",
+            "number-21-small",
+            "TablerIcons.number_21_small()",
             tagIcons::number_21_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-22-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_22_SMALL)",
+            "number-22-small",
+            "TablerIcons.number_22_small()",
             tagIcons::number_22_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-23-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_23_SMALL)",
+            "number-23-small",
+            "TablerIcons.number_23_small()",
             tagIcons::number_23_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-24-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_24_SMALL)",
+            "number-24-small",
+            "TablerIcons.number_24_small()",
             tagIcons::number_24_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-25-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_25_SMALL)",
+            "number-25-small",
+            "TablerIcons.number_25_small()",
             tagIcons::number_25_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-26-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_26_SMALL)",
+            "number-26-small",
+            "TablerIcons.number_26_small()",
             tagIcons::number_26_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-27-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_27_SMALL)",
+            "number-27-small",
+            "TablerIcons.number_27_small()",
             tagIcons::number_27_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-28-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_28_SMALL)",
+            "number-28-small",
+            "TablerIcons.number_28_small()",
             tagIcons::number_28_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-29-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_29_SMALL)",
+            "number-29-small",
+            "TablerIcons.number_29_small()",
             tagIcons::number_29_small));
     icons.add(
-        new IconCatalogEntry<>(
-            "number-3 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_3)",
-            tagIcons::number_3));
+        new IconCatalogEntry<>("number-3", "TablerIcons.number_3()", tagIcons::number_3));
     icons.add(
         new IconCatalogEntry<>(
-            "number-3-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_3_SMALL)",
-            tagIcons::number_3_small));
+            "number-3-small", "TablerIcons.number_3_small()", tagIcons::number_3_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-30-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_30_SMALL)",
+            "number-30-small",
+            "TablerIcons.number_30_small()",
             tagIcons::number_30_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-31-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_31_SMALL)",
+            "number-31-small",
+            "TablerIcons.number_31_small()",
             tagIcons::number_31_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-32-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_32_SMALL)",
+            "number-32-small",
+            "TablerIcons.number_32_small()",
             tagIcons::number_32_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-33-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_33_SMALL)",
+            "number-33-small",
+            "TablerIcons.number_33_small()",
             tagIcons::number_33_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-34-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_34_SMALL)",
+            "number-34-small",
+            "TablerIcons.number_34_small()",
             tagIcons::number_34_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-35-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_35_SMALL)",
+            "number-35-small",
+            "TablerIcons.number_35_small()",
             tagIcons::number_35_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-36-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_36_SMALL)",
+            "number-36-small",
+            "TablerIcons.number_36_small()",
             tagIcons::number_36_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-37-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_37_SMALL)",
+            "number-37-small",
+            "TablerIcons.number_37_small()",
             tagIcons::number_37_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-38-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_38_SMALL)",
+            "number-38-small",
+            "TablerIcons.number_38_small()",
             tagIcons::number_38_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-39-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_39_SMALL)",
+            "number-39-small",
+            "TablerIcons.number_39_small()",
             tagIcons::number_39_small));
     icons.add(
-        new IconCatalogEntry<>(
-            "number-4 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_4)",
-            tagIcons::number_4));
+        new IconCatalogEntry<>("number-4", "TablerIcons.number_4()", tagIcons::number_4));
     icons.add(
         new IconCatalogEntry<>(
-            "number-4-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_4_SMALL)",
-            tagIcons::number_4_small));
+            "number-4-small", "TablerIcons.number_4_small()", tagIcons::number_4_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-40-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_40_SMALL)",
+            "number-40-small",
+            "TablerIcons.number_40_small()",
             tagIcons::number_40_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-41-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_41_SMALL)",
+            "number-41-small",
+            "TablerIcons.number_41_small()",
             tagIcons::number_41_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-42-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_42_SMALL)",
+            "number-42-small",
+            "TablerIcons.number_42_small()",
             tagIcons::number_42_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-43-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_43_SMALL)",
+            "number-43-small",
+            "TablerIcons.number_43_small()",
             tagIcons::number_43_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-44-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_44_SMALL)",
+            "number-44-small",
+            "TablerIcons.number_44_small()",
             tagIcons::number_44_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-45-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_45_SMALL)",
+            "number-45-small",
+            "TablerIcons.number_45_small()",
             tagIcons::number_45_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-46-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_46_SMALL)",
+            "number-46-small",
+            "TablerIcons.number_46_small()",
             tagIcons::number_46_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-47-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_47_SMALL)",
+            "number-47-small",
+            "TablerIcons.number_47_small()",
             tagIcons::number_47_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-48-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_48_SMALL)",
+            "number-48-small",
+            "TablerIcons.number_48_small()",
             tagIcons::number_48_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-49-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_49_SMALL)",
+            "number-49-small",
+            "TablerIcons.number_49_small()",
             tagIcons::number_49_small));
     icons.add(
-        new IconCatalogEntry<>(
-            "number-5 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_5)",
-            tagIcons::number_5));
+        new IconCatalogEntry<>("number-5", "TablerIcons.number_5()", tagIcons::number_5));
     icons.add(
         new IconCatalogEntry<>(
-            "number-5-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_5_SMALL)",
-            tagIcons::number_5_small));
+            "number-5-small", "TablerIcons.number_5_small()", tagIcons::number_5_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-50-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_50_SMALL)",
+            "number-50-small",
+            "TablerIcons.number_50_small()",
             tagIcons::number_50_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-51-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_51_SMALL)",
+            "number-51-small",
+            "TablerIcons.number_51_small()",
             tagIcons::number_51_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-52-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_52_SMALL)",
+            "number-52-small",
+            "TablerIcons.number_52_small()",
             tagIcons::number_52_small));
   }
 
   private static void addIcons1() {
     icons.add(
         new IconCatalogEntry<>(
-            "number-53-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_53_SMALL)",
+            "number-53-small",
+            "TablerIcons.number_53_small()",
             tagIcons::number_53_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-54-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_54_SMALL)",
+            "number-54-small",
+            "TablerIcons.number_54_small()",
             tagIcons::number_54_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-55-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_55_SMALL)",
+            "number-55-small",
+            "TablerIcons.number_55_small()",
             tagIcons::number_55_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-56-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_56_SMALL)",
+            "number-56-small",
+            "TablerIcons.number_56_small()",
             tagIcons::number_56_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-57-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_57_SMALL)",
+            "number-57-small",
+            "TablerIcons.number_57_small()",
             tagIcons::number_57_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-58-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_58_SMALL)",
+            "number-58-small",
+            "TablerIcons.number_58_small()",
             tagIcons::number_58_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-59-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_59_SMALL)",
+            "number-59-small",
+            "TablerIcons.number_59_small()",
             tagIcons::number_59_small));
     icons.add(
-        new IconCatalogEntry<>(
-            "number-6 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_6)",
-            tagIcons::number_6));
+        new IconCatalogEntry<>("number-6", "TablerIcons.number_6()", tagIcons::number_6));
     icons.add(
         new IconCatalogEntry<>(
-            "number-6-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_6_SMALL)",
-            tagIcons::number_6_small));
+            "number-6-small", "TablerIcons.number_6_small()", tagIcons::number_6_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-60-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_60_SMALL)",
+            "number-60-small",
+            "TablerIcons.number_60_small()",
             tagIcons::number_60_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-61-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_61_SMALL)",
+            "number-61-small",
+            "TablerIcons.number_61_small()",
             tagIcons::number_61_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-62-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_62_SMALL)",
+            "number-62-small",
+            "TablerIcons.number_62_small()",
             tagIcons::number_62_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-63-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_63_SMALL)",
+            "number-63-small",
+            "TablerIcons.number_63_small()",
             tagIcons::number_63_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-64-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_64_SMALL)",
+            "number-64-small",
+            "TablerIcons.number_64_small()",
             tagIcons::number_64_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-65-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_65_SMALL)",
+            "number-65-small",
+            "TablerIcons.number_65_small()",
             tagIcons::number_65_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-66-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_66_SMALL)",
+            "number-66-small",
+            "TablerIcons.number_66_small()",
             tagIcons::number_66_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-67-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_67_SMALL)",
+            "number-67-small",
+            "TablerIcons.number_67_small()",
             tagIcons::number_67_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-68-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_68_SMALL)",
+            "number-68-small",
+            "TablerIcons.number_68_small()",
             tagIcons::number_68_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-69-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_69_SMALL)",
+            "number-69-small",
+            "TablerIcons.number_69_small()",
             tagIcons::number_69_small));
     icons.add(
-        new IconCatalogEntry<>(
-            "number-7 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_7)",
-            tagIcons::number_7));
+        new IconCatalogEntry<>("number-7", "TablerIcons.number_7()", tagIcons::number_7));
     icons.add(
         new IconCatalogEntry<>(
-            "number-7-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_7_SMALL)",
-            tagIcons::number_7_small));
+            "number-7-small", "TablerIcons.number_7_small()", tagIcons::number_7_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-70-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_70_SMALL)",
+            "number-70-small",
+            "TablerIcons.number_70_small()",
             tagIcons::number_70_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-71-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_71_SMALL)",
+            "number-71-small",
+            "TablerIcons.number_71_small()",
             tagIcons::number_71_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-72-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_72_SMALL)",
+            "number-72-small",
+            "TablerIcons.number_72_small()",
             tagIcons::number_72_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-73-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_73_SMALL)",
+            "number-73-small",
+            "TablerIcons.number_73_small()",
             tagIcons::number_73_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-74-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_74_SMALL)",
+            "number-74-small",
+            "TablerIcons.number_74_small()",
             tagIcons::number_74_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-75-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_75_SMALL)",
+            "number-75-small",
+            "TablerIcons.number_75_small()",
             tagIcons::number_75_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-76-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_76_SMALL)",
+            "number-76-small",
+            "TablerIcons.number_76_small()",
             tagIcons::number_76_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-77-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_77_SMALL)",
+            "number-77-small",
+            "TablerIcons.number_77_small()",
             tagIcons::number_77_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-78-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_78_SMALL)",
+            "number-78-small",
+            "TablerIcons.number_78_small()",
             tagIcons::number_78_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-79-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_79_SMALL)",
+            "number-79-small",
+            "TablerIcons.number_79_small()",
             tagIcons::number_79_small));
     icons.add(
-        new IconCatalogEntry<>(
-            "number-8 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_8)",
-            tagIcons::number_8));
+        new IconCatalogEntry<>("number-8", "TablerIcons.number_8()", tagIcons::number_8));
     icons.add(
         new IconCatalogEntry<>(
-            "number-8-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_8_SMALL)",
-            tagIcons::number_8_small));
+            "number-8-small", "TablerIcons.number_8_small()", tagIcons::number_8_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-80-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_80_SMALL)",
+            "number-80-small",
+            "TablerIcons.number_80_small()",
             tagIcons::number_80_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-81-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_81_SMALL)",
+            "number-81-small",
+            "TablerIcons.number_81_small()",
             tagIcons::number_81_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-82-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_82_SMALL)",
+            "number-82-small",
+            "TablerIcons.number_82_small()",
             tagIcons::number_82_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-83-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_83_SMALL)",
+            "number-83-small",
+            "TablerIcons.number_83_small()",
             tagIcons::number_83_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-84-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_84_SMALL)",
+            "number-84-small",
+            "TablerIcons.number_84_small()",
             tagIcons::number_84_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-85-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_85_SMALL)",
+            "number-85-small",
+            "TablerIcons.number_85_small()",
             tagIcons::number_85_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-86-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_86_SMALL)",
+            "number-86-small",
+            "TablerIcons.number_86_small()",
             tagIcons::number_86_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-87-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_87_SMALL)",
+            "number-87-small",
+            "TablerIcons.number_87_small()",
             tagIcons::number_87_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-88-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_88_SMALL)",
+            "number-88-small",
+            "TablerIcons.number_88_small()",
             tagIcons::number_88_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-89-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_89_SMALL)",
+            "number-89-small",
+            "TablerIcons.number_89_small()",
             tagIcons::number_89_small));
     icons.add(
-        new IconCatalogEntry<>(
-            "number-9 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_9)",
-            tagIcons::number_9));
+        new IconCatalogEntry<>("number-9", "TablerIcons.number_9()", tagIcons::number_9));
     icons.add(
         new IconCatalogEntry<>(
-            "number-9-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_9_SMALL)",
-            tagIcons::number_9_small));
+            "number-9-small", "TablerIcons.number_9_small()", tagIcons::number_9_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-90-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_90_SMALL)",
+            "number-90-small",
+            "TablerIcons.number_90_small()",
             tagIcons::number_90_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-91-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_91_SMALL)",
+            "number-91-small",
+            "TablerIcons.number_91_small()",
             tagIcons::number_91_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-92-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_92_SMALL)",
+            "number-92-small",
+            "TablerIcons.number_92_small()",
             tagIcons::number_92_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-93-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_93_SMALL)",
+            "number-93-small",
+            "TablerIcons.number_93_small()",
             tagIcons::number_93_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-94-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_94_SMALL)",
+            "number-94-small",
+            "TablerIcons.number_94_small()",
             tagIcons::number_94_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-95-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_95_SMALL)",
+            "number-95-small",
+            "TablerIcons.number_95_small()",
             tagIcons::number_95_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-96-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_96_SMALL)",
+            "number-96-small",
+            "TablerIcons.number_96_small()",
             tagIcons::number_96_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-97-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_97_SMALL)",
+            "number-97-small",
+            "TablerIcons.number_97_small()",
             tagIcons::number_97_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-98-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_98_SMALL)",
+            "number-98-small",
+            "TablerIcons.number_98_small()",
             tagIcons::number_98_small));
     icons.add(
         new IconCatalogEntry<>(
-            "number-99-small (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBER_99_SMALL)",
+            "number-99-small",
+            "TablerIcons.number_99_small()",
             tagIcons::number_99_small));
     icons.add(
-        new IconCatalogEntry<>(
-            "numbers (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.NUMBERS)",
-            tagIcons::numbers));
+        new IconCatalogEntry<>("numbers", "TablerIcons.numbers()", tagIcons::numbers));
     icons.add(
         new IconCatalogEntry<>(
-            "pentagon-number-0 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.PENTAGON_NUMBER_0)",
+            "pentagon-number-0",
+            "TablerIcons.pentagon_number_0()",
             tagIcons::pentagon_number_0));
     icons.add(
         new IconCatalogEntry<>(
-            "pentagon-number-1 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.PENTAGON_NUMBER_1)",
+            "pentagon-number-1",
+            "TablerIcons.pentagon_number_1()",
             tagIcons::pentagon_number_1));
     icons.add(
         new IconCatalogEntry<>(
-            "pentagon-number-2 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.PENTAGON_NUMBER_2)",
+            "pentagon-number-2",
+            "TablerIcons.pentagon_number_2()",
             tagIcons::pentagon_number_2));
     icons.add(
         new IconCatalogEntry<>(
-            "pentagon-number-3 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.PENTAGON_NUMBER_3)",
+            "pentagon-number-3",
+            "TablerIcons.pentagon_number_3()",
             tagIcons::pentagon_number_3));
     icons.add(
         new IconCatalogEntry<>(
-            "pentagon-number-4 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.PENTAGON_NUMBER_4)",
+            "pentagon-number-4",
+            "TablerIcons.pentagon_number_4()",
             tagIcons::pentagon_number_4));
     icons.add(
         new IconCatalogEntry<>(
-            "pentagon-number-5 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.PENTAGON_NUMBER_5)",
+            "pentagon-number-5",
+            "TablerIcons.pentagon_number_5()",
             tagIcons::pentagon_number_5));
     icons.add(
         new IconCatalogEntry<>(
-            "pentagon-number-6 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.PENTAGON_NUMBER_6)",
+            "pentagon-number-6",
+            "TablerIcons.pentagon_number_6()",
             tagIcons::pentagon_number_6));
     icons.add(
         new IconCatalogEntry<>(
-            "pentagon-number-7 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.PENTAGON_NUMBER_7)",
+            "pentagon-number-7",
+            "TablerIcons.pentagon_number_7()",
             tagIcons::pentagon_number_7));
     icons.add(
         new IconCatalogEntry<>(
-            "pentagon-number-8 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.PENTAGON_NUMBER_8)",
+            "pentagon-number-8",
+            "TablerIcons.pentagon_number_8()",
             tagIcons::pentagon_number_8));
     icons.add(
         new IconCatalogEntry<>(
-            "pentagon-number-9 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.PENTAGON_NUMBER_9)",
+            "pentagon-number-9",
+            "TablerIcons.pentagon_number_9()",
             tagIcons::pentagon_number_9));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-number-0 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.ROSETTE_NUMBER_0)",
+            "rosette-number-0",
+            "TablerIcons.rosette_number_0()",
             tagIcons::rosette_number_0));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-number-1 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.ROSETTE_NUMBER_1)",
+            "rosette-number-1",
+            "TablerIcons.rosette_number_1()",
             tagIcons::rosette_number_1));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-number-2 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.ROSETTE_NUMBER_2)",
+            "rosette-number-2",
+            "TablerIcons.rosette_number_2()",
             tagIcons::rosette_number_2));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-number-3 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.ROSETTE_NUMBER_3)",
+            "rosette-number-3",
+            "TablerIcons.rosette_number_3()",
             tagIcons::rosette_number_3));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-number-4 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.ROSETTE_NUMBER_4)",
+            "rosette-number-4",
+            "TablerIcons.rosette_number_4()",
             tagIcons::rosette_number_4));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-number-5 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.ROSETTE_NUMBER_5)",
+            "rosette-number-5",
+            "TablerIcons.rosette_number_5()",
             tagIcons::rosette_number_5));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-number-6 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.ROSETTE_NUMBER_6)",
+            "rosette-number-6",
+            "TablerIcons.rosette_number_6()",
             tagIcons::rosette_number_6));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-number-7 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.ROSETTE_NUMBER_7)",
+            "rosette-number-7",
+            "TablerIcons.rosette_number_7()",
             tagIcons::rosette_number_7));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-number-8 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.ROSETTE_NUMBER_8)",
+            "rosette-number-8",
+            "TablerIcons.rosette_number_8()",
             tagIcons::rosette_number_8));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-number-9 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.ROSETTE_NUMBER_9)",
+            "rosette-number-9",
+            "TablerIcons.rosette_number_9()",
             tagIcons::rosette_number_9));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-0 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_NUMBER_0)",
+            "square-number-0",
+            "TablerIcons.square_number_0()",
             tagIcons::square_number_0));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-1 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_NUMBER_1)",
+            "square-number-1",
+            "TablerIcons.square_number_1()",
             tagIcons::square_number_1));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-2 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_NUMBER_2)",
+            "square-number-2",
+            "TablerIcons.square_number_2()",
             tagIcons::square_number_2));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-3 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_NUMBER_3)",
+            "square-number-3",
+            "TablerIcons.square_number_3()",
             tagIcons::square_number_3));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-4 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_NUMBER_4)",
+            "square-number-4",
+            "TablerIcons.square_number_4()",
             tagIcons::square_number_4));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-5 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_NUMBER_5)",
+            "square-number-5",
+            "TablerIcons.square_number_5()",
             tagIcons::square_number_5));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-6 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_NUMBER_6)",
+            "square-number-6",
+            "TablerIcons.square_number_6()",
             tagIcons::square_number_6));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-7 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_NUMBER_7)",
+            "square-number-7",
+            "TablerIcons.square_number_7()",
             tagIcons::square_number_7));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-8 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_NUMBER_8)",
+            "square-number-8",
+            "TablerIcons.square_number_8()",
             tagIcons::square_number_8));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-9 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_NUMBER_9)",
+            "square-number-9",
+            "TablerIcons.square_number_9()",
             tagIcons::square_number_9));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-0 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_ROUNDED_NUMBER_0)",
+            "square-rounded-number-0",
+            "TablerIcons.square_rounded_number_0()",
             tagIcons::square_rounded_number_0));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-1 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_ROUNDED_NUMBER_1)",
+            "square-rounded-number-1",
+            "TablerIcons.square_rounded_number_1()",
             tagIcons::square_rounded_number_1));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-2 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_ROUNDED_NUMBER_2)",
+            "square-rounded-number-2",
+            "TablerIcons.square_rounded_number_2()",
             tagIcons::square_rounded_number_2));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-3 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_ROUNDED_NUMBER_3)",
+            "square-rounded-number-3",
+            "TablerIcons.square_rounded_number_3()",
             tagIcons::square_rounded_number_3));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-4 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_ROUNDED_NUMBER_4)",
+            "square-rounded-number-4",
+            "TablerIcons.square_rounded_number_4()",
             tagIcons::square_rounded_number_4));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-5 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_ROUNDED_NUMBER_5)",
+            "square-rounded-number-5",
+            "TablerIcons.square_rounded_number_5()",
             tagIcons::square_rounded_number_5));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-6 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_ROUNDED_NUMBER_6)",
+            "square-rounded-number-6",
+            "TablerIcons.square_rounded_number_6()",
             tagIcons::square_rounded_number_6));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-7 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_ROUNDED_NUMBER_7)",
+            "square-rounded-number-7",
+            "TablerIcons.square_rounded_number_7()",
             tagIcons::square_rounded_number_7));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-8 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_ROUNDED_NUMBER_8)",
+            "square-rounded-number-8",
+            "TablerIcons.square_rounded_number_8()",
             tagIcons::square_rounded_number_8));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-9 (outline)",
-            "TablerIcon.create(TablerNumbers.OutlineIcon.SQUARE_ROUNDED_NUMBER_9)",
+            "square-rounded-number-9",
+            "TablerIcons.square_rounded_number_9()",
             tagIcons::square_rounded_number_9));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-0 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.CIRCLE_NUMBER_0)",
+            "circle-number-0",
+            "TablerIcons.circle_number_0_filled()",
             tagIcons::circle_number_0_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-1 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.CIRCLE_NUMBER_1)",
+            "circle-number-1",
+            "TablerIcons.circle_number_1_filled()",
             tagIcons::circle_number_1_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-2 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.CIRCLE_NUMBER_2)",
+            "circle-number-2",
+            "TablerIcons.circle_number_2_filled()",
             tagIcons::circle_number_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-3 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.CIRCLE_NUMBER_3)",
+            "circle-number-3",
+            "TablerIcons.circle_number_3_filled()",
             tagIcons::circle_number_3_filled));
   }
 
   private static void addIcons2() {
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-4 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.CIRCLE_NUMBER_4)",
+            "circle-number-4",
+            "TablerIcons.circle_number_4_filled()",
             tagIcons::circle_number_4_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-5 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.CIRCLE_NUMBER_5)",
+            "circle-number-5",
+            "TablerIcons.circle_number_5_filled()",
             tagIcons::circle_number_5_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-6 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.CIRCLE_NUMBER_6)",
+            "circle-number-6",
+            "TablerIcons.circle_number_6_filled()",
             tagIcons::circle_number_6_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-7 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.CIRCLE_NUMBER_7)",
+            "circle-number-7",
+            "TablerIcons.circle_number_7_filled()",
             tagIcons::circle_number_7_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-8 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.CIRCLE_NUMBER_8)",
+            "circle-number-8",
+            "TablerIcons.circle_number_8_filled()",
             tagIcons::circle_number_8_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-number-9 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.CIRCLE_NUMBER_9)",
+            "circle-number-9",
+            "TablerIcons.circle_number_9_filled()",
             tagIcons::circle_number_9_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-0 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.HEXAGON_NUMBER_0)",
+            "hexagon-number-0",
+            "TablerIcons.hexagon_number_0_filled()",
             tagIcons::hexagon_number_0_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-1 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.HEXAGON_NUMBER_1)",
+            "hexagon-number-1",
+            "TablerIcons.hexagon_number_1_filled()",
             tagIcons::hexagon_number_1_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-2 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.HEXAGON_NUMBER_2)",
+            "hexagon-number-2",
+            "TablerIcons.hexagon_number_2_filled()",
             tagIcons::hexagon_number_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-3 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.HEXAGON_NUMBER_3)",
+            "hexagon-number-3",
+            "TablerIcons.hexagon_number_3_filled()",
             tagIcons::hexagon_number_3_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-4 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.HEXAGON_NUMBER_4)",
+            "hexagon-number-4",
+            "TablerIcons.hexagon_number_4_filled()",
             tagIcons::hexagon_number_4_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-5 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.HEXAGON_NUMBER_5)",
+            "hexagon-number-5",
+            "TablerIcons.hexagon_number_5_filled()",
             tagIcons::hexagon_number_5_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-6 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.HEXAGON_NUMBER_6)",
+            "hexagon-number-6",
+            "TablerIcons.hexagon_number_6_filled()",
             tagIcons::hexagon_number_6_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-7 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.HEXAGON_NUMBER_7)",
+            "hexagon-number-7",
+            "TablerIcons.hexagon_number_7_filled()",
             tagIcons::hexagon_number_7_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-8 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.HEXAGON_NUMBER_8)",
+            "hexagon-number-8",
+            "TablerIcons.hexagon_number_8_filled()",
             tagIcons::hexagon_number_8_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-number-9 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.HEXAGON_NUMBER_9)",
+            "hexagon-number-9",
+            "TablerIcons.hexagon_number_9_filled()",
             tagIcons::hexagon_number_9_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-0 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_NUMBER_0)",
+            "square-number-0",
+            "TablerIcons.square_number_0_filled()",
             tagIcons::square_number_0_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-1 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_NUMBER_1)",
+            "square-number-1",
+            "TablerIcons.square_number_1_filled()",
             tagIcons::square_number_1_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-2 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_NUMBER_2)",
+            "square-number-2",
+            "TablerIcons.square_number_2_filled()",
             tagIcons::square_number_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-3 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_NUMBER_3)",
+            "square-number-3",
+            "TablerIcons.square_number_3_filled()",
             tagIcons::square_number_3_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-4 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_NUMBER_4)",
+            "square-number-4",
+            "TablerIcons.square_number_4_filled()",
             tagIcons::square_number_4_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-5 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_NUMBER_5)",
+            "square-number-5",
+            "TablerIcons.square_number_5_filled()",
             tagIcons::square_number_5_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-6 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_NUMBER_6)",
+            "square-number-6",
+            "TablerIcons.square_number_6_filled()",
             tagIcons::square_number_6_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-7 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_NUMBER_7)",
+            "square-number-7",
+            "TablerIcons.square_number_7_filled()",
             tagIcons::square_number_7_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-8 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_NUMBER_8)",
+            "square-number-8",
+            "TablerIcons.square_number_8_filled()",
             tagIcons::square_number_8_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-number-9 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_NUMBER_9)",
+            "square-number-9",
+            "TablerIcons.square_number_9_filled()",
             tagIcons::square_number_9_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-0 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_ROUNDED_NUMBER_0)",
+            "square-rounded-number-0",
+            "TablerIcons.square_rounded_number_0_filled()",
             tagIcons::square_rounded_number_0_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-1 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_ROUNDED_NUMBER_1)",
+            "square-rounded-number-1",
+            "TablerIcons.square_rounded_number_1_filled()",
             tagIcons::square_rounded_number_1_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-2 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_ROUNDED_NUMBER_2)",
+            "square-rounded-number-2",
+            "TablerIcons.square_rounded_number_2_filled()",
             tagIcons::square_rounded_number_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-3 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_ROUNDED_NUMBER_3)",
+            "square-rounded-number-3",
+            "TablerIcons.square_rounded_number_3_filled()",
             tagIcons::square_rounded_number_3_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-4 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_ROUNDED_NUMBER_4)",
+            "square-rounded-number-4",
+            "TablerIcons.square_rounded_number_4_filled()",
             tagIcons::square_rounded_number_4_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-5 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_ROUNDED_NUMBER_5)",
+            "square-rounded-number-5",
+            "TablerIcons.square_rounded_number_5_filled()",
             tagIcons::square_rounded_number_5_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-6 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_ROUNDED_NUMBER_6)",
+            "square-rounded-number-6",
+            "TablerIcons.square_rounded_number_6_filled()",
             tagIcons::square_rounded_number_6_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-7 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_ROUNDED_NUMBER_7)",
+            "square-rounded-number-7",
+            "TablerIcons.square_rounded_number_7_filled()",
             tagIcons::square_rounded_number_7_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-8 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_ROUNDED_NUMBER_8)",
+            "square-rounded-number-8",
+            "TablerIcons.square_rounded_number_8_filled()",
             tagIcons::square_rounded_number_8_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-number-9 (filled)",
-            "TablerIcon.create(TablerNumbers.FilledIcon.SQUARE_ROUNDED_NUMBER_9)",
+            "square-rounded-number-9",
+            "TablerIcons.square_rounded_number_9_filled()",
             tagIcons::square_rounded_number_9_filled));
   }
 

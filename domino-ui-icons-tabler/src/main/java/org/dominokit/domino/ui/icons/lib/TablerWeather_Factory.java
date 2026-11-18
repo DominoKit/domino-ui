@@ -31,355 +31,195 @@ public final class TablerWeather_Factory {
   }
 
   private static void addIcons0() {
+    icons.add(new IconCatalogEntry<>("cloud", "TablerIcons.cloud()", tagIcons::cloud));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD)",
-            tagIcons::cloud));
+            "cloud-bolt", "TablerIcons.cloud_bolt()", tagIcons::cloud_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-bolt (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_BOLT)",
-            tagIcons::cloud_bolt));
+            "cloud-cancel", "TablerIcons.cloud_cancel()", tagIcons::cloud_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-cancel (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_CANCEL)",
-            tagIcons::cloud_cancel));
+            "cloud-check", "TablerIcons.cloud_check()", tagIcons::cloud_check));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-check (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_CHECK)",
-            tagIcons::cloud_check));
+            "cloud-code", "TablerIcons.cloud_code()", tagIcons::cloud_code));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-code (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_CODE)",
-            tagIcons::cloud_code));
+            "cloud-cog", "TablerIcons.cloud_cog()", tagIcons::cloud_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-cog (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_COG)",
-            tagIcons::cloud_cog));
+            "cloud-dollar", "TablerIcons.cloud_dollar()", tagIcons::cloud_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-dollar (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_DOLLAR)",
-            tagIcons::cloud_dollar));
+            "cloud-down", "TablerIcons.cloud_down()", tagIcons::cloud_down));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-down (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_DOWN)",
-            tagIcons::cloud_down));
-    icons.add(
-        new IconCatalogEntry<>(
-            "cloud-exclamation (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_EXCLAMATION)",
+            "cloud-exclamation",
+            "TablerIcons.cloud_exclamation()",
             tagIcons::cloud_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-fog (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_FOG)",
-            tagIcons::cloud_fog));
+            "cloud-fog", "TablerIcons.cloud_fog()", tagIcons::cloud_fog));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-heart (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_HEART)",
-            tagIcons::cloud_heart));
+            "cloud-heart", "TablerIcons.cloud_heart()", tagIcons::cloud_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-minus (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_MINUS)",
-            tagIcons::cloud_minus));
+            "cloud-minus", "TablerIcons.cloud_minus()", tagIcons::cloud_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-off (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_OFF)",
-            tagIcons::cloud_off));
+            "cloud-off", "TablerIcons.cloud_off()", tagIcons::cloud_off));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-pause (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_PAUSE)",
-            tagIcons::cloud_pause));
+            "cloud-pause", "TablerIcons.cloud_pause()", tagIcons::cloud_pause));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-pin (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_PIN)",
-            tagIcons::cloud_pin));
+            "cloud-pin", "TablerIcons.cloud_pin()", tagIcons::cloud_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-plus (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_PLUS)",
-            tagIcons::cloud_plus));
+            "cloud-plus", "TablerIcons.cloud_plus()", tagIcons::cloud_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-question (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_QUESTION)",
-            tagIcons::cloud_question));
+            "cloud-question", "TablerIcons.cloud_question()", tagIcons::cloud_question));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-rain (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_RAIN)",
-            tagIcons::cloud_rain));
+            "cloud-rain", "TablerIcons.cloud_rain()", tagIcons::cloud_rain));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-search (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_SEARCH)",
-            tagIcons::cloud_search));
+            "cloud-search", "TablerIcons.cloud_search()", tagIcons::cloud_search));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-share (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_SHARE)",
-            tagIcons::cloud_share));
+            "cloud-share", "TablerIcons.cloud_share()", tagIcons::cloud_share));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-snow (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_SNOW)",
-            tagIcons::cloud_snow));
+            "cloud-snow", "TablerIcons.cloud_snow()", tagIcons::cloud_snow));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-star (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_STAR)",
-            tagIcons::cloud_star));
+            "cloud-star", "TablerIcons.cloud_star()", tagIcons::cloud_star));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-storm (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_STORM)",
-            tagIcons::cloud_storm));
+            "cloud-storm", "TablerIcons.cloud_storm()", tagIcons::cloud_storm));
+    icons.add(
+        new IconCatalogEntry<>("cloud-up", "TablerIcons.cloud_up()", tagIcons::cloud_up));
+    icons.add(
+        new IconCatalogEntry<>("cloud-x", "TablerIcons.cloud_x()", tagIcons::cloud_x));
+    icons.add(new IconCatalogEntry<>("comet", "TablerIcons.comet()", tagIcons::comet));
+    icons.add(new IconCatalogEntry<>("flare", "TablerIcons.flare()", tagIcons::flare));
+    icons.add(new IconCatalogEntry<>("flood", "TablerIcons.flood()", tagIcons::flood));
+    icons.add(new IconCatalogEntry<>("haze", "TablerIcons.haze()", tagIcons::haze));
+    icons.add(new IconCatalogEntry<>("mist", "TablerIcons.mist()", tagIcons::mist));
+    icons.add(
+        new IconCatalogEntry<>("mist-off", "TablerIcons.mist_off()", tagIcons::mist_off));
+    icons.add(new IconCatalogEntry<>("moon", "TablerIcons.moon()", tagIcons::moon));
+    icons.add(new IconCatalogEntry<>("moon-2", "TablerIcons.moon_2()", tagIcons::moon_2));
+    icons.add(
+        new IconCatalogEntry<>("moon-off", "TablerIcons.moon_off()", tagIcons::moon_off));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-up (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_UP)",
-            tagIcons::cloud_up));
+            "moon-stars", "TablerIcons.moon_stars()", tagIcons::moon_stars));
+    icons.add(
+        new IconCatalogEntry<>("rainbow", "TablerIcons.rainbow()", tagIcons::rainbow));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud-x (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.CLOUD_X)",
-            tagIcons::cloud_x));
+            "rainbow-off", "TablerIcons.rainbow_off()", tagIcons::rainbow_off));
     icons.add(
         new IconCatalogEntry<>(
-            "comet (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.COMET)",
-            tagIcons::comet));
+            "snowflake", "TablerIcons.snowflake()", tagIcons::snowflake));
     icons.add(
         new IconCatalogEntry<>(
-            "flare (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.FLARE)",
-            tagIcons::flare));
+            "snowflake-off", "TablerIcons.snowflake_off()", tagIcons::snowflake_off));
+    icons.add(new IconCatalogEntry<>("storm", "TablerIcons.storm()", tagIcons::storm));
     icons.add(
         new IconCatalogEntry<>(
-            "flood (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.FLOOD)",
-            tagIcons::flood));
+            "storm-off", "TablerIcons.storm_off()", tagIcons::storm_off));
+    icons.add(new IconCatalogEntry<>("sun", "TablerIcons.sun()", tagIcons::sun));
+    icons.add(
+        new IconCatalogEntry<>("sun-high", "TablerIcons.sun_high()", tagIcons::sun_high));
+    icons.add(
+        new IconCatalogEntry<>("sun-low", "TablerIcons.sun_low()", tagIcons::sun_low));
+    icons.add(
+        new IconCatalogEntry<>("sun-moon", "TablerIcons.sun_moon()", tagIcons::sun_moon));
+    icons.add(
+        new IconCatalogEntry<>("sun-off", "TablerIcons.sun_off()", tagIcons::sun_off));
+    icons.add(
+        new IconCatalogEntry<>("sun-wind", "TablerIcons.sun_wind()", tagIcons::sun_wind));
+    icons.add(
+        new IconCatalogEntry<>("sunrise", "TablerIcons.sunrise()", tagIcons::sunrise));
+    icons.add(new IconCatalogEntry<>("sunset", "TablerIcons.sunset()", tagIcons::sunset));
+    icons.add(
+        new IconCatalogEntry<>("sunset-2", "TablerIcons.sunset_2()", tagIcons::sunset_2));
     icons.add(
         new IconCatalogEntry<>(
-            "haze (outline)", "TablerIcon.create(TablerWeather.OutlineIcon.HAZE)", tagIcons::haze));
+            "temperature", "TablerIcons.temperature()", tagIcons::temperature));
     icons.add(
         new IconCatalogEntry<>(
-            "mist (outline)", "TablerIcon.create(TablerWeather.OutlineIcon.MIST)", tagIcons::mist));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mist-off (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.MIST_OFF)",
-            tagIcons::mist_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "moon (outline)", "TablerIcon.create(TablerWeather.OutlineIcon.MOON)", tagIcons::moon));
-    icons.add(
-        new IconCatalogEntry<>(
-            "moon-2 (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.MOON_2)",
-            tagIcons::moon_2));
-    icons.add(
-        new IconCatalogEntry<>(
-            "moon-off (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.MOON_OFF)",
-            tagIcons::moon_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "moon-stars (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.MOON_STARS)",
-            tagIcons::moon_stars));
-    icons.add(
-        new IconCatalogEntry<>(
-            "rainbow (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.RAINBOW)",
-            tagIcons::rainbow));
-    icons.add(
-        new IconCatalogEntry<>(
-            "rainbow-off (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.RAINBOW_OFF)",
-            tagIcons::rainbow_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "snowflake (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.SNOWFLAKE)",
-            tagIcons::snowflake));
-    icons.add(
-        new IconCatalogEntry<>(
-            "snowflake-off (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.SNOWFLAKE_OFF)",
-            tagIcons::snowflake_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "storm (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.STORM)",
-            tagIcons::storm));
-    icons.add(
-        new IconCatalogEntry<>(
-            "storm-off (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.STORM_OFF)",
-            tagIcons::storm_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sun (outline)", "TablerIcon.create(TablerWeather.OutlineIcon.SUN)", tagIcons::sun));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sun-high (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.SUN_HIGH)",
-            tagIcons::sun_high));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sun-low (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.SUN_LOW)",
-            tagIcons::sun_low));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sun-moon (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.SUN_MOON)",
-            tagIcons::sun_moon));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sun-off (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.SUN_OFF)",
-            tagIcons::sun_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sun-wind (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.SUN_WIND)",
-            tagIcons::sun_wind));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sunrise (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.SUNRISE)",
-            tagIcons::sunrise));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sunset (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.SUNSET)",
-            tagIcons::sunset));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sunset-2 (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.SUNSET_2)",
-            tagIcons::sunset_2));
-    icons.add(
-        new IconCatalogEntry<>(
-            "temperature (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.TEMPERATURE)",
-            tagIcons::temperature));
-    icons.add(
-        new IconCatalogEntry<>(
-            "temperature-celsius (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.TEMPERATURE_CELSIUS)",
+            "temperature-celsius",
+            "TablerIcons.temperature_celsius()",
             tagIcons::temperature_celsius));
     icons.add(
         new IconCatalogEntry<>(
-            "temperature-fahrenheit (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.TEMPERATURE_FAHRENHEIT)",
+            "temperature-fahrenheit",
+            "TablerIcons.temperature_fahrenheit()",
             tagIcons::temperature_fahrenheit));
     icons.add(
         new IconCatalogEntry<>(
-            "temperature-minus (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.TEMPERATURE_MINUS)",
+            "temperature-minus",
+            "TablerIcons.temperature_minus()",
             tagIcons::temperature_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "temperature-off (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.TEMPERATURE_OFF)",
+            "temperature-off",
+            "TablerIcons.temperature_off()",
             tagIcons::temperature_off));
     icons.add(
         new IconCatalogEntry<>(
-            "temperature-plus (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.TEMPERATURE_PLUS)",
+            "temperature-plus",
+            "TablerIcons.temperature_plus()",
             tagIcons::temperature_plus));
     icons.add(
-        new IconCatalogEntry<>(
-            "tornado (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.TORNADO)",
-            tagIcons::tornado));
+        new IconCatalogEntry<>("tornado", "TablerIcons.tornado()", tagIcons::tornado));
+    icons.add(
+        new IconCatalogEntry<>("uv-index", "TablerIcons.uv_index()", tagIcons::uv_index));
+    icons.add(new IconCatalogEntry<>("whirl", "TablerIcons.whirl()", tagIcons::whirl));
+    icons.add(new IconCatalogEntry<>("wind", "TablerIcons.wind()", tagIcons::wind));
+    icons.add(
+        new IconCatalogEntry<>("wind-off", "TablerIcons.wind_off()", tagIcons::wind_off));
     icons.add(
         new IconCatalogEntry<>(
-            "uv-index (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.UV_INDEX)",
-            tagIcons::uv_index));
+            "cloud", "TablerIcons.cloud_filled()", tagIcons::cloud_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "whirl (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.WHIRL)",
-            tagIcons::whirl));
+            "flare", "TablerIcons.flare_filled()", tagIcons::flare_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "wind (outline)", "TablerIcon.create(TablerWeather.OutlineIcon.WIND)", tagIcons::wind));
+            "moon", "TablerIcons.moon_filled()", tagIcons::moon_filled));
+    icons.add(
+        new IconCatalogEntry<>("sun", "TablerIcons.sun_filled()", tagIcons::sun_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "wind-off (outline)",
-            "TablerIcon.create(TablerWeather.OutlineIcon.WIND_OFF)",
-            tagIcons::wind_off));
+            "sun-high", "TablerIcons.sun_high_filled()", tagIcons::sun_high_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "cloud (filled)",
-            "TablerIcon.create(TablerWeather.FilledIcon.CLOUD)",
-            tagIcons::cloud_filled));
+            "sun-low", "TablerIcons.sun_low_filled()", tagIcons::sun_low_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "flare (filled)",
-            "TablerIcon.create(TablerWeather.FilledIcon.FLARE)",
-            tagIcons::flare_filled));
+            "sunrise", "TablerIcons.sunrise_filled()", tagIcons::sunrise_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "moon (filled)",
-            "TablerIcon.create(TablerWeather.FilledIcon.MOON)",
-            tagIcons::moon_filled));
+            "sunset", "TablerIcons.sunset_filled()", tagIcons::sunset_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "sun (filled)",
-            "TablerIcon.create(TablerWeather.FilledIcon.SUN)",
-            tagIcons::sun_filled));
+            "sunset-2", "TablerIcons.sunset_2_filled()", tagIcons::sunset_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "sun-high (filled)",
-            "TablerIcon.create(TablerWeather.FilledIcon.SUN_HIGH)",
-            tagIcons::sun_high_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sun-low (filled)",
-            "TablerIcon.create(TablerWeather.FilledIcon.SUN_LOW)",
-            tagIcons::sun_low_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sunrise (filled)",
-            "TablerIcon.create(TablerWeather.FilledIcon.SUNRISE)",
-            tagIcons::sunrise_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sunset (filled)",
-            "TablerIcon.create(TablerWeather.FilledIcon.SUNSET)",
-            tagIcons::sunset_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sunset-2 (filled)",
-            "TablerIcon.create(TablerWeather.FilledIcon.SUNSET_2)",
-            tagIcons::sunset_2_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "temperature-minus (filled)",
-            "TablerIcon.create(TablerWeather.FilledIcon.TEMPERATURE_MINUS)",
+            "temperature-minus",
+            "TablerIcons.temperature_minus_filled()",
             tagIcons::temperature_minus_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "temperature-plus (filled)",
-            "TablerIcon.create(TablerWeather.FilledIcon.TEMPERATURE_PLUS)",
+            "temperature-plus",
+            "TablerIcons.temperature_plus_filled()",
             tagIcons::temperature_plus_filled));
   }
 

@@ -31,102 +31,47 @@ public final class TablerAnimals_Factory {
   }
 
   private static void addIcons0() {
+    icons.add(new IconCatalogEntry<>("bat", "TablerIcons.bat()", tagIcons::bat));
+    icons.add(new IconCatalogEntry<>("cat", "TablerIcons.cat()", tagIcons::cat));
+    icons.add(new IconCatalogEntry<>("deer", "TablerIcons.deer()", tagIcons::deer));
+    icons.add(new IconCatalogEntry<>("dog", "TablerIcons.dog()", tagIcons::dog));
+    icons.add(new IconCatalogEntry<>("dragon", "TablerIcons.dragon()", tagIcons::dragon));
+    icons.add(new IconCatalogEntry<>("fish", "TablerIcons.fish()", tagIcons::fish));
     icons.add(
         new IconCatalogEntry<>(
-            "bat (outline)", "TablerIcon.create(TablerAnimals.OutlineIcon.BAT)", tagIcons::bat));
+            "fish-bone", "TablerIcons.fish_bone()", tagIcons::fish_bone));
     icons.add(
         new IconCatalogEntry<>(
-            "cat (outline)", "TablerIcon.create(TablerAnimals.OutlineIcon.CAT)", tagIcons::cat));
+            "fish-hook", "TablerIcons.fish_hook()", tagIcons::fish_hook));
     icons.add(
         new IconCatalogEntry<>(
-            "deer (outline)", "TablerIcon.create(TablerAnimals.OutlineIcon.DEER)", tagIcons::deer));
+            "fish-hook-off", "TablerIcons.fish_hook_off()", tagIcons::fish_hook_off));
+    icons.add(
+        new IconCatalogEntry<>("fish-off", "TablerIcons.fish_off()", tagIcons::fish_off));
+    icons.add(new IconCatalogEntry<>("horse", "TablerIcons.horse()", tagIcons::horse));
     icons.add(
         new IconCatalogEntry<>(
-            "dog (outline)", "TablerIcon.create(TablerAnimals.OutlineIcon.DOG)", tagIcons::dog));
+            "horseshoe", "TablerIcons.horseshoe()", tagIcons::horseshoe));
+    icons.add(new IconCatalogEntry<>("paw", "TablerIcons.paw()", tagIcons::paw));
+    icons.add(
+        new IconCatalogEntry<>("paw-off", "TablerIcons.paw_off()", tagIcons::paw_off));
+    icons.add(new IconCatalogEntry<>("pig", "TablerIcons.pig()", tagIcons::pig));
     icons.add(
         new IconCatalogEntry<>(
-            "dragon (outline)",
-            "TablerIcon.create(TablerAnimals.OutlineIcon.DRAGON)",
-            tagIcons::dragon));
+            "pig-money", "TablerIcons.pig_money()", tagIcons::pig_money));
+    icons.add(
+        new IconCatalogEntry<>("pig-off", "TablerIcons.pig_off()", tagIcons::pig_off));
+    icons.add(new IconCatalogEntry<>("spider", "TablerIcons.spider()", tagIcons::spider));
     icons.add(
         new IconCatalogEntry<>(
-            "fish (outline)", "TablerIcon.create(TablerAnimals.OutlineIcon.FISH)", tagIcons::fish));
+            "fish-bone", "TablerIcons.fish_bone_filled()", tagIcons::fish_bone_filled));
+    icons.add(
+        new IconCatalogEntry<>("paw", "TablerIcons.paw_filled()", tagIcons::paw_filled));
+    icons.add(
+        new IconCatalogEntry<>("pig", "TablerIcons.pig_filled()", tagIcons::pig_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "fish-bone (outline)",
-            "TablerIcon.create(TablerAnimals.OutlineIcon.FISH_BONE)",
-            tagIcons::fish_bone));
-    icons.add(
-        new IconCatalogEntry<>(
-            "fish-hook (outline)",
-            "TablerIcon.create(TablerAnimals.OutlineIcon.FISH_HOOK)",
-            tagIcons::fish_hook));
-    icons.add(
-        new IconCatalogEntry<>(
-            "fish-hook-off (outline)",
-            "TablerIcon.create(TablerAnimals.OutlineIcon.FISH_HOOK_OFF)",
-            tagIcons::fish_hook_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "fish-off (outline)",
-            "TablerIcon.create(TablerAnimals.OutlineIcon.FISH_OFF)",
-            tagIcons::fish_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "horse (outline)",
-            "TablerIcon.create(TablerAnimals.OutlineIcon.HORSE)",
-            tagIcons::horse));
-    icons.add(
-        new IconCatalogEntry<>(
-            "horseshoe (outline)",
-            "TablerIcon.create(TablerAnimals.OutlineIcon.HORSESHOE)",
-            tagIcons::horseshoe));
-    icons.add(
-        new IconCatalogEntry<>(
-            "paw (outline)", "TablerIcon.create(TablerAnimals.OutlineIcon.PAW)", tagIcons::paw));
-    icons.add(
-        new IconCatalogEntry<>(
-            "paw-off (outline)",
-            "TablerIcon.create(TablerAnimals.OutlineIcon.PAW_OFF)",
-            tagIcons::paw_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "pig (outline)", "TablerIcon.create(TablerAnimals.OutlineIcon.PIG)", tagIcons::pig));
-    icons.add(
-        new IconCatalogEntry<>(
-            "pig-money (outline)",
-            "TablerIcon.create(TablerAnimals.OutlineIcon.PIG_MONEY)",
-            tagIcons::pig_money));
-    icons.add(
-        new IconCatalogEntry<>(
-            "pig-off (outline)",
-            "TablerIcon.create(TablerAnimals.OutlineIcon.PIG_OFF)",
-            tagIcons::pig_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "spider (outline)",
-            "TablerIcon.create(TablerAnimals.OutlineIcon.SPIDER)",
-            tagIcons::spider));
-    icons.add(
-        new IconCatalogEntry<>(
-            "fish-bone (filled)",
-            "TablerIcon.create(TablerAnimals.FilledIcon.FISH_BONE)",
-            tagIcons::fish_bone_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "paw (filled)",
-            "TablerIcon.create(TablerAnimals.FilledIcon.PAW)",
-            tagIcons::paw_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "pig (filled)",
-            "TablerIcon.create(TablerAnimals.FilledIcon.PIG)",
-            tagIcons::pig_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "spider (filled)",
-            "TablerIcon.create(TablerAnimals.FilledIcon.SPIDER)",
-            tagIcons::spider_filled));
+            "spider", "TablerIcons.spider_filled()", tagIcons::spider_filled));
   }
 
   public List<IconCatalogEntry<TablerIcon>> icons() {

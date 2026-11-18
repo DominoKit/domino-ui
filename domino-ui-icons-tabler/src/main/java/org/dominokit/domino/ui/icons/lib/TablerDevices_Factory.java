@@ -37,2044 +37,1600 @@ public final class TablerDevices_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "access-point (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.ACCESS_POINT)",
-            tagIcons::access_point));
+            "access-point", "TablerIcons.access_point()", tagIcons::access_point));
     icons.add(
         new IconCatalogEntry<>(
-            "access-point-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.ACCESS_POINT_OFF)",
+            "access-point-off",
+            "TablerIcons.access_point_off()",
             tagIcons::access_point_off));
     icons.add(
         new IconCatalogEntry<>(
-            "air-conditioning (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.AIR_CONDITIONING)",
+            "air-conditioning",
+            "TablerIcons.air_conditioning()",
             tagIcons::air_conditioning));
     icons.add(
         new IconCatalogEntry<>(
-            "air-conditioning-disabled (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.AIR_CONDITIONING_DISABLED)",
+            "air-conditioning-disabled",
+            "TablerIcons.air_conditioning_disabled()",
             tagIcons::air_conditioning_disabled));
     icons.add(
         new IconCatalogEntry<>(
-            "airpods-l (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.AIRPODS_L)",
-            tagIcons::airpods_l));
+            "airpods-l", "TablerIcons.airpods_l()", tagIcons::airpods_l));
     icons.add(
         new IconCatalogEntry<>(
-            "airpods-r (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.AIRPODS_R)",
-            tagIcons::airpods_r));
+            "airpods-r", "TablerIcons.airpods_r()", tagIcons::airpods_r));
     icons.add(
         new IconCatalogEntry<>(
-            "alarm-smoke (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.ALARM_SMOKE)",
-            tagIcons::alarm_smoke));
+            "alarm-smoke", "TablerIcons.alarm_smoke()", tagIcons::alarm_smoke));
+    icons.add(
+        new IconCatalogEntry<>("antenna", "TablerIcons.antenna()", tagIcons::antenna));
     icons.add(
         new IconCatalogEntry<>(
-            "antenna (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.ANTENNA)",
-            tagIcons::antenna));
+            "antenna-bars-1", "TablerIcons.antenna_bars_1()", tagIcons::antenna_bars_1));
     icons.add(
         new IconCatalogEntry<>(
-            "antenna-bars-1 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.ANTENNA_BARS_1)",
-            tagIcons::antenna_bars_1));
+            "antenna-bars-2", "TablerIcons.antenna_bars_2()", tagIcons::antenna_bars_2));
     icons.add(
         new IconCatalogEntry<>(
-            "antenna-bars-2 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.ANTENNA_BARS_2)",
-            tagIcons::antenna_bars_2));
+            "antenna-bars-3", "TablerIcons.antenna_bars_3()", tagIcons::antenna_bars_3));
     icons.add(
         new IconCatalogEntry<>(
-            "antenna-bars-3 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.ANTENNA_BARS_3)",
-            tagIcons::antenna_bars_3));
+            "antenna-bars-4", "TablerIcons.antenna_bars_4()", tagIcons::antenna_bars_4));
     icons.add(
         new IconCatalogEntry<>(
-            "antenna-bars-4 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.ANTENNA_BARS_4)",
-            tagIcons::antenna_bars_4));
+            "antenna-bars-5", "TablerIcons.antenna_bars_5()", tagIcons::antenna_bars_5));
     icons.add(
         new IconCatalogEntry<>(
-            "antenna-bars-5 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.ANTENNA_BARS_5)",
-            tagIcons::antenna_bars_5));
-    icons.add(
-        new IconCatalogEntry<>(
-            "antenna-bars-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.ANTENNA_BARS_OFF)",
+            "antenna-bars-off",
+            "TablerIcons.antenna_bars_off()",
             tagIcons::antenna_bars_off));
     icons.add(
         new IconCatalogEntry<>(
-            "antenna-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.ANTENNA_OFF)",
-            tagIcons::antenna_off));
+            "antenna-off", "TablerIcons.antenna_off()", tagIcons::antenna_off));
+    icons.add(
+        new IconCatalogEntry<>("battery", "TablerIcons.battery()", tagIcons::battery));
     icons.add(
         new IconCatalogEntry<>(
-            "battery (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY)",
-            tagIcons::battery));
+            "battery-1", "TablerIcons.battery_1()", tagIcons::battery_1));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-1 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_1)",
-            tagIcons::battery_1));
+            "battery-2", "TablerIcons.battery_2()", tagIcons::battery_2));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-2 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_2)",
-            tagIcons::battery_2));
+            "battery-3", "TablerIcons.battery_3()", tagIcons::battery_3));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-3 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_3)",
-            tagIcons::battery_3));
+            "battery-4", "TablerIcons.battery_4()", tagIcons::battery_4));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-4 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_4)",
-            tagIcons::battery_4));
-    icons.add(
-        new IconCatalogEntry<>(
-            "battery-charging (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_CHARGING)",
+            "battery-charging",
+            "TablerIcons.battery_charging()",
             tagIcons::battery_charging));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-charging-2 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_CHARGING_2)",
+            "battery-charging-2",
+            "TablerIcons.battery_charging_2()",
             tagIcons::battery_charging_2));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-eco (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_ECO)",
-            tagIcons::battery_eco));
+            "battery-eco", "TablerIcons.battery_eco()", tagIcons::battery_eco));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-exclamation (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_EXCLAMATION)",
+            "battery-exclamation",
+            "TablerIcons.battery_exclamation()",
             tagIcons::battery_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_OFF)",
-            tagIcons::battery_off));
+            "battery-off", "TablerIcons.battery_off()", tagIcons::battery_off));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-spark (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_SPARK)",
-            tagIcons::battery_spark));
+            "battery-spark", "TablerIcons.battery_spark()", tagIcons::battery_spark));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-vertical (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_VERTICAL)",
+            "battery-vertical",
+            "TablerIcons.battery_vertical()",
             tagIcons::battery_vertical));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-vertical-1 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_VERTICAL_1)",
+            "battery-vertical-1",
+            "TablerIcons.battery_vertical_1()",
             tagIcons::battery_vertical_1));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-vertical-2 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_VERTICAL_2)",
+            "battery-vertical-2",
+            "TablerIcons.battery_vertical_2()",
             tagIcons::battery_vertical_2));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-vertical-3 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_VERTICAL_3)",
+            "battery-vertical-3",
+            "TablerIcons.battery_vertical_3()",
             tagIcons::battery_vertical_3));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-vertical-4 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_VERTICAL_4)",
+            "battery-vertical-4",
+            "TablerIcons.battery_vertical_4()",
             tagIcons::battery_vertical_4));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-vertical-charging (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_VERTICAL_CHARGING)",
+            "battery-vertical-charging",
+            "TablerIcons.battery_vertical_charging()",
             tagIcons::battery_vertical_charging));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-vertical-charging-2 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_VERTICAL_CHARGING_2)",
+            "battery-vertical-charging-2",
+            "TablerIcons.battery_vertical_charging_2()",
             tagIcons::battery_vertical_charging_2));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-vertical-eco (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_VERTICAL_ECO)",
+            "battery-vertical-eco",
+            "TablerIcons.battery_vertical_eco()",
             tagIcons::battery_vertical_eco));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-vertical-exclamation (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_VERTICAL_EXCLAMATION)",
+            "battery-vertical-exclamation",
+            "TablerIcons.battery_vertical_exclamation()",
             tagIcons::battery_vertical_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-vertical-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BATTERY_VERTICAL_OFF)",
+            "battery-vertical-off",
+            "TablerIcons.battery_vertical_off()",
             tagIcons::battery_vertical_off));
     icons.add(
-        new IconCatalogEntry<>(
-            "blender (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BLENDER)",
-            tagIcons::blender));
+        new IconCatalogEntry<>("blender", "TablerIcons.blender()", tagIcons::blender));
     icons.add(
         new IconCatalogEntry<>(
-            "bluetooth (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BLUETOOTH)",
-            tagIcons::bluetooth));
+            "bluetooth", "TablerIcons.bluetooth()", tagIcons::bluetooth));
     icons.add(
         new IconCatalogEntry<>(
-            "bluetooth-connected (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BLUETOOTH_CONNECTED)",
+            "bluetooth-connected",
+            "TablerIcons.bluetooth_connected()",
             tagIcons::bluetooth_connected));
     icons.add(
         new IconCatalogEntry<>(
-            "bluetooth-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BLUETOOTH_OFF)",
-            tagIcons::bluetooth_off));
+            "bluetooth-off", "TablerIcons.bluetooth_off()", tagIcons::bluetooth_off));
     icons.add(
         new IconCatalogEntry<>(
-            "bluetooth-x (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BLUETOOTH_X)",
-            tagIcons::bluetooth_x));
+            "bluetooth-x", "TablerIcons.bluetooth_x()", tagIcons::bluetooth_x));
     icons.add(
         new IconCatalogEntry<>(
-            "broadcast (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BROADCAST)",
-            tagIcons::broadcast));
+            "broadcast", "TablerIcons.broadcast()", tagIcons::broadcast));
     icons.add(
         new IconCatalogEntry<>(
-            "broadcast-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BROADCAST_OFF)",
-            tagIcons::broadcast_off));
+            "broadcast-off", "TablerIcons.broadcast_off()", tagIcons::broadcast_off));
+    icons.add(
+        new IconCatalogEntry<>("browser", "TablerIcons.browser()", tagIcons::browser));
     icons.add(
         new IconCatalogEntry<>(
-            "browser (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BROWSER)",
-            tagIcons::browser));
+            "browser-check", "TablerIcons.browser_check()", tagIcons::browser_check));
     icons.add(
         new IconCatalogEntry<>(
-            "browser-check (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BROWSER_CHECK)",
-            tagIcons::browser_check));
-    icons.add(
-        new IconCatalogEntry<>(
-            "browser-maximize (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BROWSER_MAXIMIZE)",
+            "browser-maximize",
+            "TablerIcons.browser_maximize()",
             tagIcons::browser_maximize));
     icons.add(
         new IconCatalogEntry<>(
-            "browser-minus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BROWSER_MINUS)",
-            tagIcons::browser_minus));
+            "browser-minus", "TablerIcons.browser_minus()", tagIcons::browser_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "browser-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BROWSER_OFF)",
-            tagIcons::browser_off));
+            "browser-off", "TablerIcons.browser_off()", tagIcons::browser_off));
     icons.add(
         new IconCatalogEntry<>(
-            "browser-plus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BROWSER_PLUS)",
-            tagIcons::browser_plus));
+            "browser-plus", "TablerIcons.browser_plus()", tagIcons::browser_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "browser-share (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BROWSER_SHARE)",
-            tagIcons::browser_share));
+            "browser-share", "TablerIcons.browser_share()", tagIcons::browser_share));
     icons.add(
         new IconCatalogEntry<>(
-            "browser-x (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.BROWSER_X)",
-            tagIcons::browser_x));
+            "browser-x", "TablerIcons.browser_x()", tagIcons::browser_x));
     icons.add(
         new IconCatalogEntry<>(
-            "calculator (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.CALCULATOR)",
-            tagIcons::calculator));
+            "calculator", "TablerIcons.calculator()", tagIcons::calculator));
     icons.add(
         new IconCatalogEntry<>(
-            "calculator-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.CALCULATOR_OFF)",
-            tagIcons::calculator_off));
+            "calculator-off", "TablerIcons.calculator_off()", tagIcons::calculator_off));
     icons.add(
         new IconCatalogEntry<>(
-            "cardboards (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.CARDBOARDS)",
-            tagIcons::cardboards));
+            "cardboards", "TablerIcons.cardboards()", tagIcons::cardboards));
     icons.add(
         new IconCatalogEntry<>(
-            "cardboards-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.CARDBOARDS_OFF)",
-            tagIcons::cardboards_off));
+            "cardboards-off", "TablerIcons.cardboards_off()", tagIcons::cardboards_off));
     icons.add(
         new IconCatalogEntry<>(
-            "cell-signal-1 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.CELL_SIGNAL_1)",
-            tagIcons::cell_signal_1));
+            "cell-signal-1", "TablerIcons.cell_signal_1()", tagIcons::cell_signal_1));
     icons.add(
         new IconCatalogEntry<>(
-            "cell-signal-2 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.CELL_SIGNAL_2)",
-            tagIcons::cell_signal_2));
+            "cell-signal-2", "TablerIcons.cell_signal_2()", tagIcons::cell_signal_2));
     icons.add(
         new IconCatalogEntry<>(
-            "cell-signal-3 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.CELL_SIGNAL_3)",
-            tagIcons::cell_signal_3));
+            "cell-signal-3", "TablerIcons.cell_signal_3()", tagIcons::cell_signal_3));
     icons.add(
         new IconCatalogEntry<>(
-            "cell-signal-4 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.CELL_SIGNAL_4)",
-            tagIcons::cell_signal_4));
+            "cell-signal-4", "TablerIcons.cell_signal_4()", tagIcons::cell_signal_4));
     icons.add(
         new IconCatalogEntry<>(
-            "cell-signal-5 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.CELL_SIGNAL_5)",
-            tagIcons::cell_signal_5));
+            "cell-signal-5", "TablerIcons.cell_signal_5()", tagIcons::cell_signal_5));
     icons.add(
         new IconCatalogEntry<>(
-            "cell-signal-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.CELL_SIGNAL_OFF)",
+            "cell-signal-off",
+            "TablerIcons.cell_signal_off()",
             tagIcons::cell_signal_off));
+    icons.add(new IconCatalogEntry<>("cpu", "TablerIcons.cpu()", tagIcons::cpu));
+    icons.add(new IconCatalogEntry<>("cpu-2", "TablerIcons.cpu_2()", tagIcons::cpu_2));
+    icons.add(
+        new IconCatalogEntry<>("cpu-off", "TablerIcons.cpu_off()", tagIcons::cpu_off));
     icons.add(
         new IconCatalogEntry<>(
-            "cpu (outline)", "TablerIcon.create(TablerDevices.OutlineIcon.CPU)", tagIcons::cpu));
-    icons.add(
-        new IconCatalogEntry<>(
-            "cpu-2 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.CPU_2)",
-            tagIcons::cpu_2));
-    icons.add(
-        new IconCatalogEntry<>(
-            "cpu-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.CPU_OFF)",
-            tagIcons::cpu_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "device-3d-camera (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_3D_CAMERA)",
+            "device-3d-camera",
+            "TablerIcons.device_3d_camera()",
             tagIcons::device_3d_camera));
     icons.add(
         new IconCatalogEntry<>(
-            "device-3d-lens (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_3D_LENS)",
-            tagIcons::device_3d_lens));
+            "device-3d-lens", "TablerIcons.device_3d_lens()", tagIcons::device_3d_lens));
     icons.add(
         new IconCatalogEntry<>(
-            "device-airpods (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_AIRPODS)",
-            tagIcons::device_airpods));
+            "device-airpods", "TablerIcons.device_airpods()", tagIcons::device_airpods));
     icons.add(
         new IconCatalogEntry<>(
-            "device-airpods-case (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_AIRPODS_CASE)",
+            "device-airpods-case",
+            "TablerIcons.device_airpods_case()",
             tagIcons::device_airpods_case));
     icons.add(
         new IconCatalogEntry<>(
-            "device-airtag (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_AIRTAG)",
-            tagIcons::device_airtag));
+            "device-airtag", "TablerIcons.device_airtag()", tagIcons::device_airtag));
     icons.add(
         new IconCatalogEntry<>(
-            "device-analytics (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_ANALYTICS)",
+            "device-analytics",
+            "TablerIcons.device_analytics()",
             tagIcons::device_analytics));
     icons.add(
         new IconCatalogEntry<>(
-            "device-audio-tape (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_AUDIO_TAPE)",
+            "device-audio-tape",
+            "TablerIcons.device_audio_tape()",
             tagIcons::device_audio_tape));
     icons.add(
         new IconCatalogEntry<>(
-            "device-camera-phone (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_CAMERA_PHONE)",
+            "device-camera-phone",
+            "TablerIcons.device_camera_phone()",
             tagIcons::device_camera_phone));
     icons.add(
         new IconCatalogEntry<>(
-            "device-cctv (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_CCTV)",
-            tagIcons::device_cctv));
+            "device-cctv", "TablerIcons.device_cctv()", tagIcons::device_cctv));
     icons.add(
         new IconCatalogEntry<>(
-            "device-cctv-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_CCTV_OFF)",
+            "device-cctv-off",
+            "TablerIcons.device_cctv_off()",
             tagIcons::device_cctv_off));
     icons.add(
         new IconCatalogEntry<>(
-            "device-computer-camera (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_COMPUTER_CAMERA)",
+            "device-computer-camera",
+            "TablerIcons.device_computer_camera()",
             tagIcons::device_computer_camera));
     icons.add(
         new IconCatalogEntry<>(
-            "device-computer-camera-2 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_COMPUTER_CAMERA_2)",
+            "device-computer-camera-2",
+            "TablerIcons.device_computer_camera_2()",
             tagIcons::device_computer_camera_2));
     icons.add(
         new IconCatalogEntry<>(
-            "device-computer-camera-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_COMPUTER_CAMERA_OFF)",
+            "device-computer-camera-off",
+            "TablerIcons.device_computer_camera_off()",
             tagIcons::device_computer_camera_off));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP)",
-            tagIcons::device_desktop));
+            "device-desktop", "TablerIcons.device_desktop()", tagIcons::device_desktop));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-analytics (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_ANALYTICS)",
+            "device-desktop-analytics",
+            "TablerIcons.device_desktop_analytics()",
             tagIcons::device_desktop_analytics));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-bolt (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_BOLT)",
+            "device-desktop-bolt",
+            "TablerIcons.device_desktop_bolt()",
             tagIcons::device_desktop_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-cancel (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_CANCEL)",
+            "device-desktop-cancel",
+            "TablerIcons.device_desktop_cancel()",
             tagIcons::device_desktop_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-check (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_CHECK)",
+            "device-desktop-check",
+            "TablerIcons.device_desktop_check()",
             tagIcons::device_desktop_check));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-code (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_CODE)",
+            "device-desktop-code",
+            "TablerIcons.device_desktop_code()",
             tagIcons::device_desktop_code));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-cog (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_COG)",
+            "device-desktop-cog",
+            "TablerIcons.device_desktop_cog()",
             tagIcons::device_desktop_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-dollar (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_DOLLAR)",
+            "device-desktop-dollar",
+            "TablerIcons.device_desktop_dollar()",
             tagIcons::device_desktop_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-down (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_DOWN)",
+            "device-desktop-down",
+            "TablerIcons.device_desktop_down()",
             tagIcons::device_desktop_down));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-exclamation (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_EXCLAMATION)",
+            "device-desktop-exclamation",
+            "TablerIcons.device_desktop_exclamation()",
             tagIcons::device_desktop_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-heart (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_HEART)",
+            "device-desktop-heart",
+            "TablerIcons.device_desktop_heart()",
             tagIcons::device_desktop_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-minus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_MINUS)",
+            "device-desktop-minus",
+            "TablerIcons.device_desktop_minus()",
             tagIcons::device_desktop_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_OFF)",
+            "device-desktop-off",
+            "TablerIcons.device_desktop_off()",
             tagIcons::device_desktop_off));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-pause (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_PAUSE)",
+            "device-desktop-pause",
+            "TablerIcons.device_desktop_pause()",
             tagIcons::device_desktop_pause));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-pin (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_PIN)",
+            "device-desktop-pin",
+            "TablerIcons.device_desktop_pin()",
             tagIcons::device_desktop_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-plus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_PLUS)",
+            "device-desktop-plus",
+            "TablerIcons.device_desktop_plus()",
             tagIcons::device_desktop_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-question (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_QUESTION)",
+            "device-desktop-question",
+            "TablerIcons.device_desktop_question()",
             tagIcons::device_desktop_question));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-search (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_SEARCH)",
+            "device-desktop-search",
+            "TablerIcons.device_desktop_search()",
             tagIcons::device_desktop_search));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-share (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_SHARE)",
+            "device-desktop-share",
+            "TablerIcons.device_desktop_share()",
             tagIcons::device_desktop_share));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-star (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_STAR)",
+            "device-desktop-star",
+            "TablerIcons.device_desktop_star()",
             tagIcons::device_desktop_star));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-up (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_UP)",
+            "device-desktop-up",
+            "TablerIcons.device_desktop_up()",
             tagIcons::device_desktop_up));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop-x (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_DESKTOP_X)",
+            "device-desktop-x",
+            "TablerIcons.device_desktop_x()",
             tagIcons::device_desktop_x));
     icons.add(
         new IconCatalogEntry<>(
-            "device-floppy (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_FLOPPY)",
-            tagIcons::device_floppy));
+            "device-floppy", "TablerIcons.device_floppy()", tagIcons::device_floppy));
   }
 
   private static void addIcons1() {
     icons.add(
         new IconCatalogEntry<>(
-            "device-gamepad (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_GAMEPAD)",
-            tagIcons::device_gamepad));
+            "device-gamepad", "TablerIcons.device_gamepad()", tagIcons::device_gamepad));
     icons.add(
         new IconCatalogEntry<>(
-            "device-gamepad-2 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_GAMEPAD_2)",
+            "device-gamepad-2",
+            "TablerIcons.device_gamepad_2()",
             tagIcons::device_gamepad_2));
     icons.add(
         new IconCatalogEntry<>(
-            "device-gamepad-3 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_GAMEPAD_3)",
+            "device-gamepad-3",
+            "TablerIcons.device_gamepad_3()",
             tagIcons::device_gamepad_3));
     icons.add(
         new IconCatalogEntry<>(
-            "device-heart-monitor (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_HEART_MONITOR)",
+            "device-heart-monitor",
+            "TablerIcons.device_heart_monitor()",
             tagIcons::device_heart_monitor));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC)",
-            tagIcons::device_imac));
+            "device-imac", "TablerIcons.device_imac()", tagIcons::device_imac));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-bolt (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_BOLT)",
+            "device-imac-bolt",
+            "TablerIcons.device_imac_bolt()",
             tagIcons::device_imac_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-cancel (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_CANCEL)",
+            "device-imac-cancel",
+            "TablerIcons.device_imac_cancel()",
             tagIcons::device_imac_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-check (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_CHECK)",
+            "device-imac-check",
+            "TablerIcons.device_imac_check()",
             tagIcons::device_imac_check));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-code (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_CODE)",
+            "device-imac-code",
+            "TablerIcons.device_imac_code()",
             tagIcons::device_imac_code));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-cog (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_COG)",
+            "device-imac-cog",
+            "TablerIcons.device_imac_cog()",
             tagIcons::device_imac_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-dollar (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_DOLLAR)",
+            "device-imac-dollar",
+            "TablerIcons.device_imac_dollar()",
             tagIcons::device_imac_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-down (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_DOWN)",
+            "device-imac-down",
+            "TablerIcons.device_imac_down()",
             tagIcons::device_imac_down));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-exclamation (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_EXCLAMATION)",
+            "device-imac-exclamation",
+            "TablerIcons.device_imac_exclamation()",
             tagIcons::device_imac_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-heart (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_HEART)",
+            "device-imac-heart",
+            "TablerIcons.device_imac_heart()",
             tagIcons::device_imac_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-minus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_MINUS)",
+            "device-imac-minus",
+            "TablerIcons.device_imac_minus()",
             tagIcons::device_imac_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_OFF)",
+            "device-imac-off",
+            "TablerIcons.device_imac_off()",
             tagIcons::device_imac_off));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-pause (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_PAUSE)",
+            "device-imac-pause",
+            "TablerIcons.device_imac_pause()",
             tagIcons::device_imac_pause));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-pin (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_PIN)",
+            "device-imac-pin",
+            "TablerIcons.device_imac_pin()",
             tagIcons::device_imac_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-plus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_PLUS)",
+            "device-imac-plus",
+            "TablerIcons.device_imac_plus()",
             tagIcons::device_imac_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-question (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_QUESTION)",
+            "device-imac-question",
+            "TablerIcons.device_imac_question()",
             tagIcons::device_imac_question));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-search (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_SEARCH)",
+            "device-imac-search",
+            "TablerIcons.device_imac_search()",
             tagIcons::device_imac_search));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-share (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_SHARE)",
+            "device-imac-share",
+            "TablerIcons.device_imac_share()",
             tagIcons::device_imac_share));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-star (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_STAR)",
+            "device-imac-star",
+            "TablerIcons.device_imac_star()",
             tagIcons::device_imac_star));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-up (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_UP)",
-            tagIcons::device_imac_up));
+            "device-imac-up", "TablerIcons.device_imac_up()", tagIcons::device_imac_up));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac-x (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IMAC_X)",
-            tagIcons::device_imac_x));
+            "device-imac-x", "TablerIcons.device_imac_x()", tagIcons::device_imac_x));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD)",
-            tagIcons::device_ipad));
+            "device-ipad", "TablerIcons.device_ipad()", tagIcons::device_ipad));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-bolt (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_BOLT)",
+            "device-ipad-bolt",
+            "TablerIcons.device_ipad_bolt()",
             tagIcons::device_ipad_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-cancel (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_CANCEL)",
+            "device-ipad-cancel",
+            "TablerIcons.device_ipad_cancel()",
             tagIcons::device_ipad_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-check (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_CHECK)",
+            "device-ipad-check",
+            "TablerIcons.device_ipad_check()",
             tagIcons::device_ipad_check));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-code (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_CODE)",
+            "device-ipad-code",
+            "TablerIcons.device_ipad_code()",
             tagIcons::device_ipad_code));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-cog (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_COG)",
+            "device-ipad-cog",
+            "TablerIcons.device_ipad_cog()",
             tagIcons::device_ipad_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-dollar (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_DOLLAR)",
+            "device-ipad-dollar",
+            "TablerIcons.device_ipad_dollar()",
             tagIcons::device_ipad_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-down (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_DOWN)",
+            "device-ipad-down",
+            "TablerIcons.device_ipad_down()",
             tagIcons::device_ipad_down));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-exclamation (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_EXCLAMATION)",
+            "device-ipad-exclamation",
+            "TablerIcons.device_ipad_exclamation()",
             tagIcons::device_ipad_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-heart (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HEART)",
+            "device-ipad-heart",
+            "TablerIcons.device_ipad_heart()",
             tagIcons::device_ipad_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL)",
+            "device-ipad-horizontal",
+            "TablerIcons.device_ipad_horizontal()",
             tagIcons::device_ipad_horizontal));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-bolt (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_BOLT)",
+            "device-ipad-horizontal-bolt",
+            "TablerIcons.device_ipad_horizontal_bolt()",
             tagIcons::device_ipad_horizontal_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-cancel (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_CANCEL)",
+            "device-ipad-horizontal-cancel",
+            "TablerIcons.device_ipad_horizontal_cancel()",
             tagIcons::device_ipad_horizontal_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-check (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_CHECK)",
+            "device-ipad-horizontal-check",
+            "TablerIcons.device_ipad_horizontal_check()",
             tagIcons::device_ipad_horizontal_check));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-code (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_CODE)",
+            "device-ipad-horizontal-code",
+            "TablerIcons.device_ipad_horizontal_code()",
             tagIcons::device_ipad_horizontal_code));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-cog (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_COG)",
+            "device-ipad-horizontal-cog",
+            "TablerIcons.device_ipad_horizontal_cog()",
             tagIcons::device_ipad_horizontal_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-dollar (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_DOLLAR)",
+            "device-ipad-horizontal-dollar",
+            "TablerIcons.device_ipad_horizontal_dollar()",
             tagIcons::device_ipad_horizontal_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-down (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_DOWN)",
+            "device-ipad-horizontal-down",
+            "TablerIcons.device_ipad_horizontal_down()",
             tagIcons::device_ipad_horizontal_down));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-exclamation (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_EXCLAMATION)",
+            "device-ipad-horizontal-exclamation",
+            "TablerIcons.device_ipad_horizontal_exclamation()",
             tagIcons::device_ipad_horizontal_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-heart (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_HEART)",
+            "device-ipad-horizontal-heart",
+            "TablerIcons.device_ipad_horizontal_heart()",
             tagIcons::device_ipad_horizontal_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-minus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_MINUS)",
+            "device-ipad-horizontal-minus",
+            "TablerIcons.device_ipad_horizontal_minus()",
             tagIcons::device_ipad_horizontal_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_OFF)",
+            "device-ipad-horizontal-off",
+            "TablerIcons.device_ipad_horizontal_off()",
             tagIcons::device_ipad_horizontal_off));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-pause (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_PAUSE)",
+            "device-ipad-horizontal-pause",
+            "TablerIcons.device_ipad_horizontal_pause()",
             tagIcons::device_ipad_horizontal_pause));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-pin (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_PIN)",
+            "device-ipad-horizontal-pin",
+            "TablerIcons.device_ipad_horizontal_pin()",
             tagIcons::device_ipad_horizontal_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-plus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_PLUS)",
+            "device-ipad-horizontal-plus",
+            "TablerIcons.device_ipad_horizontal_plus()",
             tagIcons::device_ipad_horizontal_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-question (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_QUESTION)",
+            "device-ipad-horizontal-question",
+            "TablerIcons.device_ipad_horizontal_question()",
             tagIcons::device_ipad_horizontal_question));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-search (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_SEARCH)",
+            "device-ipad-horizontal-search",
+            "TablerIcons.device_ipad_horizontal_search()",
             tagIcons::device_ipad_horizontal_search));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-share (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_SHARE)",
+            "device-ipad-horizontal-share",
+            "TablerIcons.device_ipad_horizontal_share()",
             tagIcons::device_ipad_horizontal_share));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-star (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_STAR)",
+            "device-ipad-horizontal-star",
+            "TablerIcons.device_ipad_horizontal_star()",
             tagIcons::device_ipad_horizontal_star));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-up (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_UP)",
+            "device-ipad-horizontal-up",
+            "TablerIcons.device_ipad_horizontal_up()",
             tagIcons::device_ipad_horizontal_up));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-horizontal-x (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_HORIZONTAL_X)",
+            "device-ipad-horizontal-x",
+            "TablerIcons.device_ipad_horizontal_x()",
             tagIcons::device_ipad_horizontal_x));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-minus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_MINUS)",
+            "device-ipad-minus",
+            "TablerIcons.device_ipad_minus()",
             tagIcons::device_ipad_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_OFF)",
+            "device-ipad-off",
+            "TablerIcons.device_ipad_off()",
             tagIcons::device_ipad_off));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-pause (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_PAUSE)",
+            "device-ipad-pause",
+            "TablerIcons.device_ipad_pause()",
             tagIcons::device_ipad_pause));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-pin (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_PIN)",
+            "device-ipad-pin",
+            "TablerIcons.device_ipad_pin()",
             tagIcons::device_ipad_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-plus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_PLUS)",
+            "device-ipad-plus",
+            "TablerIcons.device_ipad_plus()",
             tagIcons::device_ipad_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-question (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_QUESTION)",
+            "device-ipad-question",
+            "TablerIcons.device_ipad_question()",
             tagIcons::device_ipad_question));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-search (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_SEARCH)",
+            "device-ipad-search",
+            "TablerIcons.device_ipad_search()",
             tagIcons::device_ipad_search));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-share (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_SHARE)",
+            "device-ipad-share",
+            "TablerIcons.device_ipad_share()",
             tagIcons::device_ipad_share));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-star (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_STAR)",
+            "device-ipad-star",
+            "TablerIcons.device_ipad_star()",
             tagIcons::device_ipad_star));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-up (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_UP)",
-            tagIcons::device_ipad_up));
+            "device-ipad-up", "TablerIcons.device_ipad_up()", tagIcons::device_ipad_up));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad-x (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_IPAD_X)",
-            tagIcons::device_ipad_x));
+            "device-ipad-x", "TablerIcons.device_ipad_x()", tagIcons::device_ipad_x));
     icons.add(
         new IconCatalogEntry<>(
-            "device-landline-phone (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_LANDLINE_PHONE)",
+            "device-landline-phone",
+            "TablerIcons.device_landline_phone()",
             tagIcons::device_landline_phone));
     icons.add(
         new IconCatalogEntry<>(
-            "device-laptop (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_LAPTOP)",
-            tagIcons::device_laptop));
+            "device-laptop", "TablerIcons.device_laptop()", tagIcons::device_laptop));
     icons.add(
         new IconCatalogEntry<>(
-            "device-laptop-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_LAPTOP_OFF)",
+            "device-laptop-off",
+            "TablerIcons.device_laptop_off()",
             tagIcons::device_laptop_off));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE)",
-            tagIcons::device_mobile));
+            "device-mobile", "TablerIcons.device_mobile()", tagIcons::device_mobile));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-bolt (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_BOLT)",
+            "device-mobile-bolt",
+            "TablerIcons.device_mobile_bolt()",
             tagIcons::device_mobile_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-cancel (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_CANCEL)",
+            "device-mobile-cancel",
+            "TablerIcons.device_mobile_cancel()",
             tagIcons::device_mobile_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-charging (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_CHARGING)",
+            "device-mobile-charging",
+            "TablerIcons.device_mobile_charging()",
             tagIcons::device_mobile_charging));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-check (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_CHECK)",
+            "device-mobile-check",
+            "TablerIcons.device_mobile_check()",
             tagIcons::device_mobile_check));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-code (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_CODE)",
+            "device-mobile-code",
+            "TablerIcons.device_mobile_code()",
             tagIcons::device_mobile_code));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-cog (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_COG)",
+            "device-mobile-cog",
+            "TablerIcons.device_mobile_cog()",
             tagIcons::device_mobile_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-dollar (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_DOLLAR)",
+            "device-mobile-dollar",
+            "TablerIcons.device_mobile_dollar()",
             tagIcons::device_mobile_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-down (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_DOWN)",
+            "device-mobile-down",
+            "TablerIcons.device_mobile_down()",
             tagIcons::device_mobile_down));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-exclamation (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_EXCLAMATION)",
+            "device-mobile-exclamation",
+            "TablerIcons.device_mobile_exclamation()",
             tagIcons::device_mobile_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-heart (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_HEART)",
+            "device-mobile-heart",
+            "TablerIcons.device_mobile_heart()",
             tagIcons::device_mobile_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-message (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_MESSAGE)",
+            "device-mobile-message",
+            "TablerIcons.device_mobile_message()",
             tagIcons::device_mobile_message));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-minus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_MINUS)",
+            "device-mobile-minus",
+            "TablerIcons.device_mobile_minus()",
             tagIcons::device_mobile_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_OFF)",
+            "device-mobile-off",
+            "TablerIcons.device_mobile_off()",
             tagIcons::device_mobile_off));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-pause (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_PAUSE)",
+            "device-mobile-pause",
+            "TablerIcons.device_mobile_pause()",
             tagIcons::device_mobile_pause));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-pin (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_PIN)",
+            "device-mobile-pin",
+            "TablerIcons.device_mobile_pin()",
             tagIcons::device_mobile_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-plus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_PLUS)",
+            "device-mobile-plus",
+            "TablerIcons.device_mobile_plus()",
             tagIcons::device_mobile_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-question (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_QUESTION)",
+            "device-mobile-question",
+            "TablerIcons.device_mobile_question()",
             tagIcons::device_mobile_question));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-rotated (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_ROTATED)",
+            "device-mobile-rotated",
+            "TablerIcons.device_mobile_rotated()",
             tagIcons::device_mobile_rotated));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-search (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_SEARCH)",
+            "device-mobile-search",
+            "TablerIcons.device_mobile_search()",
             tagIcons::device_mobile_search));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-share (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_SHARE)",
+            "device-mobile-share",
+            "TablerIcons.device_mobile_share()",
             tagIcons::device_mobile_share));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-star (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_STAR)",
+            "device-mobile-star",
+            "TablerIcons.device_mobile_star()",
             tagIcons::device_mobile_star));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-up (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_UP)",
+            "device-mobile-up",
+            "TablerIcons.device_mobile_up()",
             tagIcons::device_mobile_up));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-vibration (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_VIBRATION)",
+            "device-mobile-vibration",
+            "TablerIcons.device_mobile_vibration()",
             tagIcons::device_mobile_vibration));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile-x (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_MOBILE_X)",
+            "device-mobile-x",
+            "TablerIcons.device_mobile_x()",
             tagIcons::device_mobile_x));
     icons.add(
         new IconCatalogEntry<>(
-            "device-nintendo (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_NINTENDO)",
+            "device-nintendo",
+            "TablerIcons.device_nintendo()",
             tagIcons::device_nintendo));
     icons.add(
         new IconCatalogEntry<>(
-            "device-nintendo-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_NINTENDO_OFF)",
+            "device-nintendo-off",
+            "TablerIcons.device_nintendo_off()",
             tagIcons::device_nintendo_off));
     icons.add(
         new IconCatalogEntry<>(
-            "device-remote (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_REMOTE)",
-            tagIcons::device_remote));
+            "device-remote", "TablerIcons.device_remote()", tagIcons::device_remote));
     icons.add(
         new IconCatalogEntry<>(
-            "device-screen (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_SCREEN)",
-            tagIcons::device_screen));
+            "device-screen", "TablerIcons.device_screen()", tagIcons::device_screen));
     icons.add(
         new IconCatalogEntry<>(
-            "device-sd-card (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_SD_CARD)",
-            tagIcons::device_sd_card));
+            "device-sd-card", "TablerIcons.device_sd_card()", tagIcons::device_sd_card));
   }
 
   private static void addIcons2() {
     icons.add(
         new IconCatalogEntry<>(
-            "device-sim (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_SIM)",
-            tagIcons::device_sim));
+            "device-sim", "TablerIcons.device_sim()", tagIcons::device_sim));
     icons.add(
         new IconCatalogEntry<>(
-            "device-sim-1 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_SIM_1)",
-            tagIcons::device_sim_1));
+            "device-sim-1", "TablerIcons.device_sim_1()", tagIcons::device_sim_1));
     icons.add(
         new IconCatalogEntry<>(
-            "device-sim-2 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_SIM_2)",
-            tagIcons::device_sim_2));
+            "device-sim-2", "TablerIcons.device_sim_2()", tagIcons::device_sim_2));
     icons.add(
         new IconCatalogEntry<>(
-            "device-sim-3 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_SIM_3)",
-            tagIcons::device_sim_3));
+            "device-sim-3", "TablerIcons.device_sim_3()", tagIcons::device_sim_3));
     icons.add(
         new IconCatalogEntry<>(
-            "device-speaker (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_SPEAKER)",
-            tagIcons::device_speaker));
+            "device-speaker", "TablerIcons.device_speaker()", tagIcons::device_speaker));
     icons.add(
         new IconCatalogEntry<>(
-            "device-speaker-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_SPEAKER_OFF)",
+            "device-speaker-off",
+            "TablerIcons.device_speaker_off()",
             tagIcons::device_speaker_off));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET)",
-            tagIcons::device_tablet));
+            "device-tablet", "TablerIcons.device_tablet()", tagIcons::device_tablet));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-bolt (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_BOLT)",
+            "device-tablet-bolt",
+            "TablerIcons.device_tablet_bolt()",
             tagIcons::device_tablet_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-cancel (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_CANCEL)",
+            "device-tablet-cancel",
+            "TablerIcons.device_tablet_cancel()",
             tagIcons::device_tablet_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-check (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_CHECK)",
+            "device-tablet-check",
+            "TablerIcons.device_tablet_check()",
             tagIcons::device_tablet_check));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-code (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_CODE)",
+            "device-tablet-code",
+            "TablerIcons.device_tablet_code()",
             tagIcons::device_tablet_code));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-cog (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_COG)",
+            "device-tablet-cog",
+            "TablerIcons.device_tablet_cog()",
             tagIcons::device_tablet_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-dollar (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_DOLLAR)",
+            "device-tablet-dollar",
+            "TablerIcons.device_tablet_dollar()",
             tagIcons::device_tablet_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-down (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_DOWN)",
+            "device-tablet-down",
+            "TablerIcons.device_tablet_down()",
             tagIcons::device_tablet_down));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-exclamation (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_EXCLAMATION)",
+            "device-tablet-exclamation",
+            "TablerIcons.device_tablet_exclamation()",
             tagIcons::device_tablet_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-heart (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_HEART)",
+            "device-tablet-heart",
+            "TablerIcons.device_tablet_heart()",
             tagIcons::device_tablet_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-minus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_MINUS)",
+            "device-tablet-minus",
+            "TablerIcons.device_tablet_minus()",
             tagIcons::device_tablet_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_OFF)",
+            "device-tablet-off",
+            "TablerIcons.device_tablet_off()",
             tagIcons::device_tablet_off));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-pause (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_PAUSE)",
+            "device-tablet-pause",
+            "TablerIcons.device_tablet_pause()",
             tagIcons::device_tablet_pause));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-pin (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_PIN)",
+            "device-tablet-pin",
+            "TablerIcons.device_tablet_pin()",
             tagIcons::device_tablet_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-plus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_PLUS)",
+            "device-tablet-plus",
+            "TablerIcons.device_tablet_plus()",
             tagIcons::device_tablet_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-question (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_QUESTION)",
+            "device-tablet-question",
+            "TablerIcons.device_tablet_question()",
             tagIcons::device_tablet_question));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-search (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_SEARCH)",
+            "device-tablet-search",
+            "TablerIcons.device_tablet_search()",
             tagIcons::device_tablet_search));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-share (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_SHARE)",
+            "device-tablet-share",
+            "TablerIcons.device_tablet_share()",
             tagIcons::device_tablet_share));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-star (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_STAR)",
+            "device-tablet-star",
+            "TablerIcons.device_tablet_star()",
             tagIcons::device_tablet_star));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-up (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_UP)",
+            "device-tablet-up",
+            "TablerIcons.device_tablet_up()",
             tagIcons::device_tablet_up));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet-x (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TABLET_X)",
+            "device-tablet-x",
+            "TablerIcons.device_tablet_x()",
             tagIcons::device_tablet_x));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tv (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TV)",
-            tagIcons::device_tv));
+            "device-tv", "TablerIcons.device_tv()", tagIcons::device_tv));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tv-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TV_OFF)",
-            tagIcons::device_tv_off));
+            "device-tv-off", "TablerIcons.device_tv_off()", tagIcons::device_tv_off));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tv-old (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_TV_OLD)",
-            tagIcons::device_tv_old));
+            "device-tv-old", "TablerIcons.device_tv_old()", tagIcons::device_tv_old));
     icons.add(
         new IconCatalogEntry<>(
-            "device-usb (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_USB)",
-            tagIcons::device_usb));
+            "device-usb", "TablerIcons.device_usb()", tagIcons::device_usb));
     icons.add(
         new IconCatalogEntry<>(
-            "device-vision-pro (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_VISION_PRO)",
+            "device-vision-pro",
+            "TablerIcons.device_vision_pro()",
             tagIcons::device_vision_pro));
     icons.add(
         new IconCatalogEntry<>(
-            "device-vision-pro-wifi (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_VISION_PRO_WIFI)",
+            "device-vision-pro-wifi",
+            "TablerIcons.device_vision_pro_wifi()",
             tagIcons::device_vision_pro_wifi));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH)",
-            tagIcons::device_watch));
+            "device-watch", "TablerIcons.device_watch()", tagIcons::device_watch));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-bolt (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_BOLT)",
+            "device-watch-bolt",
+            "TablerIcons.device_watch_bolt()",
             tagIcons::device_watch_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-cancel (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_CANCEL)",
+            "device-watch-cancel",
+            "TablerIcons.device_watch_cancel()",
             tagIcons::device_watch_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-check (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_CHECK)",
+            "device-watch-check",
+            "TablerIcons.device_watch_check()",
             tagIcons::device_watch_check));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-code (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_CODE)",
+            "device-watch-code",
+            "TablerIcons.device_watch_code()",
             tagIcons::device_watch_code));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-cog (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_COG)",
+            "device-watch-cog",
+            "TablerIcons.device_watch_cog()",
             tagIcons::device_watch_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-dollar (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_DOLLAR)",
+            "device-watch-dollar",
+            "TablerIcons.device_watch_dollar()",
             tagIcons::device_watch_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-down (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_DOWN)",
+            "device-watch-down",
+            "TablerIcons.device_watch_down()",
             tagIcons::device_watch_down));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-exclamation (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_EXCLAMATION)",
+            "device-watch-exclamation",
+            "TablerIcons.device_watch_exclamation()",
             tagIcons::device_watch_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-heart (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_HEART)",
+            "device-watch-heart",
+            "TablerIcons.device_watch_heart()",
             tagIcons::device_watch_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-minus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_MINUS)",
+            "device-watch-minus",
+            "TablerIcons.device_watch_minus()",
             tagIcons::device_watch_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_OFF)",
+            "device-watch-off",
+            "TablerIcons.device_watch_off()",
             tagIcons::device_watch_off));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-pause (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_PAUSE)",
+            "device-watch-pause",
+            "TablerIcons.device_watch_pause()",
             tagIcons::device_watch_pause));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-pin (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_PIN)",
+            "device-watch-pin",
+            "TablerIcons.device_watch_pin()",
             tagIcons::device_watch_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-plus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_PLUS)",
+            "device-watch-plus",
+            "TablerIcons.device_watch_plus()",
             tagIcons::device_watch_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-question (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_QUESTION)",
+            "device-watch-question",
+            "TablerIcons.device_watch_question()",
             tagIcons::device_watch_question));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-search (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_SEARCH)",
+            "device-watch-search",
+            "TablerIcons.device_watch_search()",
             tagIcons::device_watch_search));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-share (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_SHARE)",
+            "device-watch-share",
+            "TablerIcons.device_watch_share()",
             tagIcons::device_watch_share));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-star (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_STAR)",
+            "device-watch-star",
+            "TablerIcons.device_watch_star()",
             tagIcons::device_watch_star));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-stats (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_STATS)",
+            "device-watch-stats",
+            "TablerIcons.device_watch_stats()",
             tagIcons::device_watch_stats));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-stats-2 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_STATS_2)",
+            "device-watch-stats-2",
+            "TablerIcons.device_watch_stats_2()",
             tagIcons::device_watch_stats_2));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-up (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_UP)",
+            "device-watch-up",
+            "TablerIcons.device_watch_up()",
             tagIcons::device_watch_up));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch-x (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICE_WATCH_X)",
-            tagIcons::device_watch_x));
+            "device-watch-x", "TablerIcons.device_watch_x()", tagIcons::device_watch_x));
+    icons.add(
+        new IconCatalogEntry<>("devices", "TablerIcons.devices()", tagIcons::devices));
     icons.add(
         new IconCatalogEntry<>(
-            "devices (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES)",
-            tagIcons::devices));
+            "devices-2", "TablerIcons.devices_2()", tagIcons::devices_2));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-2 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_2)",
-            tagIcons::devices_2));
+            "devices-bolt", "TablerIcons.devices_bolt()", tagIcons::devices_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-bolt (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_BOLT)",
-            tagIcons::devices_bolt));
+            "devices-cancel", "TablerIcons.devices_cancel()", tagIcons::devices_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-cancel (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_CANCEL)",
-            tagIcons::devices_cancel));
+            "devices-check", "TablerIcons.devices_check()", tagIcons::devices_check));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-check (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_CHECK)",
-            tagIcons::devices_check));
+            "devices-code", "TablerIcons.devices_code()", tagIcons::devices_code));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-code (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_CODE)",
-            tagIcons::devices_code));
+            "devices-cog", "TablerIcons.devices_cog()", tagIcons::devices_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-cog (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_COG)",
-            tagIcons::devices_cog));
+            "devices-dollar", "TablerIcons.devices_dollar()", tagIcons::devices_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-dollar (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_DOLLAR)",
-            tagIcons::devices_dollar));
+            "devices-down", "TablerIcons.devices_down()", tagIcons::devices_down));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-down (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_DOWN)",
-            tagIcons::devices_down));
-    icons.add(
-        new IconCatalogEntry<>(
-            "devices-exclamation (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_EXCLAMATION)",
+            "devices-exclamation",
+            "TablerIcons.devices_exclamation()",
             tagIcons::devices_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-heart (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_HEART)",
-            tagIcons::devices_heart));
+            "devices-heart", "TablerIcons.devices_heart()", tagIcons::devices_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-minus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_MINUS)",
-            tagIcons::devices_minus));
+            "devices-minus", "TablerIcons.devices_minus()", tagIcons::devices_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_OFF)",
-            tagIcons::devices_off));
+            "devices-off", "TablerIcons.devices_off()", tagIcons::devices_off));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-pause (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_PAUSE)",
-            tagIcons::devices_pause));
+            "devices-pause", "TablerIcons.devices_pause()", tagIcons::devices_pause));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-pc (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_PC)",
-            tagIcons::devices_pc));
+            "devices-pc", "TablerIcons.devices_pc()", tagIcons::devices_pc));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-pc-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_PC_OFF)",
-            tagIcons::devices_pc_off));
+            "devices-pc-off", "TablerIcons.devices_pc_off()", tagIcons::devices_pc_off));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-pin (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_PIN)",
-            tagIcons::devices_pin));
+            "devices-pin", "TablerIcons.devices_pin()", tagIcons::devices_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-plus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_PLUS)",
-            tagIcons::devices_plus));
+            "devices-plus", "TablerIcons.devices_plus()", tagIcons::devices_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-question (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_QUESTION)",
+            "devices-question",
+            "TablerIcons.devices_question()",
             tagIcons::devices_question));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-search (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_SEARCH)",
-            tagIcons::devices_search));
+            "devices-search", "TablerIcons.devices_search()", tagIcons::devices_search));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-share (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_SHARE)",
-            tagIcons::devices_share));
+            "devices-share", "TablerIcons.devices_share()", tagIcons::devices_share));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-star (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_STAR)",
-            tagIcons::devices_star));
+            "devices-star", "TablerIcons.devices_star()", tagIcons::devices_star));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-up (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_UP)",
-            tagIcons::devices_up));
+            "devices-up", "TablerIcons.devices_up()", tagIcons::devices_up));
     icons.add(
         new IconCatalogEntry<>(
-            "devices-x (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DEVICES_X)",
-            tagIcons::devices_x));
+            "devices-x", "TablerIcons.devices_x()", tagIcons::devices_x));
+    icons.add(
+        new IconCatalogEntry<>("dialpad", "TablerIcons.dialpad()", tagIcons::dialpad));
     icons.add(
         new IconCatalogEntry<>(
-            "dialpad (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DIALPAD)",
-            tagIcons::dialpad));
+            "dialpad-off", "TablerIcons.dialpad_off()", tagIcons::dialpad_off));
+    icons.add(new IconCatalogEntry<>("disc", "TablerIcons.disc()", tagIcons::disc));
+    icons.add(
+        new IconCatalogEntry<>("disc-off", "TablerIcons.disc_off()", tagIcons::disc_off));
     icons.add(
         new IconCatalogEntry<>(
-            "dialpad-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DIALPAD_OFF)",
-            tagIcons::dialpad_off));
+            "dual-screen", "TablerIcons.dual_screen()", tagIcons::dual_screen));
     icons.add(
         new IconCatalogEntry<>(
-            "disc (outline)", "TablerIcon.create(TablerDevices.OutlineIcon.DISC)", tagIcons::disc));
-    icons.add(
-        new IconCatalogEntry<>(
-            "disc-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DISC_OFF)",
-            tagIcons::disc_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "dual-screen (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.DUAL_SCREEN)",
-            tagIcons::dual_screen));
-    icons.add(
-        new IconCatalogEntry<>(
-            "earphone-bluetooth (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.EARPHONE_BLUETOOTH)",
+            "earphone-bluetooth",
+            "TablerIcons.earphone_bluetooth()",
             tagIcons::earphone_bluetooth));
+    icons.add(new IconCatalogEntry<>("fridge", "TablerIcons.fridge()", tagIcons::fridge));
     icons.add(
         new IconCatalogEntry<>(
-            "fridge (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.FRIDGE)",
-            tagIcons::fridge));
+            "fridge-off", "TablerIcons.fridge_off()", tagIcons::fridge_off));
+    icons.add(new IconCatalogEntry<>("gpu", "TablerIcons.gpu()", tagIcons::gpu));
+    icons.add(new IconCatalogEntry<>("gpu-2", "TablerIcons.gpu_2()", tagIcons::gpu_2));
     icons.add(
         new IconCatalogEntry<>(
-            "fridge-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.FRIDGE_OFF)",
-            tagIcons::fridge_off));
+            "hammer-drill", "TablerIcons.hammer_drill()", tagIcons::hammer_drill));
+    icons.add(
+        new IconCatalogEntry<>("keyboard", "TablerIcons.keyboard()", tagIcons::keyboard));
     icons.add(
         new IconCatalogEntry<>(
-            "gpu (outline)", "TablerIcon.create(TablerDevices.OutlineIcon.GPU)", tagIcons::gpu));
+            "keyboard-hide", "TablerIcons.keyboard_hide()", tagIcons::keyboard_hide));
     icons.add(
         new IconCatalogEntry<>(
-            "gpu-2 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.GPU_2)",
-            tagIcons::gpu_2));
+            "keyboard-off", "TablerIcons.keyboard_off()", tagIcons::keyboard_off));
     icons.add(
         new IconCatalogEntry<>(
-            "hammer-drill (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.HAMMER_DRILL)",
-            tagIcons::hammer_drill));
+            "keyboard-show", "TablerIcons.keyboard_show()", tagIcons::keyboard_show));
     icons.add(
         new IconCatalogEntry<>(
-            "keyboard (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.KEYBOARD)",
-            tagIcons::keyboard));
+            "lawn-mower", "TablerIcons.lawn_mower()", tagIcons::lawn_mower));
+    icons.add(new IconCatalogEntry<>("memory", "TablerIcons.memory()", tagIcons::memory));
+    icons.add(new IconCatalogEntry<>("mouse", "TablerIcons.mouse()", tagIcons::mouse));
+    icons.add(
+        new IconCatalogEntry<>("mouse-2", "TablerIcons.mouse_2()", tagIcons::mouse_2));
     icons.add(
         new IconCatalogEntry<>(
-            "keyboard-hide (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.KEYBOARD_HIDE)",
-            tagIcons::keyboard_hide));
-    icons.add(
-        new IconCatalogEntry<>(
-            "keyboard-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.KEYBOARD_OFF)",
-            tagIcons::keyboard_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "keyboard-show (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.KEYBOARD_SHOW)",
-            tagIcons::keyboard_show));
-    icons.add(
-        new IconCatalogEntry<>(
-            "lawn-mower (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.LAWN_MOWER)",
-            tagIcons::lawn_mower));
-    icons.add(
-        new IconCatalogEntry<>(
-            "memory (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.MEMORY)",
-            tagIcons::memory));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mouse (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.MOUSE)",
-            tagIcons::mouse));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mouse-2 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.MOUSE_2)",
-            tagIcons::mouse_2));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mouse-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.MOUSE_OFF)",
-            tagIcons::mouse_off));
+            "mouse-off", "TablerIcons.mouse_off()", tagIcons::mouse_off));
   }
 
   private static void addIcons3() {
+    icons.add(new IconCatalogEntry<>("nfc", "TablerIcons.nfc()", tagIcons::nfc));
+    icons.add(
+        new IconCatalogEntry<>("nfc-off", "TablerIcons.nfc_off()", tagIcons::nfc_off));
+    icons.add(new IconCatalogEntry<>("phone", "TablerIcons.phone()", tagIcons::phone));
     icons.add(
         new IconCatalogEntry<>(
-            "nfc (outline)", "TablerIcon.create(TablerDevices.OutlineIcon.NFC)", tagIcons::nfc));
+            "phone-call", "TablerIcons.phone_call()", tagIcons::phone_call));
     icons.add(
         new IconCatalogEntry<>(
-            "nfc-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.NFC_OFF)",
-            tagIcons::nfc_off));
+            "phone-calling", "TablerIcons.phone_calling()", tagIcons::phone_calling));
     icons.add(
         new IconCatalogEntry<>(
-            "phone (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PHONE)",
-            tagIcons::phone));
+            "phone-check", "TablerIcons.phone_check()", tagIcons::phone_check));
     icons.add(
         new IconCatalogEntry<>(
-            "phone-call (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PHONE_CALL)",
-            tagIcons::phone_call));
+            "phone-incoming", "TablerIcons.phone_incoming()", tagIcons::phone_incoming));
     icons.add(
         new IconCatalogEntry<>(
-            "phone-calling (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PHONE_CALLING)",
-            tagIcons::phone_calling));
+            "phone-off", "TablerIcons.phone_off()", tagIcons::phone_off));
     icons.add(
         new IconCatalogEntry<>(
-            "phone-check (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PHONE_CHECK)",
-            tagIcons::phone_check));
+            "phone-outgoing", "TablerIcons.phone_outgoing()", tagIcons::phone_outgoing));
     icons.add(
         new IconCatalogEntry<>(
-            "phone-incoming (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PHONE_INCOMING)",
-            tagIcons::phone_incoming));
+            "phone-pause", "TablerIcons.phone_pause()", tagIcons::phone_pause));
     icons.add(
         new IconCatalogEntry<>(
-            "phone-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PHONE_OFF)",
-            tagIcons::phone_off));
+            "phone-plus", "TablerIcons.phone_plus()", tagIcons::phone_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "phone-outgoing (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PHONE_OUTGOING)",
-            tagIcons::phone_outgoing));
+            "phone-spark", "TablerIcons.phone_spark()", tagIcons::phone_spark));
+    icons.add(
+        new IconCatalogEntry<>("phone-x", "TablerIcons.phone_x()", tagIcons::phone_x));
     icons.add(
         new IconCatalogEntry<>(
-            "phone-pause (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PHONE_PAUSE)",
-            tagIcons::phone_pause));
-    icons.add(
-        new IconCatalogEntry<>(
-            "phone-plus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PHONE_PLUS)",
-            tagIcons::phone_plus));
-    icons.add(
-        new IconCatalogEntry<>(
-            "phone-spark (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PHONE_SPARK)",
-            tagIcons::phone_spark));
-    icons.add(
-        new IconCatalogEntry<>(
-            "phone-x (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PHONE_X)",
-            tagIcons::phone_x));
-    icons.add(
-        new IconCatalogEntry<>(
-            "playstation-circle (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PLAYSTATION_CIRCLE)",
+            "playstation-circle",
+            "TablerIcons.playstation_circle()",
             tagIcons::playstation_circle));
     icons.add(
         new IconCatalogEntry<>(
-            "playstation-square (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PLAYSTATION_SQUARE)",
+            "playstation-square",
+            "TablerIcons.playstation_square()",
             tagIcons::playstation_square));
     icons.add(
         new IconCatalogEntry<>(
-            "playstation-triangle (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PLAYSTATION_TRIANGLE)",
+            "playstation-triangle",
+            "TablerIcons.playstation_triangle()",
             tagIcons::playstation_triangle));
     icons.add(
         new IconCatalogEntry<>(
-            "playstation-x (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PLAYSTATION_X)",
-            tagIcons::playstation_x));
+            "playstation-x", "TablerIcons.playstation_x()", tagIcons::playstation_x));
+    icons.add(new IconCatalogEntry<>("plug", "TablerIcons.plug()", tagIcons::plug));
     icons.add(
         new IconCatalogEntry<>(
-            "plug (outline)", "TablerIcon.create(TablerDevices.OutlineIcon.PLUG)", tagIcons::plug));
+            "plug-connected", "TablerIcons.plug_connected()", tagIcons::plug_connected));
     icons.add(
         new IconCatalogEntry<>(
-            "plug-connected (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PLUG_CONNECTED)",
-            tagIcons::plug_connected));
-    icons.add(
-        new IconCatalogEntry<>(
-            "plug-connected-x (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PLUG_CONNECTED_X)",
+            "plug-connected-x",
+            "TablerIcons.plug_connected_x()",
             tagIcons::plug_connected_x));
     icons.add(
-        new IconCatalogEntry<>(
-            "plug-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PLUG_OFF)",
-            tagIcons::plug_off));
+        new IconCatalogEntry<>("plug-off", "TablerIcons.plug_off()", tagIcons::plug_off));
+    icons.add(new IconCatalogEntry<>("plug-x", "TablerIcons.plug_x()", tagIcons::plug_x));
+    icons.add(new IconCatalogEntry<>("power", "TablerIcons.power()", tagIcons::power));
+    icons.add(
+        new IconCatalogEntry<>("printer", "TablerIcons.printer()", tagIcons::printer));
     icons.add(
         new IconCatalogEntry<>(
-            "plug-x (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PLUG_X)",
-            tagIcons::plug_x));
+            "printer-off", "TablerIcons.printer_off()", tagIcons::printer_off));
+    icons.add(new IconCatalogEntry<>("qrcode", "TablerIcons.qrcode()", tagIcons::qrcode));
     icons.add(
         new IconCatalogEntry<>(
-            "power (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.POWER)",
-            tagIcons::power));
+            "qrcode-off", "TablerIcons.qrcode_off()", tagIcons::qrcode_off));
     icons.add(
         new IconCatalogEntry<>(
-            "printer (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PRINTER)",
-            tagIcons::printer));
+            "remote-control", "TablerIcons.remote_control()", tagIcons::remote_control));
+    icons.add(new IconCatalogEntry<>("router", "TablerIcons.router()", tagIcons::router));
     icons.add(
         new IconCatalogEntry<>(
-            "printer-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.PRINTER_OFF)",
-            tagIcons::printer_off));
+            "router-off", "TablerIcons.router_off()", tagIcons::router_off));
     icons.add(
         new IconCatalogEntry<>(
-            "qrcode (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.QRCODE)",
-            tagIcons::qrcode));
+            "screen-share", "TablerIcons.screen_share()", tagIcons::screen_share));
     icons.add(
         new IconCatalogEntry<>(
-            "qrcode-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.QRCODE_OFF)",
-            tagIcons::qrcode_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "remote-control (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.REMOTE_CONTROL)",
-            tagIcons::remote_control));
-    icons.add(
-        new IconCatalogEntry<>(
-            "router (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.ROUTER)",
-            tagIcons::router));
-    icons.add(
-        new IconCatalogEntry<>(
-            "router-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.ROUTER_OFF)",
-            tagIcons::router_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "screen-share (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SCREEN_SHARE)",
-            tagIcons::screen_share));
-    icons.add(
-        new IconCatalogEntry<>(
-            "screen-share-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SCREEN_SHARE_OFF)",
+            "screen-share-off",
+            "TablerIcons.screen_share_off()",
             tagIcons::screen_share_off));
+    icons.add(new IconCatalogEntry<>("server", "TablerIcons.server()", tagIcons::server));
+    icons.add(
+        new IconCatalogEntry<>("server-2", "TablerIcons.server_2()", tagIcons::server_2));
     icons.add(
         new IconCatalogEntry<>(
-            "server (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SERVER)",
-            tagIcons::server));
+            "server-bolt", "TablerIcons.server_bolt()", tagIcons::server_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "server-2 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SERVER_2)",
-            tagIcons::server_2));
+            "server-cog", "TablerIcons.server_cog()", tagIcons::server_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "server-bolt (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SERVER_BOLT)",
-            tagIcons::server_bolt));
+            "server-off", "TablerIcons.server_off()", tagIcons::server_off));
     icons.add(
         new IconCatalogEntry<>(
-            "server-cog (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SERVER_COG)",
-            tagIcons::server_cog));
+            "server-spark", "TablerIcons.server_spark()", tagIcons::server_spark));
+    icons.add(
+        new IconCatalogEntry<>("shredder", "TablerIcons.shredder()", tagIcons::shredder));
     icons.add(
         new IconCatalogEntry<>(
-            "server-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SERVER_OFF)",
-            tagIcons::server_off));
+            "signal-2g", "TablerIcons.signal_2g()", tagIcons::signal_2g));
     icons.add(
         new IconCatalogEntry<>(
-            "server-spark (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SERVER_SPARK)",
-            tagIcons::server_spark));
+            "signal-3g", "TablerIcons.signal_3g()", tagIcons::signal_3g));
     icons.add(
         new IconCatalogEntry<>(
-            "shredder (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SHREDDER)",
-            tagIcons::shredder));
+            "signal-4g", "TablerIcons.signal_4g()", tagIcons::signal_4g));
     icons.add(
         new IconCatalogEntry<>(
-            "signal-2g (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SIGNAL_2G)",
-            tagIcons::signal_2g));
+            "signal-4g-plus", "TablerIcons.signal_4g_plus()", tagIcons::signal_4g_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "signal-3g (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SIGNAL_3G)",
-            tagIcons::signal_3g));
+            "signal-5g", "TablerIcons.signal_5g()", tagIcons::signal_5g));
     icons.add(
         new IconCatalogEntry<>(
-            "signal-4g (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SIGNAL_4G)",
-            tagIcons::signal_4g));
+            "signal-6g", "TablerIcons.signal_6g()", tagIcons::signal_6g));
+    icons.add(
+        new IconCatalogEntry<>("signal-e", "TablerIcons.signal_e()", tagIcons::signal_e));
+    icons.add(
+        new IconCatalogEntry<>("signal-g", "TablerIcons.signal_g()", tagIcons::signal_g));
+    icons.add(
+        new IconCatalogEntry<>("signal-h", "TablerIcons.signal_h()", tagIcons::signal_h));
     icons.add(
         new IconCatalogEntry<>(
-            "signal-4g-plus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SIGNAL_4G_PLUS)",
-            tagIcons::signal_4g_plus));
+            "signal-h-plus", "TablerIcons.signal_h_plus()", tagIcons::signal_h_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "signal-5g (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SIGNAL_5G)",
-            tagIcons::signal_5g));
+            "signal-lte", "TablerIcons.signal_lte()", tagIcons::signal_lte));
     icons.add(
         new IconCatalogEntry<>(
-            "signal-6g (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SIGNAL_6G)",
-            tagIcons::signal_6g));
-    icons.add(
-        new IconCatalogEntry<>(
-            "signal-e (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SIGNAL_E)",
-            tagIcons::signal_e));
-    icons.add(
-        new IconCatalogEntry<>(
-            "signal-g (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SIGNAL_G)",
-            tagIcons::signal_g));
-    icons.add(
-        new IconCatalogEntry<>(
-            "signal-h (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SIGNAL_H)",
-            tagIcons::signal_h));
-    icons.add(
-        new IconCatalogEntry<>(
-            "signal-h-plus (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SIGNAL_H_PLUS)",
-            tagIcons::signal_h_plus));
-    icons.add(
-        new IconCatalogEntry<>(
-            "signal-lte (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.SIGNAL_LTE)",
-            tagIcons::signal_lte));
-    icons.add(
-        new IconCatalogEntry<>(
-            "viewport-narrow (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.VIEWPORT_NARROW)",
+            "viewport-narrow",
+            "TablerIcons.viewport_narrow()",
             tagIcons::viewport_narrow));
     icons.add(
         new IconCatalogEntry<>(
-            "viewport-wide (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.VIEWPORT_WIDE)",
-            tagIcons::viewport_wide));
+            "viewport-wide", "TablerIcons.viewport_wide()", tagIcons::viewport_wide));
+    icons.add(new IconCatalogEntry<>("vinyl", "TablerIcons.vinyl()", tagIcons::vinyl));
     icons.add(
         new IconCatalogEntry<>(
-            "vinyl (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.VINYL)",
-            tagIcons::vinyl));
+            "wash-machine", "TablerIcons.wash_machine()", tagIcons::wash_machine));
+    icons.add(new IconCatalogEntry<>("wifi", "TablerIcons.wifi()", tagIcons::wifi));
+    icons.add(new IconCatalogEntry<>("wifi-0", "TablerIcons.wifi_0()", tagIcons::wifi_0));
+    icons.add(new IconCatalogEntry<>("wifi-1", "TablerIcons.wifi_1()", tagIcons::wifi_1));
+    icons.add(new IconCatalogEntry<>("wifi-2", "TablerIcons.wifi_2()", tagIcons::wifi_2));
+    icons.add(
+        new IconCatalogEntry<>("wifi-off", "TablerIcons.wifi_off()", tagIcons::wifi_off));
+    icons.add(new IconCatalogEntry<>("xbox-a", "TablerIcons.xbox_a()", tagIcons::xbox_a));
+    icons.add(new IconCatalogEntry<>("xbox-b", "TablerIcons.xbox_b()", tagIcons::xbox_b));
+    icons.add(new IconCatalogEntry<>("xbox-x", "TablerIcons.xbox_x()", tagIcons::xbox_x));
+    icons.add(new IconCatalogEntry<>("xbox-y", "TablerIcons.xbox_y()", tagIcons::xbox_y));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-machine (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.WASH_MACHINE)",
-            tagIcons::wash_machine));
+            "battery", "TablerIcons.battery_filled()", tagIcons::battery_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "wifi (outline)", "TablerIcon.create(TablerDevices.OutlineIcon.WIFI)", tagIcons::wifi));
+            "battery-1", "TablerIcons.battery_1_filled()", tagIcons::battery_1_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "wifi-0 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.WIFI_0)",
-            tagIcons::wifi_0));
+            "battery-2", "TablerIcons.battery_2_filled()", tagIcons::battery_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "wifi-1 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.WIFI_1)",
-            tagIcons::wifi_1));
+            "battery-3", "TablerIcons.battery_3_filled()", tagIcons::battery_3_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "wifi-2 (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.WIFI_2)",
-            tagIcons::wifi_2));
+            "battery-4", "TablerIcons.battery_4_filled()", tagIcons::battery_4_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "wifi-off (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.WIFI_OFF)",
-            tagIcons::wifi_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "xbox-a (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.XBOX_A)",
-            tagIcons::xbox_a));
-    icons.add(
-        new IconCatalogEntry<>(
-            "xbox-b (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.XBOX_B)",
-            tagIcons::xbox_b));
-    icons.add(
-        new IconCatalogEntry<>(
-            "xbox-x (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.XBOX_X)",
-            tagIcons::xbox_x));
-    icons.add(
-        new IconCatalogEntry<>(
-            "xbox-y (outline)",
-            "TablerIcon.create(TablerDevices.OutlineIcon.XBOX_Y)",
-            tagIcons::xbox_y));
-    icons.add(
-        new IconCatalogEntry<>(
-            "battery (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.BATTERY)",
-            tagIcons::battery_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "battery-1 (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.BATTERY_1)",
-            tagIcons::battery_1_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "battery-2 (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.BATTERY_2)",
-            tagIcons::battery_2_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "battery-3 (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.BATTERY_3)",
-            tagIcons::battery_3_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "battery-4 (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.BATTERY_4)",
-            tagIcons::battery_4_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "battery-vertical (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.BATTERY_VERTICAL)",
+            "battery-vertical",
+            "TablerIcons.battery_vertical_filled()",
             tagIcons::battery_vertical_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-vertical-1 (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.BATTERY_VERTICAL_1)",
+            "battery-vertical-1",
+            "TablerIcons.battery_vertical_1_filled()",
             tagIcons::battery_vertical_1_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-vertical-2 (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.BATTERY_VERTICAL_2)",
+            "battery-vertical-2",
+            "TablerIcons.battery_vertical_2_filled()",
             tagIcons::battery_vertical_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-vertical-3 (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.BATTERY_VERTICAL_3)",
+            "battery-vertical-3",
+            "TablerIcons.battery_vertical_3_filled()",
             tagIcons::battery_vertical_3_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-vertical-4 (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.BATTERY_VERTICAL_4)",
+            "battery-vertical-4",
+            "TablerIcons.battery_vertical_4_filled()",
             tagIcons::battery_vertical_4_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "blender (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.BLENDER)",
-            tagIcons::blender_filled));
+            "blender", "TablerIcons.blender_filled()", tagIcons::blender_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "calculator (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.CALCULATOR)",
-            tagIcons::calculator_filled));
+            "calculator", "TablerIcons.calculator_filled()", tagIcons::calculator_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "cardboards (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.CARDBOARDS)",
-            tagIcons::cardboards_filled));
+            "cardboards", "TablerIcons.cardboards_filled()", tagIcons::cardboards_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-cctv (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_CCTV)",
+            "device-cctv",
+            "TablerIcons.device_cctv_filled()",
             tagIcons::device_cctv_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-desktop (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_DESKTOP)",
+            "device-desktop",
+            "TablerIcons.device_desktop_filled()",
             tagIcons::device_desktop_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-floppy (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_FLOPPY)",
+            "device-floppy",
+            "TablerIcons.device_floppy_filled()",
             tagIcons::device_floppy_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-gamepad (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_GAMEPAD)",
+            "device-gamepad",
+            "TablerIcons.device_gamepad_filled()",
             tagIcons::device_gamepad_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-gamepad-2 (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_GAMEPAD_2)",
+            "device-gamepad-2",
+            "TablerIcons.device_gamepad_2_filled()",
             tagIcons::device_gamepad_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-gamepad-3 (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_GAMEPAD_3)",
+            "device-gamepad-3",
+            "TablerIcons.device_gamepad_3_filled()",
             tagIcons::device_gamepad_3_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-heart-monitor (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_HEART_MONITOR)",
+            "device-heart-monitor",
+            "TablerIcons.device_heart_monitor_filled()",
             tagIcons::device_heart_monitor_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-imac (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_IMAC)",
+            "device-imac",
+            "TablerIcons.device_imac_filled()",
             tagIcons::device_imac_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-ipad (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_IPAD)",
+            "device-ipad",
+            "TablerIcons.device_ipad_filled()",
             tagIcons::device_ipad_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-mobile (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_MOBILE)",
+            "device-mobile",
+            "TablerIcons.device_mobile_filled()",
             tagIcons::device_mobile_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-remote (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_REMOTE)",
+            "device-remote",
+            "TablerIcons.device_remote_filled()",
             tagIcons::device_remote_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-speaker (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_SPEAKER)",
+            "device-speaker",
+            "TablerIcons.device_speaker_filled()",
             tagIcons::device_speaker_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tablet (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_TABLET)",
+            "device-tablet",
+            "TablerIcons.device_tablet_filled()",
             tagIcons::device_tablet_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tv (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_TV)",
-            tagIcons::device_tv_filled));
+            "device-tv", "TablerIcons.device_tv_filled()", tagIcons::device_tv_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-tv-old (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_TV_OLD)",
+            "device-tv-old",
+            "TablerIcons.device_tv_old_filled()",
             tagIcons::device_tv_old_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-usb (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_USB)",
-            tagIcons::device_usb_filled));
+            "device-usb", "TablerIcons.device_usb_filled()", tagIcons::device_usb_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-vision-pro (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_VISION_PRO)",
+            "device-vision-pro",
+            "TablerIcons.device_vision_pro_filled()",
             tagIcons::device_vision_pro_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "device-watch (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DEVICE_WATCH)",
+            "device-watch",
+            "TablerIcons.device_watch_filled()",
             tagIcons::device_watch_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "dialpad (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DIALPAD)",
-            tagIcons::dialpad_filled));
+            "dialpad", "TablerIcons.dialpad_filled()", tagIcons::dialpad_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "disc (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DISC)",
-            tagIcons::disc_filled));
+            "disc", "TablerIcons.disc_filled()", tagIcons::disc_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "dual-screen (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.DUAL_SCREEN)",
+            "dual-screen",
+            "TablerIcons.dual_screen_filled()",
             tagIcons::dual_screen_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "keyboard (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.KEYBOARD)",
-            tagIcons::keyboard_filled));
+            "keyboard", "TablerIcons.keyboard_filled()", tagIcons::keyboard_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "mouse (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.MOUSE)",
-            tagIcons::mouse_filled));
+            "mouse", "TablerIcons.mouse_filled()", tagIcons::mouse_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "phone (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.PHONE)",
-            tagIcons::phone_filled));
+            "phone", "TablerIcons.phone_filled()", tagIcons::phone_filled));
   }
 
   private static void addIcons4() {
     icons.add(
         new IconCatalogEntry<>(
-            "phone-call (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.PHONE_CALL)",
-            tagIcons::phone_call_filled));
+            "phone-call", "TablerIcons.phone_call_filled()", tagIcons::phone_call_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "phone-calling (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.PHONE_CALLING)",
+            "phone-calling",
+            "TablerIcons.phone_calling_filled()",
             tagIcons::phone_calling_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "phone-check (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.PHONE_CHECK)",
+            "phone-check",
+            "TablerIcons.phone_check_filled()",
             tagIcons::phone_check_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "phone-x (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.PHONE_X)",
-            tagIcons::phone_x_filled));
+            "phone-x", "TablerIcons.phone_x_filled()", tagIcons::phone_x_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "xbox-a (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.XBOX_A)",
-            tagIcons::xbox_a_filled));
+            "xbox-a", "TablerIcons.xbox_a_filled()", tagIcons::xbox_a_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "xbox-b (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.XBOX_B)",
-            tagIcons::xbox_b_filled));
+            "xbox-b", "TablerIcons.xbox_b_filled()", tagIcons::xbox_b_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "xbox-x (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.XBOX_X)",
-            tagIcons::xbox_x_filled));
+            "xbox-x", "TablerIcons.xbox_x_filled()", tagIcons::xbox_x_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "xbox-y (filled)",
-            "TablerIcon.create(TablerDevices.FilledIcon.XBOX_Y)",
-            tagIcons::xbox_y_filled));
+            "xbox-y", "TablerIcons.xbox_y_filled()", tagIcons::xbox_y_filled));
   }
 
   public List<IconCatalogEntry<TablerIcon>> icons() {

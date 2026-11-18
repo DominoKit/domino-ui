@@ -33,518 +33,344 @@ public final class TablerBuildings_Factory {
 
   private static void addIcons0() {
     icons.add(
-        new IconCatalogEntry<>(
-            "armchair (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.ARMCHAIR)",
-            tagIcons::armchair));
+        new IconCatalogEntry<>("armchair", "TablerIcons.armchair()", tagIcons::armchair));
     icons.add(
         new IconCatalogEntry<>(
-            "armchair-2 (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.ARMCHAIR_2)",
-            tagIcons::armchair_2));
+            "armchair-2", "TablerIcons.armchair_2()", tagIcons::armchair_2));
     icons.add(
         new IconCatalogEntry<>(
-            "armchair-2-off (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.ARMCHAIR_2_OFF)",
-            tagIcons::armchair_2_off));
+            "armchair-2-off", "TablerIcons.armchair_2_off()", tagIcons::armchair_2_off));
     icons.add(
         new IconCatalogEntry<>(
-            "armchair-off (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.ARMCHAIR_OFF)",
-            tagIcons::armchair_off));
+            "armchair-off", "TablerIcons.armchair_off()", tagIcons::armchair_off));
+    icons.add(new IconCatalogEntry<>("bath", "TablerIcons.bath()", tagIcons::bath));
+    icons.add(
+        new IconCatalogEntry<>("bath-off", "TablerIcons.bath_off()", tagIcons::bath_off));
+    icons.add(
+        new IconCatalogEntry<>("bed-flat", "TablerIcons.bed_flat()", tagIcons::bed_flat));
     icons.add(
         new IconCatalogEntry<>(
-            "bath (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BATH)",
-            tagIcons::bath));
+            "bell-school", "TablerIcons.bell_school()", tagIcons::bell_school));
+    icons.add(
+        new IconCatalogEntry<>("building", "TablerIcons.building()", tagIcons::building));
     icons.add(
         new IconCatalogEntry<>(
-            "bath-off (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BATH_OFF)",
-            tagIcons::bath_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bed-flat (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BED_FLAT)",
-            tagIcons::bed_flat));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bell-school (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BELL_SCHOOL)",
-            tagIcons::bell_school));
-    icons.add(
-        new IconCatalogEntry<>(
-            "building (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING)",
-            tagIcons::building));
-    icons.add(
-        new IconCatalogEntry<>(
-            "building-airport (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_AIRPORT)",
+            "building-airport",
+            "TablerIcons.building_airport()",
             tagIcons::building_airport));
     icons.add(
         new IconCatalogEntry<>(
-            "building-arch (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_ARCH)",
-            tagIcons::building_arch));
+            "building-arch", "TablerIcons.building_arch()", tagIcons::building_arch));
     icons.add(
         new IconCatalogEntry<>(
-            "building-bank (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_BANK)",
-            tagIcons::building_bank));
+            "building-bank", "TablerIcons.building_bank()", tagIcons::building_bank));
     icons.add(
         new IconCatalogEntry<>(
-            "building-bridge (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_BRIDGE)",
+            "building-bridge",
+            "TablerIcons.building_bridge()",
             tagIcons::building_bridge));
     icons.add(
         new IconCatalogEntry<>(
-            "building-bridge-2 (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_BRIDGE_2)",
+            "building-bridge-2",
+            "TablerIcons.building_bridge_2()",
             tagIcons::building_bridge_2));
     icons.add(
         new IconCatalogEntry<>(
-            "building-broadcast-tower (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_BROADCAST_TOWER)",
+            "building-broadcast-tower",
+            "TablerIcons.building_broadcast_tower()",
             tagIcons::building_broadcast_tower));
     icons.add(
         new IconCatalogEntry<>(
-            "building-burj-al-arab (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_BURJ_AL_ARAB)",
+            "building-burj-al-arab",
+            "TablerIcons.building_burj_al_arab()",
             tagIcons::building_burj_al_arab));
     icons.add(
         new IconCatalogEntry<>(
-            "building-carousel (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_CAROUSEL)",
+            "building-carousel",
+            "TablerIcons.building_carousel()",
             tagIcons::building_carousel));
     icons.add(
         new IconCatalogEntry<>(
-            "building-castle (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_CASTLE)",
+            "building-castle",
+            "TablerIcons.building_castle()",
             tagIcons::building_castle));
     icons.add(
         new IconCatalogEntry<>(
-            "building-church (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_CHURCH)",
+            "building-church",
+            "TablerIcons.building_church()",
             tagIcons::building_church));
     icons.add(
         new IconCatalogEntry<>(
-            "building-circus (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_CIRCUS)",
+            "building-circus",
+            "TablerIcons.building_circus()",
             tagIcons::building_circus));
     icons.add(
         new IconCatalogEntry<>(
-            "building-cog (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_COG)",
-            tagIcons::building_cog));
+            "building-cog", "TablerIcons.building_cog()", tagIcons::building_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "building-community (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_COMMUNITY)",
+            "building-community",
+            "TablerIcons.building_community()",
             tagIcons::building_community));
     icons.add(
         new IconCatalogEntry<>(
-            "building-cottage (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_COTTAGE)",
+            "building-cottage",
+            "TablerIcons.building_cottage()",
             tagIcons::building_cottage));
     icons.add(
         new IconCatalogEntry<>(
-            "building-eiffel-tower (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_EIFFEL_TOWER)",
+            "building-eiffel-tower",
+            "TablerIcons.building_eiffel_tower()",
             tagIcons::building_eiffel_tower));
     icons.add(
         new IconCatalogEntry<>(
-            "building-estate (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_ESTATE)",
+            "building-estate",
+            "TablerIcons.building_estate()",
             tagIcons::building_estate));
     icons.add(
         new IconCatalogEntry<>(
-            "building-factory (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_FACTORY)",
+            "building-factory",
+            "TablerIcons.building_factory()",
             tagIcons::building_factory));
     icons.add(
         new IconCatalogEntry<>(
-            "building-factory-2 (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_FACTORY_2)",
+            "building-factory-2",
+            "TablerIcons.building_factory_2()",
             tagIcons::building_factory_2));
     icons.add(
         new IconCatalogEntry<>(
-            "building-fortress (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_FORTRESS)",
+            "building-fortress",
+            "TablerIcons.building_fortress()",
             tagIcons::building_fortress));
     icons.add(
         new IconCatalogEntry<>(
-            "building-hospital (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_HOSPITAL)",
+            "building-hospital",
+            "TablerIcons.building_hospital()",
             tagIcons::building_hospital));
     icons.add(
         new IconCatalogEntry<>(
-            "building-lighthouse (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_LIGHTHOUSE)",
+            "building-lighthouse",
+            "TablerIcons.building_lighthouse()",
             tagIcons::building_lighthouse));
     icons.add(
         new IconCatalogEntry<>(
-            "building-minus (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_MINUS)",
-            tagIcons::building_minus));
+            "building-minus", "TablerIcons.building_minus()", tagIcons::building_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "building-monument (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_MONUMENT)",
+            "building-monument",
+            "TablerIcons.building_monument()",
             tagIcons::building_monument));
     icons.add(
         new IconCatalogEntry<>(
-            "building-mosque (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_MOSQUE)",
+            "building-mosque",
+            "TablerIcons.building_mosque()",
             tagIcons::building_mosque));
     icons.add(
         new IconCatalogEntry<>(
-            "building-off (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_OFF)",
-            tagIcons::building_off));
+            "building-off", "TablerIcons.building_off()", tagIcons::building_off));
     icons.add(
         new IconCatalogEntry<>(
-            "building-pavilion (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_PAVILION)",
+            "building-pavilion",
+            "TablerIcons.building_pavilion()",
             tagIcons::building_pavilion));
     icons.add(
         new IconCatalogEntry<>(
-            "building-plus (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_PLUS)",
-            tagIcons::building_plus));
+            "building-plus", "TablerIcons.building_plus()", tagIcons::building_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "building-skyscraper (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_SKYSCRAPER)",
+            "building-skyscraper",
+            "TablerIcons.building_skyscraper()",
             tagIcons::building_skyscraper));
     icons.add(
         new IconCatalogEntry<>(
-            "building-stadium (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_STADIUM)",
+            "building-stadium",
+            "TablerIcons.building_stadium()",
             tagIcons::building_stadium));
     icons.add(
         new IconCatalogEntry<>(
-            "building-store (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_STORE)",
-            tagIcons::building_store));
+            "building-store", "TablerIcons.building_store()", tagIcons::building_store));
     icons.add(
         new IconCatalogEntry<>(
-            "building-tunnel (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_TUNNEL)",
+            "building-tunnel",
+            "TablerIcons.building_tunnel()",
             tagIcons::building_tunnel));
     icons.add(
         new IconCatalogEntry<>(
-            "building-warehouse (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_WAREHOUSE)",
+            "building-warehouse",
+            "TablerIcons.building_warehouse()",
             tagIcons::building_warehouse));
     icons.add(
         new IconCatalogEntry<>(
-            "building-wind-turbine (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDING_WIND_TURBINE)",
+            "building-wind-turbine",
+            "TablerIcons.building_wind_turbine()",
             tagIcons::building_wind_turbine));
     icons.add(
         new IconCatalogEntry<>(
-            "buildings (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.BUILDINGS)",
-            tagIcons::buildings));
+            "buildings", "TablerIcons.buildings()", tagIcons::buildings));
     icons.add(
         new IconCatalogEntry<>(
-            "car-garage (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.CAR_GARAGE)",
-            tagIcons::car_garage));
+            "car-garage", "TablerIcons.car_garage()", tagIcons::car_garage));
     icons.add(
         new IconCatalogEntry<>(
-            "chalkboard-teacher (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.CHALKBOARD_TEACHER)",
+            "chalkboard-teacher",
+            "TablerIcons.chalkboard_teacher()",
             tagIcons::chalkboard_teacher));
     icons.add(
         new IconCatalogEntry<>(
-            "door-hanger (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.DOOR_HANGER)",
-            tagIcons::door_hanger));
+            "door-hanger", "TablerIcons.door_hanger()", tagIcons::door_hanger));
+    icons.add(new IconCatalogEntry<>("fence", "TablerIcons.fence()", tagIcons::fence));
     icons.add(
         new IconCatalogEntry<>(
-            "fence (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.FENCE)",
-            tagIcons::fence));
+            "fence-off", "TablerIcons.fence_off()", tagIcons::fence_off));
+    icons.add(new IconCatalogEntry<>("home", "TablerIcons.home()", tagIcons::home));
+    icons.add(new IconCatalogEntry<>("home-2", "TablerIcons.home_2()", tagIcons::home_2));
     icons.add(
         new IconCatalogEntry<>(
-            "fence-off (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.FENCE_OFF)",
-            tagIcons::fence_off));
+            "home-bitcoin", "TablerIcons.home_bitcoin()", tagIcons::home_bitcoin));
     icons.add(
         new IconCatalogEntry<>(
-            "home (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME)",
-            tagIcons::home));
+            "home-bolt", "TablerIcons.home_bolt()", tagIcons::home_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "home-2 (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_2)",
-            tagIcons::home_2));
+            "home-cancel", "TablerIcons.home_cancel()", tagIcons::home_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "home-bitcoin (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_BITCOIN)",
-            tagIcons::home_bitcoin));
+            "home-check", "TablerIcons.home_check()", tagIcons::home_check));
+    icons.add(
+        new IconCatalogEntry<>("home-cog", "TablerIcons.home_cog()", tagIcons::home_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "home-bolt (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_BOLT)",
-            tagIcons::home_bolt));
+            "home-dollar", "TablerIcons.home_dollar()", tagIcons::home_dollar));
+    icons.add(
+        new IconCatalogEntry<>("home-dot", "TablerIcons.home_dot()", tagIcons::home_dot));
     icons.add(
         new IconCatalogEntry<>(
-            "home-cancel (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_CANCEL)",
-            tagIcons::home_cancel));
+            "home-down", "TablerIcons.home_down()", tagIcons::home_down));
+    icons.add(
+        new IconCatalogEntry<>("home-eco", "TablerIcons.home_eco()", tagIcons::home_eco));
     icons.add(
         new IconCatalogEntry<>(
-            "home-check (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_CHECK)",
-            tagIcons::home_check));
+            "home-edit", "TablerIcons.home_edit()", tagIcons::home_edit));
     icons.add(
         new IconCatalogEntry<>(
-            "home-cog (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_COG)",
-            tagIcons::home_cog));
-    icons.add(
-        new IconCatalogEntry<>(
-            "home-dollar (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_DOLLAR)",
-            tagIcons::home_dollar));
-    icons.add(
-        new IconCatalogEntry<>(
-            "home-dot (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_DOT)",
-            tagIcons::home_dot));
-    icons.add(
-        new IconCatalogEntry<>(
-            "home-down (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_DOWN)",
-            tagIcons::home_down));
-    icons.add(
-        new IconCatalogEntry<>(
-            "home-eco (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_ECO)",
-            tagIcons::home_eco));
-    icons.add(
-        new IconCatalogEntry<>(
-            "home-edit (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_EDIT)",
-            tagIcons::home_edit));
-    icons.add(
-        new IconCatalogEntry<>(
-            "home-exclamation (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_EXCLAMATION)",
+            "home-exclamation",
+            "TablerIcons.home_exclamation()",
             tagIcons::home_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "home-hand (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_HAND)",
-            tagIcons::home_hand));
+            "home-hand", "TablerIcons.home_hand()", tagIcons::home_hand));
     icons.add(
         new IconCatalogEntry<>(
-            "home-heart (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_HEART)",
-            tagIcons::home_heart));
+            "home-heart", "TablerIcons.home_heart()", tagIcons::home_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "home-infinity (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_INFINITY)",
-            tagIcons::home_infinity));
+            "home-infinity", "TablerIcons.home_infinity()", tagIcons::home_infinity));
     icons.add(
         new IconCatalogEntry<>(
-            "home-link (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_LINK)",
-            tagIcons::home_link));
+            "home-link", "TablerIcons.home_link()", tagIcons::home_link));
     icons.add(
         new IconCatalogEntry<>(
-            "home-lock (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_LOCK)",
-            tagIcons::home_lock));
+            "home-lock", "TablerIcons.home_lock()", tagIcons::home_lock));
     icons.add(
         new IconCatalogEntry<>(
-            "home-minus (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_MINUS)",
-            tagIcons::home_minus));
+            "home-minus", "TablerIcons.home_minus()", tagIcons::home_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "home-move (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_MOVE)",
-            tagIcons::home_move));
+            "home-move", "TablerIcons.home_move()", tagIcons::home_move));
+    icons.add(
+        new IconCatalogEntry<>("home-off", "TablerIcons.home_off()", tagIcons::home_off));
     icons.add(
         new IconCatalogEntry<>(
-            "home-off (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_OFF)",
-            tagIcons::home_off));
+            "home-plus", "TablerIcons.home_plus()", tagIcons::home_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "home-plus (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_PLUS)",
-            tagIcons::home_plus));
+            "home-question", "TablerIcons.home_question()", tagIcons::home_question));
     icons.add(
         new IconCatalogEntry<>(
-            "home-question (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_QUESTION)",
-            tagIcons::home_question));
+            "home-ribbon", "TablerIcons.home_ribbon()", tagIcons::home_ribbon));
     icons.add(
         new IconCatalogEntry<>(
-            "home-ribbon (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_RIBBON)",
-            tagIcons::home_ribbon));
+            "home-search", "TablerIcons.home_search()", tagIcons::home_search));
     icons.add(
         new IconCatalogEntry<>(
-            "home-search (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_SEARCH)",
-            tagIcons::home_search));
+            "home-share", "TablerIcons.home_share()", tagIcons::home_share));
     icons.add(
         new IconCatalogEntry<>(
-            "home-share (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_SHARE)",
-            tagIcons::home_share));
+            "home-shield", "TablerIcons.home_shield()", tagIcons::home_shield));
     icons.add(
         new IconCatalogEntry<>(
-            "home-shield (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_SHIELD)",
-            tagIcons::home_shield));
+            "home-signal", "TablerIcons.home_signal()", tagIcons::home_signal));
     icons.add(
         new IconCatalogEntry<>(
-            "home-signal (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_SIGNAL)",
-            tagIcons::home_signal));
+            "home-spark", "TablerIcons.home_spark()", tagIcons::home_spark));
     icons.add(
         new IconCatalogEntry<>(
-            "home-spark (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_SPARK)",
-            tagIcons::home_spark));
+            "home-star", "TablerIcons.home_star()", tagIcons::home_star));
     icons.add(
         new IconCatalogEntry<>(
-            "home-star (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_STAR)",
-            tagIcons::home_star));
+            "home-stats", "TablerIcons.home_stats()", tagIcons::home_stats));
+    icons.add(
+        new IconCatalogEntry<>("home-up", "TablerIcons.home_up()", tagIcons::home_up));
+    icons.add(new IconCatalogEntry<>("home-x", "TablerIcons.home_x()", tagIcons::home_x));
     icons.add(
         new IconCatalogEntry<>(
-            "home-stats (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_STATS)",
-            tagIcons::home_stats));
+            "hotel-service", "TablerIcons.hotel_service()", tagIcons::hotel_service));
+    icons.add(new IconCatalogEntry<>("mosque", "TablerIcons.mosque()", tagIcons::mosque));
+    icons.add(new IconCatalogEntry<>("podium", "TablerIcons.podium()", tagIcons::podium));
     icons.add(
         new IconCatalogEntry<>(
-            "home-up (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_UP)",
-            tagIcons::home_up));
+            "podium-off", "TablerIcons.podium_off()", tagIcons::podium_off));
     icons.add(
         new IconCatalogEntry<>(
-            "home-x (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOME_X)",
-            tagIcons::home_x));
+            "rocking-chair", "TablerIcons.rocking_chair()", tagIcons::rocking_chair));
     icons.add(
         new IconCatalogEntry<>(
-            "hotel-service (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.HOTEL_SERVICE)",
-            tagIcons::hotel_service));
+            "school-bell", "TablerIcons.school_bell()", tagIcons::school_bell));
     icons.add(
         new IconCatalogEntry<>(
-            "mosque (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.MOSQUE)",
-            tagIcons::mosque));
+            "smart-home", "TablerIcons.smart_home()", tagIcons::smart_home));
     icons.add(
         new IconCatalogEntry<>(
-            "podium (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.PODIUM)",
-            tagIcons::podium));
+            "smart-home-off", "TablerIcons.smart_home_off()", tagIcons::smart_home_off));
+    icons.add(new IconCatalogEntry<>("tower", "TablerIcons.tower()", tagIcons::tower));
     icons.add(
         new IconCatalogEntry<>(
-            "podium-off (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.PODIUM_OFF)",
-            tagIcons::podium_off));
+            "tower-off", "TablerIcons.tower_off()", tagIcons::tower_off));
+    icons.add(new IconCatalogEntry<>("wall", "TablerIcons.wall()", tagIcons::wall));
+    icons.add(
+        new IconCatalogEntry<>("wall-off", "TablerIcons.wall_off()", tagIcons::wall_off));
+    icons.add(new IconCatalogEntry<>("window", "TablerIcons.window()", tagIcons::window));
     icons.add(
         new IconCatalogEntry<>(
-            "rocking-chair (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.ROCKING_CHAIR)",
-            tagIcons::rocking_chair));
+            "window-off", "TablerIcons.window_off()", tagIcons::window_off));
     icons.add(
         new IconCatalogEntry<>(
-            "school-bell (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.SCHOOL_BELL)",
-            tagIcons::school_bell));
+            "bath", "TablerIcons.bath_filled()", tagIcons::bath_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "smart-home (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.SMART_HOME)",
-            tagIcons::smart_home));
+            "bed-flat", "TablerIcons.bed_flat_filled()", tagIcons::bed_flat_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "smart-home-off (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.SMART_HOME_OFF)",
-            tagIcons::smart_home_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "tower (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.TOWER)",
-            tagIcons::tower));
-    icons.add(
-        new IconCatalogEntry<>(
-            "tower-off (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.TOWER_OFF)",
-            tagIcons::tower_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "wall (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.WALL)",
-            tagIcons::wall));
-    icons.add(
-        new IconCatalogEntry<>(
-            "wall-off (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.WALL_OFF)",
-            tagIcons::wall_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "window (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.WINDOW)",
-            tagIcons::window));
-    icons.add(
-        new IconCatalogEntry<>(
-            "window-off (outline)",
-            "TablerIcon.create(TablerBuildings.OutlineIcon.WINDOW_OFF)",
-            tagIcons::window_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bath (filled)",
-            "TablerIcon.create(TablerBuildings.FilledIcon.BATH)",
-            tagIcons::bath_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bed-flat (filled)",
-            "TablerIcon.create(TablerBuildings.FilledIcon.BED_FLAT)",
-            tagIcons::bed_flat_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "building-bridge-2 (filled)",
-            "TablerIcon.create(TablerBuildings.FilledIcon.BUILDING_BRIDGE_2)",
+            "building-bridge-2",
+            "TablerIcons.building_bridge_2_filled()",
             tagIcons::building_bridge_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "building-broadcast-tower (filled)",
-            "TablerIcon.create(TablerBuildings.FilledIcon.BUILDING_BROADCAST_TOWER)",
+            "building-broadcast-tower",
+            "TablerIcons.building_broadcast_tower_filled()",
             tagIcons::building_broadcast_tower_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "fence (filled)",
-            "TablerIcon.create(TablerBuildings.FilledIcon.FENCE)",
-            tagIcons::fence_filled));
+            "fence", "TablerIcons.fence_filled()", tagIcons::fence_filled));
   }
 
   private static void addIcons1() {
     icons.add(
         new IconCatalogEntry<>(
-            "home (filled)",
-            "TablerIcon.create(TablerBuildings.FilledIcon.HOME)",
-            tagIcons::home_filled));
+            "home", "TablerIcons.home_filled()", tagIcons::home_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "home-2 (filled)",
-            "TablerIcon.create(TablerBuildings.FilledIcon.HOME_2)",
-            tagIcons::home_2_filled));
+            "home-2", "TablerIcons.home_2_filled()", tagIcons::home_2_filled));
   }
 
   public List<IconCatalogEntry<TablerIcon>> icons() {

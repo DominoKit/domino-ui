@@ -34,667 +34,471 @@ public final class TablerCommunication_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "address-book (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.ADDRESS_BOOK)",
-            tagIcons::address_book));
+            "address-book", "TablerIcons.address_book()", tagIcons::address_book));
     icons.add(
         new IconCatalogEntry<>(
-            "address-book-off (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.ADDRESS_BOOK_OFF)",
+            "address-book-off",
+            "TablerIcons.address_book_off()",
             tagIcons::address_book_off));
+    icons.add(new IconCatalogEntry<>("bubble", "TablerIcons.bubble()", tagIcons::bubble));
     icons.add(
         new IconCatalogEntry<>(
-            "bubble (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.BUBBLE)",
-            tagIcons::bubble));
+            "bubble-minus", "TablerIcons.bubble_minus()", tagIcons::bubble_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "bubble-minus (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.BUBBLE_MINUS)",
-            tagIcons::bubble_minus));
+            "bubble-plus", "TablerIcons.bubble_plus()", tagIcons::bubble_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "bubble-plus (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.BUBBLE_PLUS)",
-            tagIcons::bubble_plus));
+            "bubble-text", "TablerIcons.bubble_text()", tagIcons::bubble_text));
+    icons.add(
+        new IconCatalogEntry<>("bubble-x", "TablerIcons.bubble_x()", tagIcons::bubble_x));
     icons.add(
         new IconCatalogEntry<>(
-            "bubble-text (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.BUBBLE_TEXT)",
-            tagIcons::bubble_text));
+            "email-stamp", "TablerIcons.email_stamp()", tagIcons::email_stamp));
+    icons.add(new IconCatalogEntry<>("mail", "TablerIcons.mail()", tagIcons::mail));
+    icons.add(
+        new IconCatalogEntry<>("mail-ai", "TablerIcons.mail_ai()", tagIcons::mail_ai));
     icons.add(
         new IconCatalogEntry<>(
-            "bubble-x (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.BUBBLE_X)",
-            tagIcons::bubble_x));
+            "mail-bitcoin", "TablerIcons.mail_bitcoin()", tagIcons::mail_bitcoin));
     icons.add(
         new IconCatalogEntry<>(
-            "email-stamp (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.EMAIL_STAMP)",
-            tagIcons::email_stamp));
+            "mail-bolt", "TablerIcons.mail_bolt()", tagIcons::mail_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "mail (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL)",
-            tagIcons::mail));
+            "mail-cancel", "TablerIcons.mail_cancel()", tagIcons::mail_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-ai (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_AI)",
-            tagIcons::mail_ai));
+            "mail-check", "TablerIcons.mail_check()", tagIcons::mail_check));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-bitcoin (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_BITCOIN)",
-            tagIcons::mail_bitcoin));
+            "mail-code", "TablerIcons.mail_code()", tagIcons::mail_code));
+    icons.add(
+        new IconCatalogEntry<>("mail-cog", "TablerIcons.mail_cog()", tagIcons::mail_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-bolt (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_BOLT)",
-            tagIcons::mail_bolt));
+            "mail-dollar", "TablerIcons.mail_dollar()", tagIcons::mail_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-cancel (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_CANCEL)",
-            tagIcons::mail_cancel));
+            "mail-down", "TablerIcons.mail_down()", tagIcons::mail_down));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-check (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_CHECK)",
-            tagIcons::mail_check));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mail-code (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_CODE)",
-            tagIcons::mail_code));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mail-cog (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_COG)",
-            tagIcons::mail_cog));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mail-dollar (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_DOLLAR)",
-            tagIcons::mail_dollar));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mail-down (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_DOWN)",
-            tagIcons::mail_down));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mail-exclamation (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_EXCLAMATION)",
+            "mail-exclamation",
+            "TablerIcons.mail_exclamation()",
             tagIcons::mail_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-fast (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_FAST)",
-            tagIcons::mail_fast));
+            "mail-fast", "TablerIcons.mail_fast()", tagIcons::mail_fast));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-forward (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_FORWARD)",
-            tagIcons::mail_forward));
+            "mail-forward", "TablerIcons.mail_forward()", tagIcons::mail_forward));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-heart (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_HEART)",
-            tagIcons::mail_heart));
+            "mail-heart", "TablerIcons.mail_heart()", tagIcons::mail_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-minus (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_MINUS)",
-            tagIcons::mail_minus));
+            "mail-minus", "TablerIcons.mail_minus()", tagIcons::mail_minus));
+    icons.add(
+        new IconCatalogEntry<>("mail-off", "TablerIcons.mail_off()", tagIcons::mail_off));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-off (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_OFF)",
-            tagIcons::mail_off));
+            "mail-opened", "TablerIcons.mail_opened()", tagIcons::mail_opened));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-opened (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_OPENED)",
-            tagIcons::mail_opened));
+            "mail-pause", "TablerIcons.mail_pause()", tagIcons::mail_pause));
+    icons.add(
+        new IconCatalogEntry<>("mail-pin", "TablerIcons.mail_pin()", tagIcons::mail_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-pause (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_PAUSE)",
-            tagIcons::mail_pause));
+            "mail-plus", "TablerIcons.mail_plus()", tagIcons::mail_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-pin (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_PIN)",
-            tagIcons::mail_pin));
+            "mail-question", "TablerIcons.mail_question()", tagIcons::mail_question));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-plus (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_PLUS)",
-            tagIcons::mail_plus));
+            "mail-search", "TablerIcons.mail_search()", tagIcons::mail_search));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-question (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_QUESTION)",
-            tagIcons::mail_question));
+            "mail-share", "TablerIcons.mail_share()", tagIcons::mail_share));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-search (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_SEARCH)",
-            tagIcons::mail_search));
+            "mail-spark", "TablerIcons.mail_spark()", tagIcons::mail_spark));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-share (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_SHARE)",
-            tagIcons::mail_share));
+            "mail-star", "TablerIcons.mail_star()", tagIcons::mail_star));
+    icons.add(
+        new IconCatalogEntry<>("mail-up", "TablerIcons.mail_up()", tagIcons::mail_up));
+    icons.add(new IconCatalogEntry<>("mail-x", "TablerIcons.mail_x()", tagIcons::mail_x));
+    icons.add(
+        new IconCatalogEntry<>("mailbox", "TablerIcons.mailbox()", tagIcons::mailbox));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-spark (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_SPARK)",
-            tagIcons::mail_spark));
+            "mailbox-off", "TablerIcons.mailbox_off()", tagIcons::mailbox_off));
+    icons.add(
+        new IconCatalogEntry<>("message", "TablerIcons.message()", tagIcons::message));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-star (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_STAR)",
-            tagIcons::mail_star));
+            "message-2", "TablerIcons.message_2()", tagIcons::message_2));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-up (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_UP)",
-            tagIcons::mail_up));
+            "message-2-ai", "TablerIcons.message_2_ai()", tagIcons::message_2_ai));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-x (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAIL_X)",
-            tagIcons::mail_x));
+            "message-2-bolt", "TablerIcons.message_2_bolt()", tagIcons::message_2_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "mailbox (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAILBOX)",
-            tagIcons::mailbox));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mailbox-off (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MAILBOX_OFF)",
-            tagIcons::mailbox_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "message (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE)",
-            tagIcons::message));
-    icons.add(
-        new IconCatalogEntry<>(
-            "message-2 (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2)",
-            tagIcons::message_2));
-    icons.add(
-        new IconCatalogEntry<>(
-            "message-2-ai (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_AI)",
-            tagIcons::message_2_ai));
-    icons.add(
-        new IconCatalogEntry<>(
-            "message-2-bolt (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_BOLT)",
-            tagIcons::message_2_bolt));
-    icons.add(
-        new IconCatalogEntry<>(
-            "message-2-cancel (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_CANCEL)",
+            "message-2-cancel",
+            "TablerIcons.message_2_cancel()",
             tagIcons::message_2_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-check (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_CHECK)",
+            "message-2-check",
+            "TablerIcons.message_2_check()",
             tagIcons::message_2_check));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-code (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_CODE)",
-            tagIcons::message_2_code));
+            "message-2-code", "TablerIcons.message_2_code()", tagIcons::message_2_code));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-cog (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_COG)",
-            tagIcons::message_2_cog));
+            "message-2-cog", "TablerIcons.message_2_cog()", tagIcons::message_2_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-dollar (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_DOLLAR)",
+            "message-2-dollar",
+            "TablerIcons.message_2_dollar()",
             tagIcons::message_2_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-down (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_DOWN)",
-            tagIcons::message_2_down));
+            "message-2-down", "TablerIcons.message_2_down()", tagIcons::message_2_down));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-exclamation (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_EXCLAMATION)",
+            "message-2-exclamation",
+            "TablerIcons.message_2_exclamation()",
             tagIcons::message_2_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-heart (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_HEART)",
+            "message-2-heart",
+            "TablerIcons.message_2_heart()",
             tagIcons::message_2_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-minus (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_MINUS)",
+            "message-2-minus",
+            "TablerIcons.message_2_minus()",
             tagIcons::message_2_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-off (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_OFF)",
-            tagIcons::message_2_off));
+            "message-2-off", "TablerIcons.message_2_off()", tagIcons::message_2_off));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-pause (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_PAUSE)",
+            "message-2-pause",
+            "TablerIcons.message_2_pause()",
             tagIcons::message_2_pause));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-pin (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_PIN)",
-            tagIcons::message_2_pin));
+            "message-2-pin", "TablerIcons.message_2_pin()", tagIcons::message_2_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-plus (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_PLUS)",
-            tagIcons::message_2_plus));
+            "message-2-plus", "TablerIcons.message_2_plus()", tagIcons::message_2_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-question (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_QUESTION)",
+            "message-2-question",
+            "TablerIcons.message_2_question()",
             tagIcons::message_2_question));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-search (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_SEARCH)",
+            "message-2-search",
+            "TablerIcons.message_2_search()",
             tagIcons::message_2_search));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-share (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_SHARE)",
+            "message-2-share",
+            "TablerIcons.message_2_share()",
             tagIcons::message_2_share));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-sparkle (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_SPARKLE)",
+            "message-2-sparkle",
+            "TablerIcons.message_2_sparkle()",
             tagIcons::message_2_sparkle));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-star (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_STAR)",
-            tagIcons::message_2_star));
+            "message-2-star", "TablerIcons.message_2_star()", tagIcons::message_2_star));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-up (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_UP)",
-            tagIcons::message_2_up));
+            "message-2-up", "TablerIcons.message_2_up()", tagIcons::message_2_up));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2-x (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_2_X)",
-            tagIcons::message_2_x));
+            "message-2-x", "TablerIcons.message_2_x()", tagIcons::message_2_x));
     icons.add(
         new IconCatalogEntry<>(
-            "message-ai (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_AI)",
-            tagIcons::message_ai));
+            "message-ai", "TablerIcons.message_ai()", tagIcons::message_ai));
     icons.add(
         new IconCatalogEntry<>(
-            "message-bolt (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_BOLT)",
-            tagIcons::message_bolt));
+            "message-bolt", "TablerIcons.message_bolt()", tagIcons::message_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "message-cancel (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CANCEL)",
-            tagIcons::message_cancel));
+            "message-cancel", "TablerIcons.message_cancel()", tagIcons::message_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "message-chatbot (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CHATBOT)",
+            "message-chatbot",
+            "TablerIcons.message_chatbot()",
             tagIcons::message_chatbot));
     icons.add(
         new IconCatalogEntry<>(
-            "message-check (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CHECK)",
-            tagIcons::message_check));
+            "message-check", "TablerIcons.message_check()", tagIcons::message_check));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE)",
-            tagIcons::message_circle));
+            "message-circle", "TablerIcons.message_circle()", tagIcons::message_circle));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-bolt (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_BOLT)",
+            "message-circle-bolt",
+            "TablerIcons.message_circle_bolt()",
             tagIcons::message_circle_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-cancel (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_CANCEL)",
+            "message-circle-cancel",
+            "TablerIcons.message_circle_cancel()",
             tagIcons::message_circle_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-check (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_CHECK)",
+            "message-circle-check",
+            "TablerIcons.message_circle_check()",
             tagIcons::message_circle_check));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-code (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_CODE)",
+            "message-circle-code",
+            "TablerIcons.message_circle_code()",
             tagIcons::message_circle_code));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-cog (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_COG)",
+            "message-circle-cog",
+            "TablerIcons.message_circle_cog()",
             tagIcons::message_circle_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-dollar (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_DOLLAR)",
+            "message-circle-dollar",
+            "TablerIcons.message_circle_dollar()",
             tagIcons::message_circle_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-down (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_DOWN)",
+            "message-circle-down",
+            "TablerIcons.message_circle_down()",
             tagIcons::message_circle_down));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-exclamation (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_EXCLAMATION)",
+            "message-circle-exclamation",
+            "TablerIcons.message_circle_exclamation()",
             tagIcons::message_circle_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-heart (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_HEART)",
+            "message-circle-heart",
+            "TablerIcons.message_circle_heart()",
             tagIcons::message_circle_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-minus (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_MINUS)",
+            "message-circle-minus",
+            "TablerIcons.message_circle_minus()",
             tagIcons::message_circle_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-off (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_OFF)",
+            "message-circle-off",
+            "TablerIcons.message_circle_off()",
             tagIcons::message_circle_off));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-pause (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_PAUSE)",
+            "message-circle-pause",
+            "TablerIcons.message_circle_pause()",
             tagIcons::message_circle_pause));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-pin (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_PIN)",
+            "message-circle-pin",
+            "TablerIcons.message_circle_pin()",
             tagIcons::message_circle_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-plus (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_PLUS)",
+            "message-circle-plus",
+            "TablerIcons.message_circle_plus()",
             tagIcons::message_circle_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-question (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_QUESTION)",
+            "message-circle-question",
+            "TablerIcons.message_circle_question()",
             tagIcons::message_circle_question));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-search (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_SEARCH)",
+            "message-circle-search",
+            "TablerIcons.message_circle_search()",
             tagIcons::message_circle_search));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-share (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_SHARE)",
+            "message-circle-share",
+            "TablerIcons.message_circle_share()",
             tagIcons::message_circle_share));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-star (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_STAR)",
+            "message-circle-star",
+            "TablerIcons.message_circle_star()",
             tagIcons::message_circle_star));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-up (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_UP)",
+            "message-circle-up",
+            "TablerIcons.message_circle_up()",
             tagIcons::message_circle_up));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-user (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_USER)",
+            "message-circle-user",
+            "TablerIcons.message_circle_user()",
             tagIcons::message_circle_user));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle-x (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CIRCLE_X)",
+            "message-circle-x",
+            "TablerIcons.message_circle_x()",
             tagIcons::message_circle_x));
     icons.add(
         new IconCatalogEntry<>(
-            "message-code (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_CODE)",
-            tagIcons::message_code));
+            "message-code", "TablerIcons.message_code()", tagIcons::message_code));
     icons.add(
         new IconCatalogEntry<>(
-            "message-cog (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_COG)",
-            tagIcons::message_cog));
+            "message-cog", "TablerIcons.message_cog()", tagIcons::message_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "message-dollar (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_DOLLAR)",
-            tagIcons::message_dollar));
+            "message-dollar", "TablerIcons.message_dollar()", tagIcons::message_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "message-dots (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_DOTS)",
-            tagIcons::message_dots));
+            "message-dots", "TablerIcons.message_dots()", tagIcons::message_dots));
     icons.add(
         new IconCatalogEntry<>(
-            "message-down (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_DOWN)",
-            tagIcons::message_down));
+            "message-down", "TablerIcons.message_down()", tagIcons::message_down));
     icons.add(
         new IconCatalogEntry<>(
-            "message-exclamation (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_EXCLAMATION)",
+            "message-exclamation",
+            "TablerIcons.message_exclamation()",
             tagIcons::message_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "message-forward (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_FORWARD)",
+            "message-forward",
+            "TablerIcons.message_forward()",
             tagIcons::message_forward));
     icons.add(
         new IconCatalogEntry<>(
-            "message-heart (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_HEART)",
-            tagIcons::message_heart));
+            "message-heart", "TablerIcons.message_heart()", tagIcons::message_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "message-language (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_LANGUAGE)",
+            "message-language",
+            "TablerIcons.message_language()",
             tagIcons::message_language));
     icons.add(
         new IconCatalogEntry<>(
-            "message-minus (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_MINUS)",
-            tagIcons::message_minus));
+            "message-minus", "TablerIcons.message_minus()", tagIcons::message_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "message-off (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_OFF)",
-            tagIcons::message_off));
+            "message-off", "TablerIcons.message_off()", tagIcons::message_off));
     icons.add(
         new IconCatalogEntry<>(
-            "message-pause (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_PAUSE)",
-            tagIcons::message_pause));
+            "message-pause", "TablerIcons.message_pause()", tagIcons::message_pause));
   }
 
   private static void addIcons1() {
     icons.add(
         new IconCatalogEntry<>(
-            "message-pin (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_PIN)",
-            tagIcons::message_pin));
+            "message-pin", "TablerIcons.message_pin()", tagIcons::message_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "message-plus (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_PLUS)",
-            tagIcons::message_plus));
+            "message-plus", "TablerIcons.message_plus()", tagIcons::message_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "message-question (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_QUESTION)",
+            "message-question",
+            "TablerIcons.message_question()",
             tagIcons::message_question));
     icons.add(
         new IconCatalogEntry<>(
-            "message-reply (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_REPLY)",
-            tagIcons::message_reply));
+            "message-reply", "TablerIcons.message_reply()", tagIcons::message_reply));
     icons.add(
         new IconCatalogEntry<>(
-            "message-report (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_REPORT)",
-            tagIcons::message_report));
+            "message-report", "TablerIcons.message_report()", tagIcons::message_report));
     icons.add(
         new IconCatalogEntry<>(
-            "message-search (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_SEARCH)",
-            tagIcons::message_search));
+            "message-search", "TablerIcons.message_search()", tagIcons::message_search));
     icons.add(
         new IconCatalogEntry<>(
-            "message-share (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_SHARE)",
-            tagIcons::message_share));
+            "message-share", "TablerIcons.message_share()", tagIcons::message_share));
     icons.add(
         new IconCatalogEntry<>(
-            "message-sparkle (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_SPARKLE)",
+            "message-sparkle",
+            "TablerIcons.message_sparkle()",
             tagIcons::message_sparkle));
     icons.add(
         new IconCatalogEntry<>(
-            "message-star (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_STAR)",
-            tagIcons::message_star));
+            "message-star", "TablerIcons.message_star()", tagIcons::message_star));
     icons.add(
         new IconCatalogEntry<>(
-            "message-up (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_UP)",
-            tagIcons::message_up));
+            "message-up", "TablerIcons.message_up()", tagIcons::message_up));
     icons.add(
         new IconCatalogEntry<>(
-            "message-user (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_USER)",
-            tagIcons::message_user));
+            "message-user", "TablerIcons.message_user()", tagIcons::message_user));
     icons.add(
         new IconCatalogEntry<>(
-            "message-x (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGE_X)",
-            tagIcons::message_x));
+            "message-x", "TablerIcons.message_x()", tagIcons::message_x));
+    icons.add(
+        new IconCatalogEntry<>("messages", "TablerIcons.messages()", tagIcons::messages));
     icons.add(
         new IconCatalogEntry<>(
-            "messages (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGES)",
-            tagIcons::messages));
+            "messages-off", "TablerIcons.messages_off()", tagIcons::messages_off));
     icons.add(
         new IconCatalogEntry<>(
-            "messages-off (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.MESSAGES_OFF)",
-            tagIcons::messages_off));
+            "phone-done", "TablerIcons.phone_done()", tagIcons::phone_done));
     icons.add(
         new IconCatalogEntry<>(
-            "phone-done (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.PHONE_DONE)",
-            tagIcons::phone_done));
+            "phone-end", "TablerIcons.phone_end()", tagIcons::phone_end));
     icons.add(
         new IconCatalogEntry<>(
-            "phone-end (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.PHONE_END)",
-            tagIcons::phone_end));
+            "phone-ringing", "TablerIcons.phone_ringing()", tagIcons::phone_ringing));
+    icons.add(new IconCatalogEntry<>("rss", "TablerIcons.rss()", tagIcons::rss));
+    icons.add(new IconCatalogEntry<>("send", "TablerIcons.send()", tagIcons::send));
+    icons.add(new IconCatalogEntry<>("send-2", "TablerIcons.send_2()", tagIcons::send_2));
+    icons.add(
+        new IconCatalogEntry<>("send-off", "TablerIcons.send_off()", tagIcons::send_off));
     icons.add(
         new IconCatalogEntry<>(
-            "phone-ringing (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.PHONE_RINGING)",
-            tagIcons::phone_ringing));
+            "bubble", "TablerIcons.bubble_filled()", tagIcons::bubble_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "rss (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.RSS)",
-            tagIcons::rss));
-    icons.add(
-        new IconCatalogEntry<>(
-            "send (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.SEND)",
-            tagIcons::send));
-    icons.add(
-        new IconCatalogEntry<>(
-            "send-2 (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.SEND_2)",
-            tagIcons::send_2));
-    icons.add(
-        new IconCatalogEntry<>(
-            "send-off (outline)",
-            "TablerIcon.create(TablerCommunication.OutlineIcon.SEND_OFF)",
-            tagIcons::send_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bubble (filled)",
-            "TablerIcon.create(TablerCommunication.FilledIcon.BUBBLE)",
-            tagIcons::bubble_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bubble-text (filled)",
-            "TablerIcon.create(TablerCommunication.FilledIcon.BUBBLE_TEXT)",
+            "bubble-text",
+            "TablerIcons.bubble_text_filled()",
             tagIcons::bubble_text_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "mail (filled)",
-            "TablerIcon.create(TablerCommunication.FilledIcon.MAIL)",
-            tagIcons::mail_filled));
+            "mail", "TablerIcons.mail_filled()", tagIcons::mail_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "mail-opened (filled)",
-            "TablerIcon.create(TablerCommunication.FilledIcon.MAIL_OPENED)",
+            "mail-opened",
+            "TablerIcons.mail_opened_filled()",
             tagIcons::mail_opened_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "message (filled)",
-            "TablerIcon.create(TablerCommunication.FilledIcon.MESSAGE)",
-            tagIcons::message_filled));
+            "message", "TablerIcons.message_filled()", tagIcons::message_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "message-2 (filled)",
-            "TablerIcon.create(TablerCommunication.FilledIcon.MESSAGE_2)",
-            tagIcons::message_2_filled));
+            "message-2", "TablerIcons.message_2_filled()", tagIcons::message_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "message-chatbot (filled)",
-            "TablerIcon.create(TablerCommunication.FilledIcon.MESSAGE_CHATBOT)",
+            "message-chatbot",
+            "TablerIcons.message_chatbot_filled()",
             tagIcons::message_chatbot_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "message-circle (filled)",
-            "TablerIcon.create(TablerCommunication.FilledIcon.MESSAGE_CIRCLE)",
+            "message-circle",
+            "TablerIcons.message_circle_filled()",
             tagIcons::message_circle_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "message-report (filled)",
-            "TablerIcon.create(TablerCommunication.FilledIcon.MESSAGE_REPORT)",
+            "message-report",
+            "TablerIcons.message_report_filled()",
             tagIcons::message_report_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "messages (filled)",
-            "TablerIcon.create(TablerCommunication.FilledIcon.MESSAGES)",
-            tagIcons::messages_filled));
+            "messages", "TablerIcons.messages_filled()", tagIcons::messages_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "send (filled)",
-            "TablerIcon.create(TablerCommunication.FilledIcon.SEND)",
-            tagIcons::send_filled));
+            "send", "TablerIcons.send_filled()", tagIcons::send_filled));
   }
 
   public List<IconCatalogEntry<TablerIcon>> icons() {

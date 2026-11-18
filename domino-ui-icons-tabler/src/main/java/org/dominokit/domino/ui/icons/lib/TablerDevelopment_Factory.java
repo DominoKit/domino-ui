@@ -31,354 +31,188 @@ public final class TablerDevelopment_Factory {
   }
 
   private static void addIcons0() {
+    icons.add(new IconCatalogEntry<>("a-b", "TablerIcons.a_b()", tagIcons::a_b));
+    icons.add(new IconCatalogEntry<>("ai", "TablerIcons.ai()", tagIcons::ai));
+    icons.add(
+        new IconCatalogEntry<>("ai-agent", "TablerIcons.ai_agent()", tagIcons::ai_agent));
     icons.add(
         new IconCatalogEntry<>(
-            "a-b (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.A_B)",
-            tagIcons::a_b));
+            "ai-agents", "TablerIcons.ai_agents()", tagIcons::ai_agents));
     icons.add(
         new IconCatalogEntry<>(
-            "ai (outline)", "TablerIcon.create(TablerDevelopment.OutlineIcon.AI)", tagIcons::ai));
+            "ai-gateway", "TablerIcons.ai_gateway()", tagIcons::ai_gateway));
+    icons.add(new IconCatalogEntry<>("alt", "TablerIcons.alt()", tagIcons::alt));
+    icons.add(new IconCatalogEntry<>("api", "TablerIcons.api()", tagIcons::api));
+    icons.add(
+        new IconCatalogEntry<>("api-app", "TablerIcons.api_app()", tagIcons::api_app));
     icons.add(
         new IconCatalogEntry<>(
-            "ai-agent (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.AI_AGENT)",
-            tagIcons::ai_agent));
+            "api-app-off", "TablerIcons.api_app_off()", tagIcons::api_app_off));
+    icons.add(
+        new IconCatalogEntry<>("api-book", "TablerIcons.api_book()", tagIcons::api_book));
+    icons.add(
+        new IconCatalogEntry<>("api-off", "TablerIcons.api_off()", tagIcons::api_off));
+    icons.add(new IconCatalogEntry<>("apps", "TablerIcons.apps()", tagIcons::apps));
+    icons.add(
+        new IconCatalogEntry<>("apps-off", "TablerIcons.apps_off()", tagIcons::apps_off));
+    icons.add(
+        new IconCatalogEntry<>("assembly", "TablerIcons.assembly()", tagIcons::assembly));
     icons.add(
         new IconCatalogEntry<>(
-            "ai-agents (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.AI_AGENTS)",
-            tagIcons::ai_agents));
+            "assembly-off", "TablerIcons.assembly_off()", tagIcons::assembly_off));
+    icons.add(new IconCatalogEntry<>("asset", "TablerIcons.asset()", tagIcons::asset));
+    icons.add(
+        new IconCatalogEntry<>("auth-2fa", "TablerIcons.auth_2fa()", tagIcons::auth_2fa));
+    icons.add(new IconCatalogEntry<>("bot-id", "TablerIcons.bot_id()", tagIcons::bot_id));
+    icons.add(new IconCatalogEntry<>("bug", "TablerIcons.bug()", tagIcons::bug));
+    icons.add(
+        new IconCatalogEntry<>("bug-off", "TablerIcons.bug_off()", tagIcons::bug_off));
+    icons.add(new IconCatalogEntry<>("canary", "TablerIcons.canary()", tagIcons::canary));
+    icons.add(
+        new IconCatalogEntry<>("code-ai", "TablerIcons.code_ai()", tagIcons::code_ai));
     icons.add(
         new IconCatalogEntry<>(
-            "ai-gateway (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.AI_GATEWAY)",
-            tagIcons::ai_gateway));
+            "codeblock", "TablerIcons.codeblock()", tagIcons::codeblock));
     icons.add(
         new IconCatalogEntry<>(
-            "alt (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.ALT)",
-            tagIcons::alt));
+            "connection", "TablerIcons.connection()", tagIcons::connection));
     icons.add(
         new IconCatalogEntry<>(
-            "api (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.API)",
-            tagIcons::api));
+            "firewall-check", "TablerIcons.firewall_check()", tagIcons::firewall_check));
     icons.add(
         new IconCatalogEntry<>(
-            "api-app (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.API_APP)",
-            tagIcons::api_app));
+            "firewall-flame", "TablerIcons.firewall_flame()", tagIcons::firewall_flame));
     icons.add(
         new IconCatalogEntry<>(
-            "api-app-off (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.API_APP_OFF)",
-            tagIcons::api_app_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "api-book (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.API_BOOK)",
-            tagIcons::api_book));
-    icons.add(
-        new IconCatalogEntry<>(
-            "api-off (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.API_OFF)",
-            tagIcons::api_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "apps (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.APPS)",
-            tagIcons::apps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "apps-off (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.APPS_OFF)",
-            tagIcons::apps_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "assembly (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.ASSEMBLY)",
-            tagIcons::assembly));
-    icons.add(
-        new IconCatalogEntry<>(
-            "assembly-off (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.ASSEMBLY_OFF)",
-            tagIcons::assembly_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "asset (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.ASSET)",
-            tagIcons::asset));
-    icons.add(
-        new IconCatalogEntry<>(
-            "auth-2fa (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.AUTH_2FA)",
-            tagIcons::auth_2fa));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bot-id (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.BOT_ID)",
-            tagIcons::bot_id));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bug (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.BUG)",
-            tagIcons::bug));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bug-off (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.BUG_OFF)",
-            tagIcons::bug_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "canary (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.CANARY)",
-            tagIcons::canary));
-    icons.add(
-        new IconCatalogEntry<>(
-            "code-ai (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.CODE_AI)",
-            tagIcons::code_ai));
-    icons.add(
-        new IconCatalogEntry<>(
-            "codeblock (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.CODEBLOCK)",
-            tagIcons::codeblock));
-    icons.add(
-        new IconCatalogEntry<>(
-            "connection (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.CONNECTION)",
-            tagIcons::connection));
-    icons.add(
-        new IconCatalogEntry<>(
-            "firewall-check (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.FIREWALL_CHECK)",
-            tagIcons::firewall_check));
-    icons.add(
-        new IconCatalogEntry<>(
-            "firewall-flame (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.FIREWALL_FLAME)",
-            tagIcons::firewall_flame));
-    icons.add(
-        new IconCatalogEntry<>(
-            "image-generation (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.IMAGE_GENERATION)",
+            "image-generation",
+            "TablerIcons.image_generation()",
             tagIcons::image_generation));
+    icons.add(new IconCatalogEntry<>("logs", "TablerIcons.logs()", tagIcons::logs));
     icons.add(
         new IconCatalogEntry<>(
-            "logs (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.LOGS)",
-            tagIcons::logs));
+            "microfrontends", "TablerIcons.microfrontends()", tagIcons::microfrontends));
     icons.add(
         new IconCatalogEntry<>(
-            "microfrontends (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.MICROFRONTENDS)",
-            tagIcons::microfrontends));
+            "middleware", "TablerIcons.middleware()", tagIcons::middleware));
+    icons.add(
+        new IconCatalogEntry<>("model-ai", "TablerIcons.model_ai()", tagIcons::model_ai));
     icons.add(
         new IconCatalogEntry<>(
-            "middleware (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.MIDDLEWARE)",
-            tagIcons::middleware));
+            "package-export", "TablerIcons.package_export()", tagIcons::package_export));
     icons.add(
         new IconCatalogEntry<>(
-            "model-ai (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.MODEL_AI)",
-            tagIcons::model_ai));
+            "package-import", "TablerIcons.package_import()", tagIcons::package_import));
+    icons.add(
+        new IconCatalogEntry<>("packages", "TablerIcons.packages()", tagIcons::packages));
+    icons.add(
+        new IconCatalogEntry<>("pipeline", "TablerIcons.pipeline()", tagIcons::pipeline));
+    icons.add(
+        new IconCatalogEntry<>("play-bug", "TablerIcons.play_bug()", tagIcons::play_bug));
     icons.add(
         new IconCatalogEntry<>(
-            "package-export (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.PACKAGE_EXPORT)",
-            tagIcons::package_export));
+            "play-bugs", "TablerIcons.play_bugs()", tagIcons::play_bugs));
+    icons.add(new IconCatalogEntry<>("prompt", "TablerIcons.prompt()", tagIcons::prompt));
     icons.add(
         new IconCatalogEntry<>(
-            "package-import (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.PACKAGE_IMPORT)",
-            tagIcons::package_import));
+            "queue-pop-in", "TablerIcons.queue_pop_in()", tagIcons::queue_pop_in));
     icons.add(
         new IconCatalogEntry<>(
-            "packages (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.PACKAGES)",
-            tagIcons::packages));
+            "queue-pop-out", "TablerIcons.queue_pop_out()", tagIcons::queue_pop_out));
     icons.add(
         new IconCatalogEntry<>(
-            "pipeline (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.PIPELINE)",
-            tagIcons::pipeline));
+            "scan-traces", "TablerIcons.scan_traces()", tagIcons::scan_traces));
+    icons.add(new IconCatalogEntry<>("sdk", "TablerIcons.sdk()", tagIcons::sdk));
+    icons.add(new IconCatalogEntry<>("seo", "TablerIcons.seo()", tagIcons::seo));
     icons.add(
         new IconCatalogEntry<>(
-            "play-bug (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.PLAY_BUG)",
-            tagIcons::play_bug));
+            "serverless", "TablerIcons.serverless()", tagIcons::serverless));
+    icons.add(
+        new IconCatalogEntry<>("sitemap", "TablerIcons.sitemap()", tagIcons::sitemap));
     icons.add(
         new IconCatalogEntry<>(
-            "play-bugs (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.PLAY_BUGS)",
-            tagIcons::play_bugs));
+            "sitemap-off", "TablerIcons.sitemap_off()", tagIcons::sitemap_off));
     icons.add(
         new IconCatalogEntry<>(
-            "prompt (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.PROMPT)",
-            tagIcons::prompt));
+            "source-code", "TablerIcons.source_code()", tagIcons::source_code));
     icons.add(
         new IconCatalogEntry<>(
-            "queue-pop-in (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.QUEUE_POP_IN)",
-            tagIcons::queue_pop_in));
+            "terminal-2", "TablerIcons.terminal_2()", tagIcons::terminal_2));
     icons.add(
         new IconCatalogEntry<>(
-            "queue-pop-out (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.QUEUE_POP_OUT)",
-            tagIcons::queue_pop_out));
+            "thinking-high", "TablerIcons.thinking_high()", tagIcons::thinking_high));
     icons.add(
         new IconCatalogEntry<>(
-            "scan-traces (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.SCAN_TRACES)",
-            tagIcons::scan_traces));
+            "thinking-low", "TablerIcons.thinking_low()", tagIcons::thinking_low));
     icons.add(
         new IconCatalogEntry<>(
-            "sdk (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.SDK)",
-            tagIcons::sdk));
-    icons.add(
-        new IconCatalogEntry<>(
-            "seo (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.SEO)",
-            tagIcons::seo));
-    icons.add(
-        new IconCatalogEntry<>(
-            "serverless (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.SERVERLESS)",
-            tagIcons::serverless));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sitemap (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.SITEMAP)",
-            tagIcons::sitemap));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sitemap-off (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.SITEMAP_OFF)",
-            tagIcons::sitemap_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "source-code (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.SOURCE_CODE)",
-            tagIcons::source_code));
-    icons.add(
-        new IconCatalogEntry<>(
-            "terminal-2 (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.TERMINAL_2)",
-            tagIcons::terminal_2));
-    icons.add(
-        new IconCatalogEntry<>(
-            "thinking-high (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.THINKING_HIGH)",
-            tagIcons::thinking_high));
-    icons.add(
-        new IconCatalogEntry<>(
-            "thinking-low (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.THINKING_LOW)",
-            tagIcons::thinking_low));
-    icons.add(
-        new IconCatalogEntry<>(
-            "thinking-medium (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.THINKING_MEDIUM)",
+            "thinking-medium",
+            "TablerIcons.thinking_medium()",
             tagIcons::thinking_medium));
     icons.add(
         new IconCatalogEntry<>(
-            "timeline-event (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.TIMELINE_EVENT)",
-            tagIcons::timeline_event));
+            "timeline-event", "TablerIcons.timeline_event()", tagIcons::timeline_event));
     icons.add(
         new IconCatalogEntry<>(
-            "timeline-event-exclamation (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.TIMELINE_EVENT_EXCLAMATION)",
+            "timeline-event-exclamation",
+            "TablerIcons.timeline_event_exclamation()",
             tagIcons::timeline_event_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "timeline-event-minus (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.TIMELINE_EVENT_MINUS)",
+            "timeline-event-minus",
+            "TablerIcons.timeline_event_minus()",
             tagIcons::timeline_event_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "timeline-event-plus (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.TIMELINE_EVENT_PLUS)",
+            "timeline-event-plus",
+            "TablerIcons.timeline_event_plus()",
             tagIcons::timeline_event_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "timeline-event-text (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.TIMELINE_EVENT_TEXT)",
+            "timeline-event-text",
+            "TablerIcons.timeline_event_text()",
             tagIcons::timeline_event_text));
     icons.add(
         new IconCatalogEntry<>(
-            "timeline-event-x (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.TIMELINE_EVENT_X)",
+            "timeline-event-x",
+            "TablerIcons.timeline_event_x()",
             tagIcons::timeline_event_x));
     icons.add(
-        new IconCatalogEntry<>(
-            "user-key (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.USER_KEY)",
-            tagIcons::user_key));
+        new IconCatalogEntry<>("user-key", "TablerIcons.user_key()", tagIcons::user_key));
+    icons.add(
+        new IconCatalogEntry<>("versions", "TablerIcons.versions()", tagIcons::versions));
     icons.add(
         new IconCatalogEntry<>(
-            "versions (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.VERSIONS)",
-            tagIcons::versions));
+            "versions-off", "TablerIcons.versions_off()", tagIcons::versions_off));
+    icons.add(
+        new IconCatalogEntry<>("webhook", "TablerIcons.webhook()", tagIcons::webhook));
     icons.add(
         new IconCatalogEntry<>(
-            "versions-off (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.VERSIONS_OFF)",
-            tagIcons::versions_off));
+            "webhook-off", "TablerIcons.webhook_off()", tagIcons::webhook_off));
     icons.add(
         new IconCatalogEntry<>(
-            "webhook (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.WEBHOOK)",
-            tagIcons::webhook));
+            "zero-config", "TablerIcons.zero_config()", tagIcons::zero_config));
     icons.add(
         new IconCatalogEntry<>(
-            "webhook-off (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.WEBHOOK_OFF)",
-            tagIcons::webhook_off));
+            "apps", "TablerIcons.apps_filled()", tagIcons::apps_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "zero-config (outline)",
-            "TablerIcon.create(TablerDevelopment.OutlineIcon.ZERO_CONFIG)",
-            tagIcons::zero_config));
+            "assembly", "TablerIcons.assembly_filled()", tagIcons::assembly_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "apps (filled)",
-            "TablerIcon.create(TablerDevelopment.FilledIcon.APPS)",
-            tagIcons::apps_filled));
+            "asset", "TablerIcons.asset_filled()", tagIcons::asset_filled));
+    icons.add(
+        new IconCatalogEntry<>("bug", "TablerIcons.bug_filled()", tagIcons::bug_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "assembly (filled)",
-            "TablerIcon.create(TablerDevelopment.FilledIcon.ASSEMBLY)",
-            tagIcons::assembly_filled));
+            "sitemap", "TablerIcons.sitemap_filled()", tagIcons::sitemap_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "asset (filled)",
-            "TablerIcon.create(TablerDevelopment.FilledIcon.ASSET)",
-            tagIcons::asset_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bug (filled)",
-            "TablerIcon.create(TablerDevelopment.FilledIcon.BUG)",
-            tagIcons::bug_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sitemap (filled)",
-            "TablerIcon.create(TablerDevelopment.FilledIcon.SITEMAP)",
-            tagIcons::sitemap_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "timeline-event (filled)",
-            "TablerIcon.create(TablerDevelopment.FilledIcon.TIMELINE_EVENT)",
+            "timeline-event",
+            "TablerIcons.timeline_event_filled()",
             tagIcons::timeline_event_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "versions (filled)",
-            "TablerIcon.create(TablerDevelopment.FilledIcon.VERSIONS)",
-            tagIcons::versions_filled));
+            "versions", "TablerIcons.versions_filled()", tagIcons::versions_filled));
   }
 
   public List<IconCatalogEntry<TablerIcon>> icons() {

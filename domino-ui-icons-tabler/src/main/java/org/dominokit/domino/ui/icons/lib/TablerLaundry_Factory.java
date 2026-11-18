@@ -31,228 +31,158 @@ public final class TablerLaundry_Factory {
   }
 
   private static void addIcons0() {
+    icons.add(new IconCatalogEntry<>("bleach", "TablerIcons.bleach()", tagIcons::bleach));
     icons.add(
         new IconCatalogEntry<>(
-            "bleach (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.BLEACH)",
-            tagIcons::bleach));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bleach-chlorine (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.BLEACH_CHLORINE)",
+            "bleach-chlorine",
+            "TablerIcons.bleach_chlorine()",
             tagIcons::bleach_chlorine));
     icons.add(
         new IconCatalogEntry<>(
-            "bleach-no-chlorine (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.BLEACH_NO_CHLORINE)",
+            "bleach-no-chlorine",
+            "TablerIcons.bleach_no_chlorine()",
             tagIcons::bleach_no_chlorine));
     icons.add(
         new IconCatalogEntry<>(
-            "bleach-off (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.BLEACH_OFF)",
-            tagIcons::bleach_off));
+            "bleach-off", "TablerIcons.bleach_off()", tagIcons::bleach_off));
+    icons.add(
+        new IconCatalogEntry<>("ironing", "TablerIcons.ironing()", tagIcons::ironing));
     icons.add(
         new IconCatalogEntry<>(
-            "ironing (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.IRONING)",
-            tagIcons::ironing));
+            "ironing-1", "TablerIcons.ironing_1()", tagIcons::ironing_1));
     icons.add(
         new IconCatalogEntry<>(
-            "ironing-1 (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.IRONING_1)",
-            tagIcons::ironing_1));
+            "ironing-2", "TablerIcons.ironing_2()", tagIcons::ironing_2));
     icons.add(
         new IconCatalogEntry<>(
-            "ironing-2 (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.IRONING_2)",
-            tagIcons::ironing_2));
+            "ironing-3", "TablerIcons.ironing_3()", tagIcons::ironing_3));
     icons.add(
         new IconCatalogEntry<>(
-            "ironing-3 (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.IRONING_3)",
-            tagIcons::ironing_3));
+            "ironing-off", "TablerIcons.ironing_off()", tagIcons::ironing_off));
     icons.add(
         new IconCatalogEntry<>(
-            "ironing-off (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.IRONING_OFF)",
-            tagIcons::ironing_off));
+            "ironing-steam", "TablerIcons.ironing_steam()", tagIcons::ironing_steam));
     icons.add(
         new IconCatalogEntry<>(
-            "ironing-steam (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.IRONING_STEAM)",
-            tagIcons::ironing_steam));
-    icons.add(
-        new IconCatalogEntry<>(
-            "ironing-steam-off (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.IRONING_STEAM_OFF)",
+            "ironing-steam-off",
+            "TablerIcons.ironing_steam_off()",
             tagIcons::ironing_steam_off));
+    icons.add(new IconCatalogEntry<>("wash", "TablerIcons.wash()", tagIcons::wash));
+    icons.add(
+        new IconCatalogEntry<>("wash-dry", "TablerIcons.wash_dry()", tagIcons::wash_dry));
     icons.add(
         new IconCatalogEntry<>(
-            "wash (outline)", "TablerIcon.create(TablerLaundry.OutlineIcon.WASH)", tagIcons::wash));
+            "wash-dry-1", "TablerIcons.wash_dry_1()", tagIcons::wash_dry_1));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-dry (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_DRY)",
-            tagIcons::wash_dry));
+            "wash-dry-2", "TablerIcons.wash_dry_2()", tagIcons::wash_dry_2));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-dry-1 (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_DRY_1)",
-            tagIcons::wash_dry_1));
+            "wash-dry-3", "TablerIcons.wash_dry_3()", tagIcons::wash_dry_3));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-dry-2 (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_DRY_2)",
-            tagIcons::wash_dry_2));
+            "wash-dry-a", "TablerIcons.wash_dry_a()", tagIcons::wash_dry_a));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-dry-3 (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_DRY_3)",
-            tagIcons::wash_dry_3));
+            "wash-dry-dip", "TablerIcons.wash_dry_dip()", tagIcons::wash_dry_dip));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-dry-a (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_DRY_A)",
-            tagIcons::wash_dry_a));
+            "wash-dry-f", "TablerIcons.wash_dry_f()", tagIcons::wash_dry_f));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-dry-dip (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_DRY_DIP)",
-            tagIcons::wash_dry_dip));
+            "wash-dry-flat", "TablerIcons.wash_dry_flat()", tagIcons::wash_dry_flat));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-dry-f (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_DRY_F)",
-            tagIcons::wash_dry_f));
+            "wash-dry-hang", "TablerIcons.wash_dry_hang()", tagIcons::wash_dry_hang));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-dry-flat (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_DRY_FLAT)",
-            tagIcons::wash_dry_flat));
+            "wash-dry-off", "TablerIcons.wash_dry_off()", tagIcons::wash_dry_off));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-dry-hang (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_DRY_HANG)",
-            tagIcons::wash_dry_hang));
+            "wash-dry-p", "TablerIcons.wash_dry_p()", tagIcons::wash_dry_p));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-dry-off (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_DRY_OFF)",
-            tagIcons::wash_dry_off));
+            "wash-dry-shade", "TablerIcons.wash_dry_shade()", tagIcons::wash_dry_shade));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-dry-p (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_DRY_P)",
-            tagIcons::wash_dry_p));
+            "wash-dry-w", "TablerIcons.wash_dry_w()", tagIcons::wash_dry_w));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-dry-shade (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_DRY_SHADE)",
-            tagIcons::wash_dry_shade));
+            "wash-dryclean", "TablerIcons.wash_dryclean()", tagIcons::wash_dryclean));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-dry-w (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_DRY_W)",
-            tagIcons::wash_dry_w));
-    icons.add(
-        new IconCatalogEntry<>(
-            "wash-dryclean (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_DRYCLEAN)",
-            tagIcons::wash_dryclean));
-    icons.add(
-        new IconCatalogEntry<>(
-            "wash-dryclean-off (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_DRYCLEAN_OFF)",
+            "wash-dryclean-off",
+            "TablerIcons.wash_dryclean_off()",
             tagIcons::wash_dryclean_off));
     icons.add(
-        new IconCatalogEntry<>(
-            "wash-eco (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_ECO)",
-            tagIcons::wash_eco));
+        new IconCatalogEntry<>("wash-eco", "TablerIcons.wash_eco()", tagIcons::wash_eco));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-gentle (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_GENTLE)",
-            tagIcons::wash_gentle));
+            "wash-gentle", "TablerIcons.wash_gentle()", tagIcons::wash_gentle));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-hand (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_HAND)",
-            tagIcons::wash_hand));
+            "wash-hand", "TablerIcons.wash_hand()", tagIcons::wash_hand));
+    icons.add(
+        new IconCatalogEntry<>("wash-off", "TablerIcons.wash_off()", tagIcons::wash_off));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-off (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_OFF)",
-            tagIcons::wash_off));
+            "wash-press", "TablerIcons.wash_press()", tagIcons::wash_press));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-press (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_PRESS)",
-            tagIcons::wash_press));
-    icons.add(
-        new IconCatalogEntry<>(
-            "wash-temperature-1 (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_TEMPERATURE_1)",
+            "wash-temperature-1",
+            "TablerIcons.wash_temperature_1()",
             tagIcons::wash_temperature_1));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-temperature-2 (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_TEMPERATURE_2)",
+            "wash-temperature-2",
+            "TablerIcons.wash_temperature_2()",
             tagIcons::wash_temperature_2));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-temperature-3 (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_TEMPERATURE_3)",
+            "wash-temperature-3",
+            "TablerIcons.wash_temperature_3()",
             tagIcons::wash_temperature_3));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-temperature-4 (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_TEMPERATURE_4)",
+            "wash-temperature-4",
+            "TablerIcons.wash_temperature_4()",
             tagIcons::wash_temperature_4));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-temperature-5 (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_TEMPERATURE_5)",
+            "wash-temperature-5",
+            "TablerIcons.wash_temperature_5()",
             tagIcons::wash_temperature_5));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-temperature-6 (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_TEMPERATURE_6)",
+            "wash-temperature-6",
+            "TablerIcons.wash_temperature_6()",
             tagIcons::wash_temperature_6));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-tumble-dry (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_TUMBLE_DRY)",
+            "wash-tumble-dry",
+            "TablerIcons.wash_tumble_dry()",
             tagIcons::wash_tumble_dry));
     icons.add(
         new IconCatalogEntry<>(
-            "wash-tumble-off (outline)",
-            "TablerIcon.create(TablerLaundry.OutlineIcon.WASH_TUMBLE_OFF)",
+            "wash-tumble-off",
+            "TablerIcons.wash_tumble_off()",
             tagIcons::wash_tumble_off));
     icons.add(
         new IconCatalogEntry<>(
-            "ironing (filled)",
-            "TablerIcon.create(TablerLaundry.FilledIcon.IRONING)",
-            tagIcons::ironing_filled));
+            "ironing", "TablerIcons.ironing_filled()", tagIcons::ironing_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "ironing-1 (filled)",
-            "TablerIcon.create(TablerLaundry.FilledIcon.IRONING_1)",
-            tagIcons::ironing_1_filled));
+            "ironing-1", "TablerIcons.ironing_1_filled()", tagIcons::ironing_1_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "ironing-2 (filled)",
-            "TablerIcon.create(TablerLaundry.FilledIcon.IRONING_2)",
-            tagIcons::ironing_2_filled));
+            "ironing-2", "TablerIcons.ironing_2_filled()", tagIcons::ironing_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "ironing-3 (filled)",
-            "TablerIcon.create(TablerLaundry.FilledIcon.IRONING_3)",
-            tagIcons::ironing_3_filled));
+            "ironing-3", "TablerIcons.ironing_3_filled()", tagIcons::ironing_3_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "ironing-steam (filled)",
-            "TablerIcon.create(TablerLaundry.FilledIcon.IRONING_STEAM)",
+            "ironing-steam",
+            "TablerIcons.ironing_steam_filled()",
             tagIcons::ironing_steam_filled));
   }
 

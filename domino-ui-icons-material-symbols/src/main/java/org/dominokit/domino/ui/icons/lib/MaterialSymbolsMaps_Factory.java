@@ -32,727 +32,539 @@ public final class MaterialSymbolsMaps_Factory {
   }
 
   private static void addIcons0() {
+    icons.add(new IconCatalogEntry<>("360", "MaterialSymbols._360()", tagIcons::_360_maps));
     icons.add(
-        new IconCatalogEntry<>("360", "MaterialSymbolsIcon.create(\"360\")", tagIcons::_360_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "add_home", "MaterialSymbolsIcon.create(\"add_home\")", tagIcons::add_home_maps));
+        new IconCatalogEntry<>("add_home", "MaterialSymbols.add_home()", tagIcons::add_home_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "add_home_work",
-            "MaterialSymbolsIcon.create(\"add_home_work\")",
-            tagIcons::add_home_work_maps));
+            "add_home_work", "MaterialSymbols.add_home_work()", tagIcons::add_home_work_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "add_location",
-            "MaterialSymbolsIcon.create(\"add_location\")",
-            tagIcons::add_location_maps));
+            "add_location", "MaterialSymbols.add_location()", tagIcons::add_location_maps));
     icons.add(
         new IconCatalogEntry<>(
             "add_location_alt",
-            "MaterialSymbolsIcon.create(\"add_location_alt\")",
+            "MaterialSymbols.add_location_alt()",
             tagIcons::add_location_alt_maps));
     icons.add(
-        new IconCatalogEntry<>(
-            "add_road", "MaterialSymbolsIcon.create(\"add_road\")", tagIcons::add_road_maps));
+        new IconCatalogEntry<>("add_road", "MaterialSymbols.add_road()", tagIcons::add_road_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "add_triangle",
-            "MaterialSymbolsIcon.create(\"add_triangle\")",
-            tagIcons::add_triangle_maps));
+            "add_triangle", "MaterialSymbols.add_triangle()", tagIcons::add_triangle_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "airline_stops",
-            "MaterialSymbolsIcon.create(\"airline_stops\")",
-            tagIcons::airline_stops_maps));
+            "airline_stops", "MaterialSymbols.airline_stops()", tagIcons::airline_stops_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "alt_route", "MaterialSymbolsIcon.create(\"alt_route\")", tagIcons::alt_route_maps));
+            "alt_route", "MaterialSymbols.alt_route()", tagIcons::alt_route_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "assist_walker",
-            "MaterialSymbolsIcon.create(\"assist_walker\")",
-            tagIcons::assist_walker_maps));
+            "assist_walker", "MaterialSymbols.assist_walker()", tagIcons::assist_walker_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "award_meal", "MaterialSymbolsIcon.create(\"award_meal\")", tagIcons::award_meal_maps));
+            "award_meal", "MaterialSymbols.award_meal()", tagIcons::award_meal_maps));
     icons.add(
         new IconCatalogEntry<>(
             "baby_changing_station",
-            "MaterialSymbolsIcon.create(\"baby_changing_station\")",
+            "MaterialSymbols.baby_changing_station()",
             tagIcons::baby_changing_station_maps));
     icons.add(
-        new IconCatalogEntry<>(
-            "beenhere", "MaterialSymbolsIcon.create(\"beenhere\")", tagIcons::beenhere_maps));
+        new IconCatalogEntry<>("beenhere", "MaterialSymbols.beenhere()", tagIcons::beenhere_maps));
     icons.add(
         new IconCatalogEntry<>(
             "business_center",
-            "MaterialSymbolsIcon.create(\"business_center\")",
+            "MaterialSymbols.business_center()",
             tagIcons::business_center_maps));
     icons.add(
         new IconCatalogEntry<>(
             "calendar_meal_2",
-            "MaterialSymbolsIcon.create(\"calendar_meal_2\")",
+            "MaterialSymbols.calendar_meal_2()",
             tagIcons::calendar_meal_2_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "castle", "MaterialSymbolsIcon.create(\"castle\")", tagIcons::castle_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "church", "MaterialSymbolsIcon.create(\"church\")", tagIcons::church_maps));
+    icons.add(new IconCatalogEntry<>("castle", "MaterialSymbols.castle()", tagIcons::castle_maps));
+    icons.add(new IconCatalogEntry<>("church", "MaterialSymbols.church()", tagIcons::church_maps));
     icons.add(
         new IconCatalogEntry<>(
             "cleaning_services",
-            "MaterialSymbolsIcon.create(\"cleaning_services\")",
+            "MaterialSymbols.cleaning_services()",
             tagIcons::cleaning_services_maps));
     icons.add(
         new IconCatalogEntry<>(
             "compass_calibration",
-            "MaterialSymbolsIcon.create(\"compass_calibration\")",
+            "MaterialSymbols.compass_calibration()",
             tagIcons::compass_calibration_maps));
     icons.add(
         new IconCatalogEntry<>(
             "connecting_airports",
-            "MaterialSymbolsIcon.create(\"connecting_airports\")",
+            "MaterialSymbols.connecting_airports()",
             tagIcons::connecting_airports_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "crisis_alert",
-            "MaterialSymbolsIcon.create(\"crisis_alert\")",
-            tagIcons::crisis_alert_maps));
+            "crisis_alert", "MaterialSymbols.crisis_alert()", tagIcons::crisis_alert_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "directions", "MaterialSymbolsIcon.create(\"directions\")", tagIcons::directions_maps));
+            "directions", "MaterialSymbols.directions()", tagIcons::directions_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "directions_alt",
-            "MaterialSymbolsIcon.create(\"directions_alt\")",
-            tagIcons::directions_alt_maps));
+            "directions_alt", "MaterialSymbols.directions_alt()", tagIcons::directions_alt_maps));
     icons.add(
         new IconCatalogEntry<>(
             "directions_alt_off",
-            "MaterialSymbolsIcon.create(\"directions_alt_off\")",
+            "MaterialSymbols.directions_alt_off()",
             tagIcons::directions_alt_off_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "directions_off",
-            "MaterialSymbolsIcon.create(\"directions_off\")",
-            tagIcons::directions_off_maps));
+            "directions_off", "MaterialSymbols.directions_off()", tagIcons::directions_off_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "dry_cleaning",
-            "MaterialSymbolsIcon.create(\"dry_cleaning\")",
-            tagIcons::dry_cleaning_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "east", "MaterialSymbolsIcon.create(\"east\")", tagIcons::east_maps));
+            "dry_cleaning", "MaterialSymbols.dry_cleaning()", tagIcons::dry_cleaning_maps));
+    icons.add(new IconCatalogEntry<>("east", "MaterialSymbols.east()", tagIcons::east_maps));
     icons.add(
         new IconCatalogEntry<>(
             "edit_attributes",
-            "MaterialSymbolsIcon.create(\"edit_attributes\")",
+            "MaterialSymbols.edit_attributes()",
             tagIcons::edit_attributes_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "edit_location",
-            "MaterialSymbolsIcon.create(\"edit_location\")",
-            tagIcons::edit_location_maps));
+            "edit_location", "MaterialSymbols.edit_location()", tagIcons::edit_location_maps));
     icons.add(
         new IconCatalogEntry<>(
             "edit_location_alt",
-            "MaterialSymbolsIcon.create(\"edit_location_alt\")",
+            "MaterialSymbols.edit_location_alt()",
             tagIcons::edit_location_alt_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "edit_road", "MaterialSymbolsIcon.create(\"edit_road\")", tagIcons::edit_road_maps));
+            "edit_road", "MaterialSymbols.edit_road()", tagIcons::edit_road_maps));
     icons.add(
         new IconCatalogEntry<>(
             "electrical_services",
-            "MaterialSymbolsIcon.create(\"electrical_services\")",
+            "MaterialSymbols.electrical_services()",
             tagIcons::electrical_services_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "emergency", "MaterialSymbolsIcon.create(\"emergency\")", tagIcons::emergency_maps));
+            "emergency", "MaterialSymbols.emergency()", tagIcons::emergency_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "ev_station", "MaterialSymbolsIcon.create(\"ev_station\")", tagIcons::ev_station_maps));
+            "ev_station", "MaterialSymbols.ev_station()", tagIcons::ev_station_maps));
+    icons.add(
+        new IconCatalogEntry<>("explore", "MaterialSymbols.explore()", tagIcons::explore_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "explore", "MaterialSymbolsIcon.create(\"explore\")", tagIcons::explore_maps));
+            "explore_nearby", "MaterialSymbols.explore_nearby()", tagIcons::explore_nearby_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "explore_nearby",
-            "MaterialSymbolsIcon.create(\"explore_nearby\")",
-            tagIcons::explore_nearby_maps));
+            "explore_off", "MaterialSymbols.explore_off()", tagIcons::explore_off_maps));
+    icons.add(
+        new IconCatalogEntry<>("factory", "MaterialSymbols.factory()", tagIcons::factory_maps));
+    icons.add(
+        new IconCatalogEntry<>("fastfood", "MaterialSymbols.fastfood()", tagIcons::fastfood_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "explore_off",
-            "MaterialSymbolsIcon.create(\"explore_off\")",
-            tagIcons::explore_off_maps));
+            "file_map_stack", "MaterialSymbols.file_map_stack()", tagIcons::file_map_stack_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "factory", "MaterialSymbolsIcon.create(\"factory\")", tagIcons::factory_maps));
+            "fire_hydrant", "MaterialSymbols.fire_hydrant()", tagIcons::fire_hydrant_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "fastfood", "MaterialSymbolsIcon.create(\"fastfood\")", tagIcons::fastfood_maps));
+            "fire_truck", "MaterialSymbols.fire_truck()", tagIcons::fire_truck_maps));
+    icons.add(new IconCatalogEntry<>("flag", "MaterialSymbols.flag()", tagIcons::flag_maps));
+    icons.add(new IconCatalogEntry<>("flag_2", "MaterialSymbols.flag_2()", tagIcons::flag_2_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "file_map_stack",
-            "MaterialSymbolsIcon.create(\"file_map_stack\")",
-            tagIcons::file_map_stack_maps));
+            "flag_check", "MaterialSymbols.flag_check()", tagIcons::flag_check_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "fire_hydrant",
-            "MaterialSymbolsIcon.create(\"fire_hydrant\")",
-            tagIcons::fire_hydrant_maps));
+            "flag_circle", "MaterialSymbols.flag_circle()", tagIcons::flag_circle_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "fire_truck", "MaterialSymbolsIcon.create(\"fire_truck\")", tagIcons::fire_truck_maps));
+            "flight_class", "MaterialSymbols.flight_class()", tagIcons::flight_class_maps));
+    icons.add(
+        new IconCatalogEntry<>("fmd_bad", "MaterialSymbols.fmd_bad()", tagIcons::fmd_bad_maps));
+    icons.add(new IconCatalogEntry<>("fort", "MaterialSymbols.fort()", tagIcons::fort_maps));
+    icons.add(new IconCatalogEntry<>("globe", "MaterialSymbols.globe()", tagIcons::globe_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "flag", "MaterialSymbolsIcon.create(\"flag\")", tagIcons::flag_maps));
+            "globe_asia", "MaterialSymbols.globe_asia()", tagIcons::globe_asia_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "flag_2", "MaterialSymbolsIcon.create(\"flag_2\")", tagIcons::flag_2_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "flag_check", "MaterialSymbolsIcon.create(\"flag_check\")", tagIcons::flag_check_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "flag_circle",
-            "MaterialSymbolsIcon.create(\"flag_circle\")",
-            tagIcons::flag_circle_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "flight_class",
-            "MaterialSymbolsIcon.create(\"flight_class\")",
-            tagIcons::flight_class_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "fmd_bad", "MaterialSymbolsIcon.create(\"fmd_bad\")", tagIcons::fmd_bad_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "fort", "MaterialSymbolsIcon.create(\"fort\")", tagIcons::fort_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "globe", "MaterialSymbolsIcon.create(\"globe\")", tagIcons::globe_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "globe_asia", "MaterialSymbolsIcon.create(\"globe_asia\")", tagIcons::globe_asia_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "globe_clock",
-            "MaterialSymbolsIcon.create(\"globe_clock\")",
-            tagIcons::globe_clock_maps));
+            "globe_clock", "MaterialSymbols.globe_clock()", tagIcons::globe_clock_maps));
     icons.add(
         new IconCatalogEntry<>(
             "globe_location_pin",
-            "MaterialSymbolsIcon.create(\"globe_location_pin\")",
+            "MaterialSymbols.globe_location_pin()",
             tagIcons::globe_location_pin_maps));
     icons.add(
-        new IconCatalogEntry<>(
-            "globe_uk", "MaterialSymbolsIcon.create(\"globe_uk\")", tagIcons::globe_uk_maps));
+        new IconCatalogEntry<>("globe_uk", "MaterialSymbols.globe_uk()", tagIcons::globe_uk_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "hanami_dango",
-            "MaterialSymbolsIcon.create(\"hanami_dango\")",
-            tagIcons::hanami_dango_maps));
+            "hanami_dango", "MaterialSymbols.hanami_dango()", tagIcons::hanami_dango_maps));
     icons.add(
-        new IconCatalogEntry<>(
-            "handyman", "MaterialSymbolsIcon.create(\"handyman\")", tagIcons::handyman_maps));
+        new IconCatalogEntry<>("handyman", "MaterialSymbols.handyman()", tagIcons::handyman_maps));
     icons.add(
-        new IconCatalogEntry<>(
-            "home_pin", "MaterialSymbolsIcon.create(\"home_pin\")", tagIcons::home_pin_maps));
+        new IconCatalogEntry<>("home_pin", "MaterialSymbols.home_pin()", tagIcons::home_pin_maps));
     icons.add(
         new IconCatalogEntry<>(
             "home_repair_service",
-            "MaterialSymbolsIcon.create(\"home_repair_service\")",
+            "MaterialSymbols.home_repair_service()",
             tagIcons::home_repair_service_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "home_work", "MaterialSymbolsIcon.create(\"home_work\")", tagIcons::home_work_maps));
+            "home_work", "MaterialSymbols.home_work()", tagIcons::home_work_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "kanji_alcohol",
-            "MaterialSymbolsIcon.create(\"kanji_alcohol\")",
-            tagIcons::kanji_alcohol_maps));
+            "kanji_alcohol", "MaterialSymbols.kanji_alcohol()", tagIcons::kanji_alcohol_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "kebab_dining",
-            "MaterialSymbolsIcon.create(\"kebab_dining\")",
-            tagIcons::kebab_dining_maps));
+            "kebab_dining", "MaterialSymbols.kebab_dining()", tagIcons::kebab_dining_maps));
+    icons.add(new IconCatalogEntry<>("layers", "MaterialSymbols.layers()", tagIcons::layers_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "layers", "MaterialSymbolsIcon.create(\"layers\")", tagIcons::layers_maps));
+            "layers_clear", "MaterialSymbols.layers_clear()", tagIcons::layers_clear_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "layers_clear",
-            "MaterialSymbolsIcon.create(\"layers_clear\")",
-            tagIcons::layers_clear_maps));
+            "local_activity", "MaterialSymbols.local_activity()", tagIcons::local_activity_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "local_activity",
-            "MaterialSymbolsIcon.create(\"local_activity\")",
-            tagIcons::local_activity_maps));
+            "local_atm", "MaterialSymbols.local_atm()", tagIcons::local_atm_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "local_atm", "MaterialSymbolsIcon.create(\"local_atm\")", tagIcons::local_atm_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "local_car_wash",
-            "MaterialSymbolsIcon.create(\"local_car_wash\")",
-            tagIcons::local_car_wash_maps));
+            "local_car_wash", "MaterialSymbols.local_car_wash()", tagIcons::local_car_wash_maps));
     icons.add(
         new IconCatalogEntry<>(
             "local_convenience_store",
-            "MaterialSymbolsIcon.create(\"local_convenience_store\")",
+            "MaterialSymbols.local_convenience_store()",
             tagIcons::local_convenience_store_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "local_drink",
-            "MaterialSymbolsIcon.create(\"local_drink\")",
-            tagIcons::local_drink_maps));
+            "local_drink", "MaterialSymbols.local_drink()", tagIcons::local_drink_maps));
     icons.add(
         new IconCatalogEntry<>(
             "local_fire_department",
-            "MaterialSymbolsIcon.create(\"local_fire_department\")",
+            "MaterialSymbols.local_fire_department()",
             tagIcons::local_fire_department_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "local_florist",
-            "MaterialSymbolsIcon.create(\"local_florist\")",
-            tagIcons::local_florist_maps));
+            "local_florist", "MaterialSymbols.local_florist()", tagIcons::local_florist_maps));
     icons.add(
         new IconCatalogEntry<>(
             "local_gas_station",
-            "MaterialSymbolsIcon.create(\"local_gas_station\")",
+            "MaterialSymbols.local_gas_station()",
             tagIcons::local_gas_station_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "local_hospital",
-            "MaterialSymbolsIcon.create(\"local_hospital\")",
-            tagIcons::local_hospital_maps));
+            "local_hospital", "MaterialSymbols.local_hospital()", tagIcons::local_hospital_maps));
     icons.add(
         new IconCatalogEntry<>(
             "local_laundry_service",
-            "MaterialSymbolsIcon.create(\"local_laundry_service\")",
+            "MaterialSymbols.local_laundry_service()",
             tagIcons::local_laundry_service_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "local_library",
-            "MaterialSymbolsIcon.create(\"local_library\")",
-            tagIcons::local_library_maps));
+            "local_library", "MaterialSymbols.local_library()", tagIcons::local_library_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "local_mall", "MaterialSymbolsIcon.create(\"local_mall\")", tagIcons::local_mall_maps));
+            "local_mall", "MaterialSymbols.local_mall()", tagIcons::local_mall_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "local_parking",
-            "MaterialSymbolsIcon.create(\"local_parking\")",
-            tagIcons::local_parking_maps));
+            "local_parking", "MaterialSymbols.local_parking()", tagIcons::local_parking_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "local_pharmacy",
-            "MaterialSymbolsIcon.create(\"local_pharmacy\")",
-            tagIcons::local_pharmacy_maps));
+            "local_pharmacy", "MaterialSymbols.local_pharmacy()", tagIcons::local_pharmacy_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "local_pizza",
-            "MaterialSymbolsIcon.create(\"local_pizza\")",
-            tagIcons::local_pizza_maps));
+            "local_pizza", "MaterialSymbols.local_pizza()", tagIcons::local_pizza_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "local_police",
-            "MaterialSymbolsIcon.create(\"local_police\")",
-            tagIcons::local_police_maps));
+            "local_police", "MaterialSymbols.local_police()", tagIcons::local_police_maps));
     icons.add(
         new IconCatalogEntry<>(
             "local_post_office",
-            "MaterialSymbolsIcon.create(\"local_post_office\")",
+            "MaterialSymbols.local_post_office()",
             tagIcons::local_post_office_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "local_see", "MaterialSymbolsIcon.create(\"local_see\")", tagIcons::local_see_maps));
+            "local_see", "MaterialSymbols.local_see()", tagIcons::local_see_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "location_away",
-            "MaterialSymbolsIcon.create(\"location_away\")",
-            tagIcons::location_away_maps));
+            "location_away", "MaterialSymbols.location_away()", tagIcons::location_away_maps));
     icons.add(
         new IconCatalogEntry<>(
             "location_disabled",
-            "MaterialSymbolsIcon.create(\"location_disabled\")",
+            "MaterialSymbols.location_disabled()",
             tagIcons::location_disabled_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "location_home",
-            "MaterialSymbolsIcon.create(\"location_home\")",
-            tagIcons::location_home_maps));
+            "location_home", "MaterialSymbols.location_home()", tagIcons::location_home_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "location_off",
-            "MaterialSymbolsIcon.create(\"location_off\")",
-            tagIcons::location_off_maps));
+            "location_off", "MaterialSymbols.location_off()", tagIcons::location_off_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "location_on",
-            "MaterialSymbolsIcon.create(\"location_on\")",
-            tagIcons::location_on_maps));
+            "location_on", "MaterialSymbols.location_on()", tagIcons::location_on_maps));
     icons.add(
         new IconCatalogEntry<>(
             "location_searching",
-            "MaterialSymbolsIcon.create(\"location_searching\")",
+            "MaterialSymbols.location_searching()",
             tagIcons::location_searching_maps));
-    icons.add(
-        new IconCatalogEntry<>("map", "MaterialSymbolsIcon.create(\"map\")", tagIcons::map_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "map_pin_heart",
-            "MaterialSymbolsIcon.create(\"map_pin_heart\")",
-            tagIcons::map_pin_heart_maps));
+    icons.add(new IconCatalogEntry<>("map", "MaterialSymbols.map()", tagIcons::map_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "map_pin_review",
-            "MaterialSymbolsIcon.create(\"map_pin_review\")",
-            tagIcons::map_pin_review_maps));
+            "map_pin_heart", "MaterialSymbols.map_pin_heart()", tagIcons::map_pin_heart_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "map_search", "MaterialSymbolsIcon.create(\"map_search\")", tagIcons::map_search_maps));
+            "map_pin_review", "MaterialSymbols.map_pin_review()", tagIcons::map_pin_review_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "maps_ugc", "MaterialSymbolsIcon.create(\"maps_ugc\")", tagIcons::maps_ugc_maps));
+            "map_search", "MaterialSymbols.map_search()", tagIcons::map_search_maps));
+    icons.add(
+        new IconCatalogEntry<>("maps_ugc", "MaterialSymbols.maps_ugc()", tagIcons::maps_ugc_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "meal_dinner",
-            "MaterialSymbolsIcon.create(\"meal_dinner\")",
-            tagIcons::meal_dinner_maps));
+            "meal_dinner", "MaterialSymbols.meal_dinner()", tagIcons::meal_dinner_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "meal_lunch", "MaterialSymbolsIcon.create(\"meal_lunch\")", tagIcons::meal_lunch_maps));
+            "meal_lunch", "MaterialSymbols.meal_lunch()", tagIcons::meal_lunch_maps));
     icons.add(
         new IconCatalogEntry<>(
             "medical_services",
-            "MaterialSymbolsIcon.create(\"medical_services\")",
+            "MaterialSymbols.medical_services()",
             tagIcons::medical_services_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "minor_crash",
-            "MaterialSymbolsIcon.create(\"minor_crash\")",
-            tagIcons::minor_crash_maps));
+            "minor_crash", "MaterialSymbols.minor_crash()", tagIcons::minor_crash_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "mode_of_travel",
-            "MaterialSymbolsIcon.create(\"mode_of_travel\")",
-            tagIcons::mode_of_travel_maps));
+            "mode_of_travel", "MaterialSymbols.mode_of_travel()", tagIcons::mode_of_travel_maps));
+    icons.add(new IconCatalogEntry<>("mosque", "MaterialSymbols.mosque()", tagIcons::mosque_maps));
+    icons.add(new IconCatalogEntry<>("move", "MaterialSymbols.move()", tagIcons::move_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "mosque", "MaterialSymbolsIcon.create(\"mosque\")", tagIcons::mosque_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "move", "MaterialSymbolsIcon.create(\"move\")", tagIcons::move_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "move_location",
-            "MaterialSymbolsIcon.create(\"move_location\")",
-            tagIcons::move_location_maps));
+            "move_location", "MaterialSymbols.move_location()", tagIcons::move_location_maps));
   }
 
   private static void addIcons1() {
     icons.add(
         new IconCatalogEntry<>(
-            "moved_location",
-            "MaterialSymbolsIcon.create(\"moved_location\")",
-            tagIcons::moved_location_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "moving", "MaterialSymbolsIcon.create(\"moving\")", tagIcons::moving_maps));
+            "moved_location", "MaterialSymbols.moved_location()", tagIcons::moved_location_maps));
+    icons.add(new IconCatalogEntry<>("moving", "MaterialSymbols.moving()", tagIcons::moving_maps));
     icons.add(
         new IconCatalogEntry<>(
             "moving_ministry",
-            "MaterialSymbolsIcon.create(\"moving_ministry\")",
+            "MaterialSymbols.moving_ministry()",
             tagIcons::moving_ministry_maps));
     icons.add(
         new IconCatalogEntry<>(
             "multiple_airports",
-            "MaterialSymbolsIcon.create(\"multiple_airports\")",
+            "MaterialSymbols.multiple_airports()",
             tagIcons::multiple_airports_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "multiple_stop",
-            "MaterialSymbolsIcon.create(\"multiple_stop\")",
-            tagIcons::multiple_stop_maps));
+            "multiple_stop", "MaterialSymbols.multiple_stop()", tagIcons::multiple_stop_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "my_location",
-            "MaterialSymbolsIcon.create(\"my_location\")",
-            tagIcons::my_location_maps));
+            "my_location", "MaterialSymbols.my_location()", tagIcons::my_location_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "navigation", "MaterialSymbolsIcon.create(\"navigation\")", tagIcons::navigation_maps));
+            "navigation", "MaterialSymbols.navigation()", tagIcons::navigation_maps));
     icons.add(
-        new IconCatalogEntry<>(
-            "near_me", "MaterialSymbolsIcon.create(\"near_me\")", tagIcons::near_me_maps));
+        new IconCatalogEntry<>("near_me", "MaterialSymbols.near_me()", tagIcons::near_me_maps));
     icons.add(
         new IconCatalogEntry<>(
             "near_me_disabled",
-            "MaterialSymbolsIcon.create(\"near_me_disabled\")",
+            "MaterialSymbols.near_me_disabled()",
             tagIcons::near_me_disabled_maps));
     icons.add(
-        new IconCatalogEntry<>(
-            "no_meals", "MaterialSymbolsIcon.create(\"no_meals\")", tagIcons::no_meals_maps));
+        new IconCatalogEntry<>("no_meals", "MaterialSymbols.no_meals()", tagIcons::no_meals_maps));
+    icons.add(new IconCatalogEntry<>("north", "MaterialSymbols.north()", tagIcons::north_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "north", "MaterialSymbolsIcon.create(\"north\")", tagIcons::north_maps));
+            "north_east", "MaterialSymbols.north_east()", tagIcons::north_east_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "north_east", "MaterialSymbolsIcon.create(\"north_east\")", tagIcons::north_east_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "north_west", "MaterialSymbolsIcon.create(\"north_west\")", tagIcons::north_west_maps));
+            "north_west", "MaterialSymbols.north_west()", tagIcons::north_west_maps));
     icons.add(
         new IconCatalogEntry<>(
             "not_listed_location",
-            "MaterialSymbolsIcon.create(\"not_listed_location\")",
+            "MaterialSymbols.not_listed_location()",
             tagIcons::not_listed_location_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "package", "MaterialSymbolsIcon.create(\"package\")", tagIcons::package_icon_maps));
+            "package", "MaterialSymbols.package_icon()", tagIcons::package_icon_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "package_2", "MaterialSymbolsIcon.create(\"package_2\")", tagIcons::package_2_maps));
+            "package_2", "MaterialSymbols.package_2()", tagIcons::package_2_maps));
     icons.add(
         new IconCatalogEntry<>(
             "parent_child_dining",
-            "MaterialSymbolsIcon.create(\"parent_child_dining\")",
+            "MaterialSymbols.parent_child_dining()",
             tagIcons::parent_child_dining_maps));
+    icons.add(new IconCatalogEntry<>("park", "MaterialSymbols.park()", tagIcons::park_maps));
+    icons.add(
+        new IconCatalogEntry<>("pergola", "MaterialSymbols.pergola()", tagIcons::pergola_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "park", "MaterialSymbolsIcon.create(\"park\")", tagIcons::park_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "pergola", "MaterialSymbolsIcon.create(\"pergola\")", tagIcons::pergola_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "person_pin", "MaterialSymbolsIcon.create(\"person_pin\")", tagIcons::person_pin_maps));
+            "person_pin", "MaterialSymbols.person_pin()", tagIcons::person_pin_maps));
     icons.add(
         new IconCatalogEntry<>(
             "person_pin_circle",
-            "MaterialSymbolsIcon.create(\"person_pin_circle\")",
+            "MaterialSymbols.person_pin_circle()",
             tagIcons::person_pin_circle_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "pest_control",
-            "MaterialSymbolsIcon.create(\"pest_control\")",
-            tagIcons::pest_control_maps));
+            "pest_control", "MaterialSymbols.pest_control()", tagIcons::pest_control_maps));
     icons.add(
         new IconCatalogEntry<>(
             "pest_control_rodent",
-            "MaterialSymbolsIcon.create(\"pest_control_rodent\")",
+            "MaterialSymbols.pest_control_rodent()",
             tagIcons::pest_control_rodent_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "pet_supplies",
-            "MaterialSymbolsIcon.create(\"pet_supplies\")",
-            tagIcons::pet_supplies_maps));
+            "pet_supplies", "MaterialSymbols.pet_supplies()", tagIcons::pet_supplies_maps));
+    icons.add(
+        new IconCatalogEntry<>("pin_drop", "MaterialSymbols.pin_drop()", tagIcons::pin_drop_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "pin_drop", "MaterialSymbolsIcon.create(\"pin_drop\")", tagIcons::pin_drop_maps));
+            "pin_history", "MaterialSymbols.pin_history()", tagIcons::pin_history_maps));
+    icons.add(
+        new IconCatalogEntry<>("pin_road", "MaterialSymbols.pin_road()", tagIcons::pin_road_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "pin_history",
-            "MaterialSymbolsIcon.create(\"pin_history\")",
-            tagIcons::pin_history_maps));
+            "pin_road_2", "MaterialSymbols.pin_road_2()", tagIcons::pin_road_2_maps));
+    icons.add(
+        new IconCatalogEntry<>("plumbing", "MaterialSymbols.plumbing()", tagIcons::plumbing_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "pin_road", "MaterialSymbolsIcon.create(\"pin_road\")", tagIcons::pin_road_maps));
+            "remove_road", "MaterialSymbols.remove_road()", tagIcons::remove_road_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "pin_road_2", "MaterialSymbolsIcon.create(\"pin_road_2\")", tagIcons::pin_road_2_maps));
+            "rest_area", "MaterialSymbols.rest_area()", tagIcons::rest_area_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "plumbing", "MaterialSymbolsIcon.create(\"plumbing\")", tagIcons::plumbing_maps));
+            "restaurant", "MaterialSymbols.restaurant()", tagIcons::restaurant_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "remove_road",
-            "MaterialSymbolsIcon.create(\"remove_road\")",
-            tagIcons::remove_road_maps));
+            "run_circle", "MaterialSymbols.run_circle()", tagIcons::run_circle_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "rest_area", "MaterialSymbolsIcon.create(\"rest_area\")", tagIcons::rest_area_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "restaurant", "MaterialSymbolsIcon.create(\"restaurant\")", tagIcons::restaurant_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "run_circle", "MaterialSymbolsIcon.create(\"run_circle\")", tagIcons::run_circle_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "safety_check",
-            "MaterialSymbolsIcon.create(\"safety_check\")",
-            tagIcons::safety_check_maps));
+            "safety_check", "MaterialSymbols.safety_check()", tagIcons::safety_check_maps));
     icons.add(
         new IconCatalogEntry<>(
             "safety_check_off",
-            "MaterialSymbolsIcon.create(\"safety_check_off\")",
+            "MaterialSymbols.safety_check_off()",
             tagIcons::safety_check_off_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "satellite", "MaterialSymbolsIcon.create(\"satellite\")", tagIcons::satellite_maps));
+            "satellite", "MaterialSymbols.satellite()", tagIcons::satellite_maps));
+    icons.add(
+        new IconCatalogEntry<>("set_meal", "MaterialSymbols.set_meal()", tagIcons::set_meal_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "set_meal", "MaterialSymbolsIcon.create(\"set_meal\")", tagIcons::set_meal_maps));
+            "share_eta", "MaterialSymbols.share_eta()", tagIcons::share_eta_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "share_eta", "MaterialSymbolsIcon.create(\"share_eta\")", tagIcons::share_eta_maps));
+            "share_location", "MaterialSymbols.share_location()", tagIcons::share_location_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "share_location",
-            "MaterialSymbolsIcon.create(\"share_location\")",
-            tagIcons::share_location_maps));
+            "shaved_ice", "MaterialSymbols.shaved_ice()", tagIcons::shaved_ice_maps));
+    icons.add(
+        new IconCatalogEntry<>("signpost", "MaterialSymbols.signpost()", tagIcons::signpost_maps));
+    icons.add(new IconCatalogEntry<>("soba", "MaterialSymbols.soba()", tagIcons::soba_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "shaved_ice", "MaterialSymbolsIcon.create(\"shaved_ice\")", tagIcons::shaved_ice_maps));
+            "solo_dining", "MaterialSymbols.solo_dining()", tagIcons::solo_dining_maps));
+    icons.add(new IconCatalogEntry<>("sos", "MaterialSymbols.sos()", tagIcons::sos_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "signpost", "MaterialSymbolsIcon.create(\"signpost\")", tagIcons::signpost_maps));
+            "soup_kitchen", "MaterialSymbols.soup_kitchen()", tagIcons::soup_kitchen_maps));
+    icons.add(new IconCatalogEntry<>("south", "MaterialSymbols.south()", tagIcons::south_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "soba", "MaterialSymbolsIcon.create(\"soba\")", tagIcons::soba_maps));
+            "south_east", "MaterialSymbols.south_east()", tagIcons::south_east_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "solo_dining",
-            "MaterialSymbolsIcon.create(\"solo_dining\")",
-            tagIcons::solo_dining_maps));
+            "south_west", "MaterialSymbols.south_west()", tagIcons::south_west_maps));
     icons.add(
-        new IconCatalogEntry<>("sos", "MaterialSymbolsIcon.create(\"sos\")", tagIcons::sos_maps));
+        new IconCatalogEntry<>("stadium", "MaterialSymbols.stadium()", tagIcons::stadium_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "soup_kitchen",
-            "MaterialSymbolsIcon.create(\"soup_kitchen\")",
-            tagIcons::soup_kitchen_maps));
+            "streetview", "MaterialSymbols.streetview()", tagIcons::streetview_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "south", "MaterialSymbolsIcon.create(\"south\")", tagIcons::south_maps));
+            "synagogue", "MaterialSymbols.synagogue()", tagIcons::synagogue_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "south_east", "MaterialSymbolsIcon.create(\"south_east\")", tagIcons::south_east_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "south_west", "MaterialSymbolsIcon.create(\"south_west\")", tagIcons::south_west_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "stadium", "MaterialSymbolsIcon.create(\"stadium\")", tagIcons::stadium_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "streetview", "MaterialSymbolsIcon.create(\"streetview\")", tagIcons::streetview_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "synagogue", "MaterialSymbolsIcon.create(\"synagogue\")", tagIcons::synagogue_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "takeout_dining",
-            "MaterialSymbolsIcon.create(\"takeout_dining\")",
-            tagIcons::takeout_dining_maps));
+            "takeout_dining", "MaterialSymbols.takeout_dining()", tagIcons::takeout_dining_maps));
     icons.add(
         new IconCatalogEntry<>(
             "takeout_dining_2",
-            "MaterialSymbolsIcon.create(\"takeout_dining_2\")",
+            "MaterialSymbols.takeout_dining_2()",
             tagIcons::takeout_dining_2_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "tatami_seat",
-            "MaterialSymbolsIcon.create(\"tatami_seat\")",
-            tagIcons::tatami_seat_maps));
+            "tatami_seat", "MaterialSymbols.tatami_seat()", tagIcons::tatami_seat_maps));
     icons.add(
         new IconCatalogEntry<>(
             "temple_buddhist",
-            "MaterialSymbolsIcon.create(\"temple_buddhist\")",
+            "MaterialSymbols.temple_buddhist()",
             tagIcons::temple_buddhist_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "temple_hindu",
-            "MaterialSymbolsIcon.create(\"temple_hindu\")",
-            tagIcons::temple_hindu_maps));
+            "temple_hindu", "MaterialSymbols.temple_hindu()", tagIcons::temple_hindu_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "theater_comedy",
-            "MaterialSymbolsIcon.create(\"theater_comedy\")",
-            tagIcons::theater_comedy_maps));
+            "theater_comedy", "MaterialSymbols.theater_comedy()", tagIcons::theater_comedy_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "things_to_do",
-            "MaterialSymbolsIcon.create(\"things_to_do\")",
-            tagIcons::things_to_do_maps));
+            "things_to_do", "MaterialSymbols.things_to_do()", tagIcons::things_to_do_maps));
     icons.add(
         new IconCatalogEntry<>(
             "tilt_arrow_down",
-            "MaterialSymbolsIcon.create(\"tilt_arrow_down\")",
+            "MaterialSymbols.tilt_arrow_down()",
             tagIcons::tilt_arrow_down_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "tilt_arrow_up",
-            "MaterialSymbolsIcon.create(\"tilt_arrow_up\")",
-            tagIcons::tilt_arrow_up_maps));
+            "tilt_arrow_up", "MaterialSymbols.tilt_arrow_up()", tagIcons::tilt_arrow_up_maps));
+    icons.add(new IconCatalogEntry<>("tour", "MaterialSymbols.tour()", tagIcons::tour_maps));
     icons.add(
-        new IconCatalogEntry<>(
-            "tour", "MaterialSymbolsIcon.create(\"tour\")", tagIcons::tour_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "traffic", "MaterialSymbolsIcon.create(\"traffic\")", tagIcons::traffic_maps));
+        new IconCatalogEntry<>("traffic", "MaterialSymbols.traffic()", tagIcons::traffic_maps));
     icons.add(
         new IconCatalogEntry<>(
             "transfer_within_a_station",
-            "MaterialSymbolsIcon.create(\"transfer_within_a_station\")",
+            "MaterialSymbols.transfer_within_a_station()",
             tagIcons::transfer_within_a_station_maps));
     icons.add(
         new IconCatalogEntry<>(
             "transit_enterexit",
-            "MaterialSymbolsIcon.create(\"transit_enterexit\")",
+            "MaterialSymbols.transit_enterexit()",
             tagIcons::transit_enterexit_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "trip_origin",
-            "MaterialSymbolsIcon.create(\"trip_origin\")",
-            tagIcons::trip_origin_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "udon", "MaterialSymbolsIcon.create(\"udon\")", tagIcons::udon_maps));
+            "trip_origin", "MaterialSymbols.trip_origin()", tagIcons::trip_origin_maps));
+    icons.add(new IconCatalogEntry<>("udon", "MaterialSymbols.udon()", tagIcons::udon_maps));
     icons.add(
         new IconCatalogEntry<>(
             "universal_local",
-            "MaterialSymbolsIcon.create(\"universal_local\")",
+            "MaterialSymbols.universal_local()",
             tagIcons::universal_local_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "warehouse", "MaterialSymbolsIcon.create(\"warehouse\")", tagIcons::warehouse_maps));
+            "warehouse", "MaterialSymbols.warehouse()", tagIcons::warehouse_maps));
+    icons.add(new IconCatalogEntry<>("west", "MaterialSymbols.west()", tagIcons::west_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "west", "MaterialSymbolsIcon.create(\"west\")", tagIcons::west_maps));
+            "where_to_vote", "MaterialSymbols.where_to_vote()", tagIcons::where_to_vote_maps));
+    icons.add(
+        new IconCatalogEntry<>("wine_bar", "MaterialSymbols.wine_bar()", tagIcons::wine_bar_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "where_to_vote",
-            "MaterialSymbolsIcon.create(\"where_to_vote\")",
-            tagIcons::where_to_vote_maps));
+            "wrong_location", "MaterialSymbols.wrong_location()", tagIcons::wrong_location_maps));
+    icons.add(
+        new IconCatalogEntry<>("yakitori", "MaterialSymbols.yakitori()", tagIcons::yakitori_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "wine_bar", "MaterialSymbolsIcon.create(\"wine_bar\")", tagIcons::wine_bar_maps));
+            "zoom_in_map", "MaterialSymbols.zoom_in_map()", tagIcons::zoom_in_map_maps));
     icons.add(
         new IconCatalogEntry<>(
-            "wrong_location",
-            "MaterialSymbolsIcon.create(\"wrong_location\")",
-            tagIcons::wrong_location_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "yakitori", "MaterialSymbolsIcon.create(\"yakitori\")", tagIcons::yakitori_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "zoom_in_map",
-            "MaterialSymbolsIcon.create(\"zoom_in_map\")",
-            tagIcons::zoom_in_map_maps));
-    icons.add(
-        new IconCatalogEntry<>(
-            "zoom_out_map",
-            "MaterialSymbolsIcon.create(\"zoom_out_map\")",
-            tagIcons::zoom_out_map_maps));
+            "zoom_out_map", "MaterialSymbols.zoom_out_map()", tagIcons::zoom_out_map_maps));
   }
 
   public List<IconCatalogEntry<MaterialSymbolsIcon>> icons() {

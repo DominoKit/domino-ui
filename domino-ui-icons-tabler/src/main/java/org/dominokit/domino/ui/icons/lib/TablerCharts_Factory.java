@@ -33,268 +33,202 @@ public final class TablerCharts_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "chart-arcs (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_ARCS)",
-            tagIcons::chart_arcs));
+            "chart-arcs", "TablerIcons.chart_arcs()", tagIcons::chart_arcs));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-arcs-3 (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_ARCS_3)",
-            tagIcons::chart_arcs_3));
+            "chart-arcs-3", "TablerIcons.chart_arcs_3()", tagIcons::chart_arcs_3));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-area (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_AREA)",
-            tagIcons::chart_area));
+            "chart-area", "TablerIcons.chart_area()", tagIcons::chart_area));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-area-line (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_AREA_LINE)",
+            "chart-area-line",
+            "TablerIcons.chart_area_line()",
             tagIcons::chart_area_line));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-arrows (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_ARROWS)",
-            tagIcons::chart_arrows));
+            "chart-arrows", "TablerIcons.chart_arrows()", tagIcons::chart_arrows));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-arrows-vertical (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_ARROWS_VERTICAL)",
+            "chart-arrows-vertical",
+            "TablerIcons.chart_arrows_vertical()",
             tagIcons::chart_arrows_vertical));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-bar (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_BAR)",
-            tagIcons::chart_bar));
+            "chart-bar", "TablerIcons.chart_bar()", tagIcons::chart_bar));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-bar-off (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_BAR_OFF)",
-            tagIcons::chart_bar_off));
+            "chart-bar-off", "TablerIcons.chart_bar_off()", tagIcons::chart_bar_off));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-bar-popular (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_BAR_POPULAR)",
+            "chart-bar-popular",
+            "TablerIcons.chart_bar_popular()",
             tagIcons::chart_bar_popular));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-bubble (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_BUBBLE)",
-            tagIcons::chart_bubble));
+            "chart-bubble", "TablerIcons.chart_bubble()", tagIcons::chart_bubble));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-candle (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_CANDLE)",
-            tagIcons::chart_candle));
+            "chart-candle", "TablerIcons.chart_candle()", tagIcons::chart_candle));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-circles (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_CIRCLES)",
-            tagIcons::chart_circles));
+            "chart-circles", "TablerIcons.chart_circles()", tagIcons::chart_circles));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-cohort (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_COHORT)",
-            tagIcons::chart_cohort));
+            "chart-cohort", "TablerIcons.chart_cohort()", tagIcons::chart_cohort));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-column (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_COLUMN)",
-            tagIcons::chart_column));
+            "chart-column", "TablerIcons.chart_column()", tagIcons::chart_column));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-covariate (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_COVARIATE)",
+            "chart-covariate",
+            "TablerIcons.chart_covariate()",
             tagIcons::chart_covariate));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-donut (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_DONUT)",
-            tagIcons::chart_donut));
+            "chart-donut", "TablerIcons.chart_donut()", tagIcons::chart_donut));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-donut-2 (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_DONUT_2)",
-            tagIcons::chart_donut_2));
+            "chart-donut-2", "TablerIcons.chart_donut_2()", tagIcons::chart_donut_2));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-donut-3 (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_DONUT_3)",
-            tagIcons::chart_donut_3));
+            "chart-donut-3", "TablerIcons.chart_donut_3()", tagIcons::chart_donut_3));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-donut-4 (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_DONUT_4)",
-            tagIcons::chart_donut_4));
+            "chart-donut-4", "TablerIcons.chart_donut_4()", tagIcons::chart_donut_4));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-dots (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_DOTS)",
-            tagIcons::chart_dots));
+            "chart-dots", "TablerIcons.chart_dots()", tagIcons::chart_dots));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-dots-2 (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_DOTS_2)",
-            tagIcons::chart_dots_2));
+            "chart-dots-2", "TablerIcons.chart_dots_2()", tagIcons::chart_dots_2));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-dots-3 (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_DOTS_3)",
-            tagIcons::chart_dots_3));
+            "chart-dots-3", "TablerIcons.chart_dots_3()", tagIcons::chart_dots_3));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-funnel (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_FUNNEL)",
-            tagIcons::chart_funnel));
+            "chart-funnel", "TablerIcons.chart_funnel()", tagIcons::chart_funnel));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-grid-dots (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_GRID_DOTS)",
+            "chart-grid-dots",
+            "TablerIcons.chart_grid_dots()",
             tagIcons::chart_grid_dots));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-histogram (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_HISTOGRAM)",
+            "chart-histogram",
+            "TablerIcons.chart_histogram()",
             tagIcons::chart_histogram));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-infographic (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_INFOGRAPHIC)",
+            "chart-infographic",
+            "TablerIcons.chart_infographic()",
             tagIcons::chart_infographic));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-line (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_LINE)",
-            tagIcons::chart_line));
+            "chart-line", "TablerIcons.chart_line()", tagIcons::chart_line));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-pie (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_PIE)",
-            tagIcons::chart_pie));
+            "chart-pie", "TablerIcons.chart_pie()", tagIcons::chart_pie));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-pie-2 (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_PIE_2)",
-            tagIcons::chart_pie_2));
+            "chart-pie-2", "TablerIcons.chart_pie_2()", tagIcons::chart_pie_2));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-pie-3 (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_PIE_3)",
-            tagIcons::chart_pie_3));
+            "chart-pie-3", "TablerIcons.chart_pie_3()", tagIcons::chart_pie_3));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-pie-4 (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_PIE_4)",
-            tagIcons::chart_pie_4));
+            "chart-pie-4", "TablerIcons.chart_pie_4()", tagIcons::chart_pie_4));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-pie-off (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_PIE_OFF)",
-            tagIcons::chart_pie_off));
+            "chart-pie-off", "TablerIcons.chart_pie_off()", tagIcons::chart_pie_off));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-ppf (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_PPF)",
-            tagIcons::chart_ppf));
+            "chart-ppf", "TablerIcons.chart_ppf()", tagIcons::chart_ppf));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-radar (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_RADAR)",
-            tagIcons::chart_radar));
+            "chart-radar", "TablerIcons.chart_radar()", tagIcons::chart_radar));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-sankey (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_SANKEY)",
-            tagIcons::chart_sankey));
+            "chart-sankey", "TablerIcons.chart_sankey()", tagIcons::chart_sankey));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-scatter (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_SCATTER)",
-            tagIcons::chart_scatter));
+            "chart-scatter", "TablerIcons.chart_scatter()", tagIcons::chart_scatter));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-scatter-3d (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_SCATTER_3D)",
+            "chart-scatter-3d",
+            "TablerIcons.chart_scatter_3d()",
             tagIcons::chart_scatter_3d));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-treemap (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.CHART_TREEMAP)",
-            tagIcons::chart_treemap));
+            "chart-treemap", "TablerIcons.chart_treemap()", tagIcons::chart_treemap));
     icons.add(
         new IconCatalogEntry<>(
-            "trending-up-down (outline)",
-            "TablerIcon.create(TablerCharts.OutlineIcon.TRENDING_UP_DOWN)",
+            "trending-up-down",
+            "TablerIcons.trending_up_down()",
             tagIcons::trending_up_down));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-area (filled)",
-            "TablerIcon.create(TablerCharts.FilledIcon.CHART_AREA)",
-            tagIcons::chart_area_filled));
+            "chart-area", "TablerIcons.chart_area_filled()", tagIcons::chart_area_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-area-line (filled)",
-            "TablerIcon.create(TablerCharts.FilledIcon.CHART_AREA_LINE)",
+            "chart-area-line",
+            "TablerIcons.chart_area_line_filled()",
             tagIcons::chart_area_line_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-bubble (filled)",
-            "TablerIcon.create(TablerCharts.FilledIcon.CHART_BUBBLE)",
+            "chart-bubble",
+            "TablerIcons.chart_bubble_filled()",
             tagIcons::chart_bubble_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-candle (filled)",
-            "TablerIcon.create(TablerCharts.FilledIcon.CHART_CANDLE)",
+            "chart-candle",
+            "TablerIcons.chart_candle_filled()",
             tagIcons::chart_candle_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-donut (filled)",
-            "TablerIcon.create(TablerCharts.FilledIcon.CHART_DONUT)",
+            "chart-donut",
+            "TablerIcons.chart_donut_filled()",
             tagIcons::chart_donut_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-dots (filled)",
-            "TablerIcon.create(TablerCharts.FilledIcon.CHART_DOTS)",
-            tagIcons::chart_dots_filled));
+            "chart-dots", "TablerIcons.chart_dots_filled()", tagIcons::chart_dots_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-dots-2 (filled)",
-            "TablerIcon.create(TablerCharts.FilledIcon.CHART_DOTS_2)",
+            "chart-dots-2",
+            "TablerIcons.chart_dots_2_filled()",
             tagIcons::chart_dots_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-dots-3 (filled)",
-            "TablerIcon.create(TablerCharts.FilledIcon.CHART_DOTS_3)",
+            "chart-dots-3",
+            "TablerIcons.chart_dots_3_filled()",
             tagIcons::chart_dots_3_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-funnel (filled)",
-            "TablerIcon.create(TablerCharts.FilledIcon.CHART_FUNNEL)",
+            "chart-funnel",
+            "TablerIcons.chart_funnel_filled()",
             tagIcons::chart_funnel_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-grid-dots (filled)",
-            "TablerIcon.create(TablerCharts.FilledIcon.CHART_GRID_DOTS)",
+            "chart-grid-dots",
+            "TablerIcons.chart_grid_dots_filled()",
             tagIcons::chart_grid_dots_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-pie (filled)",
-            "TablerIcon.create(TablerCharts.FilledIcon.CHART_PIE)",
-            tagIcons::chart_pie_filled));
+            "chart-pie", "TablerIcons.chart_pie_filled()", tagIcons::chart_pie_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-pie-2 (filled)",
-            "TablerIcon.create(TablerCharts.FilledIcon.CHART_PIE_2)",
+            "chart-pie-2",
+            "TablerIcons.chart_pie_2_filled()",
             tagIcons::chart_pie_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-pie-3 (filled)",
-            "TablerIcon.create(TablerCharts.FilledIcon.CHART_PIE_3)",
+            "chart-pie-3",
+            "TablerIcons.chart_pie_3_filled()",
             tagIcons::chart_pie_3_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chart-pie-4 (filled)",
-            "TablerIcon.create(TablerCharts.FilledIcon.CHART_PIE_4)",
+            "chart-pie-4",
+            "TablerIcons.chart_pie_4_filled()",
             tagIcons::chart_pie_4_filled));
   }
 

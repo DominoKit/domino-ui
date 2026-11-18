@@ -33,379 +33,223 @@ public final class TablerGames_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "archery-arrow (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.ARCHERY_ARROW)",
-            tagIcons::archery_arrow));
+            "archery-arrow", "TablerIcons.archery_arrow()", tagIcons::archery_arrow));
+    icons.add(new IconCatalogEntry<>("axe", "TablerIcons.axe()", tagIcons::axe));
+    icons.add(new IconCatalogEntry<>("dice", "TablerIcons.dice()", tagIcons::dice));
+    icons.add(new IconCatalogEntry<>("dice-1", "TablerIcons.dice_1()", tagIcons::dice_1));
+    icons.add(new IconCatalogEntry<>("dice-2", "TablerIcons.dice_2()", tagIcons::dice_2));
+    icons.add(new IconCatalogEntry<>("dice-3", "TablerIcons.dice_3()", tagIcons::dice_3));
+    icons.add(new IconCatalogEntry<>("dice-4", "TablerIcons.dice_4()", tagIcons::dice_4));
+    icons.add(new IconCatalogEntry<>("dice-5", "TablerIcons.dice_5()", tagIcons::dice_5));
+    icons.add(new IconCatalogEntry<>("dice-6", "TablerIcons.dice_6()", tagIcons::dice_6));
+    icons.add(new IconCatalogEntry<>("ghost", "TablerIcons.ghost()", tagIcons::ghost));
+    icons.add(
+        new IconCatalogEntry<>("ghost-2", "TablerIcons.ghost_2()", tagIcons::ghost_2));
+    icons.add(
+        new IconCatalogEntry<>("ghost-3", "TablerIcons.ghost_3()", tagIcons::ghost_3));
     icons.add(
         new IconCatalogEntry<>(
-            "axe (outline)", "TablerIcon.create(TablerGames.OutlineIcon.AXE)", tagIcons::axe));
+            "ghost-off", "TablerIcons.ghost_off()", tagIcons::ghost_off));
+    icons.add(
+        new IconCatalogEntry<>("go-game", "TablerIcons.go_game()", tagIcons::go_game));
     icons.add(
         new IconCatalogEntry<>(
-            "dice (outline)", "TablerIcon.create(TablerGames.OutlineIcon.DICE)", tagIcons::dice));
+            "horse-toy", "TablerIcons.horse_toy()", tagIcons::horse_toy));
+    icons.add(new IconCatalogEntry<>("joker", "TablerIcons.joker()", tagIcons::joker));
+    icons.add(new IconCatalogEntry<>("pacman", "TablerIcons.pacman()", tagIcons::pacman));
+    icons.add(new IconCatalogEntry<>("piano", "TablerIcons.piano()", tagIcons::piano));
+    icons.add(new IconCatalogEntry<>("pick", "TablerIcons.pick()", tagIcons::pick));
     icons.add(
         new IconCatalogEntry<>(
-            "dice-1 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.DICE_1)",
-            tagIcons::dice_1));
+            "play-card", "TablerIcons.play_card()", tagIcons::play_card));
     icons.add(
         new IconCatalogEntry<>(
-            "dice-2 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.DICE_2)",
-            tagIcons::dice_2));
+            "play-card-1", "TablerIcons.play_card_1()", tagIcons::play_card_1));
     icons.add(
         new IconCatalogEntry<>(
-            "dice-3 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.DICE_3)",
-            tagIcons::dice_3));
+            "play-card-10", "TablerIcons.play_card_10()", tagIcons::play_card_10));
     icons.add(
         new IconCatalogEntry<>(
-            "dice-4 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.DICE_4)",
-            tagIcons::dice_4));
+            "play-card-2", "TablerIcons.play_card_2()", tagIcons::play_card_2));
     icons.add(
         new IconCatalogEntry<>(
-            "dice-5 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.DICE_5)",
-            tagIcons::dice_5));
+            "play-card-3", "TablerIcons.play_card_3()", tagIcons::play_card_3));
     icons.add(
         new IconCatalogEntry<>(
-            "dice-6 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.DICE_6)",
-            tagIcons::dice_6));
+            "play-card-4", "TablerIcons.play_card_4()", tagIcons::play_card_4));
     icons.add(
         new IconCatalogEntry<>(
-            "ghost (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.GHOST)",
-            tagIcons::ghost));
+            "play-card-5", "TablerIcons.play_card_5()", tagIcons::play_card_5));
     icons.add(
         new IconCatalogEntry<>(
-            "ghost-2 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.GHOST_2)",
-            tagIcons::ghost_2));
+            "play-card-6", "TablerIcons.play_card_6()", tagIcons::play_card_6));
     icons.add(
         new IconCatalogEntry<>(
-            "ghost-3 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.GHOST_3)",
-            tagIcons::ghost_3));
+            "play-card-7", "TablerIcons.play_card_7()", tagIcons::play_card_7));
     icons.add(
         new IconCatalogEntry<>(
-            "ghost-off (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.GHOST_OFF)",
-            tagIcons::ghost_off));
+            "play-card-8", "TablerIcons.play_card_8()", tagIcons::play_card_8));
     icons.add(
         new IconCatalogEntry<>(
-            "go-game (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.GO_GAME)",
-            tagIcons::go_game));
+            "play-card-9", "TablerIcons.play_card_9()", tagIcons::play_card_9));
     icons.add(
         new IconCatalogEntry<>(
-            "horse-toy (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.HORSE_TOY)",
-            tagIcons::horse_toy));
+            "play-card-a", "TablerIcons.play_card_a()", tagIcons::play_card_a));
     icons.add(
         new IconCatalogEntry<>(
-            "joker (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.JOKER)",
-            tagIcons::joker));
+            "play-card-j", "TablerIcons.play_card_j()", tagIcons::play_card_j));
     icons.add(
         new IconCatalogEntry<>(
-            "pacman (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PACMAN)",
-            tagIcons::pacman));
+            "play-card-k", "TablerIcons.play_card_k()", tagIcons::play_card_k));
     icons.add(
         new IconCatalogEntry<>(
-            "piano (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PIANO)",
-            tagIcons::piano));
+            "play-card-off", "TablerIcons.play_card_off()", tagIcons::play_card_off));
     icons.add(
         new IconCatalogEntry<>(
-            "pick (outline)", "TablerIcon.create(TablerGames.OutlineIcon.PICK)", tagIcons::pick));
+            "play-card-q", "TablerIcons.play_card_q()", tagIcons::play_card_q));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD)",
-            tagIcons::play_card));
+            "play-card-star", "TablerIcons.play_card_star()", tagIcons::play_card_star));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-1 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD_1)",
-            tagIcons::play_card_1));
+            "poker-chip", "TablerIcons.poker_chip()", tagIcons::poker_chip));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-10 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD_10)",
-            tagIcons::play_card_10));
+            "pumpkin-scary", "TablerIcons.pumpkin_scary()", tagIcons::pumpkin_scary));
+    icons.add(new IconCatalogEntry<>("puzzle", "TablerIcons.puzzle()", tagIcons::puzzle));
+    icons.add(
+        new IconCatalogEntry<>("puzzle-2", "TablerIcons.puzzle_2()", tagIcons::puzzle_2));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-2 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD_2)",
-            tagIcons::play_card_2));
+            "puzzle-off", "TablerIcons.puzzle_off()", tagIcons::puzzle_off));
+    icons.add(new IconCatalogEntry<>("robot", "TablerIcons.robot()", tagIcons::robot));
+    icons.add(
+        new IconCatalogEntry<>("roulette", "TablerIcons.roulette()", tagIcons::roulette));
+    icons.add(new IconCatalogEntry<>("sword", "TablerIcons.sword()", tagIcons::sword));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-3 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD_3)",
-            tagIcons::play_card_3));
+            "sword-off", "TablerIcons.sword_off()", tagIcons::sword_off));
+    icons.add(new IconCatalogEntry<>("swords", "TablerIcons.swords()", tagIcons::swords));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-4 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD_4)",
-            tagIcons::play_card_4));
+            "treasure-chest", "TablerIcons.treasure_chest()", tagIcons::treasure_chest));
+    icons.add(new IconCatalogEntry<>("ufo", "TablerIcons.ufo()", tagIcons::ufo));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-5 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD_5)",
-            tagIcons::play_card_5));
+            "dice", "TablerIcons.dice_filled()", tagIcons::dice_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-6 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD_6)",
-            tagIcons::play_card_6));
+            "dice-1", "TablerIcons.dice_1_filled()", tagIcons::dice_1_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-7 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD_7)",
-            tagIcons::play_card_7));
+            "dice-2", "TablerIcons.dice_2_filled()", tagIcons::dice_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-8 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD_8)",
-            tagIcons::play_card_8));
+            "dice-3", "TablerIcons.dice_3_filled()", tagIcons::dice_3_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-9 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD_9)",
-            tagIcons::play_card_9));
+            "dice-4", "TablerIcons.dice_4_filled()", tagIcons::dice_4_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-a (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD_A)",
-            tagIcons::play_card_a));
+            "dice-5", "TablerIcons.dice_5_filled()", tagIcons::dice_5_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-j (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD_J)",
-            tagIcons::play_card_j));
+            "dice-6", "TablerIcons.dice_6_filled()", tagIcons::dice_6_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-k (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD_K)",
-            tagIcons::play_card_k));
+            "ghost", "TablerIcons.ghost_filled()", tagIcons::ghost_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-off (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD_OFF)",
-            tagIcons::play_card_off));
+            "ghost-2", "TablerIcons.ghost_2_filled()", tagIcons::ghost_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-q (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD_Q)",
-            tagIcons::play_card_q));
+            "ghost-3", "TablerIcons.ghost_3_filled()", tagIcons::ghost_3_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-star (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PLAY_CARD_STAR)",
-            tagIcons::play_card_star));
+            "pacman", "TablerIcons.pacman_filled()", tagIcons::pacman_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "poker-chip (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.POKER_CHIP)",
-            tagIcons::poker_chip));
+            "play-card", "TablerIcons.play_card_filled()", tagIcons::play_card_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "pumpkin-scary (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PUMPKIN_SCARY)",
-            tagIcons::pumpkin_scary));
-    icons.add(
-        new IconCatalogEntry<>(
-            "puzzle (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PUZZLE)",
-            tagIcons::puzzle));
-    icons.add(
-        new IconCatalogEntry<>(
-            "puzzle-2 (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PUZZLE_2)",
-            tagIcons::puzzle_2));
-    icons.add(
-        new IconCatalogEntry<>(
-            "puzzle-off (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.PUZZLE_OFF)",
-            tagIcons::puzzle_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "robot (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.ROBOT)",
-            tagIcons::robot));
-    icons.add(
-        new IconCatalogEntry<>(
-            "roulette (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.ROULETTE)",
-            tagIcons::roulette));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sword (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.SWORD)",
-            tagIcons::sword));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sword-off (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.SWORD_OFF)",
-            tagIcons::sword_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "swords (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.SWORDS)",
-            tagIcons::swords));
-    icons.add(
-        new IconCatalogEntry<>(
-            "treasure-chest (outline)",
-            "TablerIcon.create(TablerGames.OutlineIcon.TREASURE_CHEST)",
-            tagIcons::treasure_chest));
-    icons.add(
-        new IconCatalogEntry<>(
-            "ufo (outline)", "TablerIcon.create(TablerGames.OutlineIcon.UFO)", tagIcons::ufo));
-    icons.add(
-        new IconCatalogEntry<>(
-            "dice (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.DICE)",
-            tagIcons::dice_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "dice-1 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.DICE_1)",
-            tagIcons::dice_1_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "dice-2 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.DICE_2)",
-            tagIcons::dice_2_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "dice-3 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.DICE_3)",
-            tagIcons::dice_3_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "dice-4 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.DICE_4)",
-            tagIcons::dice_4_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "dice-5 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.DICE_5)",
-            tagIcons::dice_5_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "dice-6 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.DICE_6)",
-            tagIcons::dice_6_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "ghost (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.GHOST)",
-            tagIcons::ghost_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "ghost-2 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.GHOST_2)",
-            tagIcons::ghost_2_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "ghost-3 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.GHOST_3)",
-            tagIcons::ghost_3_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "pacman (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PACMAN)",
-            tagIcons::pacman_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "play-card (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PLAY_CARD)",
-            tagIcons::play_card_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "play-card-1 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PLAY_CARD_1)",
+            "play-card-1",
+            "TablerIcons.play_card_1_filled()",
             tagIcons::play_card_1_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-10 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PLAY_CARD_10)",
+            "play-card-10",
+            "TablerIcons.play_card_10_filled()",
             tagIcons::play_card_10_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-2 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PLAY_CARD_2)",
+            "play-card-2",
+            "TablerIcons.play_card_2_filled()",
             tagIcons::play_card_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-3 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PLAY_CARD_3)",
+            "play-card-3",
+            "TablerIcons.play_card_3_filled()",
             tagIcons::play_card_3_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-4 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PLAY_CARD_4)",
+            "play-card-4",
+            "TablerIcons.play_card_4_filled()",
             tagIcons::play_card_4_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-5 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PLAY_CARD_5)",
+            "play-card-5",
+            "TablerIcons.play_card_5_filled()",
             tagIcons::play_card_5_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-6 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PLAY_CARD_6)",
+            "play-card-6",
+            "TablerIcons.play_card_6_filled()",
             tagIcons::play_card_6_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-7 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PLAY_CARD_7)",
+            "play-card-7",
+            "TablerIcons.play_card_7_filled()",
             tagIcons::play_card_7_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-8 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PLAY_CARD_8)",
+            "play-card-8",
+            "TablerIcons.play_card_8_filled()",
             tagIcons::play_card_8_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-9 (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PLAY_CARD_9)",
+            "play-card-9",
+            "TablerIcons.play_card_9_filled()",
             tagIcons::play_card_9_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-a (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PLAY_CARD_A)",
+            "play-card-a",
+            "TablerIcons.play_card_a_filled()",
             tagIcons::play_card_a_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-j (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PLAY_CARD_J)",
+            "play-card-j",
+            "TablerIcons.play_card_j_filled()",
             tagIcons::play_card_j_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-k (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PLAY_CARD_K)",
+            "play-card-k",
+            "TablerIcons.play_card_k_filled()",
             tagIcons::play_card_k_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-q (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PLAY_CARD_Q)",
+            "play-card-q",
+            "TablerIcons.play_card_q_filled()",
             tagIcons::play_card_q_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "play-card-star (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PLAY_CARD_STAR)",
+            "play-card-star",
+            "TablerIcons.play_card_star_filled()",
             tagIcons::play_card_star_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "puzzle (filled)",
-            "TablerIcon.create(TablerGames.FilledIcon.PUZZLE)",
-            tagIcons::puzzle_filled));
+            "puzzle", "TablerIcons.puzzle_filled()", tagIcons::puzzle_filled));
     icons.add(
-        new IconCatalogEntry<>(
-            "ufo (filled)", "TablerIcon.create(TablerGames.FilledIcon.UFO)", tagIcons::ufo_filled));
+        new IconCatalogEntry<>("ufo", "TablerIcons.ufo_filled()", tagIcons::ufo_filled));
   }
 
   public List<IconCatalogEntry<TablerIcon>> icons() {

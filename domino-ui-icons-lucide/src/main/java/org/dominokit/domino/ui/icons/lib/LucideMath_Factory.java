@@ -27,7 +27,11 @@ public final class LucideMath_Factory {
 
   static {
     for (LucideMath.Icon definition : LucideMath.Icon.values()) {
-      String code = "LucideIcon.create(LucideMath.Icon." + definition.name() + ")";
+      String iconMethod = definition.catalogName().replace('-', '_');
+      if ("import".equals(iconMethod) || "package".equals(iconMethod)) {
+        iconMethod += "_icon";
+      }
+      String code = "LucideIcons." + iconMethod + "()";
       icons.add(
           new IconCatalogEntry<>(
               definition.catalogName(), code, () -> LucideIcon.create(definition)));

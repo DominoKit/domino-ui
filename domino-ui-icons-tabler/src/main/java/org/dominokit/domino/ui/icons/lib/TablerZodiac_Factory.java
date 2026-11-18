@@ -33,64 +33,46 @@ public final class TablerZodiac_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "zodiac-aquarius (outline)",
-            "TablerIcon.create(TablerZodiac.OutlineIcon.ZODIAC_AQUARIUS)",
+            "zodiac-aquarius",
+            "TablerIcons.zodiac_aquarius()",
             tagIcons::zodiac_aquarius));
     icons.add(
         new IconCatalogEntry<>(
-            "zodiac-aries (outline)",
-            "TablerIcon.create(TablerZodiac.OutlineIcon.ZODIAC_ARIES)",
-            tagIcons::zodiac_aries));
+            "zodiac-aries", "TablerIcons.zodiac_aries()", tagIcons::zodiac_aries));
     icons.add(
         new IconCatalogEntry<>(
-            "zodiac-cancer (outline)",
-            "TablerIcon.create(TablerZodiac.OutlineIcon.ZODIAC_CANCER)",
-            tagIcons::zodiac_cancer));
+            "zodiac-cancer", "TablerIcons.zodiac_cancer()", tagIcons::zodiac_cancer));
     icons.add(
         new IconCatalogEntry<>(
-            "zodiac-capricorn (outline)",
-            "TablerIcon.create(TablerZodiac.OutlineIcon.ZODIAC_CAPRICORN)",
+            "zodiac-capricorn",
+            "TablerIcons.zodiac_capricorn()",
             tagIcons::zodiac_capricorn));
     icons.add(
         new IconCatalogEntry<>(
-            "zodiac-gemini (outline)",
-            "TablerIcon.create(TablerZodiac.OutlineIcon.ZODIAC_GEMINI)",
-            tagIcons::zodiac_gemini));
+            "zodiac-gemini", "TablerIcons.zodiac_gemini()", tagIcons::zodiac_gemini));
     icons.add(
         new IconCatalogEntry<>(
-            "zodiac-leo (outline)",
-            "TablerIcon.create(TablerZodiac.OutlineIcon.ZODIAC_LEO)",
-            tagIcons::zodiac_leo));
+            "zodiac-leo", "TablerIcons.zodiac_leo()", tagIcons::zodiac_leo));
     icons.add(
         new IconCatalogEntry<>(
-            "zodiac-libra (outline)",
-            "TablerIcon.create(TablerZodiac.OutlineIcon.ZODIAC_LIBRA)",
-            tagIcons::zodiac_libra));
+            "zodiac-libra", "TablerIcons.zodiac_libra()", tagIcons::zodiac_libra));
     icons.add(
         new IconCatalogEntry<>(
-            "zodiac-pisces (outline)",
-            "TablerIcon.create(TablerZodiac.OutlineIcon.ZODIAC_PISCES)",
-            tagIcons::zodiac_pisces));
+            "zodiac-pisces", "TablerIcons.zodiac_pisces()", tagIcons::zodiac_pisces));
     icons.add(
         new IconCatalogEntry<>(
-            "zodiac-sagittarius (outline)",
-            "TablerIcon.create(TablerZodiac.OutlineIcon.ZODIAC_SAGITTARIUS)",
+            "zodiac-sagittarius",
+            "TablerIcons.zodiac_sagittarius()",
             tagIcons::zodiac_sagittarius));
     icons.add(
         new IconCatalogEntry<>(
-            "zodiac-scorpio (outline)",
-            "TablerIcon.create(TablerZodiac.OutlineIcon.ZODIAC_SCORPIO)",
-            tagIcons::zodiac_scorpio));
+            "zodiac-scorpio", "TablerIcons.zodiac_scorpio()", tagIcons::zodiac_scorpio));
     icons.add(
         new IconCatalogEntry<>(
-            "zodiac-taurus (outline)",
-            "TablerIcon.create(TablerZodiac.OutlineIcon.ZODIAC_TAURUS)",
-            tagIcons::zodiac_taurus));
+            "zodiac-taurus", "TablerIcons.zodiac_taurus()", tagIcons::zodiac_taurus));
     icons.add(
         new IconCatalogEntry<>(
-            "zodiac-virgo (outline)",
-            "TablerIcon.create(TablerZodiac.OutlineIcon.ZODIAC_VIRGO)",
-            tagIcons::zodiac_virgo));
+            "zodiac-virgo", "TablerIcons.zodiac_virgo()", tagIcons::zodiac_virgo));
   }
 
   public List<IconCatalogEntry<TablerIcon>> icons() {

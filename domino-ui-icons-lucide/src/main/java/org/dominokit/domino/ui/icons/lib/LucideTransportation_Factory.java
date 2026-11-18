@@ -27,7 +27,11 @@ public final class LucideTransportation_Factory {
 
   static {
     for (LucideTransportation.Icon definition : LucideTransportation.Icon.values()) {
-      String code = "LucideIcon.create(LucideTransportation.Icon." + definition.name() + ")";
+      String iconMethod = definition.catalogName().replace('-', '_');
+      if ("import".equals(iconMethod) || "package".equals(iconMethod)) {
+        iconMethod += "_icon";
+      }
+      String code = "LucideIcons." + iconMethod + "()";
       icons.add(
           new IconCatalogEntry<>(
               definition.catalogName(), code, () -> LucideIcon.create(definition)));

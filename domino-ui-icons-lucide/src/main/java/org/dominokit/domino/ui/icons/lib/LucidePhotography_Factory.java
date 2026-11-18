@@ -27,7 +27,11 @@ public final class LucidePhotography_Factory {
 
   static {
     for (LucidePhotography.Icon definition : LucidePhotography.Icon.values()) {
-      String code = "LucideIcon.create(LucidePhotography.Icon." + definition.name() + ")";
+      String iconMethod = definition.catalogName().replace('-', '_');
+      if ("import".equals(iconMethod) || "package".equals(iconMethod)) {
+        iconMethod += "_icon";
+      }
+      String code = "LucideIcons." + iconMethod + "()";
       icons.add(
           new IconCatalogEntry<>(
               definition.catalogName(), code, () -> LucideIcon.create(definition)));

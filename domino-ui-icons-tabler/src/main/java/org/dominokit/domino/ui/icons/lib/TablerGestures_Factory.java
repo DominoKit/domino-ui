@@ -33,88 +33,71 @@ public final class TablerGestures_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "hand-click (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_CLICK)",
-            tagIcons::hand_click));
+            "hand-click", "TablerIcons.hand_click()", tagIcons::hand_click));
     icons.add(
         new IconCatalogEntry<>(
-            "hand-click-off (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_CLICK_OFF)",
-            tagIcons::hand_click_off));
+            "hand-click-off", "TablerIcons.hand_click_off()", tagIcons::hand_click_off));
     icons.add(
         new IconCatalogEntry<>(
-            "hand-finger (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_FINGER)",
-            tagIcons::hand_finger));
+            "hand-finger", "TablerIcons.hand_finger()", tagIcons::hand_finger));
     icons.add(
         new IconCatalogEntry<>(
-            "hand-finger-down (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_FINGER_DOWN)",
+            "hand-finger-down",
+            "TablerIcons.hand_finger_down()",
             tagIcons::hand_finger_down));
     icons.add(
         new IconCatalogEntry<>(
-            "hand-finger-left (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_FINGER_LEFT)",
+            "hand-finger-left",
+            "TablerIcons.hand_finger_left()",
             tagIcons::hand_finger_left));
     icons.add(
         new IconCatalogEntry<>(
-            "hand-finger-off (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_FINGER_OFF)",
+            "hand-finger-off",
+            "TablerIcons.hand_finger_off()",
             tagIcons::hand_finger_off));
     icons.add(
         new IconCatalogEntry<>(
-            "hand-finger-right (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_FINGER_RIGHT)",
+            "hand-finger-right",
+            "TablerIcons.hand_finger_right()",
             tagIcons::hand_finger_right));
     icons.add(
         new IconCatalogEntry<>(
-            "hand-grab (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_GRAB)",
-            tagIcons::hand_grab));
+            "hand-grab", "TablerIcons.hand_grab()", tagIcons::hand_grab));
     icons.add(
         new IconCatalogEntry<>(
-            "hand-little-finger (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_LITTLE_FINGER)",
+            "hand-little-finger",
+            "TablerIcons.hand_little_finger()",
             tagIcons::hand_little_finger));
     icons.add(
         new IconCatalogEntry<>(
-            "hand-love-you (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_LOVE_YOU)",
-            tagIcons::hand_love_you));
+            "hand-love-you", "TablerIcons.hand_love_you()", tagIcons::hand_love_you));
     icons.add(
         new IconCatalogEntry<>(
-            "hand-middle-finger (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_MIDDLE_FINGER)",
+            "hand-middle-finger",
+            "TablerIcons.hand_middle_finger()",
             tagIcons::hand_middle_finger));
     icons.add(
         new IconCatalogEntry<>(
-            "hand-move (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_MOVE)",
-            tagIcons::hand_move));
+            "hand-move", "TablerIcons.hand_move()", tagIcons::hand_move));
+    icons.add(
+        new IconCatalogEntry<>("hand-off", "TablerIcons.hand_off()", tagIcons::hand_off));
     icons.add(
         new IconCatalogEntry<>(
-            "hand-off (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_OFF)",
-            tagIcons::hand_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "hand-ring-finger (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_RING_FINGER)",
+            "hand-ring-finger",
+            "TablerIcons.hand_ring_finger()",
             tagIcons::hand_ring_finger));
     icons.add(
         new IconCatalogEntry<>(
-            "hand-stop (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_STOP)",
-            tagIcons::hand_stop));
+            "hand-stop", "TablerIcons.hand_stop()", tagIcons::hand_stop));
     icons.add(
         new IconCatalogEntry<>(
-            "hand-three-fingers (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_THREE_FINGERS)",
+            "hand-three-fingers",
+            "TablerIcons.hand_three_fingers()",
             tagIcons::hand_three_fingers));
     icons.add(
         new IconCatalogEntry<>(
-            "hand-two-fingers (outline)",
-            "TablerIcon.create(TablerGestures.OutlineIcon.HAND_TWO_FINGERS)",
+            "hand-two-fingers",
+            "TablerIcons.hand_two_fingers()",
             tagIcons::hand_two_fingers));
   }
 

@@ -33,909 +33,651 @@ public final class TablerECommerce_Factory {
 
   private static void addIcons0() {
     icons.add(
-        new IconCatalogEntry<>(
-            "backpack (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BACKPACK)",
-            tagIcons::backpack));
+        new IconCatalogEntry<>("backpack", "TablerIcons.backpack()", tagIcons::backpack));
     icons.add(
         new IconCatalogEntry<>(
-            "backpack-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BACKPACK_OFF)",
-            tagIcons::backpack_off));
+            "backpack-off", "TablerIcons.backpack_off()", tagIcons::backpack_off));
+    icons.add(new IconCatalogEntry<>("basket", "TablerIcons.basket()", tagIcons::basket));
     icons.add(
         new IconCatalogEntry<>(
-            "basket (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET)",
-            tagIcons::basket));
+            "basket-bolt", "TablerIcons.basket_bolt()", tagIcons::basket_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-bolt (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_BOLT)",
-            tagIcons::basket_bolt));
+            "basket-cancel", "TablerIcons.basket_cancel()", tagIcons::basket_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-cancel (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_CANCEL)",
-            tagIcons::basket_cancel));
+            "basket-check", "TablerIcons.basket_check()", tagIcons::basket_check));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-check (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_CHECK)",
-            tagIcons::basket_check));
+            "basket-code", "TablerIcons.basket_code()", tagIcons::basket_code));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-code (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_CODE)",
-            tagIcons::basket_code));
+            "basket-cog", "TablerIcons.basket_cog()", tagIcons::basket_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-cog (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_COG)",
-            tagIcons::basket_cog));
-    icons.add(
-        new IconCatalogEntry<>(
-            "basket-discount (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_DISCOUNT)",
+            "basket-discount",
+            "TablerIcons.basket_discount()",
             tagIcons::basket_discount));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-dollar (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_DOLLAR)",
-            tagIcons::basket_dollar));
+            "basket-dollar", "TablerIcons.basket_dollar()", tagIcons::basket_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-down (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_DOWN)",
-            tagIcons::basket_down));
+            "basket-down", "TablerIcons.basket_down()", tagIcons::basket_down));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-exclamation (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_EXCLAMATION)",
+            "basket-exclamation",
+            "TablerIcons.basket_exclamation()",
             tagIcons::basket_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-heart (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_HEART)",
-            tagIcons::basket_heart));
+            "basket-heart", "TablerIcons.basket_heart()", tagIcons::basket_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-minus (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_MINUS)",
-            tagIcons::basket_minus));
+            "basket-minus", "TablerIcons.basket_minus()", tagIcons::basket_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_OFF)",
-            tagIcons::basket_off));
+            "basket-off", "TablerIcons.basket_off()", tagIcons::basket_off));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-pause (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_PAUSE)",
-            tagIcons::basket_pause));
+            "basket-pause", "TablerIcons.basket_pause()", tagIcons::basket_pause));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-pin (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_PIN)",
-            tagIcons::basket_pin));
+            "basket-pin", "TablerIcons.basket_pin()", tagIcons::basket_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-plus (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_PLUS)",
-            tagIcons::basket_plus));
+            "basket-plus", "TablerIcons.basket_plus()", tagIcons::basket_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-question (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_QUESTION)",
+            "basket-question",
+            "TablerIcons.basket_question()",
             tagIcons::basket_question));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-search (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_SEARCH)",
-            tagIcons::basket_search));
+            "basket-search", "TablerIcons.basket_search()", tagIcons::basket_search));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-share (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_SHARE)",
-            tagIcons::basket_share));
+            "basket-share", "TablerIcons.basket_share()", tagIcons::basket_share));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-star (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_STAR)",
-            tagIcons::basket_star));
+            "basket-star", "TablerIcons.basket_star()", tagIcons::basket_star));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-up (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_UP)",
-            tagIcons::basket_up));
+            "basket-up", "TablerIcons.basket_up()", tagIcons::basket_up));
+    icons.add(
+        new IconCatalogEntry<>("basket-x", "TablerIcons.basket_x()", tagIcons::basket_x));
     icons.add(
         new IconCatalogEntry<>(
-            "basket-x (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BASKET_X)",
-            tagIcons::basket_x));
+            "businessplan", "TablerIcons.businessplan()", tagIcons::businessplan));
+    icons.add(new IconCatalogEntry<>("cash", "TablerIcons.cash()", tagIcons::cash));
     icons.add(
         new IconCatalogEntry<>(
-            "businessplan (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.BUSINESSPLAN)",
-            tagIcons::businessplan));
+            "cash-banknote", "TablerIcons.cash_banknote()", tagIcons::cash_banknote));
     icons.add(
         new IconCatalogEntry<>(
-            "cash (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH)",
-            tagIcons::cash));
-    icons.add(
-        new IconCatalogEntry<>(
-            "cash-banknote (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_BANKNOTE)",
-            tagIcons::cash_banknote));
-    icons.add(
-        new IconCatalogEntry<>(
-            "cash-banknote-edit (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_BANKNOTE_EDIT)",
+            "cash-banknote-edit",
+            "TablerIcons.cash_banknote_edit()",
             tagIcons::cash_banknote_edit));
     icons.add(
         new IconCatalogEntry<>(
-            "cash-banknote-heart (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_BANKNOTE_HEART)",
+            "cash-banknote-heart",
+            "TablerIcons.cash_banknote_heart()",
             tagIcons::cash_banknote_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "cash-banknote-minus (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_BANKNOTE_MINUS)",
+            "cash-banknote-minus",
+            "TablerIcons.cash_banknote_minus()",
             tagIcons::cash_banknote_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "cash-banknote-move (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_BANKNOTE_MOVE)",
+            "cash-banknote-move",
+            "TablerIcons.cash_banknote_move()",
             tagIcons::cash_banknote_move));
     icons.add(
         new IconCatalogEntry<>(
-            "cash-banknote-move-back (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_BANKNOTE_MOVE_BACK)",
+            "cash-banknote-move-back",
+            "TablerIcons.cash_banknote_move_back()",
             tagIcons::cash_banknote_move_back));
     icons.add(
         new IconCatalogEntry<>(
-            "cash-banknote-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_BANKNOTE_OFF)",
+            "cash-banknote-off",
+            "TablerIcons.cash_banknote_off()",
             tagIcons::cash_banknote_off));
     icons.add(
         new IconCatalogEntry<>(
-            "cash-banknote-plus (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_BANKNOTE_PLUS)",
+            "cash-banknote-plus",
+            "TablerIcons.cash_banknote_plus()",
             tagIcons::cash_banknote_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "cash-coin (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_COIN)",
-            tagIcons::cash_coin));
+            "cash-coin", "TablerIcons.cash_coin()", tagIcons::cash_coin));
     icons.add(
         new IconCatalogEntry<>(
-            "cash-edit (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_EDIT)",
-            tagIcons::cash_edit));
+            "cash-edit", "TablerIcons.cash_edit()", tagIcons::cash_edit));
     icons.add(
         new IconCatalogEntry<>(
-            "cash-heart (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_HEART)",
-            tagIcons::cash_heart));
+            "cash-heart", "TablerIcons.cash_heart()", tagIcons::cash_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "cash-minus (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_MINUS)",
-            tagIcons::cash_minus));
+            "cash-minus", "TablerIcons.cash_minus()", tagIcons::cash_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "cash-move (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_MOVE)",
-            tagIcons::cash_move));
+            "cash-move", "TablerIcons.cash_move()", tagIcons::cash_move));
     icons.add(
         new IconCatalogEntry<>(
-            "cash-move-back (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_MOVE_BACK)",
-            tagIcons::cash_move_back));
+            "cash-move-back", "TablerIcons.cash_move_back()", tagIcons::cash_move_back));
+    icons.add(
+        new IconCatalogEntry<>("cash-off", "TablerIcons.cash_off()", tagIcons::cash_off));
     icons.add(
         new IconCatalogEntry<>(
-            "cash-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_OFF)",
-            tagIcons::cash_off));
+            "cash-plus", "TablerIcons.cash_plus()", tagIcons::cash_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "cash-plus (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_PLUS)",
-            tagIcons::cash_plus));
+            "cash-register", "TablerIcons.cash_register()", tagIcons::cash_register));
     icons.add(
         new IconCatalogEntry<>(
-            "cash-register (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CASH_REGISTER)",
-            tagIcons::cash_register));
+            "clothes-rack", "TablerIcons.clothes_rack()", tagIcons::clothes_rack));
     icons.add(
         new IconCatalogEntry<>(
-            "clothes-rack (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CLOTHES_RACK)",
-            tagIcons::clothes_rack));
-    icons.add(
-        new IconCatalogEntry<>(
-            "clothes-rack-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CLOTHES_RACK_OFF)",
+            "clothes-rack-off",
+            "TablerIcons.clothes_rack_off()",
             tagIcons::clothes_rack_off));
+    icons.add(new IconCatalogEntry<>("coin", "TablerIcons.coin()", tagIcons::coin));
     icons.add(
         new IconCatalogEntry<>(
-            "coin (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.COIN)",
-            tagIcons::coin));
+            "coin-bitcoin", "TablerIcons.coin_bitcoin()", tagIcons::coin_bitcoin));
     icons.add(
         new IconCatalogEntry<>(
-            "coin-bitcoin (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.COIN_BITCOIN)",
-            tagIcons::coin_bitcoin));
+            "coin-euro", "TablerIcons.coin_euro()", tagIcons::coin_euro));
     icons.add(
         new IconCatalogEntry<>(
-            "coin-euro (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.COIN_EURO)",
-            tagIcons::coin_euro));
+            "coin-monero", "TablerIcons.coin_monero()", tagIcons::coin_monero));
+    icons.add(
+        new IconCatalogEntry<>("coin-off", "TablerIcons.coin_off()", tagIcons::coin_off));
     icons.add(
         new IconCatalogEntry<>(
-            "coin-monero (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.COIN_MONERO)",
-            tagIcons::coin_monero));
+            "coin-pound", "TablerIcons.coin_pound()", tagIcons::coin_pound));
     icons.add(
         new IconCatalogEntry<>(
-            "coin-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.COIN_OFF)",
-            tagIcons::coin_off));
+            "coin-rupee", "TablerIcons.coin_rupee()", tagIcons::coin_rupee));
     icons.add(
         new IconCatalogEntry<>(
-            "coin-pound (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.COIN_POUND)",
-            tagIcons::coin_pound));
+            "coin-taka", "TablerIcons.coin_taka()", tagIcons::coin_taka));
+    icons.add(
+        new IconCatalogEntry<>("coin-yen", "TablerIcons.coin_yen()", tagIcons::coin_yen));
     icons.add(
         new IconCatalogEntry<>(
-            "coin-rupee (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.COIN_RUPEE)",
-            tagIcons::coin_rupee));
+            "coin-yuan", "TablerIcons.coin_yuan()", tagIcons::coin_yuan));
+    icons.add(new IconCatalogEntry<>("coins", "TablerIcons.coins()", tagIcons::coins));
     icons.add(
         new IconCatalogEntry<>(
-            "coin-taka (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.COIN_TAKA)",
-            tagIcons::coin_taka));
+            "credit-card", "TablerIcons.credit_card()", tagIcons::credit_card));
     icons.add(
         new IconCatalogEntry<>(
-            "coin-yen (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.COIN_YEN)",
-            tagIcons::coin_yen));
-    icons.add(
-        new IconCatalogEntry<>(
-            "coin-yuan (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.COIN_YUAN)",
-            tagIcons::coin_yuan));
-    icons.add(
-        new IconCatalogEntry<>(
-            "coins (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.COINS)",
-            tagIcons::coins));
-    icons.add(
-        new IconCatalogEntry<>(
-            "credit-card (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CREDIT_CARD)",
-            tagIcons::credit_card));
-    icons.add(
-        new IconCatalogEntry<>(
-            "credit-card-hand (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CREDIT_CARD_HAND)",
+            "credit-card-hand",
+            "TablerIcons.credit_card_hand()",
             tagIcons::credit_card_hand));
     icons.add(
         new IconCatalogEntry<>(
-            "credit-card-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CREDIT_CARD_OFF)",
+            "credit-card-off",
+            "TablerIcons.credit_card_off()",
             tagIcons::credit_card_off));
     icons.add(
         new IconCatalogEntry<>(
-            "credit-card-pay (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CREDIT_CARD_PAY)",
+            "credit-card-pay",
+            "TablerIcons.credit_card_pay()",
             tagIcons::credit_card_pay));
     icons.add(
         new IconCatalogEntry<>(
-            "credit-card-refund (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.CREDIT_CARD_REFUND)",
+            "credit-card-refund",
+            "TablerIcons.credit_card_refund()",
             tagIcons::credit_card_refund));
+    icons.add(new IconCatalogEntry<>("diaper", "TablerIcons.diaper()", tagIcons::diaper));
+    icons.add(
+        new IconCatalogEntry<>("discount", "TablerIcons.discount()", tagIcons::discount));
     icons.add(
         new IconCatalogEntry<>(
-            "diaper (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.DIAPER)",
-            tagIcons::diaper));
+            "discount-off", "TablerIcons.discount_off()", tagIcons::discount_off));
     icons.add(
         new IconCatalogEntry<>(
-            "discount (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.DISCOUNT)",
-            tagIcons::discount));
+            "e-passport", "TablerIcons.e_passport()", tagIcons::e_passport));
     icons.add(
         new IconCatalogEntry<>(
-            "discount-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.DISCOUNT_OFF)",
-            tagIcons::discount_off));
+            "flip-flops", "TablerIcons.flip_flops()", tagIcons::flip_flops));
+    icons.add(new IconCatalogEntry<>("gift", "TablerIcons.gift()", tagIcons::gift));
     icons.add(
         new IconCatalogEntry<>(
-            "e-passport (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.E_PASSPORT)",
-            tagIcons::e_passport));
+            "gift-card", "TablerIcons.gift_card()", tagIcons::gift_card));
+    icons.add(
+        new IconCatalogEntry<>("gift-off", "TablerIcons.gift_off()", tagIcons::gift_off));
+    icons.add(new IconCatalogEntry<>("hanger", "TablerIcons.hanger()", tagIcons::hanger));
     icons.add(
         new IconCatalogEntry<>(
-            "flip-flops (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.FLIP_FLOPS)",
-            tagIcons::flip_flops));
+            "hanger-off", "TablerIcons.hanger_off()", tagIcons::hanger_off));
+    icons.add(new IconCatalogEntry<>("jacket", "TablerIcons.jacket()", tagIcons::jacket));
+    icons.add(
+        new IconCatalogEntry<>("moneybag", "TablerIcons.moneybag()", tagIcons::moneybag));
     icons.add(
         new IconCatalogEntry<>(
-            "gift (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.GIFT)",
-            tagIcons::gift));
+            "moneybag-edit", "TablerIcons.moneybag_edit()", tagIcons::moneybag_edit));
     icons.add(
         new IconCatalogEntry<>(
-            "gift-card (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.GIFT_CARD)",
-            tagIcons::gift_card));
+            "moneybag-heart", "TablerIcons.moneybag_heart()", tagIcons::moneybag_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "gift-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.GIFT_OFF)",
-            tagIcons::gift_off));
+            "moneybag-minus", "TablerIcons.moneybag_minus()", tagIcons::moneybag_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "hanger (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.HANGER)",
-            tagIcons::hanger));
+            "moneybag-move", "TablerIcons.moneybag_move()", tagIcons::moneybag_move));
     icons.add(
         new IconCatalogEntry<>(
-            "hanger-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.HANGER_OFF)",
-            tagIcons::hanger_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "jacket (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.JACKET)",
-            tagIcons::jacket));
-    icons.add(
-        new IconCatalogEntry<>(
-            "moneybag (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.MONEYBAG)",
-            tagIcons::moneybag));
-    icons.add(
-        new IconCatalogEntry<>(
-            "moneybag-edit (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.MONEYBAG_EDIT)",
-            tagIcons::moneybag_edit));
-    icons.add(
-        new IconCatalogEntry<>(
-            "moneybag-heart (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.MONEYBAG_HEART)",
-            tagIcons::moneybag_heart));
-    icons.add(
-        new IconCatalogEntry<>(
-            "moneybag-minus (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.MONEYBAG_MINUS)",
-            tagIcons::moneybag_minus));
-    icons.add(
-        new IconCatalogEntry<>(
-            "moneybag-move (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.MONEYBAG_MOVE)",
-            tagIcons::moneybag_move));
-    icons.add(
-        new IconCatalogEntry<>(
-            "moneybag-move-back (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.MONEYBAG_MOVE_BACK)",
+            "moneybag-move-back",
+            "TablerIcons.moneybag_move_back()",
             tagIcons::moneybag_move_back));
     icons.add(
         new IconCatalogEntry<>(
-            "moneybag-plus (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.MONEYBAG_PLUS)",
-            tagIcons::moneybag_plus));
+            "moneybag-plus", "TablerIcons.moneybag_plus()", tagIcons::moneybag_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "package-icon (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.PACKAGE)",
-            tagIcons::package_icon));
+            "package-icon", "TablerIcons.package_icon()", tagIcons::package_icon));
     icons.add(
         new IconCatalogEntry<>(
-            "package-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.PACKAGE_OFF)",
-            tagIcons::package_off));
+            "package-off", "TablerIcons.package_off()", tagIcons::package_off));
+    icons.add(
+        new IconCatalogEntry<>("perfume", "TablerIcons.perfume()", tagIcons::perfume));
     icons.add(
         new IconCatalogEntry<>(
-            "perfume (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.PERFUME)",
-            tagIcons::perfume));
-    icons.add(
-        new IconCatalogEntry<>(
-            "receipt-bitcoin (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.RECEIPT_BITCOIN)",
+            "receipt-bitcoin",
+            "TablerIcons.receipt_bitcoin()",
             tagIcons::receipt_bitcoin));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt-euro (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.RECEIPT_EURO)",
-            tagIcons::receipt_euro));
+            "receipt-euro", "TablerIcons.receipt_euro()", tagIcons::receipt_euro));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt-pound (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.RECEIPT_POUND)",
-            tagIcons::receipt_pound));
+            "receipt-pound", "TablerIcons.receipt_pound()", tagIcons::receipt_pound));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt-rupee (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.RECEIPT_RUPEE)",
-            tagIcons::receipt_rupee));
+            "receipt-rupee", "TablerIcons.receipt_rupee()", tagIcons::receipt_rupee));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt-yen (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.RECEIPT_YEN)",
-            tagIcons::receipt_yen));
+            "receipt-yen", "TablerIcons.receipt_yen()", tagIcons::receipt_yen));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt-yuan (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.RECEIPT_YUAN)",
-            tagIcons::receipt_yuan));
+            "receipt-yuan", "TablerIcons.receipt_yuan()", tagIcons::receipt_yuan));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-discount (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.ROSETTE_DISCOUNT)",
+            "rosette-discount",
+            "TablerIcons.rosette_discount()",
             tagIcons::rosette_discount));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-discount-check (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.ROSETTE_DISCOUNT_CHECK)",
+            "rosette-discount-check",
+            "TablerIcons.rosette_discount_check()",
             tagIcons::rosette_discount_check));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-discount-check-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.ROSETTE_DISCOUNT_CHECK_OFF)",
+            "rosette-discount-check-off",
+            "TablerIcons.rosette_discount_check_off()",
             tagIcons::rosette_discount_check_off));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-discount-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.ROSETTE_DISCOUNT_OFF)",
+            "rosette-discount-off",
+            "TablerIcons.rosette_discount_off()",
             tagIcons::rosette_discount_off));
+    icons.add(new IconCatalogEntry<>("shirt", "TablerIcons.shirt()", tagIcons::shirt));
     icons.add(
         new IconCatalogEntry<>(
-            "shirt (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHIRT)",
-            tagIcons::shirt));
+            "shirt-off", "TablerIcons.shirt_off()", tagIcons::shirt_off));
     icons.add(
         new IconCatalogEntry<>(
-            "shirt-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHIRT_OFF)",
-            tagIcons::shirt_off));
+            "shirt-sport", "TablerIcons.shirt_sport()", tagIcons::shirt_sport));
+    icons.add(new IconCatalogEntry<>("shoe", "TablerIcons.shoe()", tagIcons::shoe));
+    icons.add(
+        new IconCatalogEntry<>("shoe-off", "TablerIcons.shoe_off()", tagIcons::shoe_off));
     icons.add(
         new IconCatalogEntry<>(
-            "shirt-sport (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHIRT_SPORT)",
-            tagIcons::shirt_sport));
+            "shopping-bag", "TablerIcons.shopping_bag()", tagIcons::shopping_bag));
     icons.add(
         new IconCatalogEntry<>(
-            "shoe (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOE)",
-            tagIcons::shoe));
-    icons.add(
-        new IconCatalogEntry<>(
-            "shoe-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOE_OFF)",
-            tagIcons::shoe_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "shopping-bag (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_BAG)",
-            tagIcons::shopping_bag));
-    icons.add(
-        new IconCatalogEntry<>(
-            "shopping-bag-check (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_BAG_CHECK)",
+            "shopping-bag-check",
+            "TablerIcons.shopping_bag_check()",
             tagIcons::shopping_bag_check));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-bag-discount (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_BAG_DISCOUNT)",
+            "shopping-bag-discount",
+            "TablerIcons.shopping_bag_discount()",
             tagIcons::shopping_bag_discount));
   }
 
   private static void addIcons1() {
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-bag-edit (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_BAG_EDIT)",
+            "shopping-bag-edit",
+            "TablerIcons.shopping_bag_edit()",
             tagIcons::shopping_bag_edit));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-bag-exclamation (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_BAG_EXCLAMATION)",
+            "shopping-bag-exclamation",
+            "TablerIcons.shopping_bag_exclamation()",
             tagIcons::shopping_bag_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-bag-heart (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_BAG_HEART)",
+            "shopping-bag-heart",
+            "TablerIcons.shopping_bag_heart()",
             tagIcons::shopping_bag_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-bag-minus (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_BAG_MINUS)",
+            "shopping-bag-minus",
+            "TablerIcons.shopping_bag_minus()",
             tagIcons::shopping_bag_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-bag-plus (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_BAG_PLUS)",
+            "shopping-bag-plus",
+            "TablerIcons.shopping_bag_plus()",
             tagIcons::shopping_bag_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-bag-search (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_BAG_SEARCH)",
+            "shopping-bag-search",
+            "TablerIcons.shopping_bag_search()",
             tagIcons::shopping_bag_search));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-bag-x (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_BAG_X)",
-            tagIcons::shopping_bag_x));
+            "shopping-bag-x", "TablerIcons.shopping_bag_x()", tagIcons::shopping_bag_x));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART)",
-            tagIcons::shopping_cart));
+            "shopping-cart", "TablerIcons.shopping_cart()", tagIcons::shopping_cart));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-bolt (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_BOLT)",
+            "shopping-cart-bolt",
+            "TablerIcons.shopping_cart_bolt()",
             tagIcons::shopping_cart_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-cancel (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_CANCEL)",
+            "shopping-cart-cancel",
+            "TablerIcons.shopping_cart_cancel()",
             tagIcons::shopping_cart_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-check (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_CHECK)",
+            "shopping-cart-check",
+            "TablerIcons.shopping_cart_check()",
             tagIcons::shopping_cart_check));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-code (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_CODE)",
+            "shopping-cart-code",
+            "TablerIcons.shopping_cart_code()",
             tagIcons::shopping_cart_code));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-cog (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_COG)",
+            "shopping-cart-cog",
+            "TablerIcons.shopping_cart_cog()",
             tagIcons::shopping_cart_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-copy (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_COPY)",
+            "shopping-cart-copy",
+            "TablerIcons.shopping_cart_copy()",
             tagIcons::shopping_cart_copy));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-discount (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_DISCOUNT)",
+            "shopping-cart-discount",
+            "TablerIcons.shopping_cart_discount()",
             tagIcons::shopping_cart_discount));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-dollar (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_DOLLAR)",
+            "shopping-cart-dollar",
+            "TablerIcons.shopping_cart_dollar()",
             tagIcons::shopping_cart_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-down (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_DOWN)",
+            "shopping-cart-down",
+            "TablerIcons.shopping_cart_down()",
             tagIcons::shopping_cart_down));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-exclamation (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_EXCLAMATION)",
+            "shopping-cart-exclamation",
+            "TablerIcons.shopping_cart_exclamation()",
             tagIcons::shopping_cart_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-heart (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_HEART)",
+            "shopping-cart-heart",
+            "TablerIcons.shopping_cart_heart()",
             tagIcons::shopping_cart_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-minus (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_MINUS)",
+            "shopping-cart-minus",
+            "TablerIcons.shopping_cart_minus()",
             tagIcons::shopping_cart_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_OFF)",
+            "shopping-cart-off",
+            "TablerIcons.shopping_cart_off()",
             tagIcons::shopping_cart_off));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-pause (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_PAUSE)",
+            "shopping-cart-pause",
+            "TablerIcons.shopping_cart_pause()",
             tagIcons::shopping_cart_pause));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-pin (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_PIN)",
+            "shopping-cart-pin",
+            "TablerIcons.shopping_cart_pin()",
             tagIcons::shopping_cart_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-plus (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_PLUS)",
+            "shopping-cart-plus",
+            "TablerIcons.shopping_cart_plus()",
             tagIcons::shopping_cart_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-question (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_QUESTION)",
+            "shopping-cart-question",
+            "TablerIcons.shopping_cart_question()",
             tagIcons::shopping_cart_question));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-search (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_SEARCH)",
+            "shopping-cart-search",
+            "TablerIcons.shopping_cart_search()",
             tagIcons::shopping_cart_search));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-share (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_SHARE)",
+            "shopping-cart-share",
+            "TablerIcons.shopping_cart_share()",
             tagIcons::shopping_cart_share));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-star (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_STAR)",
+            "shopping-cart-star",
+            "TablerIcons.shopping_cart_star()",
             tagIcons::shopping_cart_star));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-up (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_UP)",
+            "shopping-cart-up",
+            "TablerIcons.shopping_cart_up()",
             tagIcons::shopping_cart_up));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart-x (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SHOPPING_CART_X)",
+            "shopping-cart-x",
+            "TablerIcons.shopping_cart_x()",
             tagIcons::shopping_cart_x));
+    icons.add(new IconCatalogEntry<>("sock", "TablerIcons.sock()", tagIcons::sock));
+    icons.add(new IconCatalogEntry<>("tag", "TablerIcons.tag()", tagIcons::tag));
     icons.add(
         new IconCatalogEntry<>(
-            "sock (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.SOCK)",
-            tagIcons::sock));
+            "tag-minus", "TablerIcons.tag_minus()", tagIcons::tag_minus));
+    icons.add(
+        new IconCatalogEntry<>("tag-off", "TablerIcons.tag_off()", tagIcons::tag_off));
+    icons.add(
+        new IconCatalogEntry<>("tag-plus", "TablerIcons.tag_plus()", tagIcons::tag_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "tag (outline)", "TablerIcon.create(TablerECommerce.OutlineIcon.TAG)", tagIcons::tag));
+            "tag-starred", "TablerIcons.tag_starred()", tagIcons::tag_starred));
+    icons.add(new IconCatalogEntry<>("tags", "TablerIcons.tags()", tagIcons::tags));
     icons.add(
         new IconCatalogEntry<>(
-            "tag-minus (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TAG_MINUS)",
-            tagIcons::tag_minus));
-    icons.add(
-        new IconCatalogEntry<>(
-            "tag-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TAG_OFF)",
-            tagIcons::tag_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "tag-plus (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TAG_PLUS)",
-            tagIcons::tag_plus));
-    icons.add(
-        new IconCatalogEntry<>(
-            "tag-starred (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TAG_STARRED)",
-            tagIcons::tag_starred));
-    icons.add(
-        new IconCatalogEntry<>(
-            "tags (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TAGS)",
-            tagIcons::tags));
-    icons.add(
-        new IconCatalogEntry<>(
-            "tags-chevron-down (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TAGS_CHEVRON_DOWN)",
+            "tags-chevron-down",
+            "TablerIcons.tags_chevron_down()",
             tagIcons::tags_chevron_down));
     icons.add(
         new IconCatalogEntry<>(
-            "tags-chevron-left (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TAGS_CHEVRON_LEFT)",
+            "tags-chevron-left",
+            "TablerIcons.tags_chevron_left()",
             tagIcons::tags_chevron_left));
     icons.add(
         new IconCatalogEntry<>(
-            "tags-chevron-right (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TAGS_CHEVRON_RIGHT)",
+            "tags-chevron-right",
+            "TablerIcons.tags_chevron_right()",
             tagIcons::tags_chevron_right));
     icons.add(
         new IconCatalogEntry<>(
-            "tags-chevron-up (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TAGS_CHEVRON_UP)",
+            "tags-chevron-up",
+            "TablerIcons.tags_chevron_up()",
             tagIcons::tags_chevron_up));
     icons.add(
-        new IconCatalogEntry<>(
-            "tags-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TAGS_OFF)",
-            tagIcons::tags_off));
+        new IconCatalogEntry<>("tags-off", "TablerIcons.tags_off()", tagIcons::tags_off));
+    icons.add(new IconCatalogEntry<>("tie", "TablerIcons.tie()", tagIcons::tie));
     icons.add(
         new IconCatalogEntry<>(
-            "tie (outline)", "TablerIcon.create(TablerECommerce.OutlineIcon.TIE)", tagIcons::tie));
-    icons.add(
-        new IconCatalogEntry<>(
-            "transaction-dollar (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TRANSACTION_DOLLAR)",
+            "transaction-dollar",
+            "TablerIcons.transaction_dollar()",
             tagIcons::transaction_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "transaction-euro (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TRANSACTION_EURO)",
+            "transaction-euro",
+            "TablerIcons.transaction_euro()",
             tagIcons::transaction_euro));
     icons.add(
         new IconCatalogEntry<>(
-            "transaction-pound (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TRANSACTION_POUND)",
+            "transaction-pound",
+            "TablerIcons.transaction_pound()",
             tagIcons::transaction_pound));
     icons.add(
         new IconCatalogEntry<>(
-            "transaction-yen (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TRANSACTION_YEN)",
+            "transaction-yen",
+            "TablerIcons.transaction_yen()",
             tagIcons::transaction_yen));
     icons.add(
         new IconCatalogEntry<>(
-            "transaction-yuan (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TRANSACTION_YUAN)",
+            "transaction-yuan",
+            "TablerIcons.transaction_yuan()",
             tagIcons::transaction_yuan));
     icons.add(
         new IconCatalogEntry<>(
-            "transfer-in (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TRANSFER_IN)",
-            tagIcons::transfer_in));
+            "transfer-in", "TablerIcons.transfer_in()", tagIcons::transfer_in));
     icons.add(
         new IconCatalogEntry<>(
-            "transfer-out (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TRANSFER_OUT)",
-            tagIcons::transfer_out));
+            "transfer-out", "TablerIcons.transfer_out()", tagIcons::transfer_out));
     icons.add(
         new IconCatalogEntry<>(
-            "truck-delivery (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TRUCK_DELIVERY)",
-            tagIcons::truck_delivery));
+            "truck-delivery", "TablerIcons.truck_delivery()", tagIcons::truck_delivery));
     icons.add(
         new IconCatalogEntry<>(
-            "truck-loading (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TRUCK_LOADING)",
-            tagIcons::truck_loading));
+            "truck-loading", "TablerIcons.truck_loading()", tagIcons::truck_loading));
     icons.add(
         new IconCatalogEntry<>(
-            "truck-return (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.TRUCK_RETURN)",
-            tagIcons::truck_return));
+            "truck-return", "TablerIcons.truck_return()", tagIcons::truck_return));
+    icons.add(new IconCatalogEntry<>("wallet", "TablerIcons.wallet()", tagIcons::wallet));
     icons.add(
         new IconCatalogEntry<>(
-            "wallet (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.WALLET)",
-            tagIcons::wallet));
+            "wallet-off", "TablerIcons.wallet_off()", tagIcons::wallet_off));
     icons.add(
         new IconCatalogEntry<>(
-            "wallet-off (outline)",
-            "TablerIcon.create(TablerECommerce.OutlineIcon.WALLET_OFF)",
-            tagIcons::wallet_off));
+            "basket", "TablerIcons.basket_filled()", tagIcons::basket_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "basket (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.BASKET)",
-            tagIcons::basket_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "cash-banknote (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.CASH_BANKNOTE)",
+            "cash-banknote",
+            "TablerIcons.cash_banknote_filled()",
             tagIcons::cash_banknote_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "coin (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.COIN)",
-            tagIcons::coin_filled));
+            "coin", "TablerIcons.coin_filled()", tagIcons::coin_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "coin-bitcoin (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.COIN_BITCOIN)",
+            "coin-bitcoin",
+            "TablerIcons.coin_bitcoin_filled()",
             tagIcons::coin_bitcoin_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "coin-euro (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.COIN_EURO)",
-            tagIcons::coin_euro_filled));
+            "coin-euro", "TablerIcons.coin_euro_filled()", tagIcons::coin_euro_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "coin-monero (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.COIN_MONERO)",
+            "coin-monero",
+            "TablerIcons.coin_monero_filled()",
             tagIcons::coin_monero_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "coin-pound (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.COIN_POUND)",
-            tagIcons::coin_pound_filled));
+            "coin-pound", "TablerIcons.coin_pound_filled()", tagIcons::coin_pound_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "coin-rupee (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.COIN_RUPEE)",
-            tagIcons::coin_rupee_filled));
+            "coin-rupee", "TablerIcons.coin_rupee_filled()", tagIcons::coin_rupee_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "coin-taka (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.COIN_TAKA)",
-            tagIcons::coin_taka_filled));
+            "coin-taka", "TablerIcons.coin_taka_filled()", tagIcons::coin_taka_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "coin-yen (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.COIN_YEN)",
-            tagIcons::coin_yen_filled));
+            "coin-yen", "TablerIcons.coin_yen_filled()", tagIcons::coin_yen_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "coin-yuan (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.COIN_YUAN)",
-            tagIcons::coin_yuan_filled));
+            "coin-yuan", "TablerIcons.coin_yuan_filled()", tagIcons::coin_yuan_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "credit-card (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.CREDIT_CARD)",
+            "credit-card",
+            "TablerIcons.credit_card_filled()",
             tagIcons::credit_card_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "discount (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.DISCOUNT)",
-            tagIcons::discount_filled));
+            "discount", "TablerIcons.discount_filled()", tagIcons::discount_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "gift (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.GIFT)",
-            tagIcons::gift_filled));
+            "gift", "TablerIcons.gift_filled()", tagIcons::gift_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "gift-card (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.GIFT_CARD)",
-            tagIcons::gift_card_filled));
+            "gift-card", "TablerIcons.gift_card_filled()", tagIcons::gift_card_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt-euro (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.RECEIPT_EURO)",
+            "receipt-euro",
+            "TablerIcons.receipt_euro_filled()",
             tagIcons::receipt_euro_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt-pound (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.RECEIPT_POUND)",
+            "receipt-pound",
+            "TablerIcons.receipt_pound_filled()",
             tagIcons::receipt_pound_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt-rupee (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.RECEIPT_RUPEE)",
+            "receipt-rupee",
+            "TablerIcons.receipt_rupee_filled()",
             tagIcons::receipt_rupee_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt-yen (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.RECEIPT_YEN)",
+            "receipt-yen",
+            "TablerIcons.receipt_yen_filled()",
             tagIcons::receipt_yen_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt-yuan (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.RECEIPT_YUAN)",
+            "receipt-yuan",
+            "TablerIcons.receipt_yuan_filled()",
             tagIcons::receipt_yuan_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-discount (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.ROSETTE_DISCOUNT)",
+            "rosette-discount",
+            "TablerIcons.rosette_discount_filled()",
             tagIcons::rosette_discount_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-discount-check (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.ROSETTE_DISCOUNT_CHECK)",
+            "rosette-discount-check",
+            "TablerIcons.rosette_discount_check_filled()",
             tagIcons::rosette_discount_check_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "shirt (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.SHIRT)",
-            tagIcons::shirt_filled));
+            "shirt", "TablerIcons.shirt_filled()", tagIcons::shirt_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "shopping-cart (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.SHOPPING_CART)",
+            "shopping-cart",
+            "TablerIcons.shopping_cart_filled()",
             tagIcons::shopping_cart_filled));
     icons.add(
-        new IconCatalogEntry<>(
-            "tag (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.TAG)",
-            tagIcons::tag_filled));
+        new IconCatalogEntry<>("tag", "TablerIcons.tag_filled()", tagIcons::tag_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "tags (filled)",
-            "TablerIcon.create(TablerECommerce.FilledIcon.TAGS)",
-            tagIcons::tags_filled));
+            "tags", "TablerIcons.tags_filled()", tagIcons::tags_filled));
   }
 
   public List<IconCatalogEntry<TablerIcon>> icons() {

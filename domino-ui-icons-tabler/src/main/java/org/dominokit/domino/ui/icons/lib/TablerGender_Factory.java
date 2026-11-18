@@ -33,93 +33,79 @@ public final class TablerGender_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "gender-agender (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_AGENDER)",
-            tagIcons::gender_agender));
+            "gender-agender", "TablerIcons.gender_agender()", tagIcons::gender_agender));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-androgyne (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_ANDROGYNE)",
+            "gender-androgyne",
+            "TablerIcons.gender_androgyne()",
             tagIcons::gender_androgyne));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-bigender (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_BIGENDER)",
+            "gender-bigender",
+            "TablerIcons.gender_bigender()",
             tagIcons::gender_bigender));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-demiboy (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_DEMIBOY)",
-            tagIcons::gender_demiboy));
+            "gender-demiboy", "TablerIcons.gender_demiboy()", tagIcons::gender_demiboy));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-demigirl (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_DEMIGIRL)",
+            "gender-demigirl",
+            "TablerIcons.gender_demigirl()",
             tagIcons::gender_demigirl));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-epicene (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_EPICENE)",
-            tagIcons::gender_epicene));
+            "gender-epicene", "TablerIcons.gender_epicene()", tagIcons::gender_epicene));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-female (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_FEMALE)",
-            tagIcons::gender_female));
+            "gender-female", "TablerIcons.gender_female()", tagIcons::gender_female));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-femme (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_FEMME)",
-            tagIcons::gender_femme));
+            "gender-femme", "TablerIcons.gender_femme()", tagIcons::gender_femme));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-genderfluid (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_GENDERFLUID)",
+            "gender-genderfluid",
+            "TablerIcons.gender_genderfluid()",
             tagIcons::gender_genderfluid));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-genderless (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_GENDERLESS)",
+            "gender-genderless",
+            "TablerIcons.gender_genderless()",
             tagIcons::gender_genderless));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-genderqueer (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_GENDERQUEER)",
+            "gender-genderqueer",
+            "TablerIcons.gender_genderqueer()",
             tagIcons::gender_genderqueer));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-hermaphrodite (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_HERMAPHRODITE)",
+            "gender-hermaphrodite",
+            "TablerIcons.gender_hermaphrodite()",
             tagIcons::gender_hermaphrodite));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-intergender (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_INTERGENDER)",
+            "gender-intergender",
+            "TablerIcons.gender_intergender()",
             tagIcons::gender_intergender));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-male (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_MALE)",
-            tagIcons::gender_male));
+            "gender-male", "TablerIcons.gender_male()", tagIcons::gender_male));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-neutrois (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_NEUTROIS)",
+            "gender-neutrois",
+            "TablerIcons.gender_neutrois()",
             tagIcons::gender_neutrois));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-third (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_THIRD)",
-            tagIcons::gender_third));
+            "gender-third", "TablerIcons.gender_third()", tagIcons::gender_third));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-transgender (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_TRANSGENDER)",
+            "gender-transgender",
+            "TablerIcons.gender_transgender()",
             tagIcons::gender_transgender));
     icons.add(
         new IconCatalogEntry<>(
-            "gender-travesti (outline)",
-            "TablerIcon.create(TablerGender.OutlineIcon.GENDER_TRAVESTI)",
+            "gender-travesti",
+            "TablerIcons.gender_travesti()",
             tagIcons::gender_travesti));
   }
 

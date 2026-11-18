@@ -27,7 +27,11 @@ public final class LucideCharts_Factory {
 
   static {
     for (LucideCharts.Icon definition : LucideCharts.Icon.values()) {
-      String code = "LucideIcon.create(LucideCharts.Icon." + definition.name() + ")";
+      String iconMethod = definition.catalogName().replace('-', '_');
+      if ("import".equals(iconMethod) || "package".equals(iconMethod)) {
+        iconMethod += "_icon";
+      }
+      String code = "LucideIcons." + iconMethod + "()";
       icons.add(
           new IconCatalogEntry<>(
               definition.catalogName(), code, () -> LucideIcon.create(definition)));

@@ -33,239 +33,168 @@ public final class TablerDatabase_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "column-insert-left (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.COLUMN_INSERT_LEFT)",
+            "column-insert-left",
+            "TablerIcons.column_insert_left()",
             tagIcons::column_insert_left));
     icons.add(
         new IconCatalogEntry<>(
-            "column-insert-right (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.COLUMN_INSERT_RIGHT)",
+            "column-insert-right",
+            "TablerIcons.column_insert_right()",
             tagIcons::column_insert_right));
     icons.add(
         new IconCatalogEntry<>(
-            "column-remove (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.COLUMN_REMOVE)",
-            tagIcons::column_remove));
+            "column-remove", "TablerIcons.column_remove()", tagIcons::column_remove));
+    icons.add(
+        new IconCatalogEntry<>("database", "TablerIcons.database()", tagIcons::database));
     icons.add(
         new IconCatalogEntry<>(
-            "database (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.DATABASE)",
-            tagIcons::database));
+            "database-cog", "TablerIcons.database_cog()", tagIcons::database_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "database-cog (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.DATABASE_COG)",
-            tagIcons::database_cog));
-    icons.add(
-        new IconCatalogEntry<>(
-            "database-dollar (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.DATABASE_DOLLAR)",
+            "database-dollar",
+            "TablerIcons.database_dollar()",
             tagIcons::database_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "database-edit (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.DATABASE_EDIT)",
-            tagIcons::database_edit));
+            "database-edit", "TablerIcons.database_edit()", tagIcons::database_edit));
     icons.add(
         new IconCatalogEntry<>(
-            "database-exclamation (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.DATABASE_EXCLAMATION)",
+            "database-exclamation",
+            "TablerIcons.database_exclamation()",
             tagIcons::database_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "database-export (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.DATABASE_EXPORT)",
+            "database-export",
+            "TablerIcons.database_export()",
             tagIcons::database_export));
     icons.add(
         new IconCatalogEntry<>(
-            "database-heart (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.DATABASE_HEART)",
-            tagIcons::database_heart));
+            "database-heart", "TablerIcons.database_heart()", tagIcons::database_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "database-import (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.DATABASE_IMPORT)",
+            "database-import",
+            "TablerIcons.database_import()",
             tagIcons::database_import));
     icons.add(
         new IconCatalogEntry<>(
-            "database-leak (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.DATABASE_LEAK)",
-            tagIcons::database_leak));
+            "database-leak", "TablerIcons.database_leak()", tagIcons::database_leak));
     icons.add(
         new IconCatalogEntry<>(
-            "database-minus (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.DATABASE_MINUS)",
-            tagIcons::database_minus));
+            "database-minus", "TablerIcons.database_minus()", tagIcons::database_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "database-off (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.DATABASE_OFF)",
-            tagIcons::database_off));
+            "database-off", "TablerIcons.database_off()", tagIcons::database_off));
     icons.add(
         new IconCatalogEntry<>(
-            "database-plus (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.DATABASE_PLUS)",
-            tagIcons::database_plus));
+            "database-plus", "TablerIcons.database_plus()", tagIcons::database_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "database-search (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.DATABASE_SEARCH)",
+            "database-search",
+            "TablerIcons.database_search()",
             tagIcons::database_search));
     icons.add(
         new IconCatalogEntry<>(
-            "database-share (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.DATABASE_SHARE)",
-            tagIcons::database_share));
+            "database-share", "TablerIcons.database_share()", tagIcons::database_share));
     icons.add(
         new IconCatalogEntry<>(
-            "database-star (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.DATABASE_STAR)",
-            tagIcons::database_star));
+            "database-star", "TablerIcons.database_star()", tagIcons::database_star));
     icons.add(
         new IconCatalogEntry<>(
-            "database-x (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.DATABASE_X)",
-            tagIcons::database_x));
+            "database-x", "TablerIcons.database_x()", tagIcons::database_x));
     icons.add(
         new IconCatalogEntry<>(
-            "relation-many-to-many (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.RELATION_MANY_TO_MANY)",
+            "relation-many-to-many",
+            "TablerIcons.relation_many_to_many()",
             tagIcons::relation_many_to_many));
     icons.add(
         new IconCatalogEntry<>(
-            "relation-one-to-many (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.RELATION_ONE_TO_MANY)",
+            "relation-one-to-many",
+            "TablerIcons.relation_one_to_many()",
             tagIcons::relation_one_to_many));
     icons.add(
         new IconCatalogEntry<>(
-            "relation-one-to-one (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.RELATION_ONE_TO_ONE)",
+            "relation-one-to-one",
+            "TablerIcons.relation_one_to_one()",
             tagIcons::relation_one_to_one));
     icons.add(
         new IconCatalogEntry<>(
-            "row-insert-bottom (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.ROW_INSERT_BOTTOM)",
+            "row-insert-bottom",
+            "TablerIcons.row_insert_bottom()",
             tagIcons::row_insert_bottom));
     icons.add(
         new IconCatalogEntry<>(
-            "row-insert-top (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.ROW_INSERT_TOP)",
-            tagIcons::row_insert_top));
+            "row-insert-top", "TablerIcons.row_insert_top()", tagIcons::row_insert_top));
     icons.add(
         new IconCatalogEntry<>(
-            "row-remove (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.ROW_REMOVE)",
-            tagIcons::row_remove));
+            "row-remove", "TablerIcons.row_remove()", tagIcons::row_remove));
+    icons.add(new IconCatalogEntry<>("schema", "TablerIcons.schema()", tagIcons::schema));
     icons.add(
         new IconCatalogEntry<>(
-            "schema (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.SCHEMA)",
-            tagIcons::schema));
+            "schema-off", "TablerIcons.schema_off()", tagIcons::schema_off));
+    icons.add(new IconCatalogEntry<>("table", "TablerIcons.table()", tagIcons::table));
     icons.add(
         new IconCatalogEntry<>(
-            "schema-off (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.SCHEMA_OFF)",
-            tagIcons::schema_off));
+            "table-alias", "TablerIcons.table_alias()", tagIcons::table_alias));
     icons.add(
         new IconCatalogEntry<>(
-            "table (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.TABLE)",
-            tagIcons::table));
+            "table-column", "TablerIcons.table_column()", tagIcons::table_column));
     icons.add(
         new IconCatalogEntry<>(
-            "table-alias (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.TABLE_ALIAS)",
-            tagIcons::table_alias));
+            "table-down", "TablerIcons.table_down()", tagIcons::table_down));
     icons.add(
         new IconCatalogEntry<>(
-            "table-column (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.TABLE_COLUMN)",
-            tagIcons::table_column));
+            "table-export", "TablerIcons.table_export()", tagIcons::table_export));
     icons.add(
         new IconCatalogEntry<>(
-            "table-down (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.TABLE_DOWN)",
-            tagIcons::table_down));
+            "table-heart", "TablerIcons.table_heart()", tagIcons::table_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "table-export (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.TABLE_EXPORT)",
-            tagIcons::table_export));
+            "table-import", "TablerIcons.table_import()", tagIcons::table_import));
     icons.add(
         new IconCatalogEntry<>(
-            "table-heart (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.TABLE_HEART)",
-            tagIcons::table_heart));
+            "table-minus", "TablerIcons.table_minus()", tagIcons::table_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "table-import (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.TABLE_IMPORT)",
-            tagIcons::table_import));
+            "table-off", "TablerIcons.table_off()", tagIcons::table_off));
     icons.add(
         new IconCatalogEntry<>(
-            "table-minus (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.TABLE_MINUS)",
-            tagIcons::table_minus));
+            "table-options", "TablerIcons.table_options()", tagIcons::table_options));
     icons.add(
         new IconCatalogEntry<>(
-            "table-off (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.TABLE_OFF)",
-            tagIcons::table_off));
+            "table-plus", "TablerIcons.table_plus()", tagIcons::table_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "table-options (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.TABLE_OPTIONS)",
-            tagIcons::table_options));
+            "table-row", "TablerIcons.table_row()", tagIcons::table_row));
     icons.add(
         new IconCatalogEntry<>(
-            "table-plus (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.TABLE_PLUS)",
-            tagIcons::table_plus));
+            "table-share", "TablerIcons.table_share()", tagIcons::table_share));
     icons.add(
         new IconCatalogEntry<>(
-            "table-row (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.TABLE_ROW)",
-            tagIcons::table_row));
+            "table-shortcut", "TablerIcons.table_shortcut()", tagIcons::table_shortcut));
     icons.add(
         new IconCatalogEntry<>(
-            "table-share (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.TABLE_SHARE)",
-            tagIcons::table_share));
+            "table-spark", "TablerIcons.table_spark()", tagIcons::table_spark));
     icons.add(
         new IconCatalogEntry<>(
-            "table-shortcut (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.TABLE_SHORTCUT)",
-            tagIcons::table_shortcut));
+            "database", "TablerIcons.database_filled()", tagIcons::database_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "table-spark (outline)",
-            "TablerIcon.create(TablerDatabase.OutlineIcon.TABLE_SPARK)",
-            tagIcons::table_spark));
-    icons.add(
-        new IconCatalogEntry<>(
-            "database (filled)",
-            "TablerIcon.create(TablerDatabase.FilledIcon.DATABASE)",
-            tagIcons::database_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "relation-many-to-many (filled)",
-            "TablerIcon.create(TablerDatabase.FilledIcon.RELATION_MANY_TO_MANY)",
+            "relation-many-to-many",
+            "TablerIcons.relation_many_to_many_filled()",
             tagIcons::relation_many_to_many_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "relation-one-to-many (filled)",
-            "TablerIcon.create(TablerDatabase.FilledIcon.RELATION_ONE_TO_MANY)",
+            "relation-one-to-many",
+            "TablerIcons.relation_one_to_many_filled()",
             tagIcons::relation_one_to_many_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "relation-one-to-one (filled)",
-            "TablerIcon.create(TablerDatabase.FilledIcon.RELATION_ONE_TO_ONE)",
+            "relation-one-to-one",
+            "TablerIcons.relation_one_to_one_filled()",
             tagIcons::relation_one_to_one_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "table (filled)",
-            "TablerIcon.create(TablerDatabase.FilledIcon.TABLE)",
-            tagIcons::table_filled));
+            "table", "TablerIcons.table_filled()", tagIcons::table_filled));
   }
 
   public List<IconCatalogEntry<TablerIcon>> icons() {

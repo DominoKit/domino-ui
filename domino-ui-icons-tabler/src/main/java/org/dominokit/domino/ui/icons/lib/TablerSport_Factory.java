@@ -33,435 +33,253 @@ public final class TablerSport_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "acrobatic (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.ACROBATIC)",
-            tagIcons::acrobatic));
+            "acrobatic", "TablerIcons.acrobatic()", tagIcons::acrobatic));
     icons.add(
         new IconCatalogEntry<>(
-            "ball-american-football (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.BALL_AMERICAN_FOOTBALL)",
+            "ball-american-football",
+            "TablerIcons.ball_american_football()",
             tagIcons::ball_american_football));
     icons.add(
         new IconCatalogEntry<>(
-            "ball-american-football-off (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.BALL_AMERICAN_FOOTBALL_OFF)",
+            "ball-american-football-off",
+            "TablerIcons.ball_american_football_off()",
             tagIcons::ball_american_football_off));
     icons.add(
         new IconCatalogEntry<>(
-            "ball-baseball (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.BALL_BASEBALL)",
-            tagIcons::ball_baseball));
+            "ball-baseball", "TablerIcons.ball_baseball()", tagIcons::ball_baseball));
     icons.add(
         new IconCatalogEntry<>(
-            "ball-basketball (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.BALL_BASKETBALL)",
+            "ball-basketball",
+            "TablerIcons.ball_basketball()",
             tagIcons::ball_basketball));
     icons.add(
         new IconCatalogEntry<>(
-            "ball-bowling (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.BALL_BOWLING)",
-            tagIcons::ball_bowling));
+            "ball-bowling", "TablerIcons.ball_bowling()", tagIcons::ball_bowling));
     icons.add(
         new IconCatalogEntry<>(
-            "ball-football (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.BALL_FOOTBALL)",
-            tagIcons::ball_football));
+            "ball-football", "TablerIcons.ball_football()", tagIcons::ball_football));
     icons.add(
         new IconCatalogEntry<>(
-            "ball-football-off (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.BALL_FOOTBALL_OFF)",
+            "ball-football-off",
+            "TablerIcons.ball_football_off()",
             tagIcons::ball_football_off));
     icons.add(
         new IconCatalogEntry<>(
-            "ball-tennis (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.BALL_TENNIS)",
-            tagIcons::ball_tennis));
+            "ball-tennis", "TablerIcons.ball_tennis()", tagIcons::ball_tennis));
     icons.add(
         new IconCatalogEntry<>(
-            "ball-volleyball (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.BALL_VOLLEYBALL)",
+            "ball-volleyball",
+            "TablerIcons.ball_volleyball()",
             tagIcons::ball_volleyball));
     icons.add(
-        new IconCatalogEntry<>(
-            "barbell (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.BARBELL)",
-            tagIcons::barbell));
+        new IconCatalogEntry<>("barbell", "TablerIcons.barbell()", tagIcons::barbell));
     icons.add(
         new IconCatalogEntry<>(
-            "barbell-off (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.BARBELL_OFF)",
-            tagIcons::barbell_off));
+            "barbell-off", "TablerIcons.barbell_off()", tagIcons::barbell_off));
+    icons.add(new IconCatalogEntry<>("bow", "TablerIcons.bow()", tagIcons::bow));
+    icons.add(
+        new IconCatalogEntry<>("bowling", "TablerIcons.bowling()", tagIcons::bowling));
+    icons.add(new IconCatalogEntry<>("chess", "TablerIcons.chess()", tagIcons::chess));
     icons.add(
         new IconCatalogEntry<>(
-            "bow (outline)", "TablerIcon.create(TablerSport.OutlineIcon.BOW)", tagIcons::bow));
+            "chess-bishop", "TablerIcons.chess_bishop()", tagIcons::chess_bishop));
     icons.add(
         new IconCatalogEntry<>(
-            "bowling (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.BOWLING)",
-            tagIcons::bowling));
+            "chess-king", "TablerIcons.chess_king()", tagIcons::chess_king));
     icons.add(
         new IconCatalogEntry<>(
-            "chess (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.CHESS)",
-            tagIcons::chess));
+            "chess-knight", "TablerIcons.chess_knight()", tagIcons::chess_knight));
     icons.add(
         new IconCatalogEntry<>(
-            "chess-bishop (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.CHESS_BISHOP)",
-            tagIcons::chess_bishop));
+            "chess-queen", "TablerIcons.chess_queen()", tagIcons::chess_queen));
     icons.add(
         new IconCatalogEntry<>(
-            "chess-king (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.CHESS_KING)",
-            tagIcons::chess_king));
+            "chess-rook", "TablerIcons.chess_rook()", tagIcons::chess_rook));
     icons.add(
         new IconCatalogEntry<>(
-            "chess-knight (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.CHESS_KNIGHT)",
-            tagIcons::chess_knight));
+            "cliff-jumping", "TablerIcons.cliff_jumping()", tagIcons::cliff_jumping));
+    icons.add(
+        new IconCatalogEntry<>("cricket", "TablerIcons.cricket()", tagIcons::cricket));
+    icons.add(
+        new IconCatalogEntry<>("curling", "TablerIcons.curling()", tagIcons::curling));
     icons.add(
         new IconCatalogEntry<>(
-            "chess-queen (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.CHESS_QUEEN)",
-            tagIcons::chess_queen));
+            "disc-golf", "TablerIcons.disc_golf()", tagIcons::disc_golf));
+    icons.add(
+        new IconCatalogEntry<>("dumbbell", "TablerIcons.dumbbell()", tagIcons::dumbbell));
     icons.add(
         new IconCatalogEntry<>(
-            "chess-rook (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.CHESS_ROOK)",
-            tagIcons::chess_rook));
+            "exercise-ball", "TablerIcons.exercise_ball()", tagIcons::exercise_ball));
+    icons.add(new IconCatalogEntry<>("golf", "TablerIcons.golf()", tagIcons::golf));
+    icons.add(
+        new IconCatalogEntry<>("golf-off", "TablerIcons.golf_off()", tagIcons::golf_off));
+    icons.add(new IconCatalogEntry<>("helmet", "TablerIcons.helmet()", tagIcons::helmet));
     icons.add(
         new IconCatalogEntry<>(
-            "cliff-jumping (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.CLIFF_JUMPING)",
-            tagIcons::cliff_jumping));
+            "helmet-off", "TablerIcons.helmet_off()", tagIcons::helmet_off));
     icons.add(
         new IconCatalogEntry<>(
-            "cricket (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.CRICKET)",
-            tagIcons::cricket));
+            "hula-hoop", "TablerIcons.hula_hoop()", tagIcons::hula_hoop));
     icons.add(
         new IconCatalogEntry<>(
-            "curling (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.CURLING)",
-            tagIcons::curling));
+            "ice-skating", "TablerIcons.ice_skating()", tagIcons::ice_skating));
     icons.add(
         new IconCatalogEntry<>(
-            "disc-golf (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.DISC_GOLF)",
-            tagIcons::disc_golf));
+            "jump-rope", "TablerIcons.jump_rope()", tagIcons::jump_rope));
+    icons.add(new IconCatalogEntry<>("karate", "TablerIcons.karate()", tagIcons::karate));
+    icons.add(new IconCatalogEntry<>("kayak", "TablerIcons.kayak()", tagIcons::kayak));
+    icons.add(new IconCatalogEntry<>("medal", "TablerIcons.medal()", tagIcons::medal));
+    icons.add(
+        new IconCatalogEntry<>("medal-2", "TablerIcons.medal_2()", tagIcons::medal_2));
+    icons.add(new IconCatalogEntry<>("meeple", "TablerIcons.meeple()", tagIcons::meeple));
     icons.add(
         new IconCatalogEntry<>(
-            "dumbbell (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.DUMBBELL)",
-            tagIcons::dumbbell));
+            "olympic-torch", "TablerIcons.olympic_torch()", tagIcons::olympic_torch));
+    icons.add(
+        new IconCatalogEntry<>("olympics", "TablerIcons.olympics()", tagIcons::olympics));
     icons.add(
         new IconCatalogEntry<>(
-            "exercise-ball (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.EXERCISE_BALL)",
-            tagIcons::exercise_ball));
+            "olympics-off", "TablerIcons.olympics_off()", tagIcons::olympics_off));
     icons.add(
         new IconCatalogEntry<>(
-            "golf (outline)", "TablerIcon.create(TablerSport.OutlineIcon.GOLF)", tagIcons::golf));
+            "ping-pong", "TablerIcons.ping_pong()", tagIcons::ping_pong));
     icons.add(
         new IconCatalogEntry<>(
-            "golf-off (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.GOLF_OFF)",
-            tagIcons::golf_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "helmet (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.HELMET)",
-            tagIcons::helmet));
-    icons.add(
-        new IconCatalogEntry<>(
-            "helmet-off (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.HELMET_OFF)",
-            tagIcons::helmet_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "hula-hoop (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.HULA_HOOP)",
-            tagIcons::hula_hoop));
-    icons.add(
-        new IconCatalogEntry<>(
-            "ice-skating (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.ICE_SKATING)",
-            tagIcons::ice_skating));
-    icons.add(
-        new IconCatalogEntry<>(
-            "jump-rope (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.JUMP_ROPE)",
-            tagIcons::jump_rope));
-    icons.add(
-        new IconCatalogEntry<>(
-            "karate (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.KARATE)",
-            tagIcons::karate));
-    icons.add(
-        new IconCatalogEntry<>(
-            "kayak (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.KAYAK)",
-            tagIcons::kayak));
-    icons.add(
-        new IconCatalogEntry<>(
-            "medal (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.MEDAL)",
-            tagIcons::medal));
-    icons.add(
-        new IconCatalogEntry<>(
-            "medal-2 (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.MEDAL_2)",
-            tagIcons::medal_2));
-    icons.add(
-        new IconCatalogEntry<>(
-            "meeple (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.MEEPLE)",
-            tagIcons::meeple));
-    icons.add(
-        new IconCatalogEntry<>(
-            "olympic-torch (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.OLYMPIC_TORCH)",
-            tagIcons::olympic_torch));
-    icons.add(
-        new IconCatalogEntry<>(
-            "olympics (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.OLYMPICS)",
-            tagIcons::olympics));
-    icons.add(
-        new IconCatalogEntry<>(
-            "olympics-off (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.OLYMPICS_OFF)",
-            tagIcons::olympics_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "ping-pong (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.PING_PONG)",
-            tagIcons::ping_pong));
-    icons.add(
-        new IconCatalogEntry<>(
-            "play-basketball (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.PLAY_BASKETBALL)",
+            "play-basketball",
+            "TablerIcons.play_basketball()",
             tagIcons::play_basketball));
     icons.add(
         new IconCatalogEntry<>(
-            "play-football (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.PLAY_FOOTBALL)",
-            tagIcons::play_football));
+            "play-football", "TablerIcons.play_football()", tagIcons::play_football));
     icons.add(
         new IconCatalogEntry<>(
-            "play-handball (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.PLAY_HANDBALL)",
-            tagIcons::play_handball));
+            "play-handball", "TablerIcons.play_handball()", tagIcons::play_handball));
     icons.add(
         new IconCatalogEntry<>(
-            "play-volleyball (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.PLAY_VOLLEYBALL)",
+            "play-volleyball",
+            "TablerIcons.play_volleyball()",
             tagIcons::play_volleyball));
+    icons.add(new IconCatalogEntry<>("pool", "TablerIcons.pool()", tagIcons::pool));
+    icons.add(
+        new IconCatalogEntry<>("pool-off", "TablerIcons.pool_off()", tagIcons::pool_off));
+    icons.add(new IconCatalogEntry<>("rings", "TablerIcons.rings()", tagIcons::rings));
     icons.add(
         new IconCatalogEntry<>(
-            "pool (outline)", "TablerIcon.create(TablerSport.OutlineIcon.POOL)", tagIcons::pool));
+            "roller-skating", "TablerIcons.roller_skating()", tagIcons::roller_skating));
+    icons.add(new IconCatalogEntry<>("rugby", "TablerIcons.rugby()", tagIcons::rugby));
+    icons.add(new IconCatalogEntry<>("run", "TablerIcons.run()", tagIcons::run));
     icons.add(
         new IconCatalogEntry<>(
-            "pool-off (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.POOL_OFF)",
-            tagIcons::pool_off));
+            "run-sprint", "TablerIcons.run_sprint()", tagIcons::run_sprint));
     icons.add(
         new IconCatalogEntry<>(
-            "rings (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.RINGS)",
-            tagIcons::rings));
+            "scoreboard", "TablerIcons.scoreboard()", tagIcons::scoreboard));
     icons.add(
         new IconCatalogEntry<>(
-            "roller-skating (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.ROLLER_SKATING)",
-            tagIcons::roller_skating));
+            "scuba-diving", "TablerIcons.scuba_diving()", tagIcons::scuba_diving));
     icons.add(
         new IconCatalogEntry<>(
-            "rugby (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.RUGBY)",
-            tagIcons::rugby));
-    icons.add(
-        new IconCatalogEntry<>(
-            "run (outline)", "TablerIcon.create(TablerSport.OutlineIcon.RUN)", tagIcons::run));
-    icons.add(
-        new IconCatalogEntry<>(
-            "run-sprint (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.RUN_SPRINT)",
-            tagIcons::run_sprint));
-    icons.add(
-        new IconCatalogEntry<>(
-            "scoreboard (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.SCOREBOARD)",
-            tagIcons::scoreboard));
-    icons.add(
-        new IconCatalogEntry<>(
-            "scuba-diving (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.SCUBA_DIVING)",
-            tagIcons::scuba_diving));
-    icons.add(
-        new IconCatalogEntry<>(
-            "scuba-diving-tank (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.SCUBA_DIVING_TANK)",
+            "scuba-diving-tank",
+            "TablerIcons.scuba_diving_tank()",
             tagIcons::scuba_diving_tank));
     icons.add(
         new IconCatalogEntry<>(
-            "scuba-mask (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.SCUBA_MASK)",
-            tagIcons::scuba_mask));
+            "scuba-mask", "TablerIcons.scuba_mask()", tagIcons::scuba_mask));
     icons.add(
         new IconCatalogEntry<>(
-            "scuba-mask-off (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.SCUBA_MASK_OFF)",
-            tagIcons::scuba_mask_off));
+            "scuba-mask-off", "TablerIcons.scuba_mask_off()", tagIcons::scuba_mask_off));
     icons.add(
         new IconCatalogEntry<>(
-            "skateboarding (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.SKATEBOARDING)",
-            tagIcons::skateboarding));
+            "skateboarding", "TablerIcons.skateboarding()", tagIcons::skateboarding));
     icons.add(
         new IconCatalogEntry<>(
-            "ski-jumping (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.SKI_JUMPING)",
-            tagIcons::ski_jumping));
+            "ski-jumping", "TablerIcons.ski_jumping()", tagIcons::ski_jumping));
     icons.add(
         new IconCatalogEntry<>(
-            "soccer-field (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.SOCCER_FIELD)",
-            tagIcons::soccer_field));
+            "soccer-field", "TablerIcons.soccer_field()", tagIcons::soccer_field));
     icons.add(
         new IconCatalogEntry<>(
-            "sport-billiard (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.SPORT_BILLIARD)",
-            tagIcons::sport_billiard));
+            "sport-billiard", "TablerIcons.sport_billiard()", tagIcons::sport_billiard));
     icons.add(
         new IconCatalogEntry<>(
-            "stretching (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.STRETCHING)",
-            tagIcons::stretching));
+            "stretching", "TablerIcons.stretching()", tagIcons::stretching));
     icons.add(
         new IconCatalogEntry<>(
-            "stretching-2 (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.STRETCHING_2)",
-            tagIcons::stretching_2));
+            "stretching-2", "TablerIcons.stretching_2()", tagIcons::stretching_2));
+    icons.add(
+        new IconCatalogEntry<>("swimming", "TablerIcons.swimming()", tagIcons::swimming));
+    icons.add(
+        new IconCatalogEntry<>("target-2", "TablerIcons.target_2()", tagIcons::target_2));
     icons.add(
         new IconCatalogEntry<>(
-            "swimming (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.SWIMMING)",
-            tagIcons::swimming));
+            "target-arrow", "TablerIcons.target_arrow()", tagIcons::target_arrow));
+    icons.add(
+        new IconCatalogEntry<>("tic-tac", "TablerIcons.tic_tac()", tagIcons::tic_tac));
     icons.add(
         new IconCatalogEntry<>(
-            "target-2 (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.TARGET_2)",
-            tagIcons::target_2));
+            "tournament", "TablerIcons.tournament()", tagIcons::tournament));
     icons.add(
         new IconCatalogEntry<>(
-            "target-arrow (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.TARGET_ARROW)",
-            tagIcons::target_arrow));
+            "treadmill", "TablerIcons.treadmill()", tagIcons::treadmill));
+    icons.add(
+        new IconCatalogEntry<>("trekking", "TablerIcons.trekking()", tagIcons::trekking));
+    icons.add(new IconCatalogEntry<>("trophy", "TablerIcons.trophy()", tagIcons::trophy));
     icons.add(
         new IconCatalogEntry<>(
-            "tic-tac (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.TIC_TAC)",
-            tagIcons::tic_tac));
+            "trophy-off", "TablerIcons.trophy_off()", tagIcons::trophy_off));
+    icons.add(new IconCatalogEntry<>("walk", "TablerIcons.walk()", tagIcons::walk));
     icons.add(
         new IconCatalogEntry<>(
-            "tournament (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.TOURNAMENT)",
-            tagIcons::tournament));
+            "waterpolo", "TablerIcons.waterpolo()", tagIcons::waterpolo));
+    icons.add(new IconCatalogEntry<>("yoga", "TablerIcons.yoga()", tagIcons::yoga));
     icons.add(
         new IconCatalogEntry<>(
-            "treadmill (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.TREADMILL)",
-            tagIcons::treadmill));
-    icons.add(
-        new IconCatalogEntry<>(
-            "trekking (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.TREKKING)",
-            tagIcons::trekking));
-    icons.add(
-        new IconCatalogEntry<>(
-            "trophy (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.TROPHY)",
-            tagIcons::trophy));
-    icons.add(
-        new IconCatalogEntry<>(
-            "trophy-off (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.TROPHY_OFF)",
-            tagIcons::trophy_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "walk (outline)", "TablerIcon.create(TablerSport.OutlineIcon.WALK)", tagIcons::walk));
-    icons.add(
-        new IconCatalogEntry<>(
-            "waterpolo (outline)",
-            "TablerIcon.create(TablerSport.OutlineIcon.WATERPOLO)",
-            tagIcons::waterpolo));
-    icons.add(
-        new IconCatalogEntry<>(
-            "yoga (outline)", "TablerIcon.create(TablerSport.OutlineIcon.YOGA)", tagIcons::yoga));
-    icons.add(
-        new IconCatalogEntry<>(
-            "ball-bowling (filled)",
-            "TablerIcon.create(TablerSport.FilledIcon.BALL_BOWLING)",
+            "ball-bowling",
+            "TablerIcons.ball_bowling_filled()",
             tagIcons::ball_bowling_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "barbell (filled)",
-            "TablerIcon.create(TablerSport.FilledIcon.BARBELL)",
-            tagIcons::barbell_filled));
+            "barbell", "TablerIcons.barbell_filled()", tagIcons::barbell_filled));
+    icons.add(
+        new IconCatalogEntry<>("bow", "TablerIcons.bow_filled()", tagIcons::bow_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "bow (filled)", "TablerIcon.create(TablerSport.FilledIcon.BOW)", tagIcons::bow_filled));
+            "chess", "TablerIcons.chess_filled()", tagIcons::chess_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chess (filled)",
-            "TablerIcon.create(TablerSport.FilledIcon.CHESS)",
-            tagIcons::chess_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "chess-bishop (filled)",
-            "TablerIcon.create(TablerSport.FilledIcon.CHESS_BISHOP)",
+            "chess-bishop",
+            "TablerIcons.chess_bishop_filled()",
             tagIcons::chess_bishop_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chess-king (filled)",
-            "TablerIcon.create(TablerSport.FilledIcon.CHESS_KING)",
-            tagIcons::chess_king_filled));
+            "chess-king", "TablerIcons.chess_king_filled()", tagIcons::chess_king_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chess-knight (filled)",
-            "TablerIcon.create(TablerSport.FilledIcon.CHESS_KNIGHT)",
+            "chess-knight",
+            "TablerIcons.chess_knight_filled()",
             tagIcons::chess_knight_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chess-queen (filled)",
-            "TablerIcon.create(TablerSport.FilledIcon.CHESS_QUEEN)",
+            "chess-queen",
+            "TablerIcons.chess_queen_filled()",
             tagIcons::chess_queen_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "chess-rook (filled)",
-            "TablerIcon.create(TablerSport.FilledIcon.CHESS_ROOK)",
-            tagIcons::chess_rook_filled));
+            "chess-rook", "TablerIcons.chess_rook_filled()", tagIcons::chess_rook_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "golf (filled)",
-            "TablerIcon.create(TablerSport.FilledIcon.GOLF)",
-            tagIcons::golf_filled));
+            "golf", "TablerIcons.golf_filled()", tagIcons::golf_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "meeple (filled)",
-            "TablerIcon.create(TablerSport.FilledIcon.MEEPLE)",
-            tagIcons::meeple_filled));
+            "meeple", "TablerIcons.meeple_filled()", tagIcons::meeple_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "scuba-diving-tank (filled)",
-            "TablerIcon.create(TablerSport.FilledIcon.SCUBA_DIVING_TANK)",
+            "scuba-diving-tank",
+            "TablerIcons.scuba_diving_tank_filled()",
             tagIcons::scuba_diving_tank_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "trophy (filled)",
-            "TablerIcon.create(TablerSport.FilledIcon.TROPHY)",
-            tagIcons::trophy_filled));
+            "trophy", "TablerIcons.trophy_filled()", tagIcons::trophy_filled));
   }
 
   public List<IconCatalogEntry<TablerIcon>> icons() {

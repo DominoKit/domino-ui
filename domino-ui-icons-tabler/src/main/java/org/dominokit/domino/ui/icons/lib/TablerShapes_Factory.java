@@ -35,1198 +35,846 @@ public final class TablerShapes_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "border-corner-ios (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.BORDER_CORNER_IOS)",
+            "border-corner-ios",
+            "TablerIcons.border_corner_ios()",
             tagIcons::border_corner_ios));
+    icons.add(new IconCatalogEntry<>("cancel", "TablerIcons.cancel()", tagIcons::cancel));
+    icons.add(
+        new IconCatalogEntry<>("capsule", "TablerIcons.capsule()", tagIcons::capsule));
     icons.add(
         new IconCatalogEntry<>(
-            "cancel (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CANCEL)",
-            tagIcons::cancel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "capsule (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CAPSULE)",
-            tagIcons::capsule));
-    icons.add(
-        new IconCatalogEntry<>(
-            "capsule-horizontal (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CAPSULE_HORIZONTAL)",
+            "capsule-horizontal",
+            "TablerIcons.capsule_horizontal()",
             tagIcons::capsule_horizontal));
     icons.add(
         new IconCatalogEntry<>(
-            "caret-left-right (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CARET_LEFT_RIGHT)",
+            "caret-left-right",
+            "TablerIcons.caret_left_right()",
             tagIcons::caret_left_right));
     icons.add(
-        new IconCatalogEntry<>(
-            "category (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CATEGORY)",
-            tagIcons::category));
+        new IconCatalogEntry<>("category", "TablerIcons.category()", tagIcons::category));
     icons.add(
         new IconCatalogEntry<>(
-            "category-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CATEGORY_2)",
-            tagIcons::category_2));
+            "category-2", "TablerIcons.category_2()", tagIcons::category_2));
     icons.add(
         new IconCatalogEntry<>(
-            "category-minus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CATEGORY_MINUS)",
-            tagIcons::category_minus));
+            "category-minus", "TablerIcons.category_minus()", tagIcons::category_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "category-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CATEGORY_PLUS)",
-            tagIcons::category_plus));
+            "category-plus", "TablerIcons.category_plus()", tagIcons::category_plus));
+    icons.add(new IconCatalogEntry<>("circle", "TablerIcons.circle()", tagIcons::circle));
     icons.add(
         new IconCatalogEntry<>(
-            "circle (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE)",
-            tagIcons::circle));
-    icons.add(
-        new IconCatalogEntry<>(
-            "circle-asterisk (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_ASTERISK)",
+            "circle-asterisk",
+            "TablerIcons.circle_asterisk()",
             tagIcons::circle_asterisk));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-check (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_CHECK)",
-            tagIcons::circle_check));
+            "circle-check", "TablerIcons.circle_check()", tagIcons::circle_check));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dashed (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_DASHED)",
-            tagIcons::circle_dashed));
+            "circle-dashed", "TablerIcons.circle_dashed()", tagIcons::circle_dashed));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dashed-check (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_DASHED_CHECK)",
+            "circle-dashed-check",
+            "TablerIcons.circle_dashed_check()",
             tagIcons::circle_dashed_check));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dashed-minus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_DASHED_MINUS)",
+            "circle-dashed-minus",
+            "TablerIcons.circle_dashed_minus()",
             tagIcons::circle_dashed_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dashed-percentage (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_DASHED_PERCENTAGE)",
+            "circle-dashed-percentage",
+            "TablerIcons.circle_dashed_percentage()",
             tagIcons::circle_dashed_percentage));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dashed-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_DASHED_PLUS)",
+            "circle-dashed-plus",
+            "TablerIcons.circle_dashed_plus()",
             tagIcons::circle_dashed_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dashed-x (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_DASHED_X)",
+            "circle-dashed-x",
+            "TablerIcons.circle_dashed_x()",
             tagIcons::circle_dashed_x));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dot (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_DOT)",
-            tagIcons::circle_dot));
+            "circle-dot", "TablerIcons.circle_dot()", tagIcons::circle_dot));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dotted (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_DOTTED)",
-            tagIcons::circle_dotted));
+            "circle-dotted", "TablerIcons.circle_dotted()", tagIcons::circle_dotted));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-half (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_HALF)",
-            tagIcons::circle_half));
+            "circle-half", "TablerIcons.circle_half()", tagIcons::circle_half));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-half-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_HALF_2)",
-            tagIcons::circle_half_2));
+            "circle-half-2", "TablerIcons.circle_half_2()", tagIcons::circle_half_2));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-half-vertical (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_HALF_VERTICAL)",
+            "circle-half-vertical",
+            "TablerIcons.circle_half_vertical()",
             tagIcons::circle_half_vertical));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-heart (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_HEART)",
-            tagIcons::circle_heart));
+            "circle-heart", "TablerIcons.circle_heart()", tagIcons::circle_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-key (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_KEY)",
-            tagIcons::circle_key));
+            "circle-key", "TablerIcons.circle_key()", tagIcons::circle_key));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-minus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_MINUS)",
-            tagIcons::circle_minus));
+            "circle-minus", "TablerIcons.circle_minus()", tagIcons::circle_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-minus-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_MINUS_2)",
-            tagIcons::circle_minus_2));
+            "circle-minus-2", "TablerIcons.circle_minus_2()", tagIcons::circle_minus_2));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_OFF)",
-            tagIcons::circle_off));
+            "circle-off", "TablerIcons.circle_off()", tagIcons::circle_off));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-percentage (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_PERCENTAGE)",
+            "circle-percentage",
+            "TablerIcons.circle_percentage()",
             tagIcons::circle_percentage));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_PLUS)",
-            tagIcons::circle_plus));
+            "circle-plus", "TablerIcons.circle_plus()", tagIcons::circle_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-plus-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_PLUS_2)",
-            tagIcons::circle_plus_2));
+            "circle-plus-2", "TablerIcons.circle_plus_2()", tagIcons::circle_plus_2));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-plus-minus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_PLUS_MINUS)",
+            "circle-plus-minus",
+            "TablerIcons.circle_plus_minus()",
             tagIcons::circle_plus_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-rectangle (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_RECTANGLE)",
+            "circle-rectangle",
+            "TablerIcons.circle_rectangle()",
             tagIcons::circle_rectangle));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-rectangle-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_RECTANGLE_OFF)",
+            "circle-rectangle-off",
+            "TablerIcons.circle_rectangle_off()",
             tagIcons::circle_rectangle_off));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-square (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_SQUARE)",
-            tagIcons::circle_square));
+            "circle-square", "TablerIcons.circle_square()", tagIcons::circle_square));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-triangle (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_TRIANGLE)",
+            "circle-triangle",
+            "TablerIcons.circle_triangle()",
             tagIcons::circle_triangle));
     icons.add(
-        new IconCatalogEntry<>(
-            "circle-x (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_X)",
-            tagIcons::circle_x));
+        new IconCatalogEntry<>("circle-x", "TablerIcons.circle_x()", tagIcons::circle_x));
+    icons.add(
+        new IconCatalogEntry<>("circles", "TablerIcons.circles()", tagIcons::circles));
     icons.add(
         new IconCatalogEntry<>(
-            "circles (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLES)",
-            tagIcons::circles));
-    icons.add(
-        new IconCatalogEntry<>(
-            "circles-relation (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLES_RELATION)",
+            "circles-relation",
+            "TablerIcons.circles_relation()",
             tagIcons::circles_relation));
+    icons.add(new IconCatalogEntry<>("clubs", "TablerIcons.clubs()", tagIcons::clubs));
+    icons.add(new IconCatalogEntry<>("cone", "TablerIcons.cone()", tagIcons::cone));
+    icons.add(new IconCatalogEntry<>("cone-2", "TablerIcons.cone_2()", tagIcons::cone_2));
+    icons.add(
+        new IconCatalogEntry<>("cone-off", "TablerIcons.cone_off()", tagIcons::cone_off));
     icons.add(
         new IconCatalogEntry<>(
-            "clubs (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CLUBS)",
-            tagIcons::clubs));
+            "cone-plus", "TablerIcons.cone_plus()", tagIcons::cone_plus));
+    icons.add(new IconCatalogEntry<>("cube", "TablerIcons.cube()", tagIcons::cube));
+    icons.add(
+        new IconCatalogEntry<>("cube-off", "TablerIcons.cube_off()", tagIcons::cube_off));
     icons.add(
         new IconCatalogEntry<>(
-            "cone (outline)", "TablerIcon.create(TablerShapes.OutlineIcon.CONE)", tagIcons::cone));
+            "cube-plus", "TablerIcons.cube_plus()", tagIcons::cube_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "cone-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CONE_2)",
-            tagIcons::cone_2));
+            "cube-spark", "TablerIcons.cube_spark()", tagIcons::cube_spark));
+    icons.add(
+        new IconCatalogEntry<>("cylinder", "TablerIcons.cylinder()", tagIcons::cylinder));
     icons.add(
         new IconCatalogEntry<>(
-            "cone-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CONE_OFF)",
-            tagIcons::cone_off));
+            "cylinder-off", "TablerIcons.cylinder_off()", tagIcons::cylinder_off));
     icons.add(
         new IconCatalogEntry<>(
-            "cone-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CONE_PLUS)",
-            tagIcons::cone_plus));
+            "cylinder-plus", "TablerIcons.cylinder_plus()", tagIcons::cylinder_plus));
+    icons.add(
+        new IconCatalogEntry<>("diabolo", "TablerIcons.diabolo()", tagIcons::diabolo));
     icons.add(
         new IconCatalogEntry<>(
-            "cube (outline)", "TablerIcon.create(TablerShapes.OutlineIcon.CUBE)", tagIcons::cube));
+            "diabolo-off", "TablerIcons.diabolo_off()", tagIcons::diabolo_off));
     icons.add(
         new IconCatalogEntry<>(
-            "cube-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CUBE_OFF)",
-            tagIcons::cube_off));
+            "diabolo-plus", "TablerIcons.diabolo_plus()", tagIcons::diabolo_plus));
+    icons.add(
+        new IconCatalogEntry<>("diamond", "TablerIcons.diamond()", tagIcons::diamond));
     icons.add(
         new IconCatalogEntry<>(
-            "cube-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CUBE_PLUS)",
-            tagIcons::cube_plus));
+            "diamond-off", "TablerIcons.diamond_off()", tagIcons::diamond_off));
+    icons.add(
+        new IconCatalogEntry<>("diamonds", "TablerIcons.diamonds()", tagIcons::diamonds));
+    icons.add(
+        new IconCatalogEntry<>("frustum", "TablerIcons.frustum()", tagIcons::frustum));
     icons.add(
         new IconCatalogEntry<>(
-            "cube-spark (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CUBE_SPARK)",
-            tagIcons::cube_spark));
+            "frustum-off", "TablerIcons.frustum_off()", tagIcons::frustum_off));
     icons.add(
         new IconCatalogEntry<>(
-            "cylinder (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CYLINDER)",
-            tagIcons::cylinder));
+            "frustum-plus", "TablerIcons.frustum_plus()", tagIcons::frustum_plus));
+    icons.add(new IconCatalogEntry<>("heart", "TablerIcons.heart()", tagIcons::heart));
     icons.add(
         new IconCatalogEntry<>(
-            "cylinder-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CYLINDER_OFF)",
-            tagIcons::cylinder_off));
+            "heart-bolt", "TablerIcons.heart_bolt()", tagIcons::heart_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "cylinder-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CYLINDER_PLUS)",
-            tagIcons::cylinder_plus));
+            "heart-cancel", "TablerIcons.heart_cancel()", tagIcons::heart_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "diabolo (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.DIABOLO)",
-            tagIcons::diabolo));
+            "heart-check", "TablerIcons.heart_check()", tagIcons::heart_check));
     icons.add(
         new IconCatalogEntry<>(
-            "diabolo-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.DIABOLO_OFF)",
-            tagIcons::diabolo_off));
+            "heart-code", "TablerIcons.heart_code()", tagIcons::heart_code));
     icons.add(
         new IconCatalogEntry<>(
-            "diabolo-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.DIABOLO_PLUS)",
-            tagIcons::diabolo_plus));
+            "heart-cog", "TablerIcons.heart_cog()", tagIcons::heart_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "diamond (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.DIAMOND)",
-            tagIcons::diamond));
+            "heart-dollar", "TablerIcons.heart_dollar()", tagIcons::heart_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "diamond-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.DIAMOND_OFF)",
-            tagIcons::diamond_off));
+            "heart-down", "TablerIcons.heart_down()", tagIcons::heart_down));
     icons.add(
         new IconCatalogEntry<>(
-            "diamonds (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.DIAMONDS)",
-            tagIcons::diamonds));
-    icons.add(
-        new IconCatalogEntry<>(
-            "frustum (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.FRUSTUM)",
-            tagIcons::frustum));
-    icons.add(
-        new IconCatalogEntry<>(
-            "frustum-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.FRUSTUM_OFF)",
-            tagIcons::frustum_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "frustum-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.FRUSTUM_PLUS)",
-            tagIcons::frustum_plus));
-    icons.add(
-        new IconCatalogEntry<>(
-            "heart (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART)",
-            tagIcons::heart));
-    icons.add(
-        new IconCatalogEntry<>(
-            "heart-bolt (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_BOLT)",
-            tagIcons::heart_bolt));
-    icons.add(
-        new IconCatalogEntry<>(
-            "heart-cancel (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_CANCEL)",
-            tagIcons::heart_cancel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "heart-check (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_CHECK)",
-            tagIcons::heart_check));
-    icons.add(
-        new IconCatalogEntry<>(
-            "heart-code (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_CODE)",
-            tagIcons::heart_code));
-    icons.add(
-        new IconCatalogEntry<>(
-            "heart-cog (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_COG)",
-            tagIcons::heart_cog));
-    icons.add(
-        new IconCatalogEntry<>(
-            "heart-dollar (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_DOLLAR)",
-            tagIcons::heart_dollar));
-    icons.add(
-        new IconCatalogEntry<>(
-            "heart-down (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_DOWN)",
-            tagIcons::heart_down));
-    icons.add(
-        new IconCatalogEntry<>(
-            "heart-exclamation (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_EXCLAMATION)",
+            "heart-exclamation",
+            "TablerIcons.heart_exclamation()",
             tagIcons::heart_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "heart-minus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_MINUS)",
-            tagIcons::heart_minus));
+            "heart-minus", "TablerIcons.heart_minus()", tagIcons::heart_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "heart-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_OFF)",
-            tagIcons::heart_off));
+            "heart-off", "TablerIcons.heart_off()", tagIcons::heart_off));
     icons.add(
         new IconCatalogEntry<>(
-            "heart-pause (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_PAUSE)",
-            tagIcons::heart_pause));
+            "heart-pause", "TablerIcons.heart_pause()", tagIcons::heart_pause));
     icons.add(
         new IconCatalogEntry<>(
-            "heart-pin (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_PIN)",
-            tagIcons::heart_pin));
+            "heart-pin", "TablerIcons.heart_pin()", tagIcons::heart_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "heart-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_PLUS)",
-            tagIcons::heart_plus));
+            "heart-plus", "TablerIcons.heart_plus()", tagIcons::heart_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "heart-question (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_QUESTION)",
-            tagIcons::heart_question));
+            "heart-question", "TablerIcons.heart_question()", tagIcons::heart_question));
     icons.add(
         new IconCatalogEntry<>(
-            "heart-search (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_SEARCH)",
-            tagIcons::heart_search));
+            "heart-search", "TablerIcons.heart_search()", tagIcons::heart_search));
     icons.add(
         new IconCatalogEntry<>(
-            "heart-share (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_SHARE)",
-            tagIcons::heart_share));
+            "heart-share", "TablerIcons.heart_share()", tagIcons::heart_share));
     icons.add(
         new IconCatalogEntry<>(
-            "heart-spark (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_SPARK)",
-            tagIcons::heart_spark));
+            "heart-spark", "TablerIcons.heart_spark()", tagIcons::heart_spark));
     icons.add(
         new IconCatalogEntry<>(
-            "heart-star (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_STAR)",
-            tagIcons::heart_star));
+            "heart-star", "TablerIcons.heart_star()", tagIcons::heart_star));
+    icons.add(
+        new IconCatalogEntry<>("heart-up", "TablerIcons.heart_up()", tagIcons::heart_up));
+    icons.add(
+        new IconCatalogEntry<>("heart-x", "TablerIcons.heart_x()", tagIcons::heart_x));
+    icons.add(new IconCatalogEntry<>("hearts", "TablerIcons.hearts()", tagIcons::hearts));
     icons.add(
         new IconCatalogEntry<>(
-            "heart-up (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_UP)",
-            tagIcons::heart_up));
+            "hearts-off", "TablerIcons.hearts_off()", tagIcons::hearts_off));
     icons.add(
         new IconCatalogEntry<>(
-            "heart-x (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEART_X)",
-            tagIcons::heart_x));
+            "hemisphere", "TablerIcons.hemisphere()", tagIcons::hemisphere));
     icons.add(
         new IconCatalogEntry<>(
-            "hearts (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEARTS)",
-            tagIcons::hearts));
+            "hemisphere-off", "TablerIcons.hemisphere_off()", tagIcons::hemisphere_off));
     icons.add(
         new IconCatalogEntry<>(
-            "hearts-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEARTS_OFF)",
-            tagIcons::hearts_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "hemisphere (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEMISPHERE)",
-            tagIcons::hemisphere));
-    icons.add(
-        new IconCatalogEntry<>(
-            "hemisphere-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEMISPHERE_OFF)",
-            tagIcons::hemisphere_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "hemisphere-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEMISPHERE_PLUS)",
+            "hemisphere-plus",
+            "TablerIcons.hemisphere_plus()",
             tagIcons::hemisphere_plus));
     icons.add(
-        new IconCatalogEntry<>(
-            "hexagon (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEXAGON)",
-            tagIcons::hexagon));
+        new IconCatalogEntry<>("hexagon", "TablerIcons.hexagon()", tagIcons::hexagon));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-3d (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEXAGON_3D)",
-            tagIcons::hexagon_3d));
+            "hexagon-3d", "TablerIcons.hexagon_3d()", tagIcons::hexagon_3d));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-asterisk (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEXAGON_ASTERISK)",
+            "hexagon-asterisk",
+            "TablerIcons.hexagon_asterisk()",
             tagIcons::hexagon_asterisk));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-minus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEXAGON_MINUS)",
-            tagIcons::hexagon_minus));
+            "hexagon-minus", "TablerIcons.hexagon_minus()", tagIcons::hexagon_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-minus-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEXAGON_MINUS_2)",
+            "hexagon-minus-2",
+            "TablerIcons.hexagon_minus_2()",
             tagIcons::hexagon_minus_2));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEXAGON_OFF)",
-            tagIcons::hexagon_off));
+            "hexagon-off", "TablerIcons.hexagon_off()", tagIcons::hexagon_off));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEXAGON_PLUS)",
-            tagIcons::hexagon_plus));
+            "hexagon-plus", "TablerIcons.hexagon_plus()", tagIcons::hexagon_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-plus-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEXAGON_PLUS_2)",
-            tagIcons::hexagon_plus_2));
+            "hexagon-plus-2", "TablerIcons.hexagon_plus_2()", tagIcons::hexagon_plus_2));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagonal-prism (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEXAGONAL_PRISM)",
+            "hexagonal-prism",
+            "TablerIcons.hexagonal_prism()",
             tagIcons::hexagonal_prism));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagonal-prism-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEXAGONAL_PRISM_OFF)",
+            "hexagonal-prism-off",
+            "TablerIcons.hexagonal_prism_off()",
             tagIcons::hexagonal_prism_off));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagonal-prism-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEXAGONAL_PRISM_PLUS)",
+            "hexagonal-prism-plus",
+            "TablerIcons.hexagonal_prism_plus()",
             tagIcons::hexagonal_prism_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagonal-pyramid (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEXAGONAL_PYRAMID)",
+            "hexagonal-pyramid",
+            "TablerIcons.hexagonal_pyramid()",
             tagIcons::hexagonal_pyramid));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagonal-pyramid-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEXAGONAL_PYRAMID_OFF)",
+            "hexagonal-pyramid-off",
+            "TablerIcons.hexagonal_pyramid_off()",
             tagIcons::hexagonal_pyramid_off));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagonal-pyramid-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEXAGONAL_PYRAMID_PLUS)",
+            "hexagonal-pyramid-plus",
+            "TablerIcons.hexagonal_pyramid_plus()",
             tagIcons::hexagonal_pyramid_plus));
   }
 
   private static void addIcons1() {
     icons.add(
-        new IconCatalogEntry<>(
-            "hexagons (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEXAGONS)",
-            tagIcons::hexagons));
+        new IconCatalogEntry<>("hexagons", "TablerIcons.hexagons()", tagIcons::hexagons));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagons-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.HEXAGONS_OFF)",
-            tagIcons::hexagons_off));
+            "hexagons-off", "TablerIcons.hexagons_off()", tagIcons::hexagons_off));
+    icons.add(new IconCatalogEntry<>("icons", "TablerIcons.icons()", tagIcons::icons));
     icons.add(
         new IconCatalogEntry<>(
-            "icons (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.ICONS)",
-            tagIcons::icons));
+            "icons-off", "TablerIcons.icons_off()", tagIcons::icons_off));
     icons.add(
         new IconCatalogEntry<>(
-            "icons-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.ICONS_OFF)",
-            tagIcons::icons_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "irregular-polyhedron (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.IRREGULAR_POLYHEDRON)",
+            "irregular-polyhedron",
+            "TablerIcons.irregular_polyhedron()",
             tagIcons::irregular_polyhedron));
     icons.add(
         new IconCatalogEntry<>(
-            "irregular-polyhedron-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.IRREGULAR_POLYHEDRON_OFF)",
+            "irregular-polyhedron-off",
+            "TablerIcons.irregular_polyhedron_off()",
             tagIcons::irregular_polyhedron_off));
     icons.add(
         new IconCatalogEntry<>(
-            "irregular-polyhedron-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.IRREGULAR_POLYHEDRON_PLUS)",
+            "irregular-polyhedron-plus",
+            "TablerIcons.irregular_polyhedron_plus()",
             tagIcons::irregular_polyhedron_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "jewish-star (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.JEWISH_STAR)",
-            tagIcons::jewish_star));
+            "jewish-star", "TablerIcons.jewish_star()", tagIcons::jewish_star));
+    icons.add(
+        new IconCatalogEntry<>("octagon", "TablerIcons.octagon()", tagIcons::octagon));
     icons.add(
         new IconCatalogEntry<>(
-            "octagon (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.OCTAGON)",
-            tagIcons::octagon));
+            "octagon-minus", "TablerIcons.octagon_minus()", tagIcons::octagon_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "octagon-minus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.OCTAGON_MINUS)",
-            tagIcons::octagon_minus));
-    icons.add(
-        new IconCatalogEntry<>(
-            "octagon-minus-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.OCTAGON_MINUS_2)",
+            "octagon-minus-2",
+            "TablerIcons.octagon_minus_2()",
             tagIcons::octagon_minus_2));
     icons.add(
         new IconCatalogEntry<>(
-            "octagon-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.OCTAGON_OFF)",
-            tagIcons::octagon_off));
+            "octagon-off", "TablerIcons.octagon_off()", tagIcons::octagon_off));
     icons.add(
         new IconCatalogEntry<>(
-            "octagon-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.OCTAGON_PLUS)",
-            tagIcons::octagon_plus));
+            "octagon-plus", "TablerIcons.octagon_plus()", tagIcons::octagon_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "octagon-plus-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.OCTAGON_PLUS_2)",
-            tagIcons::octagon_plus_2));
+            "octagon-plus-2", "TablerIcons.octagon_plus_2()", tagIcons::octagon_plus_2));
     icons.add(
         new IconCatalogEntry<>(
-            "octahedron (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.OCTAHEDRON)",
-            tagIcons::octahedron));
+            "octahedron", "TablerIcons.octahedron()", tagIcons::octahedron));
     icons.add(
         new IconCatalogEntry<>(
-            "octahedron-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.OCTAHEDRON_OFF)",
-            tagIcons::octahedron_off));
+            "octahedron-off", "TablerIcons.octahedron_off()", tagIcons::octahedron_off));
     icons.add(
         new IconCatalogEntry<>(
-            "octahedron-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.OCTAHEDRON_PLUS)",
+            "octahedron-plus",
+            "TablerIcons.octahedron_plus()",
             tagIcons::octahedron_plus));
+    icons.add(new IconCatalogEntry<>("oval", "TablerIcons.oval()", tagIcons::oval));
     icons.add(
         new IconCatalogEntry<>(
-            "oval (outline)", "TablerIcon.create(TablerShapes.OutlineIcon.OVAL)", tagIcons::oval));
+            "oval-vertical", "TablerIcons.oval_vertical()", tagIcons::oval_vertical));
+    icons.add(
+        new IconCatalogEntry<>("pentagon", "TablerIcons.pentagon()", tagIcons::pentagon));
     icons.add(
         new IconCatalogEntry<>(
-            "oval-vertical (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.OVAL_VERTICAL)",
-            tagIcons::oval_vertical));
+            "pentagon-minus", "TablerIcons.pentagon_minus()", tagIcons::pentagon_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "pentagon (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.PENTAGON)",
-            tagIcons::pentagon));
+            "pentagon-off", "TablerIcons.pentagon_off()", tagIcons::pentagon_off));
     icons.add(
         new IconCatalogEntry<>(
-            "pentagon-minus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.PENTAGON_MINUS)",
-            tagIcons::pentagon_minus));
+            "pentagon-plus", "TablerIcons.pentagon_plus()", tagIcons::pentagon_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "pentagon-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.PENTAGON_OFF)",
-            tagIcons::pentagon_off));
+            "pentagon-x", "TablerIcons.pentagon_x()", tagIcons::pentagon_x));
     icons.add(
         new IconCatalogEntry<>(
-            "pentagon-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.PENTAGON_PLUS)",
-            tagIcons::pentagon_plus));
+            "perspective", "TablerIcons.perspective()", tagIcons::perspective));
     icons.add(
         new IconCatalogEntry<>(
-            "pentagon-x (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.PENTAGON_X)",
-            tagIcons::pentagon_x));
-    icons.add(
-        new IconCatalogEntry<>(
-            "perspective (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.PERSPECTIVE)",
-            tagIcons::perspective));
-    icons.add(
-        new IconCatalogEntry<>(
-            "perspective-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.PERSPECTIVE_OFF)",
+            "perspective-off",
+            "TablerIcons.perspective_off()",
             tagIcons::perspective_off));
+    icons.add(new IconCatalogEntry<>("prism", "TablerIcons.prism()", tagIcons::prism));
     icons.add(
         new IconCatalogEntry<>(
-            "prism (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.PRISM)",
-            tagIcons::prism));
+            "prism-off", "TablerIcons.prism_off()", tagIcons::prism_off));
     icons.add(
         new IconCatalogEntry<>(
-            "prism-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.PRISM_OFF)",
-            tagIcons::prism_off));
+            "prism-plus", "TablerIcons.prism_plus()", tagIcons::prism_plus));
+    icons.add(
+        new IconCatalogEntry<>("pyramid", "TablerIcons.pyramid()", tagIcons::pyramid));
     icons.add(
         new IconCatalogEntry<>(
-            "prism-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.PRISM_PLUS)",
-            tagIcons::prism_plus));
+            "pyramid-off", "TablerIcons.pyramid_off()", tagIcons::pyramid_off));
     icons.add(
         new IconCatalogEntry<>(
-            "pyramid (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.PYRAMID)",
-            tagIcons::pyramid));
+            "pyramid-plus", "TablerIcons.pyramid_plus()", tagIcons::pyramid_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "pyramid-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.PYRAMID_OFF)",
-            tagIcons::pyramid_off));
+            "rectangle", "TablerIcons.rectangle()", tagIcons::rectangle));
     icons.add(
         new IconCatalogEntry<>(
-            "pyramid-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.PYRAMID_PLUS)",
-            tagIcons::pyramid_plus));
-    icons.add(
-        new IconCatalogEntry<>(
-            "rectangle (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.RECTANGLE)",
-            tagIcons::rectangle));
-    icons.add(
-        new IconCatalogEntry<>(
-            "rectangle-rounded-bottom (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.RECTANGLE_ROUNDED_BOTTOM)",
+            "rectangle-rounded-bottom",
+            "TablerIcons.rectangle_rounded_bottom()",
             tagIcons::rectangle_rounded_bottom));
     icons.add(
         new IconCatalogEntry<>(
-            "rectangle-rounded-top (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.RECTANGLE_ROUNDED_TOP)",
+            "rectangle-rounded-top",
+            "TablerIcons.rectangle_rounded_top()",
             tagIcons::rectangle_rounded_top));
     icons.add(
         new IconCatalogEntry<>(
-            "rectangle-vertical (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.RECTANGLE_VERTICAL)",
+            "rectangle-vertical",
+            "TablerIcons.rectangle_vertical()",
             tagIcons::rectangle_vertical));
     icons.add(
         new IconCatalogEntry<>(
-            "rectangular-prism (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.RECTANGULAR_PRISM)",
+            "rectangular-prism",
+            "TablerIcons.rectangular_prism()",
             tagIcons::rectangular_prism));
     icons.add(
         new IconCatalogEntry<>(
-            "rectangular-prism-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.RECTANGULAR_PRISM_OFF)",
+            "rectangular-prism-off",
+            "TablerIcons.rectangular_prism_off()",
             tagIcons::rectangular_prism_off));
     icons.add(
         new IconCatalogEntry<>(
-            "rectangular-prism-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.RECTANGULAR_PRISM_PLUS)",
+            "rectangular-prism-plus",
+            "TablerIcons.rectangular_prism_plus()",
             tagIcons::rectangular_prism_plus));
     icons.add(
-        new IconCatalogEntry<>(
-            "rosette (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.ROSETTE)",
-            tagIcons::rosette));
+        new IconCatalogEntry<>("rosette", "TablerIcons.rosette()", tagIcons::rosette));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette-asterisk (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.ROSETTE_ASTERISK)",
+            "rosette-asterisk",
+            "TablerIcons.rosette_asterisk()",
             tagIcons::rosette_asterisk));
+    icons.add(new IconCatalogEntry<>("spade", "TablerIcons.spade()", tagIcons::spade));
+    icons.add(new IconCatalogEntry<>("sphere", "TablerIcons.sphere()", tagIcons::sphere));
+    icons.add(
+        new IconCatalogEntry<>("sphere-2", "TablerIcons.sphere_2()", tagIcons::sphere_2));
     icons.add(
         new IconCatalogEntry<>(
-            "spade (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SPADE)",
-            tagIcons::spade));
+            "sphere-off", "TablerIcons.sphere_off()", tagIcons::sphere_off));
     icons.add(
         new IconCatalogEntry<>(
-            "sphere (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SPHERE)",
-            tagIcons::sphere));
+            "sphere-plus", "TablerIcons.sphere_plus()", tagIcons::sphere_plus));
+    icons.add(new IconCatalogEntry<>("square", "TablerIcons.square()", tagIcons::square));
     icons.add(
         new IconCatalogEntry<>(
-            "sphere-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SPHERE_2)",
-            tagIcons::sphere_2));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sphere-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SPHERE_OFF)",
-            tagIcons::sphere_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sphere-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SPHERE_PLUS)",
-            tagIcons::sphere_plus));
-    icons.add(
-        new IconCatalogEntry<>(
-            "square (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE)",
-            tagIcons::square));
-    icons.add(
-        new IconCatalogEntry<>(
-            "square-asterisk (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_ASTERISK)",
+            "square-asterisk",
+            "TablerIcons.square_asterisk()",
             tagIcons::square_asterisk));
     icons.add(
         new IconCatalogEntry<>(
-            "square-check (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_CHECK)",
-            tagIcons::square_check));
+            "square-check", "TablerIcons.square_check()", tagIcons::square_check));
     icons.add(
         new IconCatalogEntry<>(
-            "square-dashed (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_DASHED)",
-            tagIcons::square_dashed));
+            "square-dashed", "TablerIcons.square_dashed()", tagIcons::square_dashed));
     icons.add(
         new IconCatalogEntry<>(
-            "square-dashed-top-solid (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_DASHED_TOP_SOLID)",
+            "square-dashed-top-solid",
+            "TablerIcons.square_dashed_top_solid()",
             tagIcons::square_dashed_top_solid));
     icons.add(
         new IconCatalogEntry<>(
-            "square-dashed-x (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_DASHED_X)",
+            "square-dashed-x",
+            "TablerIcons.square_dashed_x()",
             tagIcons::square_dashed_x));
     icons.add(
         new IconCatalogEntry<>(
-            "square-dot (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_DOT)",
-            tagIcons::square_dot));
+            "square-dot", "TablerIcons.square_dot()", tagIcons::square_dot));
     icons.add(
         new IconCatalogEntry<>(
-            "square-forbid (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_FORBID)",
-            tagIcons::square_forbid));
+            "square-forbid", "TablerIcons.square_forbid()", tagIcons::square_forbid));
     icons.add(
         new IconCatalogEntry<>(
-            "square-forbid-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_FORBID_2)",
+            "square-forbid-2",
+            "TablerIcons.square_forbid_2()",
             tagIcons::square_forbid_2));
     icons.add(
         new IconCatalogEntry<>(
-            "square-key (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_KEY)",
-            tagIcons::square_key));
+            "square-key", "TablerIcons.square_key()", tagIcons::square_key));
     icons.add(
         new IconCatalogEntry<>(
-            "square-minus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_MINUS)",
-            tagIcons::square_minus));
+            "square-minus", "TablerIcons.square_minus()", tagIcons::square_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "square-minus-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_MINUS_2)",
-            tagIcons::square_minus_2));
+            "square-minus-2", "TablerIcons.square_minus_2()", tagIcons::square_minus_2));
     icons.add(
         new IconCatalogEntry<>(
-            "square-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_OFF)",
-            tagIcons::square_off));
+            "square-off", "TablerIcons.square_off()", tagIcons::square_off));
     icons.add(
         new IconCatalogEntry<>(
-            "square-percentage (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_PERCENTAGE)",
+            "square-percentage",
+            "TablerIcons.square_percentage()",
             tagIcons::square_percentage));
     icons.add(
         new IconCatalogEntry<>(
-            "square-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_PLUS)",
-            tagIcons::square_plus));
+            "square-plus", "TablerIcons.square_plus()", tagIcons::square_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "square-plus-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_PLUS_2)",
-            tagIcons::square_plus_2));
+            "square-plus-2", "TablerIcons.square_plus_2()", tagIcons::square_plus_2));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rotated (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_ROTATED)",
-            tagIcons::square_rotated));
+            "square-rotated", "TablerIcons.square_rotated()", tagIcons::square_rotated));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rotated-asterisk (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_ROTATED_ASTERISK)",
+            "square-rotated-asterisk",
+            "TablerIcons.square_rotated_asterisk()",
             tagIcons::square_rotated_asterisk));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rotated-forbid (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_ROTATED_FORBID)",
+            "square-rotated-forbid",
+            "TablerIcons.square_rotated_forbid()",
             tagIcons::square_rotated_forbid));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rotated-forbid-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_ROTATED_FORBID_2)",
+            "square-rotated-forbid-2",
+            "TablerIcons.square_rotated_forbid_2()",
             tagIcons::square_rotated_forbid_2));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rotated-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_ROTATED_OFF)",
+            "square-rotated-off",
+            "TablerIcons.square_rotated_off()",
             tagIcons::square_rotated_off));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_ROUNDED)",
-            tagIcons::square_rounded));
+            "square-rounded", "TablerIcons.square_rounded()", tagIcons::square_rounded));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-check (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_ROUNDED_CHECK)",
+            "square-rounded-check",
+            "TablerIcons.square_rounded_check()",
             tagIcons::square_rounded_check));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-minus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_ROUNDED_MINUS)",
+            "square-rounded-minus",
+            "TablerIcons.square_rounded_minus()",
             tagIcons::square_rounded_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-minus-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_ROUNDED_MINUS_2)",
+            "square-rounded-minus-2",
+            "TablerIcons.square_rounded_minus_2()",
             tagIcons::square_rounded_minus_2));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-percentage (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_ROUNDED_PERCENTAGE)",
+            "square-rounded-percentage",
+            "TablerIcons.square_rounded_percentage()",
             tagIcons::square_rounded_percentage));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_ROUNDED_PLUS)",
+            "square-rounded-plus",
+            "TablerIcons.square_rounded_plus()",
             tagIcons::square_rounded_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-plus-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_ROUNDED_PLUS_2)",
+            "square-rounded-plus-2",
+            "TablerIcons.square_rounded_plus_2()",
             tagIcons::square_rounded_plus_2));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-x (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_ROUNDED_X)",
+            "square-rounded-x",
+            "TablerIcons.square_rounded_x()",
             tagIcons::square_rounded_x));
     icons.add(
-        new IconCatalogEntry<>(
-            "square-x (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_X)",
-            tagIcons::square_x));
+        new IconCatalogEntry<>("square-x", "TablerIcons.square_x()", tagIcons::square_x));
     icons.add(
         new IconCatalogEntry<>(
-            "squares-selected (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARES_SELECTED)",
+            "squares-selected",
+            "TablerIcons.squares_selected()",
             tagIcons::squares_selected));
     icons.add(
-        new IconCatalogEntry<>(
-            "triangle (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.TRIANGLE)",
-            tagIcons::triangle));
+        new IconCatalogEntry<>("triangle", "TablerIcons.triangle()", tagIcons::triangle));
     icons.add(
         new IconCatalogEntry<>(
-            "triangle-dashed (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.TRIANGLE_DASHED)",
+            "triangle-dashed",
+            "TablerIcons.triangle_dashed()",
             tagIcons::triangle_dashed));
     icons.add(
         new IconCatalogEntry<>(
-            "triangle-inverted (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.TRIANGLE_INVERTED)",
+            "triangle-inverted",
+            "TablerIcons.triangle_inverted()",
             tagIcons::triangle_inverted));
     icons.add(
         new IconCatalogEntry<>(
-            "triangle-minus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.TRIANGLE_MINUS)",
-            tagIcons::triangle_minus));
+            "triangle-minus", "TablerIcons.triangle_minus()", tagIcons::triangle_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "triangle-minus-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.TRIANGLE_MINUS_2)",
+            "triangle-minus-2",
+            "TablerIcons.triangle_minus_2()",
             tagIcons::triangle_minus_2));
     icons.add(
         new IconCatalogEntry<>(
-            "triangle-off (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.TRIANGLE_OFF)",
-            tagIcons::triangle_off));
+            "triangle-off", "TablerIcons.triangle_off()", tagIcons::triangle_off));
     icons.add(
         new IconCatalogEntry<>(
-            "triangle-plus (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.TRIANGLE_PLUS)",
-            tagIcons::triangle_plus));
+            "triangle-plus", "TablerIcons.triangle_plus()", tagIcons::triangle_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "triangle-plus-2 (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.TRIANGLE_PLUS_2)",
+            "triangle-plus-2",
+            "TablerIcons.triangle_plus_2()",
             tagIcons::triangle_plus_2));
     icons.add(
         new IconCatalogEntry<>(
-            "triangle-square-circle (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.TRIANGLE_SQUARE_CIRCLE)",
+            "triangle-square-circle",
+            "TablerIcons.triangle_square_circle()",
             tagIcons::triangle_square_circle));
     icons.add(
         new IconCatalogEntry<>(
-            "triangles (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.TRIANGLES)",
-            tagIcons::triangles));
+            "triangles", "TablerIcons.triangles()", tagIcons::triangles));
     icons.add(
         new IconCatalogEntry<>(
-            "check-circle (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.CIRCLE_CHECK)",
-            tagIcons::check_circle));
+            "check-circle", "TablerIcons.circle_check()", tagIcons::check_circle));
     icons.add(
         new IconCatalogEntry<>(
-            "minus-box (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_MINUS)",
-            tagIcons::minus_box));
+            "minus-box", "TablerIcons.square_minus()", tagIcons::minus_box));
     icons.add(
         new IconCatalogEntry<>(
-            "plus-box (outline)",
-            "TablerIcon.create(TablerShapes.OutlineIcon.SQUARE_PLUS)",
-            tagIcons::plus_box));
+            "plus-box", "TablerIcons.square_plus()", tagIcons::plus_box));
     icons.add(
         new IconCatalogEntry<>(
-            "capsule (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.CAPSULE)",
-            tagIcons::capsule_filled));
+            "capsule", "TablerIcons.capsule_filled()", tagIcons::capsule_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "capsule-horizontal (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.CAPSULE_HORIZONTAL)",
+            "capsule-horizontal",
+            "TablerIcons.capsule_horizontal_filled()",
             tagIcons::capsule_horizontal_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "caret-left-right (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.CARET_LEFT_RIGHT)",
+            "caret-left-right",
+            "TablerIcons.caret_left_right_filled()",
             tagIcons::caret_left_right_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "category (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.CATEGORY)",
-            tagIcons::category_filled));
+            "category", "TablerIcons.category_filled()", tagIcons::category_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "circle (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.CIRCLE)",
-            tagIcons::circle_filled));
+            "circle", "TablerIcons.circle_filled()", tagIcons::circle_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-check (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.CIRCLE_CHECK)",
+            "circle-check",
+            "TablerIcons.circle_check_filled()",
             tagIcons::circle_check_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-dot (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.CIRCLE_DOT)",
-            tagIcons::circle_dot_filled));
+            "circle-dot", "TablerIcons.circle_dot_filled()", tagIcons::circle_dot_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-key (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.CIRCLE_KEY)",
-            tagIcons::circle_key_filled));
+            "circle-key", "TablerIcons.circle_key_filled()", tagIcons::circle_key_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-percentage (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.CIRCLE_PERCENTAGE)",
+            "circle-percentage",
+            "TablerIcons.circle_percentage_filled()",
             tagIcons::circle_percentage_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-plus (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.CIRCLE_PLUS)",
+            "circle-plus",
+            "TablerIcons.circle_plus_filled()",
             tagIcons::circle_plus_filled));
   }
 
   private static void addIcons2() {
     icons.add(
         new IconCatalogEntry<>(
-            "circle-rectangle (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.CIRCLE_RECTANGLE)",
+            "circle-rectangle",
+            "TablerIcons.circle_rectangle_filled()",
             tagIcons::circle_rectangle_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "circle-x (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.CIRCLE_X)",
-            tagIcons::circle_x_filled));
+            "circle-x", "TablerIcons.circle_x_filled()", tagIcons::circle_x_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "circles (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.CIRCLES)",
-            tagIcons::circles_filled));
+            "circles", "TablerIcons.circles_filled()", tagIcons::circles_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "clubs (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.CLUBS)",
-            tagIcons::clubs_filled));
+            "clubs", "TablerIcons.clubs_filled()", tagIcons::clubs_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "cone (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.CONE)",
-            tagIcons::cone_filled));
+            "cone", "TablerIcons.cone_filled()", tagIcons::cone_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "cone-2 (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.CONE_2)",
-            tagIcons::cone_2_filled));
+            "cone-2", "TablerIcons.cone_2_filled()", tagIcons::cone_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "diamond (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.DIAMOND)",
-            tagIcons::diamond_filled));
+            "diamond", "TablerIcons.diamond_filled()", tagIcons::diamond_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "diamonds (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.DIAMONDS)",
-            tagIcons::diamonds_filled));
+            "diamonds", "TablerIcons.diamonds_filled()", tagIcons::diamonds_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "heart (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.HEART)",
-            tagIcons::heart_filled));
+            "heart", "TablerIcons.heart_filled()", tagIcons::heart_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.HEXAGON)",
-            tagIcons::hexagon_filled));
+            "hexagon", "TablerIcons.hexagon_filled()", tagIcons::hexagon_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-minus (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.HEXAGON_MINUS)",
+            "hexagon-minus",
+            "TablerIcons.hexagon_minus_filled()",
             tagIcons::hexagon_minus_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "hexagon-plus (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.HEXAGON_PLUS)",
+            "hexagon-plus",
+            "TablerIcons.hexagon_plus_filled()",
             tagIcons::hexagon_plus_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "icons (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.ICONS)",
-            tagIcons::icons_filled));
+            "icons", "TablerIcons.icons_filled()", tagIcons::icons_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "jewish-star (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.JEWISH_STAR)",
+            "jewish-star",
+            "TablerIcons.jewish_star_filled()",
             tagIcons::jewish_star_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "octagon (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.OCTAGON)",
-            tagIcons::octagon_filled));
+            "octagon", "TablerIcons.octagon_filled()", tagIcons::octagon_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "octagon-minus (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.OCTAGON_MINUS)",
+            "octagon-minus",
+            "TablerIcons.octagon_minus_filled()",
             tagIcons::octagon_minus_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "octagon-plus (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.OCTAGON_PLUS)",
+            "octagon-plus",
+            "TablerIcons.octagon_plus_filled()",
             tagIcons::octagon_plus_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "oval (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.OVAL)",
-            tagIcons::oval_filled));
+            "oval", "TablerIcons.oval_filled()", tagIcons::oval_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "oval-vertical (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.OVAL_VERTICAL)",
+            "oval-vertical",
+            "TablerIcons.oval_vertical_filled()",
             tagIcons::oval_vertical_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "pentagon (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.PENTAGON)",
-            tagIcons::pentagon_filled));
+            "pentagon", "TablerIcons.pentagon_filled()", tagIcons::pentagon_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "rectangle (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.RECTANGLE)",
-            tagIcons::rectangle_filled));
+            "rectangle", "TablerIcons.rectangle_filled()", tagIcons::rectangle_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "rectangle-vertical (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.RECTANGLE_VERTICAL)",
+            "rectangle-vertical",
+            "TablerIcons.rectangle_vertical_filled()",
             tagIcons::rectangle_vertical_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "rosette (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.ROSETTE)",
-            tagIcons::rosette_filled));
+            "rosette", "TablerIcons.rosette_filled()", tagIcons::rosette_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "spade (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.SPADE)",
-            tagIcons::spade_filled));
+            "spade", "TablerIcons.spade_filled()", tagIcons::spade_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.SQUARE)",
-            tagIcons::square_filled));
+            "square", "TablerIcons.square_filled()", tagIcons::square_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-asterisk (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.SQUARE_ASTERISK)",
+            "square-asterisk",
+            "TablerIcons.square_asterisk_filled()",
             tagIcons::square_asterisk_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-check (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.SQUARE_CHECK)",
+            "square-check",
+            "TablerIcons.square_check_filled()",
             tagIcons::square_check_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-dot (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.SQUARE_DOT)",
-            tagIcons::square_dot_filled));
+            "square-dot", "TablerIcons.square_dot_filled()", tagIcons::square_dot_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-minus (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.SQUARE_MINUS)",
+            "square-minus",
+            "TablerIcons.square_minus_filled()",
             tagIcons::square_minus_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rotated (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.SQUARE_ROTATED)",
+            "square-rotated",
+            "TablerIcons.square_rotated_filled()",
             tagIcons::square_rotated_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.SQUARE_ROUNDED)",
+            "square-rounded",
+            "TablerIcons.square_rounded_filled()",
             tagIcons::square_rounded_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-check (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.SQUARE_ROUNDED_CHECK)",
+            "square-rounded-check",
+            "TablerIcons.square_rounded_check_filled()",
             tagIcons::square_rounded_check_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-minus (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.SQUARE_ROUNDED_MINUS)",
+            "square-rounded-minus",
+            "TablerIcons.square_rounded_minus_filled()",
             tagIcons::square_rounded_minus_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-plus (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.SQUARE_ROUNDED_PLUS)",
+            "square-rounded-plus",
+            "TablerIcons.square_rounded_plus_filled()",
             tagIcons::square_rounded_plus_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-rounded-x (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.SQUARE_ROUNDED_X)",
+            "square-rounded-x",
+            "TablerIcons.square_rounded_x_filled()",
             tagIcons::square_rounded_x_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "square-x (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.SQUARE_X)",
-            tagIcons::square_x_filled));
+            "square-x", "TablerIcons.square_x_filled()", tagIcons::square_x_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "triangle (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.TRIANGLE)",
-            tagIcons::triangle_filled));
+            "triangle", "TablerIcons.triangle_filled()", tagIcons::triangle_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "triangle-inverted (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.TRIANGLE_INVERTED)",
+            "triangle-inverted",
+            "TablerIcons.triangle_inverted_filled()",
             tagIcons::triangle_inverted_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "triangle-square-circle (filled)",
-            "TablerIcon.create(TablerShapes.FilledIcon.TRIANGLE_SQUARE_CIRCLE)",
+            "triangle-square-circle",
+            "TablerIcons.triangle_square_circle_filled()",
             tagIcons::triangle_square_circle_filled));
   }
 

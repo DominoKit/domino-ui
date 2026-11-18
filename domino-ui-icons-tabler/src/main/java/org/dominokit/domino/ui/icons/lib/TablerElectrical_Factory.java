@@ -33,98 +33,88 @@ public final class TablerElectrical_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-ammeter (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_AMMETER)",
+            "circuit-ammeter",
+            "TablerIcons.circuit_ammeter()",
             tagIcons::circuit_ammeter));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-battery (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_BATTERY)",
+            "circuit-battery",
+            "TablerIcons.circuit_battery()",
             tagIcons::circuit_battery));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-bulb (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_BULB)",
-            tagIcons::circuit_bulb));
+            "circuit-bulb", "TablerIcons.circuit_bulb()", tagIcons::circuit_bulb));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-capacitor (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_CAPACITOR)",
+            "circuit-capacitor",
+            "TablerIcons.circuit_capacitor()",
             tagIcons::circuit_capacitor));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-capacitor-polarized (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_CAPACITOR_POLARIZED)",
+            "circuit-capacitor-polarized",
+            "TablerIcons.circuit_capacitor_polarized()",
             tagIcons::circuit_capacitor_polarized));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-cell (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_CELL)",
-            tagIcons::circuit_cell));
+            "circuit-cell", "TablerIcons.circuit_cell()", tagIcons::circuit_cell));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-cell-plus (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_CELL_PLUS)",
+            "circuit-cell-plus",
+            "TablerIcons.circuit_cell_plus()",
             tagIcons::circuit_cell_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-changeover (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_CHANGEOVER)",
+            "circuit-changeover",
+            "TablerIcons.circuit_changeover()",
             tagIcons::circuit_changeover));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-diode (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_DIODE)",
-            tagIcons::circuit_diode));
+            "circuit-diode", "TablerIcons.circuit_diode()", tagIcons::circuit_diode));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-diode-zener (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_DIODE_ZENER)",
+            "circuit-diode-zener",
+            "TablerIcons.circuit_diode_zener()",
             tagIcons::circuit_diode_zener));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-ground (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_GROUND)",
-            tagIcons::circuit_ground));
+            "circuit-ground", "TablerIcons.circuit_ground()", tagIcons::circuit_ground));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-ground-digital (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_GROUND_DIGITAL)",
+            "circuit-ground-digital",
+            "TablerIcons.circuit_ground_digital()",
             tagIcons::circuit_ground_digital));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-inductor (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_INDUCTOR)",
+            "circuit-inductor",
+            "TablerIcons.circuit_inductor()",
             tagIcons::circuit_inductor));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-motor (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_MOTOR)",
-            tagIcons::circuit_motor));
+            "circuit-motor", "TablerIcons.circuit_motor()", tagIcons::circuit_motor));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-pushbutton (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_PUSHBUTTON)",
+            "circuit-pushbutton",
+            "TablerIcons.circuit_pushbutton()",
             tagIcons::circuit_pushbutton));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-resistor (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_RESISTOR)",
+            "circuit-resistor",
+            "TablerIcons.circuit_resistor()",
             tagIcons::circuit_resistor));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-switch-closed (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_SWITCH_CLOSED)",
+            "circuit-switch-closed",
+            "TablerIcons.circuit_switch_closed()",
             tagIcons::circuit_switch_closed));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-switch-open (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_SWITCH_OPEN)",
+            "circuit-switch-open",
+            "TablerIcons.circuit_switch_open()",
             tagIcons::circuit_switch_open));
     icons.add(
         new IconCatalogEntry<>(
-            "circuit-voltmeter (outline)",
-            "TablerIcon.create(TablerElectrical.OutlineIcon.CIRCUIT_VOLTMETER)",
+            "circuit-voltmeter",
+            "TablerIcons.circuit_voltmeter()",
             tagIcons::circuit_voltmeter));
   }
 

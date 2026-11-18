@@ -31,442 +31,271 @@ public final class TablerMath_Factory {
   }
 
   private static void addIcons0() {
+    icons.add(new IconCatalogEntry<>("abacus", "TablerIcons.abacus()", tagIcons::abacus));
     icons.add(
         new IconCatalogEntry<>(
-            "abacus (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.ABACUS)",
-            tagIcons::abacus));
+            "abacus-off", "TablerIcons.abacus_off()", tagIcons::abacus_off));
     icons.add(
         new IconCatalogEntry<>(
-            "abacus-off (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.ABACUS_OFF)",
-            tagIcons::abacus_off));
+            "ampersand", "TablerIcons.ampersand()", tagIcons::ampersand));
     icons.add(
         new IconCatalogEntry<>(
-            "ampersand (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.AMPERSAND)",
-            tagIcons::ampersand));
+            "backslash", "TablerIcons.backslash()", tagIcons::backslash));
+    icons.add(new IconCatalogEntry<>("braces", "TablerIcons.braces()", tagIcons::braces));
     icons.add(
         new IconCatalogEntry<>(
-            "backslash (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.BACKSLASH)",
-            tagIcons::backslash));
+            "braces-off", "TablerIcons.braces_off()", tagIcons::braces_off));
+    icons.add(
+        new IconCatalogEntry<>("brackets", "TablerIcons.brackets()", tagIcons::brackets));
     icons.add(
         new IconCatalogEntry<>(
-            "braces (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.BRACES)",
-            tagIcons::braces));
-    icons.add(
-        new IconCatalogEntry<>(
-            "braces-off (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.BRACES_OFF)",
-            tagIcons::braces_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "brackets (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.BRACKETS)",
-            tagIcons::brackets));
-    icons.add(
-        new IconCatalogEntry<>(
-            "brackets-contain (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.BRACKETS_CONTAIN)",
+            "brackets-contain",
+            "TablerIcons.brackets_contain()",
             tagIcons::brackets_contain));
     icons.add(
         new IconCatalogEntry<>(
-            "brackets-contain-end (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.BRACKETS_CONTAIN_END)",
+            "brackets-contain-end",
+            "TablerIcons.brackets_contain_end()",
             tagIcons::brackets_contain_end));
     icons.add(
         new IconCatalogEntry<>(
-            "brackets-contain-start (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.BRACKETS_CONTAIN_START)",
+            "brackets-contain-start",
+            "TablerIcons.brackets_contain_start()",
             tagIcons::brackets_contain_start));
     icons.add(
         new IconCatalogEntry<>(
-            "brackets-off (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.BRACKETS_OFF)",
-            tagIcons::brackets_off));
+            "brackets-off", "TablerIcons.brackets_off()", tagIcons::brackets_off));
+    icons.add(
+        new IconCatalogEntry<>("decimal", "TablerIcons.decimal()", tagIcons::decimal));
+    icons.add(new IconCatalogEntry<>("divide", "TablerIcons.divide()", tagIcons::divide));
+    icons.add(new IconCatalogEntry<>("equal", "TablerIcons.equal()", tagIcons::equal));
     icons.add(
         new IconCatalogEntry<>(
-            "decimal (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.DECIMAL)",
-            tagIcons::decimal));
+            "equal-double", "TablerIcons.equal_double()", tagIcons::equal_double));
     icons.add(
         new IconCatalogEntry<>(
-            "divide (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.DIVIDE)",
-            tagIcons::divide));
+            "equal-not", "TablerIcons.equal_not()", tagIcons::equal_not));
+    icons.add(
+        new IconCatalogEntry<>("function", "TablerIcons.function()", tagIcons::function));
     icons.add(
         new IconCatalogEntry<>(
-            "equal (outline)", "TablerIcon.create(TablerMath.OutlineIcon.EQUAL)", tagIcons::equal));
+            "function-off", "TablerIcons.function_off()", tagIcons::function_off));
+    icons.add(
+        new IconCatalogEntry<>("infinity", "TablerIcons.infinity()", tagIcons::infinity));
     icons.add(
         new IconCatalogEntry<>(
-            "equal-double (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.EQUAL_DOUBLE)",
-            tagIcons::equal_double));
+            "infinity-2", "TablerIcons.infinity_2()", tagIcons::infinity_2));
     icons.add(
         new IconCatalogEntry<>(
-            "equal-not (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.EQUAL_NOT)",
-            tagIcons::equal_not));
+            "infinity-off", "TablerIcons.infinity_off()", tagIcons::infinity_off));
+    icons.add(new IconCatalogEntry<>("math", "TablerIcons.math()", tagIcons::math));
     icons.add(
         new IconCatalogEntry<>(
-            "function (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.FUNCTION)",
-            tagIcons::function));
-    icons.add(
-        new IconCatalogEntry<>(
-            "function-off (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.FUNCTION_OFF)",
-            tagIcons::function_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "infinity (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.INFINITY)",
-            tagIcons::infinity));
-    icons.add(
-        new IconCatalogEntry<>(
-            "infinity-2 (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.INFINITY_2)",
-            tagIcons::infinity_2));
-    icons.add(
-        new IconCatalogEntry<>(
-            "infinity-off (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.INFINITY_OFF)",
-            tagIcons::infinity_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "math (outline)", "TablerIcon.create(TablerMath.OutlineIcon.MATH)", tagIcons::math));
-    icons.add(
-        new IconCatalogEntry<>(
-            "math-1-divide-2 (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_1_DIVIDE_2)",
+            "math-1-divide-2",
+            "TablerIcons.math_1_divide_2()",
             tagIcons::math_1_divide_2));
     icons.add(
         new IconCatalogEntry<>(
-            "math-1-divide-3 (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_1_DIVIDE_3)",
+            "math-1-divide-3",
+            "TablerIcons.math_1_divide_3()",
             tagIcons::math_1_divide_3));
     icons.add(
-        new IconCatalogEntry<>(
-            "math-avg (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_AVG)",
-            tagIcons::math_avg));
+        new IconCatalogEntry<>("math-avg", "TablerIcons.math_avg()", tagIcons::math_avg));
+    icons.add(
+        new IconCatalogEntry<>("math-cos", "TablerIcons.math_cos()", tagIcons::math_cos));
+    icons.add(
+        new IconCatalogEntry<>("math-ctg", "TablerIcons.math_ctg()", tagIcons::math_ctg));
     icons.add(
         new IconCatalogEntry<>(
-            "math-cos (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_COS)",
-            tagIcons::math_cos));
-    icons.add(
-        new IconCatalogEntry<>(
-            "math-ctg (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_CTG)",
-            tagIcons::math_ctg));
-    icons.add(
-        new IconCatalogEntry<>(
-            "math-equal-greater (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_EQUAL_GREATER)",
+            "math-equal-greater",
+            "TablerIcons.math_equal_greater()",
             tagIcons::math_equal_greater));
     icons.add(
         new IconCatalogEntry<>(
-            "math-equal-lower (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_EQUAL_LOWER)",
+            "math-equal-lower",
+            "TablerIcons.math_equal_lower()",
             tagIcons::math_equal_lower));
     icons.add(
         new IconCatalogEntry<>(
-            "math-function (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_FUNCTION)",
-            tagIcons::math_function));
+            "math-function", "TablerIcons.math_function()", tagIcons::math_function));
     icons.add(
         new IconCatalogEntry<>(
-            "math-function-off (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_FUNCTION_OFF)",
+            "math-function-off",
+            "TablerIcons.math_function_off()",
             tagIcons::math_function_off));
     icons.add(
         new IconCatalogEntry<>(
-            "math-function-y (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_FUNCTION_Y)",
+            "math-function-y",
+            "TablerIcons.math_function_y()",
             tagIcons::math_function_y));
     icons.add(
         new IconCatalogEntry<>(
-            "math-greater (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_GREATER)",
-            tagIcons::math_greater));
+            "math-greater", "TablerIcons.math_greater()", tagIcons::math_greater));
     icons.add(
         new IconCatalogEntry<>(
-            "math-integral (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_INTEGRAL)",
-            tagIcons::math_integral));
+            "math-integral", "TablerIcons.math_integral()", tagIcons::math_integral));
     icons.add(
         new IconCatalogEntry<>(
-            "math-integral-x (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_INTEGRAL_X)",
+            "math-integral-x",
+            "TablerIcons.math_integral_x()",
             tagIcons::math_integral_x));
     icons.add(
         new IconCatalogEntry<>(
-            "math-integrals (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_INTEGRALS)",
-            tagIcons::math_integrals));
+            "math-integrals", "TablerIcons.math_integrals()", tagIcons::math_integrals));
     icons.add(
         new IconCatalogEntry<>(
-            "math-lower (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_LOWER)",
-            tagIcons::math_lower));
+            "math-lower", "TablerIcons.math_lower()", tagIcons::math_lower));
+    icons.add(
+        new IconCatalogEntry<>("math-max", "TablerIcons.math_max()", tagIcons::math_max));
     icons.add(
         new IconCatalogEntry<>(
-            "math-max (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_MAX)",
-            tagIcons::math_max));
+            "math-max-min", "TablerIcons.math_max_min()", tagIcons::math_max_min));
+    icons.add(
+        new IconCatalogEntry<>("math-min", "TablerIcons.math_min()", tagIcons::math_min));
+    icons.add(
+        new IconCatalogEntry<>("math-not", "TablerIcons.math_not()", tagIcons::math_not));
+    icons.add(
+        new IconCatalogEntry<>("math-off", "TablerIcons.math_off()", tagIcons::math_off));
+    icons.add(
+        new IconCatalogEntry<>("math-pi", "TablerIcons.math_pi()", tagIcons::math_pi));
     icons.add(
         new IconCatalogEntry<>(
-            "math-max-min (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_MAX_MIN)",
-            tagIcons::math_max_min));
-    icons.add(
-        new IconCatalogEntry<>(
-            "math-min (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_MIN)",
-            tagIcons::math_min));
-    icons.add(
-        new IconCatalogEntry<>(
-            "math-not (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_NOT)",
-            tagIcons::math_not));
-    icons.add(
-        new IconCatalogEntry<>(
-            "math-off (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_OFF)",
-            tagIcons::math_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "math-pi (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_PI)",
-            tagIcons::math_pi));
-    icons.add(
-        new IconCatalogEntry<>(
-            "math-pi-divide-2 (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_PI_DIVIDE_2)",
+            "math-pi-divide-2",
+            "TablerIcons.math_pi_divide_2()",
             tagIcons::math_pi_divide_2));
     icons.add(
-        new IconCatalogEntry<>(
-            "math-sec (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_SEC)",
-            tagIcons::math_sec));
+        new IconCatalogEntry<>("math-sec", "TablerIcons.math_sec()", tagIcons::math_sec));
+    icons.add(
+        new IconCatalogEntry<>("math-sin", "TablerIcons.math_sin()", tagIcons::math_sin));
     icons.add(
         new IconCatalogEntry<>(
-            "math-sin (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_SIN)",
-            tagIcons::math_sin));
+            "math-symbols", "TablerIcons.math_symbols()", tagIcons::math_symbols));
+    icons.add(
+        new IconCatalogEntry<>("math-tg", "TablerIcons.math_tg()", tagIcons::math_tg));
     icons.add(
         new IconCatalogEntry<>(
-            "math-symbols (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_SYMBOLS)",
-            tagIcons::math_symbols));
-    icons.add(
-        new IconCatalogEntry<>(
-            "math-tg (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_TG)",
-            tagIcons::math_tg));
-    icons.add(
-        new IconCatalogEntry<>(
-            "math-x-divide-2 (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_X_DIVIDE_2)",
+            "math-x-divide-2",
+            "TablerIcons.math_x_divide_2()",
             tagIcons::math_x_divide_2));
     icons.add(
         new IconCatalogEntry<>(
-            "math-x-divide-y (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_X_DIVIDE_Y)",
+            "math-x-divide-y",
+            "TablerIcons.math_x_divide_y()",
             tagIcons::math_x_divide_y));
     icons.add(
         new IconCatalogEntry<>(
-            "math-x-divide-y-2 (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_X_DIVIDE_Y_2)",
+            "math-x-divide-y-2",
+            "TablerIcons.math_x_divide_y_2()",
             tagIcons::math_x_divide_y_2));
     icons.add(
         new IconCatalogEntry<>(
-            "math-x-floor-divide-y (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_X_FLOOR_DIVIDE_Y)",
+            "math-x-floor-divide-y",
+            "TablerIcons.math_x_floor_divide_y()",
             tagIcons::math_x_floor_divide_y));
     icons.add(
         new IconCatalogEntry<>(
-            "math-x-minus-x (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_X_MINUS_X)",
-            tagIcons::math_x_minus_x));
+            "math-x-minus-x", "TablerIcons.math_x_minus_x()", tagIcons::math_x_minus_x));
     icons.add(
         new IconCatalogEntry<>(
-            "math-x-minus-y (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_X_MINUS_Y)",
-            tagIcons::math_x_minus_y));
+            "math-x-minus-y", "TablerIcons.math_x_minus_y()", tagIcons::math_x_minus_y));
     icons.add(
         new IconCatalogEntry<>(
-            "math-x-plus-x (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_X_PLUS_X)",
-            tagIcons::math_x_plus_x));
+            "math-x-plus-x", "TablerIcons.math_x_plus_x()", tagIcons::math_x_plus_x));
     icons.add(
         new IconCatalogEntry<>(
-            "math-x-plus-y (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_X_PLUS_Y)",
-            tagIcons::math_x_plus_y));
+            "math-x-plus-y", "TablerIcons.math_x_plus_y()", tagIcons::math_x_plus_y));
+    icons.add(
+        new IconCatalogEntry<>("math-xy", "TablerIcons.math_xy()", tagIcons::math_xy));
     icons.add(
         new IconCatalogEntry<>(
-            "math-xy (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_XY)",
-            tagIcons::math_xy));
+            "math-y-minus-y", "TablerIcons.math_y_minus_y()", tagIcons::math_y_minus_y));
     icons.add(
         new IconCatalogEntry<>(
-            "math-y-minus-y (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_Y_MINUS_Y)",
-            tagIcons::math_y_minus_y));
+            "math-y-plus-y", "TablerIcons.math_y_plus_y()", tagIcons::math_y_plus_y));
+    icons.add(new IconCatalogEntry<>("matrix", "TablerIcons.matrix()", tagIcons::matrix));
+    icons.add(new IconCatalogEntry<>("minus", "TablerIcons.minus()", tagIcons::minus));
     icons.add(
         new IconCatalogEntry<>(
-            "math-y-plus-y (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATH_Y_PLUS_Y)",
-            tagIcons::math_y_plus_y));
-    icons.add(
-        new IconCatalogEntry<>(
-            "matrix (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MATRIX)",
-            tagIcons::matrix));
-    icons.add(
-        new IconCatalogEntry<>(
-            "minus (outline)", "TablerIcon.create(TablerMath.OutlineIcon.MINUS)", tagIcons::minus));
-    icons.add(
-        new IconCatalogEntry<>(
-            "multiplier-0-5x (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MULTIPLIER_0_5X)",
+            "multiplier-0-5x",
+            "TablerIcons.multiplier_0_5x()",
             tagIcons::multiplier_0_5x));
     icons.add(
         new IconCatalogEntry<>(
-            "multiplier-1-5x (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MULTIPLIER_1_5X)",
+            "multiplier-1-5x",
+            "TablerIcons.multiplier_1_5x()",
             tagIcons::multiplier_1_5x));
     icons.add(
         new IconCatalogEntry<>(
-            "multiplier-1x (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MULTIPLIER_1X)",
-            tagIcons::multiplier_1x));
+            "multiplier-1x", "TablerIcons.multiplier_1x()", tagIcons::multiplier_1x));
     icons.add(
         new IconCatalogEntry<>(
-            "multiplier-2x (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.MULTIPLIER_2X)",
-            tagIcons::multiplier_2x));
+            "multiplier-2x", "TablerIcons.multiplier_2x()", tagIcons::multiplier_2x));
+    icons.add(new IconCatalogEntry<>("omega", "TablerIcons.omega()", tagIcons::omega));
     icons.add(
         new IconCatalogEntry<>(
-            "omega (outline)", "TablerIcon.create(TablerMath.OutlineIcon.OMEGA)", tagIcons::omega));
+            "parentheses", "TablerIcons.parentheses()", tagIcons::parentheses));
     icons.add(
         new IconCatalogEntry<>(
-            "parentheses (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.PARENTHESES)",
-            tagIcons::parentheses));
-    icons.add(
-        new IconCatalogEntry<>(
-            "parentheses-off (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.PARENTHESES_OFF)",
+            "parentheses-off",
+            "TablerIcons.parentheses_off()",
             tagIcons::parentheses_off));
     icons.add(
-        new IconCatalogEntry<>(
-            "pendulum (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.PENDULUM)",
-            tagIcons::pendulum));
+        new IconCatalogEntry<>("pendulum", "TablerIcons.pendulum()", tagIcons::pendulum));
     icons.add(
         new IconCatalogEntry<>(
-            "percentage (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.PERCENTAGE)",
-            tagIcons::percentage));
+            "percentage", "TablerIcons.percentage()", tagIcons::percentage));
+    icons.add(new IconCatalogEntry<>("plus", "TablerIcons.plus()", tagIcons::plus));
     icons.add(
         new IconCatalogEntry<>(
-            "plus (outline)", "TablerIcon.create(TablerMath.OutlineIcon.PLUS)", tagIcons::plus));
+            "plus-equal", "TablerIcons.plus_equal()", tagIcons::plus_equal));
     icons.add(
         new IconCatalogEntry<>(
-            "plus-equal (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.PLUS_EQUAL)",
-            tagIcons::plus_equal));
+            "plus-minus", "TablerIcons.plus_minus()", tagIcons::plus_minus));
+    icons.add(new IconCatalogEntry<>("slash", "TablerIcons.slash()", tagIcons::slash));
     icons.add(
         new IconCatalogEntry<>(
-            "plus-minus (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.PLUS_MINUS)",
-            tagIcons::plus_minus));
+            "square-root", "TablerIcons.square_root()", tagIcons::square_root));
     icons.add(
         new IconCatalogEntry<>(
-            "slash (outline)", "TablerIcon.create(TablerMath.OutlineIcon.SLASH)", tagIcons::slash));
+            "square-root-2", "TablerIcons.square_root_2()", tagIcons::square_root_2));
+    icons.add(new IconCatalogEntry<>("sum", "TablerIcons.sum()", tagIcons::sum));
+    icons.add(
+        new IconCatalogEntry<>("sum-off", "TablerIcons.sum_off()", tagIcons::sum_off));
     icons.add(
         new IconCatalogEntry<>(
-            "square-root (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.SQUARE_ROOT)",
-            tagIcons::square_root));
+            "tallymark-1", "TablerIcons.tallymark_1()", tagIcons::tallymark_1));
     icons.add(
         new IconCatalogEntry<>(
-            "square-root-2 (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.SQUARE_ROOT_2)",
-            tagIcons::square_root_2));
+            "tallymark-2", "TablerIcons.tallymark_2()", tagIcons::tallymark_2));
     icons.add(
         new IconCatalogEntry<>(
-            "sum (outline)", "TablerIcon.create(TablerMath.OutlineIcon.SUM)", tagIcons::sum));
+            "tallymark-3", "TablerIcons.tallymark_3()", tagIcons::tallymark_3));
     icons.add(
         new IconCatalogEntry<>(
-            "sum-off (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.SUM_OFF)",
-            tagIcons::sum_off));
+            "tallymark-4", "TablerIcons.tallymark_4()", tagIcons::tallymark_4));
     icons.add(
         new IconCatalogEntry<>(
-            "tallymark-1 (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.TALLYMARK_1)",
-            tagIcons::tallymark_1));
+            "tallymarks", "TablerIcons.tallymarks()", tagIcons::tallymarks));
+    icons.add(
+        new IconCatalogEntry<>("variable", "TablerIcons.variable()", tagIcons::variable));
     icons.add(
         new IconCatalogEntry<>(
-            "tallymark-2 (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.TALLYMARK_2)",
-            tagIcons::tallymark_2));
+            "variable-minus", "TablerIcons.variable_minus()", tagIcons::variable_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "tallymark-3 (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.TALLYMARK_3)",
-            tagIcons::tallymark_3));
+            "variable-off", "TablerIcons.variable_off()", tagIcons::variable_off));
     icons.add(
         new IconCatalogEntry<>(
-            "tallymark-4 (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.TALLYMARK_4)",
-            tagIcons::tallymark_4));
+            "variable-plus", "TablerIcons.variable_plus()", tagIcons::variable_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "tallymarks (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.TALLYMARKS)",
-            tagIcons::tallymarks));
+            "x-power-y", "TablerIcons.x_power_y()", tagIcons::x_power_y));
     icons.add(
         new IconCatalogEntry<>(
-            "variable (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.VARIABLE)",
-            tagIcons::variable));
+            "function", "TablerIcons.function_filled()", tagIcons::function_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "variable-minus (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.VARIABLE_MINUS)",
-            tagIcons::variable_minus));
-    icons.add(
-        new IconCatalogEntry<>(
-            "variable-off (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.VARIABLE_OFF)",
-            tagIcons::variable_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "variable-plus (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.VARIABLE_PLUS)",
-            tagIcons::variable_plus));
-    icons.add(
-        new IconCatalogEntry<>(
-            "x-power-y (outline)",
-            "TablerIcon.create(TablerMath.OutlineIcon.X_POWER_Y)",
-            tagIcons::x_power_y));
-    icons.add(
-        new IconCatalogEntry<>(
-            "function (filled)",
-            "TablerIcon.create(TablerMath.FilledIcon.FUNCTION)",
-            tagIcons::function_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "plus (filled)",
-            "TablerIcon.create(TablerMath.FilledIcon.PLUS)",
-            tagIcons::plus_filled));
+            "plus", "TablerIcons.plus_filled()", tagIcons::plus_filled));
   }
 
   public List<IconCatalogEntry<TablerIcon>> icons() {

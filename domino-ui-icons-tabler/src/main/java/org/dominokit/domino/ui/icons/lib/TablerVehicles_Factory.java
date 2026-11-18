@@ -34,606 +34,352 @@ public final class TablerVehicles_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "aerial-lift (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.AERIAL_LIFT)",
-            tagIcons::aerial_lift));
+            "aerial-lift", "TablerIcons.aerial_lift()", tagIcons::aerial_lift));
     icons.add(
         new IconCatalogEntry<>(
-            "air-balloon (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.AIR_BALLOON)",
-            tagIcons::air_balloon));
+            "air-balloon", "TablerIcons.air_balloon()", tagIcons::air_balloon));
     icons.add(
         new IconCatalogEntry<>(
-            "ambulance (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.AMBULANCE)",
-            tagIcons::ambulance));
+            "ambulance", "TablerIcons.ambulance()", tagIcons::ambulance));
     icons.add(
         new IconCatalogEntry<>(
-            "automatic-gearbox (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.AUTOMATIC_GEARBOX)",
+            "automatic-gearbox",
+            "TablerIcons.automatic_gearbox()",
             tagIcons::automatic_gearbox));
     icons.add(
-        new IconCatalogEntry<>(
-            "backhoe (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.BACKHOE)",
-            tagIcons::backhoe));
+        new IconCatalogEntry<>("backhoe", "TablerIcons.backhoe()", tagIcons::backhoe));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-automotive (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.BATTERY_AUTOMOTIVE)",
+            "battery-automotive",
+            "TablerIcons.battery_automotive()",
             tagIcons::battery_automotive));
+    icons.add(new IconCatalogEntry<>("bike", "TablerIcons.bike()", tagIcons::bike));
+    icons.add(
+        new IconCatalogEntry<>("bike-off", "TablerIcons.bike_off()", tagIcons::bike_off));
     icons.add(
         new IconCatalogEntry<>(
-            "bike (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.BIKE)",
-            tagIcons::bike));
+            "bulldozer", "TablerIcons.bulldozer()", tagIcons::bulldozer));
+    icons.add(new IconCatalogEntry<>("bus", "TablerIcons.bus()", tagIcons::bus));
+    icons.add(
+        new IconCatalogEntry<>("bus-off", "TablerIcons.bus_off()", tagIcons::bus_off));
+    icons.add(
+        new IconCatalogEntry<>("bus-stop", "TablerIcons.bus_stop()", tagIcons::bus_stop));
+    icons.add(new IconCatalogEntry<>("camper", "TablerIcons.camper()", tagIcons::camper));
+    icons.add(new IconCatalogEntry<>("car", "TablerIcons.car()", tagIcons::car));
+    icons.add(
+        new IconCatalogEntry<>("car-4wd", "TablerIcons.car_4wd()", tagIcons::car_4wd));
     icons.add(
         new IconCatalogEntry<>(
-            "bike-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.BIKE_OFF)",
-            tagIcons::bike_off));
+            "car-crane", "TablerIcons.car_crane()", tagIcons::car_crane));
     icons.add(
         new IconCatalogEntry<>(
-            "bulldozer (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.BULLDOZER)",
-            tagIcons::bulldozer));
+            "car-crash", "TablerIcons.car_crash()", tagIcons::car_crash));
+    icons.add(
+        new IconCatalogEntry<>("car-door", "TablerIcons.car_door()", tagIcons::car_door));
+    icons.add(
+        new IconCatalogEntry<>("car-fan", "TablerIcons.car_fan()", tagIcons::car_fan));
     icons.add(
         new IconCatalogEntry<>(
-            "bus (outline)", "TablerIcon.create(TablerVehicles.OutlineIcon.BUS)", tagIcons::bus));
+            "car-fan-1", "TablerIcons.car_fan_1()", tagIcons::car_fan_1));
     icons.add(
         new IconCatalogEntry<>(
-            "bus-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.BUS_OFF)",
-            tagIcons::bus_off));
+            "car-fan-2", "TablerIcons.car_fan_2()", tagIcons::car_fan_2));
     icons.add(
         new IconCatalogEntry<>(
-            "bus-stop (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.BUS_STOP)",
-            tagIcons::bus_stop));
+            "car-fan-3", "TablerIcons.car_fan_3()", tagIcons::car_fan_3));
     icons.add(
         new IconCatalogEntry<>(
-            "camper (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CAMPER)",
-            tagIcons::camper));
+            "car-fan-auto", "TablerIcons.car_fan_auto()", tagIcons::car_fan_auto));
     icons.add(
         new IconCatalogEntry<>(
-            "car (outline)", "TablerIcon.create(TablerVehicles.OutlineIcon.CAR)", tagIcons::car));
+            "car-lifter", "TablerIcons.car_lifter()", tagIcons::car_lifter));
+    icons.add(
+        new IconCatalogEntry<>("car-off", "TablerIcons.car_off()", tagIcons::car_off));
     icons.add(
         new IconCatalogEntry<>(
-            "car-4wd (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CAR_4WD)",
-            tagIcons::car_4wd));
+            "car-off-road", "TablerIcons.car_off_road()", tagIcons::car_off_road));
     icons.add(
         new IconCatalogEntry<>(
-            "car-crane (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CAR_CRANE)",
-            tagIcons::car_crane));
+            "car-suspension", "TablerIcons.car_suspension()", tagIcons::car_suspension));
+    icons.add(
+        new IconCatalogEntry<>("car-suv", "TablerIcons.car_suv()", tagIcons::car_suv));
     icons.add(
         new IconCatalogEntry<>(
-            "car-crash (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CAR_CRASH)",
-            tagIcons::car_crash));
+            "car-turbine", "TablerIcons.car_turbine()", tagIcons::car_turbine));
+    icons.add(
+        new IconCatalogEntry<>("caravan", "TablerIcons.caravan()", tagIcons::caravan));
     icons.add(
         new IconCatalogEntry<>(
-            "car-door (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CAR_DOOR)",
-            tagIcons::car_door));
+            "charging-pile", "TablerIcons.charging_pile()", tagIcons::charging_pile));
+    icons.add(new IconCatalogEntry<>("crane", "TablerIcons.crane()", tagIcons::crane));
     icons.add(
         new IconCatalogEntry<>(
-            "car-fan (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CAR_FAN)",
-            tagIcons::car_fan));
+            "crane-off", "TablerIcons.crane_off()", tagIcons::crane_off));
+    icons.add(new IconCatalogEntry<>("drone", "TablerIcons.drone()", tagIcons::drone));
     icons.add(
         new IconCatalogEntry<>(
-            "car-fan-1 (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CAR_FAN_1)",
-            tagIcons::car_fan_1));
+            "drone-off", "TablerIcons.drone_off()", tagIcons::drone_off));
+    icons.add(new IconCatalogEntry<>("engine", "TablerIcons.engine()", tagIcons::engine));
     icons.add(
         new IconCatalogEntry<>(
-            "car-fan-2 (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CAR_FAN_2)",
-            tagIcons::car_fan_2));
+            "engine-off", "TablerIcons.engine_off()", tagIcons::engine_off));
+    icons.add(new IconCatalogEntry<>("ferry", "TablerIcons.ferry()", tagIcons::ferry));
     icons.add(
         new IconCatalogEntry<>(
-            "car-fan-3 (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CAR_FAN_3)",
-            tagIcons::car_fan_3));
+            "firetruck", "TablerIcons.firetruck()", tagIcons::firetruck));
+    icons.add(
+        new IconCatalogEntry<>("forklift", "TablerIcons.forklift()", tagIcons::forklift));
     icons.add(
         new IconCatalogEntry<>(
-            "car-fan-auto (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CAR_FAN_AUTO)",
-            tagIcons::car_fan_auto));
+            "garden-cart", "TablerIcons.garden_cart()", tagIcons::garden_cart));
     icons.add(
         new IconCatalogEntry<>(
-            "car-lifter (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CAR_LIFTER)",
-            tagIcons::car_lifter));
-    icons.add(
-        new IconCatalogEntry<>(
-            "car-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CAR_OFF)",
-            tagIcons::car_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "car-off-road (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CAR_OFF_ROAD)",
-            tagIcons::car_off_road));
-    icons.add(
-        new IconCatalogEntry<>(
-            "car-suspension (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CAR_SUSPENSION)",
-            tagIcons::car_suspension));
-    icons.add(
-        new IconCatalogEntry<>(
-            "car-suv (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CAR_SUV)",
-            tagIcons::car_suv));
-    icons.add(
-        new IconCatalogEntry<>(
-            "car-turbine (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CAR_TURBINE)",
-            tagIcons::car_turbine));
-    icons.add(
-        new IconCatalogEntry<>(
-            "caravan (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CARAVAN)",
-            tagIcons::caravan));
-    icons.add(
-        new IconCatalogEntry<>(
-            "charging-pile (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CHARGING_PILE)",
-            tagIcons::charging_pile));
-    icons.add(
-        new IconCatalogEntry<>(
-            "crane (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CRANE)",
-            tagIcons::crane));
-    icons.add(
-        new IconCatalogEntry<>(
-            "crane-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.CRANE_OFF)",
-            tagIcons::crane_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "drone (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.DRONE)",
-            tagIcons::drone));
-    icons.add(
-        new IconCatalogEntry<>(
-            "drone-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.DRONE_OFF)",
-            tagIcons::drone_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "engine (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.ENGINE)",
-            tagIcons::engine));
-    icons.add(
-        new IconCatalogEntry<>(
-            "engine-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.ENGINE_OFF)",
-            tagIcons::engine_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "ferry (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.FERRY)",
-            tagIcons::ferry));
-    icons.add(
-        new IconCatalogEntry<>(
-            "firetruck (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.FIRETRUCK)",
-            tagIcons::firetruck));
-    icons.add(
-        new IconCatalogEntry<>(
-            "forklift (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.FORKLIFT)",
-            tagIcons::forklift));
-    icons.add(
-        new IconCatalogEntry<>(
-            "garden-cart (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.GARDEN_CART)",
-            tagIcons::garden_cart));
-    icons.add(
-        new IconCatalogEntry<>(
-            "garden-cart-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.GARDEN_CART_OFF)",
+            "garden-cart-off",
+            "TablerIcons.garden_cart_off()",
             tagIcons::garden_cart_off));
     icons.add(
         new IconCatalogEntry<>(
-            "gas-station (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.GAS_STATION)",
-            tagIcons::gas_station));
+            "gas-station", "TablerIcons.gas_station()", tagIcons::gas_station));
     icons.add(
         new IconCatalogEntry<>(
-            "gas-station-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.GAS_STATION_OFF)",
+            "gas-station-off",
+            "TablerIcons.gas_station_off()",
             tagIcons::gas_station_off));
     icons.add(
         new IconCatalogEntry<>(
-            "helicopter (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.HELICOPTER)",
-            tagIcons::helicopter));
+            "helicopter", "TablerIcons.helicopter()", tagIcons::helicopter));
     icons.add(
         new IconCatalogEntry<>(
-            "helicopter-landing (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.HELICOPTER_LANDING)",
+            "helicopter-landing",
+            "TablerIcons.helicopter_landing()",
             tagIcons::helicopter_landing));
+    icons.add(new IconCatalogEntry<>("jetski", "TablerIcons.jetski()", tagIcons::jetski));
+    icons.add(new IconCatalogEntry<>("moped", "TablerIcons.moped()", tagIcons::moped));
     icons.add(
         new IconCatalogEntry<>(
-            "jetski (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.JETSKI)",
-            tagIcons::jetski));
+            "motorbike", "TablerIcons.motorbike()", tagIcons::motorbike));
     icons.add(
         new IconCatalogEntry<>(
-            "moped (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.MOPED)",
-            tagIcons::moped));
+            "parachute", "TablerIcons.parachute()", tagIcons::parachute));
     icons.add(
         new IconCatalogEntry<>(
-            "motorbike (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.MOTORBIKE)",
-            tagIcons::motorbike));
+            "parachute-off", "TablerIcons.parachute_off()", tagIcons::parachute_off));
+    icons.add(new IconCatalogEntry<>("plane", "TablerIcons.plane()", tagIcons::plane));
     icons.add(
         new IconCatalogEntry<>(
-            "parachute (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.PARACHUTE)",
-            tagIcons::parachute));
+            "plane-arrival", "TablerIcons.plane_arrival()", tagIcons::plane_arrival));
     icons.add(
         new IconCatalogEntry<>(
-            "parachute-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.PARACHUTE_OFF)",
-            tagIcons::parachute_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "plane (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.PLANE)",
-            tagIcons::plane));
-    icons.add(
-        new IconCatalogEntry<>(
-            "plane-arrival (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.PLANE_ARRIVAL)",
-            tagIcons::plane_arrival));
-    icons.add(
-        new IconCatalogEntry<>(
-            "plane-departure (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.PLANE_DEPARTURE)",
+            "plane-departure",
+            "TablerIcons.plane_departure()",
             tagIcons::plane_departure));
     icons.add(
         new IconCatalogEntry<>(
-            "plane-inflight (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.PLANE_INFLIGHT)",
-            tagIcons::plane_inflight));
+            "plane-inflight", "TablerIcons.plane_inflight()", tagIcons::plane_inflight));
     icons.add(
         new IconCatalogEntry<>(
-            "plane-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.PLANE_OFF)",
-            tagIcons::plane_off));
+            "plane-off", "TablerIcons.plane_off()", tagIcons::plane_off));
     icons.add(
         new IconCatalogEntry<>(
-            "plane-tilt (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.PLANE_TILT)",
-            tagIcons::plane_tilt));
+            "plane-tilt", "TablerIcons.plane_tilt()", tagIcons::plane_tilt));
     icons.add(
         new IconCatalogEntry<>(
-            "rollercoaster (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.ROLLERCOASTER)",
-            tagIcons::rollercoaster));
+            "rollercoaster", "TablerIcons.rollercoaster()", tagIcons::rollercoaster));
     icons.add(
         new IconCatalogEntry<>(
-            "rollercoaster-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.ROLLERCOASTER_OFF)",
+            "rollercoaster-off",
+            "TablerIcons.rollercoaster_off()",
             tagIcons::rollercoaster_off));
     icons.add(
-        new IconCatalogEntry<>(
-            "sailboat (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.SAILBOAT)",
-            tagIcons::sailboat));
+        new IconCatalogEntry<>("sailboat", "TablerIcons.sailboat()", tagIcons::sailboat));
     icons.add(
         new IconCatalogEntry<>(
-            "sailboat-2 (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.SAILBOAT_2)",
-            tagIcons::sailboat_2));
+            "sailboat-2", "TablerIcons.sailboat_2()", tagIcons::sailboat_2));
     icons.add(
         new IconCatalogEntry<>(
-            "sailboat-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.SAILBOAT_OFF)",
-            tagIcons::sailboat_off));
+            "sailboat-off", "TablerIcons.sailboat_off()", tagIcons::sailboat_off));
+    icons.add(
+        new IconCatalogEntry<>("scooter", "TablerIcons.scooter()", tagIcons::scooter));
     icons.add(
         new IconCatalogEntry<>(
-            "scooter (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.SCOOTER)",
-            tagIcons::scooter));
-    icons.add(
-        new IconCatalogEntry<>(
-            "scooter-electric (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.SCOOTER_ELECTRIC)",
+            "scooter-electric",
+            "TablerIcons.scooter_electric()",
             tagIcons::scooter_electric));
+    icons.add(new IconCatalogEntry<>("segway", "TablerIcons.segway()", tagIcons::segway));
+    icons.add(new IconCatalogEntry<>("ship", "TablerIcons.ship()", tagIcons::ship));
+    icons.add(
+        new IconCatalogEntry<>("ship-off", "TablerIcons.ship_off()", tagIcons::ship_off));
     icons.add(
         new IconCatalogEntry<>(
-            "segway (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.SEGWAY)",
-            tagIcons::segway));
+            "skateboard", "TablerIcons.skateboard()", tagIcons::skateboard));
     icons.add(
         new IconCatalogEntry<>(
-            "ship (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.SHIP)",
-            tagIcons::ship));
+            "skateboard-off", "TablerIcons.skateboard_off()", tagIcons::skateboard_off));
+    icons.add(new IconCatalogEntry<>("sleigh", "TablerIcons.sleigh()", tagIcons::sleigh));
     icons.add(
         new IconCatalogEntry<>(
-            "ship-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.SHIP_OFF)",
-            tagIcons::ship_off));
+            "speedboat", "TablerIcons.speedboat()", tagIcons::speedboat));
     icons.add(
         new IconCatalogEntry<>(
-            "skateboard (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.SKATEBOARD)",
-            tagIcons::skateboard));
+            "steering-wheel", "TablerIcons.steering_wheel()", tagIcons::steering_wheel));
     icons.add(
         new IconCatalogEntry<>(
-            "skateboard-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.SKATEBOARD_OFF)",
-            tagIcons::skateboard_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "sleigh (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.SLEIGH)",
-            tagIcons::sleigh));
-    icons.add(
-        new IconCatalogEntry<>(
-            "speedboat (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.SPEEDBOAT)",
-            tagIcons::speedboat));
-    icons.add(
-        new IconCatalogEntry<>(
-            "steering-wheel (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.STEERING_WHEEL)",
-            tagIcons::steering_wheel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "steering-wheel-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.STEERING_WHEEL_OFF)",
+            "steering-wheel-off",
+            "TablerIcons.steering_wheel_off()",
             tagIcons::steering_wheel_off));
     icons.add(
         new IconCatalogEntry<>(
-            "submarine (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.SUBMARINE)",
-            tagIcons::submarine));
+            "submarine", "TablerIcons.submarine()", tagIcons::submarine));
+    icons.add(new IconCatalogEntry<>("tank", "TablerIcons.tank()", tagIcons::tank));
+    icons.add(new IconCatalogEntry<>("tir", "TablerIcons.tir()", tagIcons::tir));
+    icons.add(new IconCatalogEntry<>("track", "TablerIcons.track()", tagIcons::track));
+    icons.add(
+        new IconCatalogEntry<>("tractor", "TablerIcons.tractor()", tagIcons::tractor));
+    icons.add(new IconCatalogEntry<>("train", "TablerIcons.train()", tagIcons::train));
+    icons.add(
+        new IconCatalogEntry<>("trolley", "TablerIcons.trolley()", tagIcons::trolley));
+    icons.add(new IconCatalogEntry<>("truck", "TablerIcons.truck()", tagIcons::truck));
     icons.add(
         new IconCatalogEntry<>(
-            "tank (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.TANK)",
-            tagIcons::tank));
+            "truck-off", "TablerIcons.truck_off()", tagIcons::truck_off));
+    icons.add(
+        new IconCatalogEntry<>("unicycle", "TablerIcons.unicycle()", tagIcons::unicycle));
     icons.add(
         new IconCatalogEntry<>(
-            "tir (outline)", "TablerIcon.create(TablerVehicles.OutlineIcon.TIR)", tagIcons::tir));
+            "wheelchair", "TablerIcons.wheelchair()", tagIcons::wheelchair));
     icons.add(
         new IconCatalogEntry<>(
-            "track (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.TRACK)",
-            tagIcons::track));
+            "wheelchair-off", "TablerIcons.wheelchair_off()", tagIcons::wheelchair_off));
+    icons.add(new IconCatalogEntry<>("wiper", "TablerIcons.wiper()", tagIcons::wiper));
     icons.add(
         new IconCatalogEntry<>(
-            "tractor (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.TRACTOR)",
-            tagIcons::tractor));
+            "wiper-wash", "TablerIcons.wiper_wash()", tagIcons::wiper_wash));
     icons.add(
         new IconCatalogEntry<>(
-            "train (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.TRAIN)",
-            tagIcons::train));
+            "wrecking-ball", "TablerIcons.wrecking_ball()", tagIcons::wrecking_ball));
+    icons.add(
+        new IconCatalogEntry<>("zeppelin", "TablerIcons.zeppelin()", tagIcons::zeppelin));
     icons.add(
         new IconCatalogEntry<>(
-            "trolley (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.TROLLEY)",
-            tagIcons::trolley));
+            "zeppelin-off", "TablerIcons.zeppelin_off()", tagIcons::zeppelin_off));
     icons.add(
         new IconCatalogEntry<>(
-            "truck (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.TRUCK)",
-            tagIcons::truck));
-    icons.add(
-        new IconCatalogEntry<>(
-            "truck-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.TRUCK_OFF)",
-            tagIcons::truck_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "unicycle (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.UNICYCLE)",
-            tagIcons::unicycle));
-    icons.add(
-        new IconCatalogEntry<>(
-            "wheelchair (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.WHEELCHAIR)",
-            tagIcons::wheelchair));
-    icons.add(
-        new IconCatalogEntry<>(
-            "wheelchair-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.WHEELCHAIR_OFF)",
-            tagIcons::wheelchair_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "wiper (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.WIPER)",
-            tagIcons::wiper));
-    icons.add(
-        new IconCatalogEntry<>(
-            "wiper-wash (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.WIPER_WASH)",
-            tagIcons::wiper_wash));
-    icons.add(
-        new IconCatalogEntry<>(
-            "wrecking-ball (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.WRECKING_BALL)",
-            tagIcons::wrecking_ball));
-    icons.add(
-        new IconCatalogEntry<>(
-            "zeppelin (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.ZEPPELIN)",
-            tagIcons::zeppelin));
-    icons.add(
-        new IconCatalogEntry<>(
-            "zeppelin-off (outline)",
-            "TablerIcon.create(TablerVehicles.OutlineIcon.ZEPPELIN_OFF)",
-            tagIcons::zeppelin_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "aerial-lift (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.AERIAL_LIFT)",
+            "aerial-lift",
+            "TablerIcons.aerial_lift_filled()",
             tagIcons::aerial_lift_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "air-balloon (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.AIR_BALLOON)",
+            "air-balloon",
+            "TablerIcons.air_balloon_filled()",
             tagIcons::air_balloon_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "automatic-gearbox (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.AUTOMATIC_GEARBOX)",
+            "automatic-gearbox",
+            "TablerIcons.automatic_gearbox_filled()",
             tagIcons::automatic_gearbox_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "battery-automotive (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.BATTERY_AUTOMOTIVE)",
+            "battery-automotive",
+            "TablerIcons.battery_automotive_filled()",
             tagIcons::battery_automotive_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "bike (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.BIKE)",
-            tagIcons::bike_filled));
+            "bike", "TablerIcons.bike_filled()", tagIcons::bike_filled));
+    icons.add(
+        new IconCatalogEntry<>("bus", "TablerIcons.bus_filled()", tagIcons::bus_filled));
+    icons.add(
+        new IconCatalogEntry<>("car", "TablerIcons.car_filled()", tagIcons::car_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "bus (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.BUS)",
-            tagIcons::bus_filled));
+            "car-4wd", "TablerIcons.car_4wd_filled()", tagIcons::car_4wd_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "car (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.CAR)",
-            tagIcons::car_filled));
+            "car-crane", "TablerIcons.car_crane_filled()", tagIcons::car_crane_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "car-4wd (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.CAR_4WD)",
-            tagIcons::car_4wd_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "car-crane (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.CAR_CRANE)",
-            tagIcons::car_crane_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "car-fan (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.CAR_FAN)",
-            tagIcons::car_fan_filled));
+            "car-fan", "TablerIcons.car_fan_filled()", tagIcons::car_fan_filled));
   }
 
   private static void addIcons1() {
     icons.add(
         new IconCatalogEntry<>(
-            "car-suv (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.CAR_SUV)",
-            tagIcons::car_suv_filled));
+            "car-suv", "TablerIcons.car_suv_filled()", tagIcons::car_suv_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "caravan (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.CARAVAN)",
-            tagIcons::caravan_filled));
+            "caravan", "TablerIcons.caravan_filled()", tagIcons::caravan_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "charging-pile (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.CHARGING_PILE)",
+            "charging-pile",
+            "TablerIcons.charging_pile_filled()",
             tagIcons::charging_pile_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "engine (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.ENGINE)",
-            tagIcons::engine_filled));
+            "engine", "TablerIcons.engine_filled()", tagIcons::engine_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "ferry (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.FERRY)",
-            tagIcons::ferry_filled));
+            "ferry", "TablerIcons.ferry_filled()", tagIcons::ferry_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "garden-cart (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.GARDEN_CART)",
+            "garden-cart",
+            "TablerIcons.garden_cart_filled()",
             tagIcons::garden_cart_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "gas-station (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.GAS_STATION)",
+            "gas-station",
+            "TablerIcons.gas_station_filled()",
             tagIcons::gas_station_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "helicopter (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.HELICOPTER)",
-            tagIcons::helicopter_filled));
+            "helicopter", "TablerIcons.helicopter_filled()", tagIcons::helicopter_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "helicopter-landing (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.HELICOPTER_LANDING)",
+            "helicopter-landing",
+            "TablerIcons.helicopter_landing_filled()",
             tagIcons::helicopter_landing_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "motorbike (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.MOTORBIKE)",
-            tagIcons::motorbike_filled));
+            "motorbike", "TablerIcons.motorbike_filled()", tagIcons::motorbike_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "plane (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.PLANE)",
-            tagIcons::plane_filled));
+            "plane", "TablerIcons.plane_filled()", tagIcons::plane_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "plane-arrival (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.PLANE_ARRIVAL)",
+            "plane-arrival",
+            "TablerIcons.plane_arrival_filled()",
             tagIcons::plane_arrival_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "plane-departure (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.PLANE_DEPARTURE)",
+            "plane-departure",
+            "TablerIcons.plane_departure_filled()",
             tagIcons::plane_departure_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "plane-tilt (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.PLANE_TILT)",
-            tagIcons::plane_tilt_filled));
+            "plane-tilt", "TablerIcons.plane_tilt_filled()", tagIcons::plane_tilt_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "rollercoaster (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.ROLLERCOASTER)",
+            "rollercoaster",
+            "TablerIcons.rollercoaster_filled()",
             tagIcons::rollercoaster_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "speedboat (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.SPEEDBOAT)",
-            tagIcons::speedboat_filled));
+            "speedboat", "TablerIcons.speedboat_filled()", tagIcons::speedboat_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "steering-wheel (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.STEERING_WHEEL)",
+            "steering-wheel",
+            "TablerIcons.steering_wheel_filled()",
             tagIcons::steering_wheel_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "train (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.TRAIN)",
-            tagIcons::train_filled));
+            "train", "TablerIcons.train_filled()", tagIcons::train_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "trolley (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.TROLLEY)",
-            tagIcons::trolley_filled));
+            "trolley", "TablerIcons.trolley_filled()", tagIcons::trolley_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "truck (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.TRUCK)",
-            tagIcons::truck_filled));
+            "truck", "TablerIcons.truck_filled()", tagIcons::truck_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "zeppelin (filled)",
-            "TablerIcon.create(TablerVehicles.FilledIcon.ZEPPELIN)",
-            tagIcons::zeppelin_filled));
+            "zeppelin", "TablerIcons.zeppelin_filled()", tagIcons::zeppelin_filled));
   }
 
   public List<IconCatalogEntry<TablerIcon>> icons() {

@@ -34,508 +34,289 @@ public final class TablerHealth_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "accessible (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.ACCESSIBLE)",
-            tagIcons::accessible));
+            "accessible", "TablerIcons.accessible()", tagIcons::accessible));
     icons.add(
         new IconCatalogEntry<>(
-            "accessible-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.ACCESSIBLE_OFF)",
-            tagIcons::accessible_off));
+            "accessible-off", "TablerIcons.accessible_off()", tagIcons::accessible_off));
+    icons.add(
+        new IconCatalogEntry<>("activity", "TablerIcons.activity()", tagIcons::activity));
     icons.add(
         new IconCatalogEntry<>(
-            "activity (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.ACTIVITY)",
-            tagIcons::activity));
-    icons.add(
-        new IconCatalogEntry<>(
-            "activity-heartbeat (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.ACTIVITY_HEARTBEAT)",
+            "activity-heartbeat",
+            "TablerIcons.activity_heartbeat()",
             tagIcons::activity_heartbeat));
     icons.add(
         new IconCatalogEntry<>(
-            "baby-bottle (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.BABY_BOTTLE)",
-            tagIcons::baby_bottle));
+            "baby-bottle", "TablerIcons.baby_bottle()", tagIcons::baby_bottle));
     icons.add(
         new IconCatalogEntry<>(
-            "baby-carriage (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.BABY_CARRIAGE)",
-            tagIcons::baby_carriage));
+            "baby-carriage", "TablerIcons.baby_carriage()", tagIcons::baby_carriage));
+    icons.add(
+        new IconCatalogEntry<>("bandage", "TablerIcons.bandage()", tagIcons::bandage));
     icons.add(
         new IconCatalogEntry<>(
-            "bandage (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.BANDAGE)",
-            tagIcons::bandage));
+            "bandage-off", "TablerIcons.bandage_off()", tagIcons::bandage_off));
+    icons.add(new IconCatalogEntry<>("blind", "TablerIcons.blind()", tagIcons::blind));
+    icons.add(
+        new IconCatalogEntry<>("braille", "TablerIcons.braille()", tagIcons::braille));
+    icons.add(new IconCatalogEntry<>("brain", "TablerIcons.brain()", tagIcons::brain));
+    icons.add(new IconCatalogEntry<>("cane", "TablerIcons.cane()", tagIcons::cane));
     icons.add(
         new IconCatalogEntry<>(
-            "bandage-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.BANDAGE_OFF)",
-            tagIcons::bandage_off));
+            "checkup-list", "TablerIcons.checkup_list()", tagIcons::checkup_list));
+    icons.add(
+        new IconCatalogEntry<>("crutches", "TablerIcons.crutches()", tagIcons::crutches));
     icons.add(
         new IconCatalogEntry<>(
-            "blind (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.BLIND)",
-            tagIcons::blind));
+            "crutches-off", "TablerIcons.crutches_off()", tagIcons::crutches_off));
+    icons.add(new IconCatalogEntry<>("deaf", "TablerIcons.deaf()", tagIcons::deaf));
+    icons.add(new IconCatalogEntry<>("dental", "TablerIcons.dental()", tagIcons::dental));
     icons.add(
         new IconCatalogEntry<>(
-            "braille (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.BRAILLE)",
-            tagIcons::braille));
+            "dental-off", "TablerIcons.dental_off()", tagIcons::dental_off));
+    icons.add(
+        new IconCatalogEntry<>("disabled", "TablerIcons.disabled()", tagIcons::disabled));
     icons.add(
         new IconCatalogEntry<>(
-            "brain (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.BRAIN)",
-            tagIcons::brain));
+            "disabled-2", "TablerIcons.disabled_2()", tagIcons::disabled_2));
     icons.add(
         new IconCatalogEntry<>(
-            "cane (outline)", "TablerIcon.create(TablerHealth.OutlineIcon.CANE)", tagIcons::cane));
+            "disabled-off", "TablerIcons.disabled_off()", tagIcons::disabled_off));
+    icons.add(new IconCatalogEntry<>("dna", "TablerIcons.dna()", tagIcons::dna));
+    icons.add(new IconCatalogEntry<>("dna-2", "TablerIcons.dna_2()", tagIcons::dna_2));
     icons.add(
         new IconCatalogEntry<>(
-            "checkup-list (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.CHECKUP_LIST)",
-            tagIcons::checkup_list));
+            "dna-2-off", "TablerIcons.dna_2_off()", tagIcons::dna_2_off));
+    icons.add(
+        new IconCatalogEntry<>("dna-off", "TablerIcons.dna_off()", tagIcons::dna_off));
+    icons.add(new IconCatalogEntry<>("ear", "TablerIcons.ear()", tagIcons::ear));
+    icons.add(
+        new IconCatalogEntry<>("ear-off", "TablerIcons.ear_off()", tagIcons::ear_off));
     icons.add(
         new IconCatalogEntry<>(
-            "crutches (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.CRUTCHES)",
-            tagIcons::crutches));
+            "emergency-bed", "TablerIcons.emergency_bed()", tagIcons::emergency_bed));
     icons.add(
         new IconCatalogEntry<>(
-            "crutches-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.CRUTCHES_OFF)",
-            tagIcons::crutches_off));
+            "empathize", "TablerIcons.empathize()", tagIcons::empathize));
     icons.add(
         new IconCatalogEntry<>(
-            "deaf (outline)", "TablerIcon.create(TablerHealth.OutlineIcon.DEAF)", tagIcons::deaf));
+            "empathize-off", "TablerIcons.empathize_off()", tagIcons::empathize_off));
     icons.add(
         new IconCatalogEntry<>(
-            "dental (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.DENTAL)",
-            tagIcons::dental));
+            "eye-bitcoin", "TablerIcons.eye_bitcoin()", tagIcons::eye_bitcoin));
     icons.add(
         new IconCatalogEntry<>(
-            "dental-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.DENTAL_OFF)",
-            tagIcons::dental_off));
+            "eye-discount", "TablerIcons.eye_discount()", tagIcons::eye_discount));
     icons.add(
         new IconCatalogEntry<>(
-            "disabled (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.DISABLED)",
-            tagIcons::disabled));
+            "eye-dotted", "TablerIcons.eye_dotted()", tagIcons::eye_dotted));
     icons.add(
         new IconCatalogEntry<>(
-            "disabled-2 (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.DISABLED_2)",
-            tagIcons::disabled_2));
+            "eye-table", "TablerIcons.eye_table()", tagIcons::eye_table));
+    icons.add(
+        new IconCatalogEntry<>("eyeglass", "TablerIcons.eyeglass()", tagIcons::eyeglass));
     icons.add(
         new IconCatalogEntry<>(
-            "disabled-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.DISABLED_OFF)",
-            tagIcons::disabled_off));
+            "eyeglass-2", "TablerIcons.eyeglass_2()", tagIcons::eyeglass_2));
     icons.add(
         new IconCatalogEntry<>(
-            "dna (outline)", "TablerIcon.create(TablerHealth.OutlineIcon.DNA)", tagIcons::dna));
+            "eyeglass-off", "TablerIcons.eyeglass_off()", tagIcons::eyeglass_off));
     icons.add(
         new IconCatalogEntry<>(
-            "dna-2 (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.DNA_2)",
-            tagIcons::dna_2));
+            "face-mask", "TablerIcons.face_mask()", tagIcons::face_mask));
     icons.add(
         new IconCatalogEntry<>(
-            "dna-2-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.DNA_2_OFF)",
-            tagIcons::dna_2_off));
+            "face-mask-off", "TablerIcons.face_mask_off()", tagIcons::face_mask_off));
+    icons.add(new IconCatalogEntry<>("fall", "TablerIcons.fall()", tagIcons::fall));
     icons.add(
         new IconCatalogEntry<>(
-            "dna-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.DNA_OFF)",
-            tagIcons::dna_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "ear (outline)", "TablerIcon.create(TablerHealth.OutlineIcon.EAR)", tagIcons::ear));
-    icons.add(
-        new IconCatalogEntry<>(
-            "ear-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.EAR_OFF)",
-            tagIcons::ear_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "emergency-bed (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.EMERGENCY_BED)",
-            tagIcons::emergency_bed));
-    icons.add(
-        new IconCatalogEntry<>(
-            "empathize (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.EMPATHIZE)",
-            tagIcons::empathize));
-    icons.add(
-        new IconCatalogEntry<>(
-            "empathize-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.EMPATHIZE_OFF)",
-            tagIcons::empathize_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "eye-bitcoin (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.EYE_BITCOIN)",
-            tagIcons::eye_bitcoin));
-    icons.add(
-        new IconCatalogEntry<>(
-            "eye-discount (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.EYE_DISCOUNT)",
-            tagIcons::eye_discount));
-    icons.add(
-        new IconCatalogEntry<>(
-            "eye-dotted (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.EYE_DOTTED)",
-            tagIcons::eye_dotted));
-    icons.add(
-        new IconCatalogEntry<>(
-            "eye-table (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.EYE_TABLE)",
-            tagIcons::eye_table));
-    icons.add(
-        new IconCatalogEntry<>(
-            "eyeglass (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.EYEGLASS)",
-            tagIcons::eyeglass));
-    icons.add(
-        new IconCatalogEntry<>(
-            "eyeglass-2 (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.EYEGLASS_2)",
-            tagIcons::eyeglass_2));
-    icons.add(
-        new IconCatalogEntry<>(
-            "eyeglass-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.EYEGLASS_OFF)",
-            tagIcons::eyeglass_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "face-mask (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.FACE_MASK)",
-            tagIcons::face_mask));
-    icons.add(
-        new IconCatalogEntry<>(
-            "face-mask-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.FACE_MASK_OFF)",
-            tagIcons::face_mask_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "fall (outline)", "TablerIcon.create(TablerHealth.OutlineIcon.FALL)", tagIcons::fall));
-    icons.add(
-        new IconCatalogEntry<>(
-            "fingerprint-scan (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.FINGERPRINT_SCAN)",
+            "fingerprint-scan",
+            "TablerIcons.fingerprint_scan()",
             tagIcons::fingerprint_scan));
     icons.add(
         new IconCatalogEntry<>(
-            "first-aid-kit (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.FIRST_AID_KIT)",
-            tagIcons::first_aid_kit));
+            "first-aid-kit", "TablerIcons.first_aid_kit()", tagIcons::first_aid_kit));
     icons.add(
         new IconCatalogEntry<>(
-            "first-aid-kit-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.FIRST_AID_KIT_OFF)",
+            "first-aid-kit-off",
+            "TablerIcons.first_aid_kit_off()",
             tagIcons::first_aid_kit_off));
+    icons.add(new IconCatalogEntry<>("flask", "TablerIcons.flask()", tagIcons::flask));
+    icons.add(
+        new IconCatalogEntry<>("flask-2", "TablerIcons.flask_2()", tagIcons::flask_2));
     icons.add(
         new IconCatalogEntry<>(
-            "flask (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.FLASK)",
-            tagIcons::flask));
+            "flask-2-off", "TablerIcons.flask_2_off()", tagIcons::flask_2_off));
     icons.add(
         new IconCatalogEntry<>(
-            "flask-2 (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.FLASK_2)",
-            tagIcons::flask_2));
+            "flask-off", "TablerIcons.flask_off()", tagIcons::flask_off));
     icons.add(
         new IconCatalogEntry<>(
-            "flask-2-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.FLASK_2_OFF)",
-            tagIcons::flask_2_off));
+            "footsteps", "TablerIcons.footsteps()", tagIcons::footsteps));
     icons.add(
         new IconCatalogEntry<>(
-            "flask-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.FLASK_OFF)",
-            tagIcons::flask_off));
+            "hand-sanitizer", "TablerIcons.hand_sanitizer()", tagIcons::hand_sanitizer));
     icons.add(
         new IconCatalogEntry<>(
-            "footsteps (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.FOOTSTEPS)",
-            tagIcons::footsteps));
+            "heart-bitcoin", "TablerIcons.heart_bitcoin()", tagIcons::heart_bitcoin));
     icons.add(
         new IconCatalogEntry<>(
-            "hand-sanitizer (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.HAND_SANITIZER)",
-            tagIcons::hand_sanitizer));
+            "heart-broken", "TablerIcons.heart_broken()", tagIcons::heart_broken));
     icons.add(
         new IconCatalogEntry<>(
-            "heart-bitcoin (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.HEART_BITCOIN)",
-            tagIcons::heart_bitcoin));
+            "heart-discount", "TablerIcons.heart_discount()", tagIcons::heart_discount));
     icons.add(
         new IconCatalogEntry<>(
-            "heart-broken (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.HEART_BROKEN)",
-            tagIcons::heart_broken));
-    icons.add(
-        new IconCatalogEntry<>(
-            "heart-discount (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.HEART_DISCOUNT)",
-            tagIcons::heart_discount));
-    icons.add(
-        new IconCatalogEntry<>(
-            "heart-handshake (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.HEART_HANDSHAKE)",
+            "heart-handshake",
+            "TablerIcons.heart_handshake()",
             tagIcons::heart_handshake));
     icons.add(
         new IconCatalogEntry<>(
-            "heart-rate-monitor (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.HEART_RATE_MONITOR)",
+            "heart-rate-monitor",
+            "TablerIcons.heart_rate_monitor()",
             tagIcons::heart_rate_monitor));
     icons.add(
         new IconCatalogEntry<>(
-            "heartbeat (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.HEARTBEAT)",
-            tagIcons::heartbeat));
+            "heartbeat", "TablerIcons.heartbeat()", tagIcons::heartbeat));
+    icons.add(
+        new IconCatalogEntry<>("hospital", "TablerIcons.hospital()", tagIcons::hospital));
     icons.add(
         new IconCatalogEntry<>(
-            "hospital (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.HOSPITAL)",
-            tagIcons::hospital));
-    icons.add(
-        new IconCatalogEntry<>(
-            "hospital-circle (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.HOSPITAL_CIRCLE)",
+            "hospital-circle",
+            "TablerIcons.hospital_circle()",
             tagIcons::hospital_circle));
+    icons.add(new IconCatalogEntry<>("lungs", "TablerIcons.lungs()", tagIcons::lungs));
     icons.add(
         new IconCatalogEntry<>(
-            "lungs (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.LUNGS)",
-            tagIcons::lungs));
+            "lungs-off", "TablerIcons.lungs_off()", tagIcons::lungs_off));
+    icons.add(
+        new IconCatalogEntry<>("massage", "TablerIcons.massage()", tagIcons::massage));
     icons.add(
         new IconCatalogEntry<>(
-            "lungs-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.LUNGS_OFF)",
-            tagIcons::lungs_off));
+            "medicine-syrup", "TablerIcons.medicine_syrup()", tagIcons::medicine_syrup));
     icons.add(
         new IconCatalogEntry<>(
-            "massage (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.MASSAGE)",
-            tagIcons::massage));
+            "microscope", "TablerIcons.microscope()", tagIcons::microscope));
     icons.add(
         new IconCatalogEntry<>(
-            "medicine-syrup (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.MEDICINE_SYRUP)",
-            tagIcons::medicine_syrup));
+            "microscope-off", "TablerIcons.microscope_off()", tagIcons::microscope_off));
+    icons.add(new IconCatalogEntry<>("nurse", "TablerIcons.nurse()", tagIcons::nurse));
+    icons.add(new IconCatalogEntry<>("old", "TablerIcons.old()", tagIcons::old));
     icons.add(
         new IconCatalogEntry<>(
-            "microscope (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.MICROSCOPE)",
-            tagIcons::microscope));
-    icons.add(
-        new IconCatalogEntry<>(
-            "microscope-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.MICROSCOPE_OFF)",
-            tagIcons::microscope_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "nurse (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.NURSE)",
-            tagIcons::nurse));
-    icons.add(
-        new IconCatalogEntry<>(
-            "old (outline)", "TablerIcon.create(TablerHealth.OutlineIcon.OLD)", tagIcons::old));
-    icons.add(
-        new IconCatalogEntry<>(
-            "physiotherapist (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.PHYSIOTHERAPIST)",
+            "physiotherapist",
+            "TablerIcons.physiotherapist()",
             tagIcons::physiotherapist));
+    icons.add(new IconCatalogEntry<>("pill", "TablerIcons.pill()", tagIcons::pill));
+    icons.add(
+        new IconCatalogEntry<>("pill-off", "TablerIcons.pill_off()", tagIcons::pill_off));
+    icons.add(new IconCatalogEntry<>("pills", "TablerIcons.pills()", tagIcons::pills));
+    icons.add(
+        new IconCatalogEntry<>("plunger", "TablerIcons.plunger()", tagIcons::plunger));
     icons.add(
         new IconCatalogEntry<>(
-            "pill (outline)", "TablerIcon.create(TablerHealth.OutlineIcon.PILL)", tagIcons::pill));
+            "prescription", "TablerIcons.prescription()", tagIcons::prescription));
+    icons.add(new IconCatalogEntry<>("razor", "TablerIcons.razor()", tagIcons::razor));
     icons.add(
         new IconCatalogEntry<>(
-            "pill-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.PILL_OFF)",
-            tagIcons::pill_off));
+            "razor-electric", "TablerIcons.razor_electric()", tagIcons::razor_electric));
+    icons.add(new IconCatalogEntry<>("skull", "TablerIcons.skull()", tagIcons::skull));
+    icons.add(
+        new IconCatalogEntry<>("smoking", "TablerIcons.smoking()", tagIcons::smoking));
     icons.add(
         new IconCatalogEntry<>(
-            "pills (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.PILLS)",
-            tagIcons::pills));
+            "smoking-no", "TablerIcons.smoking_no()", tagIcons::smoking_no));
     icons.add(
         new IconCatalogEntry<>(
-            "plunger (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.PLUNGER)",
-            tagIcons::plunger));
+            "stethoscope", "TablerIcons.stethoscope()", tagIcons::stethoscope));
     icons.add(
         new IconCatalogEntry<>(
-            "prescription (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.PRESCRIPTION)",
-            tagIcons::prescription));
-    icons.add(
-        new IconCatalogEntry<>(
-            "razor (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.RAZOR)",
-            tagIcons::razor));
-    icons.add(
-        new IconCatalogEntry<>(
-            "razor-electric (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.RAZOR_ELECTRIC)",
-            tagIcons::razor_electric));
-    icons.add(
-        new IconCatalogEntry<>(
-            "skull (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.SKULL)",
-            tagIcons::skull));
-    icons.add(
-        new IconCatalogEntry<>(
-            "smoking (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.SMOKING)",
-            tagIcons::smoking));
-    icons.add(
-        new IconCatalogEntry<>(
-            "smoking-no (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.SMOKING_NO)",
-            tagIcons::smoking_no));
-    icons.add(
-        new IconCatalogEntry<>(
-            "stethoscope (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.STETHOSCOPE)",
-            tagIcons::stethoscope));
-    icons.add(
-        new IconCatalogEntry<>(
-            "stethoscope-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.STETHOSCOPE_OFF)",
+            "stethoscope-off",
+            "TablerIcons.stethoscope_off()",
             tagIcons::stethoscope_off));
     icons.add(
         new IconCatalogEntry<>(
-            "sunglasses (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.SUNGLASSES)",
-            tagIcons::sunglasses));
+            "sunglasses", "TablerIcons.sunglasses()", tagIcons::sunglasses));
     icons.add(
         new IconCatalogEntry<>(
-            "thermometer (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.THERMOMETER)",
-            tagIcons::thermometer));
+            "thermometer", "TablerIcons.thermometer()", tagIcons::thermometer));
+    icons.add(
+        new IconCatalogEntry<>("vaccine", "TablerIcons.vaccine()", tagIcons::vaccine));
     icons.add(
         new IconCatalogEntry<>(
-            "vaccine (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.VACCINE)",
-            tagIcons::vaccine));
+            "vaccine-bottle", "TablerIcons.vaccine_bottle()", tagIcons::vaccine_bottle));
     icons.add(
         new IconCatalogEntry<>(
-            "vaccine-bottle (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.VACCINE_BOTTLE)",
-            tagIcons::vaccine_bottle));
-    icons.add(
-        new IconCatalogEntry<>(
-            "vaccine-bottle-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.VACCINE_BOTTLE_OFF)",
+            "vaccine-bottle-off",
+            "TablerIcons.vaccine_bottle_off()",
             tagIcons::vaccine_bottle_off));
     icons.add(
         new IconCatalogEntry<>(
-            "vaccine-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.VACCINE_OFF)",
-            tagIcons::vaccine_off));
+            "vaccine-off", "TablerIcons.vaccine_off()", tagIcons::vaccine_off));
+    icons.add(new IconCatalogEntry<>("virus", "TablerIcons.virus()", tagIcons::virus));
     icons.add(
         new IconCatalogEntry<>(
-            "virus (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.VIRUS)",
-            tagIcons::virus));
+            "virus-off", "TablerIcons.virus_off()", tagIcons::virus_off));
     icons.add(
         new IconCatalogEntry<>(
-            "virus-off (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.VIRUS_OFF)",
-            tagIcons::virus_off));
+            "virus-search", "TablerIcons.virus_search()", tagIcons::virus_search));
     icons.add(
         new IconCatalogEntry<>(
-            "virus-search (outline)",
-            "TablerIcon.create(TablerHealth.OutlineIcon.VIRUS_SEARCH)",
-            tagIcons::virus_search));
+            "accessible", "TablerIcons.accessible_filled()", tagIcons::accessible_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "accessible (filled)",
-            "TablerIcon.create(TablerHealth.FilledIcon.ACCESSIBLE)",
-            tagIcons::accessible_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "baby-carriage (filled)",
-            "TablerIcon.create(TablerHealth.FilledIcon.BABY_CARRIAGE)",
+            "baby-carriage",
+            "TablerIcons.baby_carriage_filled()",
             tagIcons::baby_carriage_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "bandage (filled)",
-            "TablerIcon.create(TablerHealth.FilledIcon.BANDAGE)",
-            tagIcons::bandage_filled));
+            "bandage", "TablerIcons.bandage_filled()", tagIcons::bandage_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "eye-table (filled)",
-            "TablerIcon.create(TablerHealth.FilledIcon.EYE_TABLE)",
-            tagIcons::eye_table_filled));
+            "eye-table", "TablerIcons.eye_table_filled()", tagIcons::eye_table_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "eyeglass (filled)",
-            "TablerIcon.create(TablerHealth.FilledIcon.EYEGLASS)",
-            tagIcons::eyeglass_filled));
+            "eyeglass", "TablerIcons.eyeglass_filled()", tagIcons::eyeglass_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "eyeglass-2 (filled)",
-            "TablerIcon.create(TablerHealth.FilledIcon.EYEGLASS_2)",
-            tagIcons::eyeglass_2_filled));
+            "eyeglass-2", "TablerIcons.eyeglass_2_filled()", tagIcons::eyeglass_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "face-mask (filled)",
-            "TablerIcon.create(TablerHealth.FilledIcon.FACE_MASK)",
-            tagIcons::face_mask_filled));
+            "face-mask", "TablerIcons.face_mask_filled()", tagIcons::face_mask_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "flask (filled)",
-            "TablerIcon.create(TablerHealth.FilledIcon.FLASK)",
-            tagIcons::flask_filled));
+            "flask", "TablerIcons.flask_filled()", tagIcons::flask_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "flask-2 (filled)",
-            "TablerIcon.create(TablerHealth.FilledIcon.FLASK_2)",
-            tagIcons::flask_2_filled));
+            "flask-2", "TablerIcons.flask_2_filled()", tagIcons::flask_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "heart-broken (filled)",
-            "TablerIcon.create(TablerHealth.FilledIcon.HEART_BROKEN)",
+            "heart-broken",
+            "TablerIcons.heart_broken_filled()",
             tagIcons::heart_broken_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "hospital-circle (filled)",
-            "TablerIcon.create(TablerHealth.FilledIcon.HOSPITAL_CIRCLE)",
+            "hospital-circle",
+            "TablerIcons.hospital_circle_filled()",
             tagIcons::hospital_circle_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "lungs (filled)",
-            "TablerIcon.create(TablerHealth.FilledIcon.LUNGS)",
-            tagIcons::lungs_filled));
+            "lungs", "TablerIcons.lungs_filled()", tagIcons::lungs_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "microscope (filled)",
-            "TablerIcon.create(TablerHealth.FilledIcon.MICROSCOPE)",
-            tagIcons::microscope_filled));
+            "microscope", "TablerIcons.microscope_filled()", tagIcons::microscope_filled));
   }
 
   private static void addIcons1() {
     icons.add(
         new IconCatalogEntry<>(
-            "nurse (filled)",
-            "TablerIcon.create(TablerHealth.FilledIcon.NURSE)",
-            tagIcons::nurse_filled));
+            "nurse", "TablerIcons.nurse_filled()", tagIcons::nurse_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "pill (filled)",
-            "TablerIcon.create(TablerHealth.FilledIcon.PILL)",
-            tagIcons::pill_filled));
+            "pill", "TablerIcons.pill_filled()", tagIcons::pill_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "sunglasses (filled)",
-            "TablerIcon.create(TablerHealth.FilledIcon.SUNGLASSES)",
-            tagIcons::sunglasses_filled));
+            "sunglasses", "TablerIcons.sunglasses_filled()", tagIcons::sunglasses_filled));
   }
 
   public List<IconCatalogEntry<TablerIcon>> icons() {

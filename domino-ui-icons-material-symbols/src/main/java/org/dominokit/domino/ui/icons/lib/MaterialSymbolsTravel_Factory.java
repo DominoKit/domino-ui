@@ -34,398 +34,302 @@ public final class MaterialSymbolsTravel_Factory {
     icons.add(
         new IconCatalogEntry<>(
             "airline_seat_flat",
-            "MaterialSymbolsIcon.create(\"airline_seat_flat\")",
+            "MaterialSymbols.airline_seat_flat()",
             tagIcons::airline_seat_flat_travel));
     icons.add(
         new IconCatalogEntry<>(
             "airline_seat_flat_angled",
-            "MaterialSymbolsIcon.create(\"airline_seat_flat_angled\")",
+            "MaterialSymbols.airline_seat_flat_angled()",
             tagIcons::airline_seat_flat_angled_travel));
     icons.add(
         new IconCatalogEntry<>(
             "airline_seat_individual_suite",
-            "MaterialSymbolsIcon.create(\"airline_seat_individual_suite\")",
+            "MaterialSymbols.airline_seat_individual_suite()",
             tagIcons::airline_seat_individual_suite_travel));
     icons.add(
         new IconCatalogEntry<>(
             "airline_seat_legroom_extra",
-            "MaterialSymbolsIcon.create(\"airline_seat_legroom_extra\")",
+            "MaterialSymbols.airline_seat_legroom_extra()",
             tagIcons::airline_seat_legroom_extra_travel));
     icons.add(
         new IconCatalogEntry<>(
             "airline_seat_legroom_normal",
-            "MaterialSymbolsIcon.create(\"airline_seat_legroom_normal\")",
+            "MaterialSymbols.airline_seat_legroom_normal()",
             tagIcons::airline_seat_legroom_normal_travel));
     icons.add(
         new IconCatalogEntry<>(
             "airline_seat_legroom_reduced",
-            "MaterialSymbolsIcon.create(\"airline_seat_legroom_reduced\")",
+            "MaterialSymbols.airline_seat_legroom_reduced()",
             tagIcons::airline_seat_legroom_reduced_travel));
     icons.add(
         new IconCatalogEntry<>(
             "airline_seat_recline_extra",
-            "MaterialSymbolsIcon.create(\"airline_seat_recline_extra\")",
+            "MaterialSymbols.airline_seat_recline_extra()",
             tagIcons::airline_seat_recline_extra_travel));
     icons.add(
         new IconCatalogEntry<>(
             "airline_seat_recline_normal",
-            "MaterialSymbolsIcon.create(\"airline_seat_recline_normal\")",
+            "MaterialSymbols.airline_seat_recline_normal()",
             tagIcons::airline_seat_recline_normal_travel));
     icons.add(
         new IconCatalogEntry<>(
             "airplane_ticket",
-            "MaterialSymbolsIcon.create(\"airplane_ticket\")",
+            "MaterialSymbols.airplane_ticket()",
             tagIcons::airplane_ticket_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "apartment", "MaterialSymbolsIcon.create(\"apartment\")", tagIcons::apartment_travel));
+            "apartment", "MaterialSymbols.apartment()", tagIcons::apartment_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "attractions",
-            "MaterialSymbolsIcon.create(\"attractions\")",
-            tagIcons::attractions_travel));
+            "attractions", "MaterialSymbols.attractions()", tagIcons::attractions_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "bakery_dining",
-            "MaterialSymbolsIcon.create(\"bakery_dining\")",
-            tagIcons::bakery_dining_travel));
+            "bakery_dining", "MaterialSymbols.bakery_dining()", tagIcons::bakery_dining_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "bath_bedrock",
-            "MaterialSymbolsIcon.create(\"bath_bedrock\")",
-            tagIcons::bath_bedrock_travel));
+            "bath_bedrock", "MaterialSymbols.bath_bedrock()", tagIcons::bath_bedrock_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "beach_access",
-            "MaterialSymbolsIcon.create(\"beach_access\")",
-            tagIcons::beach_access_travel));
+            "beach_access", "MaterialSymbols.beach_access()", tagIcons::beach_access_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "beer_meal", "MaterialSymbolsIcon.create(\"beer_meal\")", tagIcons::beer_meal_travel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bento", "MaterialSymbolsIcon.create(\"bento\")", tagIcons::bento_travel));
+            "beer_meal", "MaterialSymbols.beer_meal()", tagIcons::beer_meal_travel));
+    icons.add(new IconCatalogEntry<>("bento", "MaterialSymbols.bento()", tagIcons::bento_travel));
     icons.add(
         new IconCatalogEntry<>(
             "breakfast_dining",
-            "MaterialSymbolsIcon.create(\"breakfast_dining\")",
+            "MaterialSymbols.breakfast_dining()",
             tagIcons::breakfast_dining_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "brunch_dining",
-            "MaterialSymbolsIcon.create(\"brunch_dining\")",
-            tagIcons::brunch_dining_travel));
+            "brunch_dining", "MaterialSymbols.brunch_dining()", tagIcons::brunch_dining_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "bungalow", "MaterialSymbolsIcon.create(\"bungalow\")", tagIcons::bungalow_travel));
+            "bungalow", "MaterialSymbols.bungalow()", tagIcons::bungalow_travel));
+    icons.add(new IconCatalogEntry<>("cabin", "MaterialSymbols.cabin()", tagIcons::cabin_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "cabin", "MaterialSymbolsIcon.create(\"cabin\")", tagIcons::cabin_travel));
+            "car_rental", "MaterialSymbols.car_rental()", tagIcons::car_rental_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "car_rental",
-            "MaterialSymbolsIcon.create(\"car_rental\")",
-            tagIcons::car_rental_travel));
+            "car_repair", "MaterialSymbols.car_repair()", tagIcons::car_repair_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "car_repair",
-            "MaterialSymbolsIcon.create(\"car_repair\")",
-            tagIcons::car_repair_travel));
+            "carpenter", "MaterialSymbols.carpenter()", tagIcons::carpenter_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "carpenter", "MaterialSymbolsIcon.create(\"carpenter\")", tagIcons::carpenter_travel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "carry_on_bag",
-            "MaterialSymbolsIcon.create(\"carry_on_bag\")",
-            tagIcons::carry_on_bag_travel));
+            "carry_on_bag", "MaterialSymbols.carry_on_bag()", tagIcons::carry_on_bag_travel));
     icons.add(
         new IconCatalogEntry<>(
             "carry_on_bag_checked",
-            "MaterialSymbolsIcon.create(\"carry_on_bag_checked\")",
+            "MaterialSymbols.carry_on_bag_checked()",
             tagIcons::carry_on_bag_checked_travel));
     icons.add(
         new IconCatalogEntry<>(
             "carry_on_bag_inactive",
-            "MaterialSymbolsIcon.create(\"carry_on_bag_inactive\")",
+            "MaterialSymbols.carry_on_bag_inactive()",
             tagIcons::carry_on_bag_inactive_travel));
     icons.add(
         new IconCatalogEntry<>(
             "carry_on_bag_question",
-            "MaterialSymbolsIcon.create(\"carry_on_bag_question\")",
+            "MaterialSymbols.carry_on_bag_question()",
             tagIcons::carry_on_bag_question_travel));
     icons.add(
-        new IconCatalogEntry<>(
-            "casino", "MaterialSymbolsIcon.create(\"casino\")", tagIcons::casino_travel));
+        new IconCatalogEntry<>("casino", "MaterialSymbols.casino()", tagIcons::casino_travel));
+    icons.add(
+        new IconCatalogEntry<>("chalet", "MaterialSymbols.chalet()", tagIcons::chalet_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "chalet", "MaterialSymbolsIcon.create(\"chalet\")", tagIcons::chalet_travel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "checked_bag",
-            "MaterialSymbolsIcon.create(\"checked_bag\")",
-            tagIcons::checked_bag_travel));
+            "checked_bag", "MaterialSymbols.checked_bag()", tagIcons::checked_bag_travel));
     icons.add(
         new IconCatalogEntry<>(
             "checked_bag_question",
-            "MaterialSymbolsIcon.create(\"checked_bag_question\")",
+            "MaterialSymbols.checked_bag_question()",
             tagIcons::checked_bag_question_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "child_friendly",
-            "MaterialSymbolsIcon.create(\"child_friendly\")",
-            tagIcons::child_friendly_travel));
+            "child_friendly", "MaterialSymbols.child_friendly()", tagIcons::child_friendly_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "concierge", "MaterialSymbolsIcon.create(\"concierge\")", tagIcons::concierge_travel));
+            "concierge", "MaterialSymbols.concierge()", tagIcons::concierge_travel));
+    icons.add(
+        new IconCatalogEntry<>("cottage", "MaterialSymbols.cottage()", tagIcons::cottage_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "cottage", "MaterialSymbolsIcon.create(\"cottage\")", tagIcons::cottage_travel));
+            "dinner_dining", "MaterialSymbols.dinner_dining()", tagIcons::dinner_dining_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "dinner_dining",
-            "MaterialSymbolsIcon.create(\"dinner_dining\")",
-            tagIcons::dinner_dining_travel));
+            "do_not_step", "MaterialSymbols.do_not_step()", tagIcons::do_not_step_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "do_not_step",
-            "MaterialSymbolsIcon.create(\"do_not_step\")",
-            tagIcons::do_not_step_travel));
+            "do_not_touch", "MaterialSymbols.do_not_touch()", tagIcons::do_not_touch_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "do_not_touch",
-            "MaterialSymbolsIcon.create(\"do_not_touch\")",
-            tagIcons::do_not_touch_travel));
+            "elevator", "MaterialSymbols.elevator()", tagIcons::elevator_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "elevator", "MaterialSymbolsIcon.create(\"elevator\")", tagIcons::elevator_travel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "escalator", "MaterialSymbolsIcon.create(\"escalator\")", tagIcons::escalator_travel));
+            "escalator", "MaterialSymbols.escalator()", tagIcons::escalator_travel));
     icons.add(
         new IconCatalogEntry<>(
             "escalator_warning",
-            "MaterialSymbolsIcon.create(\"escalator_warning\")",
+            "MaterialSymbols.escalator_warning()",
             tagIcons::escalator_warning_travel));
     icons.add(
         new IconCatalogEntry<>(
             "family_restroom",
-            "MaterialSymbolsIcon.create(\"family_restroom\")",
+            "MaterialSymbols.family_restroom()",
             tagIcons::family_restroom_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "festival", "MaterialSymbolsIcon.create(\"festival\")", tagIcons::festival_travel));
+            "festival", "MaterialSymbols.festival()", tagIcons::festival_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "fitness_center",
-            "MaterialSymbolsIcon.create(\"fitness_center\")",
-            tagIcons::fitness_center_travel));
+            "fitness_center", "MaterialSymbols.fitness_center()", tagIcons::fitness_center_travel));
     icons.add(
         new IconCatalogEntry<>(
             "flights_and_hotels",
-            "MaterialSymbolsIcon.create(\"flights_and_hotels\")",
+            "MaterialSymbols.flights_and_hotels()",
             tagIcons::flights_and_hotels_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "food_bank", "MaterialSymbolsIcon.create(\"food_bank\")", tagIcons::food_bank_travel));
+            "food_bank", "MaterialSymbols.food_bank()", tagIcons::food_bank_travel));
+    icons.add(new IconCatalogEntry<>("gite", "MaterialSymbols.gite()", tagIcons::gite_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "gite", "MaterialSymbolsIcon.create(\"gite\")", tagIcons::gite_travel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "golf_course",
-            "MaterialSymbolsIcon.create(\"golf_course\")",
-            tagIcons::golf_course_travel));
+            "golf_course", "MaterialSymbols.golf_course()", tagIcons::golf_course_travel));
     icons.add(
         new IconCatalogEntry<>(
             "holiday_village",
-            "MaterialSymbolsIcon.create(\"holiday_village\")",
+            "MaterialSymbols.holiday_village()",
             tagIcons::holiday_village_travel));
+    icons.add(new IconCatalogEntry<>("hotel", "MaterialSymbols.hotel()", tagIcons::hotel_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "hotel", "MaterialSymbolsIcon.create(\"hotel\")", tagIcons::hotel_travel));
+            "houseboat", "MaterialSymbols.houseboat()", tagIcons::houseboat_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "houseboat", "MaterialSymbolsIcon.create(\"houseboat\")", tagIcons::houseboat_travel));
+            "icecream", "MaterialSymbols.icecream()", tagIcons::icecream_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "icecream", "MaterialSymbolsIcon.create(\"icecream\")", tagIcons::icecream_travel));
+            "japanese_curry", "MaterialSymbols.japanese_curry()", tagIcons::japanese_curry_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "japanese_curry",
-            "MaterialSymbolsIcon.create(\"japanese_curry\")",
-            tagIcons::japanese_curry_travel));
+            "japanese_flag", "MaterialSymbols.japanese_flag()", tagIcons::japanese_flag_travel));
+    icons.add(
+        new IconCatalogEntry<>("liquor", "MaterialSymbols.liquor()", tagIcons::liquor_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "japanese_flag",
-            "MaterialSymbolsIcon.create(\"japanese_flag\")",
-            tagIcons::japanese_flag_travel));
+            "local_bar", "MaterialSymbols.local_bar()", tagIcons::local_bar_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "liquor", "MaterialSymbolsIcon.create(\"liquor\")", tagIcons::liquor_travel));
+            "local_cafe", "MaterialSymbols.local_cafe()", tagIcons::local_cafe_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "local_bar", "MaterialSymbolsIcon.create(\"local_bar\")", tagIcons::local_bar_travel));
+            "local_dining", "MaterialSymbols.local_dining()", tagIcons::local_dining_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "local_cafe",
-            "MaterialSymbolsIcon.create(\"local_cafe\")",
-            tagIcons::local_cafe_travel));
+            "location_city", "MaterialSymbols.location_city()", tagIcons::location_city_travel));
+    icons.add(
+        new IconCatalogEntry<>("luggage", "MaterialSymbols.luggage()", tagIcons::luggage_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "local_dining",
-            "MaterialSymbolsIcon.create(\"local_dining\")",
-            tagIcons::local_dining_travel));
+            "lunch_dining", "MaterialSymbols.lunch_dining()", tagIcons::lunch_dining_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "location_city",
-            "MaterialSymbolsIcon.create(\"location_city\")",
-            tagIcons::location_city_travel));
+            "mountain_steam", "MaterialSymbols.mountain_steam()", tagIcons::mountain_steam_travel));
+    icons.add(
+        new IconCatalogEntry<>("museum", "MaterialSymbols.museum()", tagIcons::museum_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "luggage", "MaterialSymbolsIcon.create(\"luggage\")", tagIcons::luggage_travel));
+            "night_shelter", "MaterialSymbols.night_shelter()", tagIcons::night_shelter_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "lunch_dining",
-            "MaterialSymbolsIcon.create(\"lunch_dining\")",
-            tagIcons::lunch_dining_travel));
+            "nightlife", "MaterialSymbols.nightlife()", tagIcons::nightlife_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "mountain_steam",
-            "MaterialSymbolsIcon.create(\"mountain_steam\")",
-            tagIcons::mountain_steam_travel));
+            "no_drinks", "MaterialSymbols.no_drinks()", tagIcons::no_drinks_travel));
+    icons.add(
+        new IconCatalogEntry<>("no_food", "MaterialSymbols.no_food()", tagIcons::no_food_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "museum", "MaterialSymbolsIcon.create(\"museum\")", tagIcons::museum_travel));
+            "no_luggage", "MaterialSymbols.no_luggage()", tagIcons::no_luggage_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "night_shelter",
-            "MaterialSymbolsIcon.create(\"night_shelter\")",
-            tagIcons::night_shelter_travel));
+            "no_stroller", "MaterialSymbols.no_stroller()", tagIcons::no_stroller_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "nightlife", "MaterialSymbolsIcon.create(\"nightlife\")", tagIcons::nightlife_travel));
+            "okonomiyaki", "MaterialSymbols.okonomiyaki()", tagIcons::okonomiyaki_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "no_drinks", "MaterialSymbolsIcon.create(\"no_drinks\")", tagIcons::no_drinks_travel));
+            "other_houses", "MaterialSymbols.other_houses()", tagIcons::other_houses_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "no_food", "MaterialSymbolsIcon.create(\"no_food\")", tagIcons::no_food_travel));
+            "passport", "MaterialSymbols.passport()", tagIcons::passport_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "no_luggage",
-            "MaterialSymbolsIcon.create(\"no_luggage\")",
-            tagIcons::no_luggage_travel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "no_stroller",
-            "MaterialSymbolsIcon.create(\"no_stroller\")",
-            tagIcons::no_stroller_travel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "okonomiyaki",
-            "MaterialSymbolsIcon.create(\"okonomiyaki\")",
-            tagIcons::okonomiyaki_travel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "other_houses",
-            "MaterialSymbolsIcon.create(\"other_houses\")",
-            tagIcons::other_houses_travel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "passport", "MaterialSymbolsIcon.create(\"passport\")", tagIcons::passport_travel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "personal_bag",
-            "MaterialSymbolsIcon.create(\"personal_bag\")",
-            tagIcons::personal_bag_travel));
+            "personal_bag", "MaterialSymbols.personal_bag()", tagIcons::personal_bag_travel));
     icons.add(
         new IconCatalogEntry<>(
             "personal_bag_off",
-            "MaterialSymbolsIcon.create(\"personal_bag_off\")",
+            "MaterialSymbols.personal_bag_off()",
             tagIcons::personal_bag_off_travel));
     icons.add(
         new IconCatalogEntry<>(
             "personal_bag_question",
-            "MaterialSymbolsIcon.create(\"personal_bag_question\")",
+            "MaterialSymbols.personal_bag_question()",
             tagIcons::personal_bag_question_travel));
     icons.add(
         new IconCatalogEntry<>(
             "personal_places",
-            "MaterialSymbolsIcon.create(\"personal_places\")",
+            "MaterialSymbols.personal_places()",
             tagIcons::personal_places_travel));
+    icons.add(new IconCatalogEntry<>("pool", "MaterialSymbols.pool()", tagIcons::pool_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "pool", "MaterialSymbolsIcon.create(\"pool\")", tagIcons::pool_travel));
+            "ramen_dining", "MaterialSymbols.ramen_dining()", tagIcons::ramen_dining_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "ramen_dining",
-            "MaterialSymbolsIcon.create(\"ramen_dining\")",
-            tagIcons::ramen_dining_travel));
+            "rice_bowl", "MaterialSymbols.rice_bowl()", tagIcons::rice_bowl_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "rice_bowl", "MaterialSymbolsIcon.create(\"rice_bowl\")", tagIcons::rice_bowl_travel));
+            "room_service", "MaterialSymbols.room_service()", tagIcons::room_service_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "room_service",
-            "MaterialSymbolsIcon.create(\"room_service\")",
-            tagIcons::room_service_travel));
+            "smoke_free", "MaterialSymbols.smoke_free()", tagIcons::smoke_free_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "smoke_free",
-            "MaterialSymbolsIcon.create(\"smoke_free\")",
-            tagIcons::smoke_free_travel));
+            "smoking_rooms", "MaterialSymbols.smoking_rooms()", tagIcons::smoking_rooms_travel));
+    icons.add(new IconCatalogEntry<>("spa", "MaterialSymbols.spa()", tagIcons::spa_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "smoking_rooms",
-            "MaterialSymbolsIcon.create(\"smoking_rooms\")",
-            tagIcons::smoking_rooms_travel));
+            "sports_bar", "MaterialSymbols.sports_bar()", tagIcons::sports_bar_travel));
     icons.add(
-        new IconCatalogEntry<>("spa", "MaterialSymbolsIcon.create(\"spa\")", tagIcons::spa_travel));
+        new IconCatalogEntry<>("stairs", "MaterialSymbols.stairs()", tagIcons::stairs_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "sports_bar",
-            "MaterialSymbolsIcon.create(\"sports_bar\")",
-            tagIcons::sports_bar_travel));
+            "stairs_2", "MaterialSymbols.stairs_2()", tagIcons::stairs_2_travel));
+    icons.add(new IconCatalogEntry<>("tapas", "MaterialSymbols.tapas()", tagIcons::tapas_travel));
     icons.add(
-        new IconCatalogEntry<>(
-            "stairs", "MaterialSymbolsIcon.create(\"stairs\")", tagIcons::stairs_travel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "stairs_2", "MaterialSymbolsIcon.create(\"stairs_2\")", tagIcons::stairs_2_travel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "tapas", "MaterialSymbolsIcon.create(\"tapas\")", tagIcons::tapas_travel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "travel", "MaterialSymbolsIcon.create(\"travel\")", tagIcons::travel_travel));
+        new IconCatalogEntry<>("travel", "MaterialSymbols.travel()", tagIcons::travel_travel));
     icons.add(
         new IconCatalogEntry<>(
             "travel_luggage_and_bags",
-            "MaterialSymbolsIcon.create(\"travel_luggage_and_bags\")",
+            "MaterialSymbols.travel_luggage_and_bags()",
             tagIcons::travel_luggage_and_bags_travel));
+    icons.add(new IconCatalogEntry<>("trip", "MaterialSymbols.trip()", tagIcons::trip_travel));
+    icons.add(new IconCatalogEntry<>("villa", "MaterialSymbols.villa()", tagIcons::villa_travel));
     icons.add(
-        new IconCatalogEntry<>(
-            "trip", "MaterialSymbolsIcon.create(\"trip\")", tagIcons::trip_travel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "villa", "MaterialSymbolsIcon.create(\"villa\")", tagIcons::villa_travel));
-    icons.add(
-        new IconCatalogEntry<>(
-            "washoku", "MaterialSymbolsIcon.create(\"washoku\")", tagIcons::washoku_travel));
+        new IconCatalogEntry<>("washoku", "MaterialSymbols.washoku()", tagIcons::washoku_travel));
     icons.add(
         new IconCatalogEntry<>(
             "wheelchair_pickup",
-            "MaterialSymbolsIcon.create(\"wheelchair_pickup\")",
+            "MaterialSymbols.wheelchair_pickup()",
             tagIcons::wheelchair_pickup_travel));
     icons.add(
-        new IconCatalogEntry<>(
-            "yoshoku", "MaterialSymbolsIcon.create(\"yoshoku\")", tagIcons::yoshoku_travel));
+        new IconCatalogEntry<>("yoshoku", "MaterialSymbols.yoshoku()", tagIcons::yoshoku_travel));
     icons.add(
         new IconCatalogEntry<>(
-            "your_trips",
-            "MaterialSymbolsIcon.create(\"your_trips\")",
-            tagIcons::your_trips_travel));
+            "your_trips", "MaterialSymbols.your_trips()", tagIcons::your_trips_travel));
   }
 
   public List<IconCatalogEntry<MaterialSymbolsIcon>> icons() {

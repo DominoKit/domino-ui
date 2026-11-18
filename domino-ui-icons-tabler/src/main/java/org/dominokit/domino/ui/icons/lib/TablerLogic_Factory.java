@@ -33,44 +33,27 @@ public final class TablerLogic_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "logic-and (outline)",
-            "TablerIcon.create(TablerLogic.OutlineIcon.LOGIC_AND)",
-            tagIcons::logic_and));
+            "logic-and", "TablerIcons.logic_and()", tagIcons::logic_and));
     icons.add(
         new IconCatalogEntry<>(
-            "logic-buffer (outline)",
-            "TablerIcon.create(TablerLogic.OutlineIcon.LOGIC_BUFFER)",
-            tagIcons::logic_buffer));
+            "logic-buffer", "TablerIcons.logic_buffer()", tagIcons::logic_buffer));
     icons.add(
         new IconCatalogEntry<>(
-            "logic-nand (outline)",
-            "TablerIcon.create(TablerLogic.OutlineIcon.LOGIC_NAND)",
-            tagIcons::logic_nand));
+            "logic-nand", "TablerIcons.logic_nand()", tagIcons::logic_nand));
     icons.add(
         new IconCatalogEntry<>(
-            "logic-nor (outline)",
-            "TablerIcon.create(TablerLogic.OutlineIcon.LOGIC_NOR)",
-            tagIcons::logic_nor));
+            "logic-nor", "TablerIcons.logic_nor()", tagIcons::logic_nor));
     icons.add(
         new IconCatalogEntry<>(
-            "logic-not (outline)",
-            "TablerIcon.create(TablerLogic.OutlineIcon.LOGIC_NOT)",
-            tagIcons::logic_not));
+            "logic-not", "TablerIcons.logic_not()", tagIcons::logic_not));
+    icons.add(
+        new IconCatalogEntry<>("logic-or", "TablerIcons.logic_or()", tagIcons::logic_or));
     icons.add(
         new IconCatalogEntry<>(
-            "logic-or (outline)",
-            "TablerIcon.create(TablerLogic.OutlineIcon.LOGIC_OR)",
-            tagIcons::logic_or));
+            "logic-xnor", "TablerIcons.logic_xnor()", tagIcons::logic_xnor));
     icons.add(
         new IconCatalogEntry<>(
-            "logic-xnor (outline)",
-            "TablerIcon.create(TablerLogic.OutlineIcon.LOGIC_XNOR)",
-            tagIcons::logic_xnor));
-    icons.add(
-        new IconCatalogEntry<>(
-            "logic-xor (outline)",
-            "TablerIcon.create(TablerLogic.OutlineIcon.LOGIC_XOR)",
-            tagIcons::logic_xor));
+            "logic-xor", "TablerIcons.logic_xor()", tagIcons::logic_xor));
   }
 
   public List<IconCatalogEntry<TablerIcon>> icons() {

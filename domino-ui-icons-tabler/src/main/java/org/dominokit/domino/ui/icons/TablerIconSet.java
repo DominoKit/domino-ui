@@ -15,5 +15,46 @@
  */
 package org.dominokit.domino.ui.icons;
 
-/** Aggregate view of all Tabler catalog categories. */
-public interface TablerIconSet extends TablerIcons {}
+/** Aggregate factory interface for all Tabler icon categories. */
+public interface TablerIconSet
+    extends TablerAnimals,
+        TablerArrows,
+        TablerBadges,
+        TablerBrand,
+        TablerBuildings,
+        TablerCharts,
+        TablerCommunication,
+        TablerComputers,
+        TablerCurrencies,
+        TablerDatabase,
+        TablerDesign,
+        TablerDevelopment,
+        TablerDevices,
+        TablerDocument,
+        TablerECommerce,
+        TablerElectrical,
+        TablerExtensions,
+        TablerFood,
+        TablerGames,
+        TablerGender,
+        TablerGestures,
+        TablerHealth,
+        TablerLaundry,
+        TablerLetters,
+        TablerLogic,
+        TablerMap,
+        TablerMath,
+        TablerMedia,
+        TablerMood,
+        TablerNature,
+        TablerNumbers,
+        TablerPhotography,
+        TablerShapes,
+        TablerSport,
+        TablerSymbols,
+        TablerSystem,
+        TablerText,
+        TablerVehicles,
+        TablerVersionControl,
+        TablerWeather,
+        TablerZodiac {}

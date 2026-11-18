@@ -33,83 +33,70 @@ public final class TablerVersionControl_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "git-branch (outline)",
-            "TablerIcon.create(TablerVersionControl.OutlineIcon.GIT_BRANCH)",
-            tagIcons::git_branch));
+            "git-branch", "TablerIcons.git_branch()", tagIcons::git_branch));
     icons.add(
         new IconCatalogEntry<>(
-            "git-branch-check (outline)",
-            "TablerIcon.create(TablerVersionControl.OutlineIcon.GIT_BRANCH_CHECK)",
+            "git-branch-check",
+            "TablerIcons.git_branch_check()",
             tagIcons::git_branch_check));
     icons.add(
         new IconCatalogEntry<>(
-            "git-branch-deleted (outline)",
-            "TablerIcon.create(TablerVersionControl.OutlineIcon.GIT_BRANCH_DELETED)",
+            "git-branch-deleted",
+            "TablerIcons.git_branch_deleted()",
             tagIcons::git_branch_deleted));
     icons.add(
         new IconCatalogEntry<>(
-            "git-branch-x (outline)",
-            "TablerIcon.create(TablerVersionControl.OutlineIcon.GIT_BRANCH_X)",
-            tagIcons::git_branch_x));
+            "git-branch-x", "TablerIcons.git_branch_x()", tagIcons::git_branch_x));
     icons.add(
         new IconCatalogEntry<>(
-            "git-cherry-pick (outline)",
-            "TablerIcon.create(TablerVersionControl.OutlineIcon.GIT_CHERRY_PICK)",
+            "git-cherry-pick",
+            "TablerIcons.git_cherry_pick()",
             tagIcons::git_cherry_pick));
     icons.add(
         new IconCatalogEntry<>(
-            "git-commit (outline)",
-            "TablerIcon.create(TablerVersionControl.OutlineIcon.GIT_COMMIT)",
-            tagIcons::git_commit));
+            "git-commit", "TablerIcons.git_commit()", tagIcons::git_commit));
     icons.add(
         new IconCatalogEntry<>(
-            "git-compare (outline)",
-            "TablerIcon.create(TablerVersionControl.OutlineIcon.GIT_COMPARE)",
-            tagIcons::git_compare));
+            "git-compare", "TablerIcons.git_compare()", tagIcons::git_compare));
+    icons.add(
+        new IconCatalogEntry<>("git-fork", "TablerIcons.git_fork()", tagIcons::git_fork));
     icons.add(
         new IconCatalogEntry<>(
-            "git-fork (outline)",
-            "TablerIcon.create(TablerVersionControl.OutlineIcon.GIT_FORK)",
-            tagIcons::git_fork));
+            "git-merge", "TablerIcons.git_merge()", tagIcons::git_merge));
     icons.add(
         new IconCatalogEntry<>(
-            "git-merge (outline)",
-            "TablerIcon.create(TablerVersionControl.OutlineIcon.GIT_MERGE)",
-            tagIcons::git_merge));
-    icons.add(
-        new IconCatalogEntry<>(
-            "git-merge-queue (outline)",
-            "TablerIcon.create(TablerVersionControl.OutlineIcon.GIT_MERGE_QUEUE)",
+            "git-merge-queue",
+            "TablerIcons.git_merge_queue()",
             tagIcons::git_merge_queue));
     icons.add(
         new IconCatalogEntry<>(
-            "git-pull-request (outline)",
-            "TablerIcon.create(TablerVersionControl.OutlineIcon.GIT_PULL_REQUEST)",
+            "git-pull-request",
+            "TablerIcons.git_pull_request()",
             tagIcons::git_pull_request));
     icons.add(
         new IconCatalogEntry<>(
-            "git-pull-request-closed (outline)",
-            "TablerIcon.create(TablerVersionControl.OutlineIcon.GIT_PULL_REQUEST_CLOSED)",
+            "git-pull-request-closed",
+            "TablerIcons.git_pull_request_closed()",
             tagIcons::git_pull_request_closed));
     icons.add(
         new IconCatalogEntry<>(
-            "git-pull-request-conflict (outline)",
-            "TablerIcon.create(TablerVersionControl.OutlineIcon.GIT_PULL_REQUEST_CONFLICT)",
+            "git-pull-request-conflict",
+            "TablerIcons.git_pull_request_conflict()",
             tagIcons::git_pull_request_conflict));
     icons.add(
         new IconCatalogEntry<>(
-            "git-pull-request-draft (outline)",
-            "TablerIcon.create(TablerVersionControl.OutlineIcon.GIT_PULL_REQUEST_DRAFT)",
+            "git-pull-request-draft",
+            "TablerIcons.git_pull_request_draft()",
             tagIcons::git_pull_request_draft));
     icons.add(
         new IconCatalogEntry<>(
-            "git-pull-request-locked (outline)",
-            "TablerIcon.create(TablerVersionControl.OutlineIcon.GIT_PULL_REQUEST_LOCKED)",
+            "git-pull-request-locked",
+            "TablerIcons.git_pull_request_locked()",
             tagIcons::git_pull_request_locked));
     icons.add(
         new IconCatalogEntry<>(
-            "git-pull-request-unlisted (outline)",
-            "TablerIcon.create(TablerVersionControl.OutlineIcon.GIT_PULL_REQUEST_UNLISTED)",
+            "git-pull-request-unlisted",
+            "TablerIcons.git_pull_request_unlisted()",
             tagIcons::git_pull_request_unlisted));
   }
 

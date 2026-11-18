@@ -27,7 +27,11 @@ public final class LucideShapes_Factory {
 
   static {
     for (LucideShapes.Icon definition : LucideShapes.Icon.values()) {
-      String code = "LucideIcon.create(LucideShapes.Icon." + definition.name() + ")";
+      String iconMethod = definition.catalogName().replace('-', '_');
+      if ("import".equals(iconMethod) || "package".equals(iconMethod)) {
+        iconMethod += "_icon";
+      }
+      String code = "LucideIcons." + iconMethod + "()";
       icons.add(
           new IconCatalogEntry<>(
               definition.catalogName(), code, () -> LucideIcon.create(definition)));

@@ -34,1391 +34,911 @@ public final class TablerDocument_Factory {
 
   private static void addIcons0() {
     icons.add(
-        new IconCatalogEntry<>(
-            "archive (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.ARCHIVE)",
-            tagIcons::archive));
+        new IconCatalogEntry<>("archive", "TablerIcons.archive()", tagIcons::archive));
     icons.add(
         new IconCatalogEntry<>(
-            "archive-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.ARCHIVE_OFF)",
-            tagIcons::archive_off));
+            "archive-off", "TablerIcons.archive_off()", tagIcons::archive_off));
+    icons.add(
+        new IconCatalogEntry<>("article", "TablerIcons.article()", tagIcons::article));
     icons.add(
         new IconCatalogEntry<>(
-            "article (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.ARTICLE)",
-            tagIcons::article));
+            "article-off", "TablerIcons.article_off()", tagIcons::article_off));
+    icons.add(new IconCatalogEntry<>("book", "TablerIcons.book()", tagIcons::book));
+    icons.add(new IconCatalogEntry<>("book-2", "TablerIcons.book_2()", tagIcons::book_2));
     icons.add(
         new IconCatalogEntry<>(
-            "article-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.ARTICLE_OFF)",
-            tagIcons::article_off));
+            "book-download", "TablerIcons.book_download()", tagIcons::book_download));
+    icons.add(
+        new IconCatalogEntry<>("book-off", "TablerIcons.book_off()", tagIcons::book_off));
     icons.add(
         new IconCatalogEntry<>(
-            "book (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.BOOK)",
-            tagIcons::book));
+            "book-upload", "TablerIcons.book_upload()", tagIcons::book_upload));
+    icons.add(
+        new IconCatalogEntry<>("bookmark", "TablerIcons.bookmark()", tagIcons::bookmark));
     icons.add(
         new IconCatalogEntry<>(
-            "book-2 (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.BOOK_2)",
-            tagIcons::book_2));
+            "bookmark-ai", "TablerIcons.bookmark_ai()", tagIcons::bookmark_ai));
     icons.add(
         new IconCatalogEntry<>(
-            "book-download (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.BOOK_DOWNLOAD)",
-            tagIcons::book_download));
+            "bookmark-edit", "TablerIcons.bookmark_edit()", tagIcons::bookmark_edit));
     icons.add(
         new IconCatalogEntry<>(
-            "book-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.BOOK_OFF)",
-            tagIcons::book_off));
+            "bookmark-minus", "TablerIcons.bookmark_minus()", tagIcons::bookmark_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "book-upload (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.BOOK_UPLOAD)",
-            tagIcons::book_upload));
+            "bookmark-off", "TablerIcons.bookmark_off()", tagIcons::bookmark_off));
     icons.add(
         new IconCatalogEntry<>(
-            "bookmark (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.BOOKMARK)",
-            tagIcons::bookmark));
+            "bookmark-plus", "TablerIcons.bookmark_plus()", tagIcons::bookmark_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "bookmark-ai (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.BOOKMARK_AI)",
-            tagIcons::bookmark_ai));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bookmark-edit (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.BOOKMARK_EDIT)",
-            tagIcons::bookmark_edit));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bookmark-minus (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.BOOKMARK_MINUS)",
-            tagIcons::bookmark_minus));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bookmark-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.BOOKMARK_OFF)",
-            tagIcons::bookmark_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bookmark-plus (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.BOOKMARK_PLUS)",
-            tagIcons::bookmark_plus));
-    icons.add(
-        new IconCatalogEntry<>(
-            "bookmark-question (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.BOOKMARK_QUESTION)",
+            "bookmark-question",
+            "TablerIcons.bookmark_question()",
             tagIcons::bookmark_question));
     icons.add(
         new IconCatalogEntry<>(
-            "bookmarks (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.BOOKMARKS)",
-            tagIcons::bookmarks));
+            "bookmarks", "TablerIcons.bookmarks()", tagIcons::bookmarks));
     icons.add(
         new IconCatalogEntry<>(
-            "bookmarks-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.BOOKMARKS_OFF)",
-            tagIcons::bookmarks_off));
+            "bookmarks-off", "TablerIcons.bookmarks_off()", tagIcons::bookmarks_off));
+    icons.add(new IconCatalogEntry<>("books", "TablerIcons.books()", tagIcons::books));
     icons.add(
         new IconCatalogEntry<>(
-            "books (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.BOOKS)",
-            tagIcons::books));
+            "books-off", "TablerIcons.books_off()", tagIcons::books_off));
     icons.add(
         new IconCatalogEntry<>(
-            "books-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.BOOKS_OFF)",
-            tagIcons::books_off));
+            "certificate", "TablerIcons.certificate()", tagIcons::certificate));
     icons.add(
         new IconCatalogEntry<>(
-            "certificate (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CERTIFICATE)",
-            tagIcons::certificate));
+            "certificate-2", "TablerIcons.certificate_2()", tagIcons::certificate_2));
     icons.add(
         new IconCatalogEntry<>(
-            "certificate-2 (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CERTIFICATE_2)",
-            tagIcons::certificate_2));
-    icons.add(
-        new IconCatalogEntry<>(
-            "certificate-2-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CERTIFICATE_2_OFF)",
+            "certificate-2-off",
+            "TablerIcons.certificate_2_off()",
             tagIcons::certificate_2_off));
     icons.add(
         new IconCatalogEntry<>(
-            "certificate-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CERTIFICATE_OFF)",
+            "certificate-off",
+            "TablerIcons.certificate_off()",
             tagIcons::certificate_off));
     icons.add(
         new IconCatalogEntry<>(
-            "chalkboard (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CHALKBOARD)",
-            tagIcons::chalkboard));
+            "chalkboard", "TablerIcons.chalkboard()", tagIcons::chalkboard));
     icons.add(
         new IconCatalogEntry<>(
-            "chalkboard-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CHALKBOARD_OFF)",
-            tagIcons::chalkboard_off));
+            "chalkboard-off", "TablerIcons.chalkboard_off()", tagIcons::chalkboard_off));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CLIPBOARD)",
-            tagIcons::clipboard));
+            "clipboard", "TablerIcons.clipboard()", tagIcons::clipboard));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-check (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CLIPBOARD_CHECK)",
+            "clipboard-check",
+            "TablerIcons.clipboard_check()",
             tagIcons::clipboard_check));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-copy (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CLIPBOARD_COPY)",
-            tagIcons::clipboard_copy));
+            "clipboard-copy", "TablerIcons.clipboard_copy()", tagIcons::clipboard_copy));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-data (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CLIPBOARD_DATA)",
-            tagIcons::clipboard_data));
+            "clipboard-data", "TablerIcons.clipboard_data()", tagIcons::clipboard_data));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-heart (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CLIPBOARD_HEART)",
+            "clipboard-heart",
+            "TablerIcons.clipboard_heart()",
             tagIcons::clipboard_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-list (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CLIPBOARD_LIST)",
-            tagIcons::clipboard_list));
+            "clipboard-list", "TablerIcons.clipboard_list()", tagIcons::clipboard_list));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CLIPBOARD_OFF)",
-            tagIcons::clipboard_off));
+            "clipboard-off", "TablerIcons.clipboard_off()", tagIcons::clipboard_off));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-plus (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CLIPBOARD_PLUS)",
-            tagIcons::clipboard_plus));
+            "clipboard-plus", "TablerIcons.clipboard_plus()", tagIcons::clipboard_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-search (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CLIPBOARD_SEARCH)",
+            "clipboard-search",
+            "TablerIcons.clipboard_search()",
             tagIcons::clipboard_search));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-smile (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CLIPBOARD_SMILE)",
+            "clipboard-smile",
+            "TablerIcons.clipboard_smile()",
             tagIcons::clipboard_smile));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-text (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CLIPBOARD_TEXT)",
-            tagIcons::clipboard_text));
+            "clipboard-text", "TablerIcons.clipboard_text()", tagIcons::clipboard_text));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-typography (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CLIPBOARD_TYPOGRAPHY)",
+            "clipboard-typography",
+            "TablerIcons.clipboard_typography()",
             tagIcons::clipboard_typography));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-x (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CLIPBOARD_X)",
-            tagIcons::clipboard_x));
+            "clipboard-x", "TablerIcons.clipboard_x()", tagIcons::clipboard_x));
+    icons.add(
+        new IconCatalogEntry<>("contract", "TablerIcons.contract()", tagIcons::contract));
+    icons.add(new IconCatalogEntry<>("file", "TablerIcons.file()", tagIcons::file));
+    icons.add(
+        new IconCatalogEntry<>("file-3d", "TablerIcons.file_3d()", tagIcons::file_3d));
+    icons.add(
+        new IconCatalogEntry<>("file-ai", "TablerIcons.file_ai()", tagIcons::file_ai));
     icons.add(
         new IconCatalogEntry<>(
-            "contract (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CONTRACT)",
-            tagIcons::contract));
+            "file-alert", "TablerIcons.file_alert()", tagIcons::file_alert));
     icons.add(
         new IconCatalogEntry<>(
-            "file (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE)",
-            tagIcons::file));
+            "file-analytics", "TablerIcons.file_analytics()", tagIcons::file_analytics));
     icons.add(
         new IconCatalogEntry<>(
-            "file-3d (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_3D)",
-            tagIcons::file_3d));
-    icons.add(
-        new IconCatalogEntry<>(
-            "file-ai (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_AI)",
-            tagIcons::file_ai));
-    icons.add(
-        new IconCatalogEntry<>(
-            "file-alert (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_ALERT)",
-            tagIcons::file_alert));
-    icons.add(
-        new IconCatalogEntry<>(
-            "file-analytics (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_ANALYTICS)",
-            tagIcons::file_analytics));
-    icons.add(
-        new IconCatalogEntry<>(
-            "file-arrow-left (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_ARROW_LEFT)",
+            "file-arrow-left",
+            "TablerIcons.file_arrow_left()",
             tagIcons::file_arrow_left));
     icons.add(
         new IconCatalogEntry<>(
-            "file-arrow-right (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_ARROW_RIGHT)",
+            "file-arrow-right",
+            "TablerIcons.file_arrow_right()",
             tagIcons::file_arrow_right));
     icons.add(
         new IconCatalogEntry<>(
-            "file-barcode (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_BARCODE)",
-            tagIcons::file_barcode));
+            "file-barcode", "TablerIcons.file_barcode()", tagIcons::file_barcode));
     icons.add(
         new IconCatalogEntry<>(
-            "file-bitcoin (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_BITCOIN)",
-            tagIcons::file_bitcoin));
+            "file-bitcoin", "TablerIcons.file_bitcoin()", tagIcons::file_bitcoin));
     icons.add(
         new IconCatalogEntry<>(
-            "file-broken (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_BROKEN)",
-            tagIcons::file_broken));
+            "file-broken", "TablerIcons.file_broken()", tagIcons::file_broken));
     icons.add(
         new IconCatalogEntry<>(
-            "file-certificate (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_CERTIFICATE)",
+            "file-certificate",
+            "TablerIcons.file_certificate()",
             tagIcons::file_certificate));
     icons.add(
         new IconCatalogEntry<>(
-            "file-chart (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_CHART)",
-            tagIcons::file_chart));
+            "file-chart", "TablerIcons.file_chart()", tagIcons::file_chart));
     icons.add(
         new IconCatalogEntry<>(
-            "file-check (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_CHECK)",
-            tagIcons::file_check));
+            "file-check", "TablerIcons.file_check()", tagIcons::file_check));
     icons.add(
         new IconCatalogEntry<>(
-            "file-code (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_CODE)",
-            tagIcons::file_code));
+            "file-code", "TablerIcons.file_code()", tagIcons::file_code));
     icons.add(
         new IconCatalogEntry<>(
-            "file-code-2 (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_CODE_2)",
-            tagIcons::file_code_2));
+            "file-code-2", "TablerIcons.file_code_2()", tagIcons::file_code_2));
+    icons.add(
+        new IconCatalogEntry<>("file-cv", "TablerIcons.file_cv()", tagIcons::file_cv));
     icons.add(
         new IconCatalogEntry<>(
-            "file-cv (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_CV)",
-            tagIcons::file_cv));
+            "file-database", "TablerIcons.file_database()", tagIcons::file_database));
     icons.add(
         new IconCatalogEntry<>(
-            "file-database (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_DATABASE)",
-            tagIcons::file_database));
+            "file-delta", "TablerIcons.file_delta()", tagIcons::file_delta));
     icons.add(
         new IconCatalogEntry<>(
-            "file-delta (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_DELTA)",
-            tagIcons::file_delta));
-    icons.add(
-        new IconCatalogEntry<>(
-            "file-description (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_DESCRIPTION)",
+            "file-description",
+            "TablerIcons.file_description()",
             tagIcons::file_description));
     icons.add(
         new IconCatalogEntry<>(
-            "file-diff (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_DIFF)",
-            tagIcons::file_diff));
+            "file-diff", "TablerIcons.file_diff()", tagIcons::file_diff));
     icons.add(
         new IconCatalogEntry<>(
-            "file-digit (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_DIGIT)",
-            tagIcons::file_digit));
+            "file-digit", "TablerIcons.file_digit()", tagIcons::file_digit));
     icons.add(
         new IconCatalogEntry<>(
-            "file-dislike (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_DISLIKE)",
-            tagIcons::file_dislike));
+            "file-dislike", "TablerIcons.file_dislike()", tagIcons::file_dislike));
     icons.add(
         new IconCatalogEntry<>(
-            "file-dollar (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_DOLLAR)",
-            tagIcons::file_dollar));
+            "file-dollar", "TablerIcons.file_dollar()", tagIcons::file_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "file-dots (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_DOTS)",
-            tagIcons::file_dots));
+            "file-dots", "TablerIcons.file_dots()", tagIcons::file_dots));
     icons.add(
         new IconCatalogEntry<>(
-            "file-download (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_DOWNLOAD)",
-            tagIcons::file_download));
+            "file-download", "TablerIcons.file_download()", tagIcons::file_download));
     icons.add(
         new IconCatalogEntry<>(
-            "file-euro (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_EURO)",
-            tagIcons::file_euro));
+            "file-euro", "TablerIcons.file_euro()", tagIcons::file_euro));
     icons.add(
         new IconCatalogEntry<>(
-            "file-excel (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_EXCEL)",
-            tagIcons::file_excel));
+            "file-excel", "TablerIcons.file_excel()", tagIcons::file_excel));
     icons.add(
         new IconCatalogEntry<>(
-            "file-export (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_EXPORT)",
-            tagIcons::file_export));
+            "file-export", "TablerIcons.file_export()", tagIcons::file_export));
     icons.add(
         new IconCatalogEntry<>(
-            "file-function (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_FUNCTION)",
-            tagIcons::file_function));
+            "file-function", "TablerIcons.file_function()", tagIcons::file_function));
     icons.add(
         new IconCatalogEntry<>(
-            "file-horizontal (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_HORIZONTAL)",
+            "file-horizontal",
+            "TablerIcons.file_horizontal()",
             tagIcons::file_horizontal));
     icons.add(
         new IconCatalogEntry<>(
-            "file-import (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_IMPORT)",
-            tagIcons::file_import));
+            "file-import", "TablerIcons.file_import()", tagIcons::file_import));
     icons.add(
         new IconCatalogEntry<>(
-            "file-infinity (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_INFINITY)",
-            tagIcons::file_infinity));
+            "file-infinity", "TablerIcons.file_infinity()", tagIcons::file_infinity));
     icons.add(
         new IconCatalogEntry<>(
-            "file-info (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_INFO)",
-            tagIcons::file_info));
+            "file-info", "TablerIcons.file_info()", tagIcons::file_info));
     icons.add(
         new IconCatalogEntry<>(
-            "file-invoice (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_INVOICE)",
-            tagIcons::file_invoice));
+            "file-invoice", "TablerIcons.file_invoice()", tagIcons::file_invoice));
+    icons.add(
+        new IconCatalogEntry<>("file-isr", "TablerIcons.file_isr()", tagIcons::file_isr));
     icons.add(
         new IconCatalogEntry<>(
-            "file-isr (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_ISR)",
-            tagIcons::file_isr));
+            "file-lambda", "TablerIcons.file_lambda()", tagIcons::file_lambda));
     icons.add(
         new IconCatalogEntry<>(
-            "file-lambda (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_LAMBDA)",
-            tagIcons::file_lambda));
+            "file-like", "TablerIcons.file_like()", tagIcons::file_like));
     icons.add(
         new IconCatalogEntry<>(
-            "file-like (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_LIKE)",
-            tagIcons::file_like));
+            "file-lock", "TablerIcons.file_lock()", tagIcons::file_lock));
     icons.add(
         new IconCatalogEntry<>(
-            "file-lock (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_LOCK)",
-            tagIcons::file_lock));
+            "file-minus", "TablerIcons.file_minus()", tagIcons::file_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "file-minus (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_MINUS)",
-            tagIcons::file_minus));
+            "file-music", "TablerIcons.file_music()", tagIcons::file_music));
     icons.add(
         new IconCatalogEntry<>(
-            "file-music (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_MUSIC)",
-            tagIcons::file_music));
+            "file-neutral", "TablerIcons.file_neutral()", tagIcons::file_neutral));
+    icons.add(
+        new IconCatalogEntry<>("file-off", "TablerIcons.file_off()", tagIcons::file_off));
     icons.add(
         new IconCatalogEntry<>(
-            "file-neutral (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_NEUTRAL)",
-            tagIcons::file_neutral));
-    icons.add(
-        new IconCatalogEntry<>(
-            "file-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_OFF)",
-            tagIcons::file_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "file-orientation (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_ORIENTATION)",
+            "file-orientation",
+            "TablerIcons.file_orientation()",
             tagIcons::file_orientation));
     icons.add(
         new IconCatalogEntry<>(
-            "file-pencil (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_PENCIL)",
-            tagIcons::file_pencil));
+            "file-pencil", "TablerIcons.file_pencil()", tagIcons::file_pencil));
     icons.add(
         new IconCatalogEntry<>(
-            "file-percent (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_PERCENT)",
-            tagIcons::file_percent));
+            "file-percent", "TablerIcons.file_percent()", tagIcons::file_percent));
     icons.add(
         new IconCatalogEntry<>(
-            "file-phone (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_PHONE)",
-            tagIcons::file_phone));
+            "file-phone", "TablerIcons.file_phone()", tagIcons::file_phone));
     icons.add(
         new IconCatalogEntry<>(
-            "file-plus (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_PLUS)",
-            tagIcons::file_plus));
+            "file-plus", "TablerIcons.file_plus()", tagIcons::file_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "file-power (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_POWER)",
-            tagIcons::file_power));
+            "file-power", "TablerIcons.file_power()", tagIcons::file_power));
     icons.add(
         new IconCatalogEntry<>(
-            "file-report (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_REPORT)",
-            tagIcons::file_report));
+            "file-report", "TablerIcons.file_report()", tagIcons::file_report));
+    icons.add(
+        new IconCatalogEntry<>("file-rss", "TablerIcons.file_rss()", tagIcons::file_rss));
+    icons.add(
+        new IconCatalogEntry<>("file-sad", "TablerIcons.file_sad()", tagIcons::file_sad));
     icons.add(
         new IconCatalogEntry<>(
-            "file-rss (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_RSS)",
-            tagIcons::file_rss));
+            "file-scissors", "TablerIcons.file_scissors()", tagIcons::file_scissors));
     icons.add(
         new IconCatalogEntry<>(
-            "file-sad (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_SAD)",
-            tagIcons::file_sad));
+            "file-search", "TablerIcons.file_search()", tagIcons::file_search));
     icons.add(
         new IconCatalogEntry<>(
-            "file-scissors (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_SCISSORS)",
-            tagIcons::file_scissors));
+            "file-settings", "TablerIcons.file_settings()", tagIcons::file_settings));
     icons.add(
         new IconCatalogEntry<>(
-            "file-search (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_SEARCH)",
-            tagIcons::file_search));
+            "file-shredder", "TablerIcons.file_shredder()", tagIcons::file_shredder));
     icons.add(
         new IconCatalogEntry<>(
-            "file-settings (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_SETTINGS)",
-            tagIcons::file_settings));
+            "file-signal", "TablerIcons.file_signal()", tagIcons::file_signal));
     icons.add(
         new IconCatalogEntry<>(
-            "file-shredder (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_SHREDDER)",
-            tagIcons::file_shredder));
+            "file-smile", "TablerIcons.file_smile()", tagIcons::file_smile));
     icons.add(
         new IconCatalogEntry<>(
-            "file-signal (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_SIGNAL)",
-            tagIcons::file_signal));
+            "file-spark", "TablerIcons.file_spark()", tagIcons::file_spark));
     icons.add(
         new IconCatalogEntry<>(
-            "file-smile (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_SMILE)",
-            tagIcons::file_smile));
-    icons.add(
-        new IconCatalogEntry<>(
-            "file-spark (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_SPARK)",
-            tagIcons::file_spark));
-    icons.add(
-        new IconCatalogEntry<>(
-            "file-spreadsheet (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_SPREADSHEET)",
+            "file-spreadsheet",
+            "TablerIcons.file_spreadsheet()",
             tagIcons::file_spreadsheet));
     icons.add(
         new IconCatalogEntry<>(
-            "file-stack (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_STACK)",
-            tagIcons::file_stack));
+            "file-stack", "TablerIcons.file_stack()", tagIcons::file_stack));
   }
 
   private static void addIcons1() {
     icons.add(
         new IconCatalogEntry<>(
-            "file-star (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_STAR)",
-            tagIcons::file_star));
+            "file-star", "TablerIcons.file_star()", tagIcons::file_star));
     icons.add(
         new IconCatalogEntry<>(
-            "file-symlink (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_SYMLINK)",
-            tagIcons::file_symlink));
+            "file-symlink", "TablerIcons.file_symlink()", tagIcons::file_symlink));
     icons.add(
         new IconCatalogEntry<>(
-            "file-text (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TEXT)",
-            tagIcons::file_text));
+            "file-text", "TablerIcons.file_text()", tagIcons::file_text));
     icons.add(
         new IconCatalogEntry<>(
-            "file-text-ai (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TEXT_AI)",
-            tagIcons::file_text_ai));
+            "file-text-ai", "TablerIcons.file_text_ai()", tagIcons::file_text_ai));
     icons.add(
         new IconCatalogEntry<>(
-            "file-text-shield (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TEXT_SHIELD)",
+            "file-text-shield",
+            "TablerIcons.file_text_shield()",
             tagIcons::file_text_shield));
     icons.add(
         new IconCatalogEntry<>(
-            "file-text-spark (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TEXT_SPARK)",
+            "file-text-spark",
+            "TablerIcons.file_text_spark()",
             tagIcons::file_text_spark));
     icons.add(
         new IconCatalogEntry<>(
-            "file-time (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TIME)",
-            tagIcons::file_time));
+            "file-time", "TablerIcons.file_time()", tagIcons::file_time));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-bmp (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_BMP)",
-            tagIcons::file_type_bmp));
+            "file-type-bmp", "TablerIcons.file_type_bmp()", tagIcons::file_type_bmp));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-css (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_CSS)",
-            tagIcons::file_type_css));
+            "file-type-css", "TablerIcons.file_type_css()", tagIcons::file_type_css));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-csv (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_CSV)",
-            tagIcons::file_type_csv));
+            "file-type-csv", "TablerIcons.file_type_csv()", tagIcons::file_type_csv));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-doc (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_DOC)",
-            tagIcons::file_type_doc));
+            "file-type-doc", "TablerIcons.file_type_doc()", tagIcons::file_type_doc));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-docx (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_DOCX)",
-            tagIcons::file_type_docx));
+            "file-type-docx", "TablerIcons.file_type_docx()", tagIcons::file_type_docx));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-html (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_HTML)",
-            tagIcons::file_type_html));
+            "file-type-html", "TablerIcons.file_type_html()", tagIcons::file_type_html));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-jpg (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_JPG)",
-            tagIcons::file_type_jpg));
+            "file-type-jpg", "TablerIcons.file_type_jpg()", tagIcons::file_type_jpg));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-js (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_JS)",
-            tagIcons::file_type_js));
+            "file-type-js", "TablerIcons.file_type_js()", tagIcons::file_type_js));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-jsx (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_JSX)",
-            tagIcons::file_type_jsx));
+            "file-type-jsx", "TablerIcons.file_type_jsx()", tagIcons::file_type_jsx));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-pdf (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_PDF)",
-            tagIcons::file_type_pdf));
+            "file-type-pdf", "TablerIcons.file_type_pdf()", tagIcons::file_type_pdf));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-php (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_PHP)",
-            tagIcons::file_type_php));
+            "file-type-php", "TablerIcons.file_type_php()", tagIcons::file_type_php));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-png (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_PNG)",
-            tagIcons::file_type_png));
+            "file-type-png", "TablerIcons.file_type_png()", tagIcons::file_type_png));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-ppt (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_PPT)",
-            tagIcons::file_type_ppt));
+            "file-type-ppt", "TablerIcons.file_type_ppt()", tagIcons::file_type_ppt));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-rs (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_RS)",
-            tagIcons::file_type_rs));
+            "file-type-rs", "TablerIcons.file_type_rs()", tagIcons::file_type_rs));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-sql (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_SQL)",
-            tagIcons::file_type_sql));
+            "file-type-sql", "TablerIcons.file_type_sql()", tagIcons::file_type_sql));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-svg (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_SVG)",
-            tagIcons::file_type_svg));
+            "file-type-svg", "TablerIcons.file_type_svg()", tagIcons::file_type_svg));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-ts (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_TS)",
-            tagIcons::file_type_ts));
+            "file-type-ts", "TablerIcons.file_type_ts()", tagIcons::file_type_ts));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-tsx (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_TSX)",
-            tagIcons::file_type_tsx));
+            "file-type-tsx", "TablerIcons.file_type_tsx()", tagIcons::file_type_tsx));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-txt (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_TXT)",
-            tagIcons::file_type_txt));
+            "file-type-txt", "TablerIcons.file_type_txt()", tagIcons::file_type_txt));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-vue (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_VUE)",
-            tagIcons::file_type_vue));
+            "file-type-vue", "TablerIcons.file_type_vue()", tagIcons::file_type_vue));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-xls (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_XLS)",
-            tagIcons::file_type_xls));
+            "file-type-xls", "TablerIcons.file_type_xls()", tagIcons::file_type_xls));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-xml (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_XML)",
-            tagIcons::file_type_xml));
+            "file-type-xml", "TablerIcons.file_type_xml()", tagIcons::file_type_xml));
     icons.add(
         new IconCatalogEntry<>(
-            "file-type-zip (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPE_ZIP)",
-            tagIcons::file_type_zip));
+            "file-type-zip", "TablerIcons.file_type_zip()", tagIcons::file_type_zip));
     icons.add(
         new IconCatalogEntry<>(
-            "file-typography (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_TYPOGRAPHY)",
+            "file-typography",
+            "TablerIcons.file_typography()",
             tagIcons::file_typography));
     icons.add(
         new IconCatalogEntry<>(
-            "file-unknown (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_UNKNOWN)",
-            tagIcons::file_unknown));
+            "file-unknown", "TablerIcons.file_unknown()", tagIcons::file_unknown));
     icons.add(
         new IconCatalogEntry<>(
-            "file-upload (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_UPLOAD)",
-            tagIcons::file_upload));
+            "file-upload", "TablerIcons.file_upload()", tagIcons::file_upload));
     icons.add(
         new IconCatalogEntry<>(
-            "file-vector (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_VECTOR)",
-            tagIcons::file_vector));
+            "file-vector", "TablerIcons.file_vector()", tagIcons::file_vector));
     icons.add(
         new IconCatalogEntry<>(
-            "file-word (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_WORD)",
-            tagIcons::file_word));
+            "file-word", "TablerIcons.file_word()", tagIcons::file_word));
+    icons.add(new IconCatalogEntry<>("file-x", "TablerIcons.file_x()", tagIcons::file_x));
+    icons.add(
+        new IconCatalogEntry<>("file-zip", "TablerIcons.file_zip()", tagIcons::file_zip));
+    icons.add(new IconCatalogEntry<>("files", "TablerIcons.files()", tagIcons::files));
     icons.add(
         new IconCatalogEntry<>(
-            "file-x (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_X)",
-            tagIcons::file_x));
+            "files-off", "TablerIcons.files_off()", tagIcons::files_off));
+    icons.add(new IconCatalogEntry<>("folder", "TablerIcons.folder()", tagIcons::folder));
     icons.add(
         new IconCatalogEntry<>(
-            "file-zip (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILE_ZIP)",
-            tagIcons::file_zip));
+            "folder-ai", "TablerIcons.folder_ai()", tagIcons::folder_ai));
     icons.add(
         new IconCatalogEntry<>(
-            "files (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILES)",
-            tagIcons::files));
+            "folder-bolt", "TablerIcons.folder_bolt()", tagIcons::folder_bolt));
     icons.add(
         new IconCatalogEntry<>(
-            "files-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FILES_OFF)",
-            tagIcons::files_off));
+            "folder-cancel", "TablerIcons.folder_cancel()", tagIcons::folder_cancel));
     icons.add(
         new IconCatalogEntry<>(
-            "folder (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER)",
-            tagIcons::folder));
+            "folder-check", "TablerIcons.folder_check()", tagIcons::folder_check));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-ai (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_AI)",
-            tagIcons::folder_ai));
+            "folder-code", "TablerIcons.folder_code()", tagIcons::folder_code));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-bolt (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_BOLT)",
-            tagIcons::folder_bolt));
+            "folder-cog", "TablerIcons.folder_cog()", tagIcons::folder_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-cancel (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_CANCEL)",
-            tagIcons::folder_cancel));
+            "folder-dollar", "TablerIcons.folder_dollar()", tagIcons::folder_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-check (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_CHECK)",
-            tagIcons::folder_check));
+            "folder-down", "TablerIcons.folder_down()", tagIcons::folder_down));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-code (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_CODE)",
-            tagIcons::folder_code));
-    icons.add(
-        new IconCatalogEntry<>(
-            "folder-cog (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_COG)",
-            tagIcons::folder_cog));
-    icons.add(
-        new IconCatalogEntry<>(
-            "folder-dollar (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_DOLLAR)",
-            tagIcons::folder_dollar));
-    icons.add(
-        new IconCatalogEntry<>(
-            "folder-down (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_DOWN)",
-            tagIcons::folder_down));
-    icons.add(
-        new IconCatalogEntry<>(
-            "folder-exclamation (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_EXCLAMATION)",
+            "folder-exclamation",
+            "TablerIcons.folder_exclamation()",
             tagIcons::folder_exclamation));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-heart (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_HEART)",
-            tagIcons::folder_heart));
+            "folder-heart", "TablerIcons.folder_heart()", tagIcons::folder_heart));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-lock (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_LOCK)",
-            tagIcons::folder_lock));
+            "folder-lock", "TablerIcons.folder_lock()", tagIcons::folder_lock));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-minus (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_MINUS)",
-            tagIcons::folder_minus));
+            "folder-minus", "TablerIcons.folder_minus()", tagIcons::folder_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_OFF)",
-            tagIcons::folder_off));
+            "folder-off", "TablerIcons.folder_off()", tagIcons::folder_off));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-open (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_OPEN)",
-            tagIcons::folder_open));
+            "folder-open", "TablerIcons.folder_open()", tagIcons::folder_open));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-pause (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_PAUSE)",
-            tagIcons::folder_pause));
+            "folder-pause", "TablerIcons.folder_pause()", tagIcons::folder_pause));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-pin (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_PIN)",
-            tagIcons::folder_pin));
+            "folder-pin", "TablerIcons.folder_pin()", tagIcons::folder_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-plus (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_PLUS)",
-            tagIcons::folder_plus));
+            "folder-plus", "TablerIcons.folder_plus()", tagIcons::folder_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-question (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_QUESTION)",
+            "folder-question",
+            "TablerIcons.folder_question()",
             tagIcons::folder_question));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-root (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_ROOT)",
-            tagIcons::folder_root));
+            "folder-root", "TablerIcons.folder_root()", tagIcons::folder_root));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-search (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_SEARCH)",
-            tagIcons::folder_search));
+            "folder-search", "TablerIcons.folder_search()", tagIcons::folder_search));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-share (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_SHARE)",
-            tagIcons::folder_share));
+            "folder-share", "TablerIcons.folder_share()", tagIcons::folder_share));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-sparkle (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_SPARKLE)",
-            tagIcons::folder_sparkle));
+            "folder-sparkle", "TablerIcons.folder_sparkle()", tagIcons::folder_sparkle));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-star (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_STAR)",
-            tagIcons::folder_star));
+            "folder-star", "TablerIcons.folder_star()", tagIcons::folder_star));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-stats (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_STATS)",
-            tagIcons::folder_stats));
+            "folder-stats", "TablerIcons.folder_stats()", tagIcons::folder_stats));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-symlink (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_SYMLINK)",
-            tagIcons::folder_symlink));
+            "folder-symlink", "TablerIcons.folder_symlink()", tagIcons::folder_symlink));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-up (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_UP)",
-            tagIcons::folder_up));
+            "folder-up", "TablerIcons.folder_up()", tagIcons::folder_up));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-user (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_USER)",
-            tagIcons::folder_user));
+            "folder-user", "TablerIcons.folder_user()", tagIcons::folder_user));
+    icons.add(
+        new IconCatalogEntry<>("folder-x", "TablerIcons.folder_x()", tagIcons::folder_x));
+    icons.add(
+        new IconCatalogEntry<>("folders", "TablerIcons.folders()", tagIcons::folders));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-x (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDER_X)",
-            tagIcons::folder_x));
+            "folders-off", "TablerIcons.folders_off()", tagIcons::folders_off));
+    icons.add(
+        new IconCatalogEntry<>("invoice", "TablerIcons.invoice()", tagIcons::invoice));
+    icons.add(
+        new IconCatalogEntry<>("license", "TablerIcons.license()", tagIcons::license));
     icons.add(
         new IconCatalogEntry<>(
-            "folders (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDERS)",
-            tagIcons::folders));
+            "license-off", "TablerIcons.license_off()", tagIcons::license_off));
     icons.add(
         new IconCatalogEntry<>(
-            "folders-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.FOLDERS_OFF)",
-            tagIcons::folders_off));
+            "manual-gearbox", "TablerIcons.manual_gearbox()", tagIcons::manual_gearbox));
+    icons.add(new IconCatalogEntry<>("news", "TablerIcons.news()", tagIcons::news));
+    icons.add(
+        new IconCatalogEntry<>("news-off", "TablerIcons.news_off()", tagIcons::news_off));
+    icons.add(new IconCatalogEntry<>("note", "TablerIcons.note()", tagIcons::note));
+    icons.add(
+        new IconCatalogEntry<>("note-off", "TablerIcons.note_off()", tagIcons::note_off));
+    icons.add(
+        new IconCatalogEntry<>("notebook", "TablerIcons.notebook()", tagIcons::notebook));
     icons.add(
         new IconCatalogEntry<>(
-            "invoice (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.INVOICE)",
-            tagIcons::invoice));
+            "notebook-off", "TablerIcons.notebook_off()", tagIcons::notebook_off));
+    icons.add(new IconCatalogEntry<>("notes", "TablerIcons.notes()", tagIcons::notes));
     icons.add(
         new IconCatalogEntry<>(
-            "license (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.LICENSE)",
-            tagIcons::license));
+            "notes-off", "TablerIcons.notes_off()", tagIcons::notes_off));
     icons.add(
         new IconCatalogEntry<>(
-            "license-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.LICENSE_OFF)",
-            tagIcons::license_off));
+            "page-break", "TablerIcons.page_break()", tagIcons::page_break));
     icons.add(
         new IconCatalogEntry<>(
-            "manual-gearbox (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.MANUAL_GEARBOX)",
-            tagIcons::manual_gearbox));
+            "paperclip", "TablerIcons.paperclip()", tagIcons::paperclip));
     icons.add(
         new IconCatalogEntry<>(
-            "news (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.NEWS)",
-            tagIcons::news));
+            "presentation", "TablerIcons.presentation()", tagIcons::presentation));
     icons.add(
         new IconCatalogEntry<>(
-            "news-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.NEWS_OFF)",
-            tagIcons::news_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "note (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.NOTE)",
-            tagIcons::note));
-    icons.add(
-        new IconCatalogEntry<>(
-            "note-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.NOTE_OFF)",
-            tagIcons::note_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "notebook (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.NOTEBOOK)",
-            tagIcons::notebook));
-    icons.add(
-        new IconCatalogEntry<>(
-            "notebook-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.NOTEBOOK_OFF)",
-            tagIcons::notebook_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "notes (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.NOTES)",
-            tagIcons::notes));
-    icons.add(
-        new IconCatalogEntry<>(
-            "notes-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.NOTES_OFF)",
-            tagIcons::notes_off));
-    icons.add(
-        new IconCatalogEntry<>(
-            "page-break (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.PAGE_BREAK)",
-            tagIcons::page_break));
-    icons.add(
-        new IconCatalogEntry<>(
-            "paperclip (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.PAPERCLIP)",
-            tagIcons::paperclip));
-    icons.add(
-        new IconCatalogEntry<>(
-            "presentation (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.PRESENTATION)",
-            tagIcons::presentation));
-    icons.add(
-        new IconCatalogEntry<>(
-            "presentation-analytics (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.PRESENTATION_ANALYTICS)",
+            "presentation-analytics",
+            "TablerIcons.presentation_analytics()",
             tagIcons::presentation_analytics));
     icons.add(
         new IconCatalogEntry<>(
-            "presentation-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.PRESENTATION_OFF)",
+            "presentation-off",
+            "TablerIcons.presentation_off()",
             tagIcons::presentation_off));
     icons.add(
-        new IconCatalogEntry<>(
-            "receipt (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.RECEIPT)",
-            tagIcons::receipt));
+        new IconCatalogEntry<>("receipt", "TablerIcons.receipt()", tagIcons::receipt));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt-2 (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.RECEIPT_2)",
-            tagIcons::receipt_2));
+            "receipt-2", "TablerIcons.receipt_2()", tagIcons::receipt_2));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt-dollar (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.RECEIPT_DOLLAR)",
-            tagIcons::receipt_dollar));
+            "receipt-dollar", "TablerIcons.receipt_dollar()", tagIcons::receipt_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.RECEIPT_OFF)",
-            tagIcons::receipt_off));
+            "receipt-off", "TablerIcons.receipt_off()", tagIcons::receipt_off));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt-refund (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.RECEIPT_REFUND)",
-            tagIcons::receipt_refund));
+            "receipt-refund", "TablerIcons.receipt_refund()", tagIcons::receipt_refund));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt-tax (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.RECEIPT_TAX)",
-            tagIcons::receipt_tax));
+            "receipt-tax", "TablerIcons.receipt_tax()", tagIcons::receipt_tax));
+    icons.add(new IconCatalogEntry<>("report", "TablerIcons.report()", tagIcons::report));
     icons.add(
         new IconCatalogEntry<>(
-            "report (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.REPORT)",
-            tagIcons::report));
-    icons.add(
-        new IconCatalogEntry<>(
-            "report-analytics (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.REPORT_ANALYTICS)",
+            "report-analytics",
+            "TablerIcons.report_analytics()",
             tagIcons::report_analytics));
     icons.add(
         new IconCatalogEntry<>(
-            "report-medical (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.REPORT_MEDICAL)",
-            tagIcons::report_medical));
+            "report-medical", "TablerIcons.report_medical()", tagIcons::report_medical));
     icons.add(
         new IconCatalogEntry<>(
-            "report-money (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.REPORT_MONEY)",
-            tagIcons::report_money));
+            "report-money", "TablerIcons.report_money()", tagIcons::report_money));
     icons.add(
         new IconCatalogEntry<>(
-            "report-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.REPORT_OFF)",
-            tagIcons::report_off));
+            "report-off", "TablerIcons.report_off()", tagIcons::report_off));
     icons.add(
         new IconCatalogEntry<>(
-            "report-search (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.REPORT_SEARCH)",
-            tagIcons::report_search));
+            "report-search", "TablerIcons.report_search()", tagIcons::report_search));
     icons.add(
         new IconCatalogEntry<>(
-            "rubber-stamp (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.RUBBER_STAMP)",
-            tagIcons::rubber_stamp));
+            "rubber-stamp", "TablerIcons.rubber_stamp()", tagIcons::rubber_stamp));
   }
 
   private static void addIcons2() {
     icons.add(
         new IconCatalogEntry<>(
-            "rubber-stamp-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.RUBBER_STAMP_OFF)",
+            "rubber-stamp-off",
+            "TablerIcons.rubber_stamp_off()",
             tagIcons::rubber_stamp_off));
+    icons.add(new IconCatalogEntry<>("script", "TablerIcons.script()", tagIcons::script));
     icons.add(
         new IconCatalogEntry<>(
-            "script (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.SCRIPT)",
-            tagIcons::script));
+            "script-minus", "TablerIcons.script_minus()", tagIcons::script_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "script-minus (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.SCRIPT_MINUS)",
-            tagIcons::script_minus));
+            "script-plus", "TablerIcons.script_plus()", tagIcons::script_plus));
+    icons.add(
+        new IconCatalogEntry<>("script-x", "TablerIcons.script_x()", tagIcons::script_x));
     icons.add(
         new IconCatalogEntry<>(
-            "script-plus (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.SCRIPT_PLUS)",
-            tagIcons::script_plus));
-    icons.add(
-        new IconCatalogEntry<>(
-            "script-x (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.SCRIPT_X)",
-            tagIcons::script_x));
-    icons.add(
-        new IconCatalogEntry<>(
-            "spacing-horizontal (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.SPACING_HORIZONTAL)",
+            "spacing-horizontal",
+            "TablerIcons.spacing_horizontal()",
             tagIcons::spacing_horizontal));
     icons.add(
         new IconCatalogEntry<>(
-            "spacing-vertical (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.SPACING_VERTICAL)",
+            "spacing-vertical",
+            "TablerIcons.spacing_vertical()",
             tagIcons::spacing_vertical));
+    icons.add(new IconCatalogEntry<>("ticket", "TablerIcons.ticket()", tagIcons::ticket));
     icons.add(
         new IconCatalogEntry<>(
-            "ticket (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.TICKET)",
-            tagIcons::ticket));
+            "ticket-off", "TablerIcons.ticket_off()", tagIcons::ticket_off));
     icons.add(
         new IconCatalogEntry<>(
-            "ticket-off (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.TICKET_OFF)",
-            tagIcons::ticket_off));
+            "content-paste", "TablerIcons.clipboard()", tagIcons::content_paste));
     icons.add(
         new IconCatalogEntry<>(
-            "content-paste (outline)",
-            "TablerIcon.create(TablerDocument.OutlineIcon.CLIPBOARD)",
-            tagIcons::content_paste));
+            "archive", "TablerIcons.archive_filled()", tagIcons::archive_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "archive (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.ARCHIVE)",
-            tagIcons::archive_filled));
+            "article", "TablerIcons.article_filled()", tagIcons::article_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "article (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.ARTICLE)",
-            tagIcons::article_filled));
+            "book", "TablerIcons.book_filled()", tagIcons::book_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "book (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.BOOK)",
-            tagIcons::book_filled));
+            "bookmark", "TablerIcons.bookmark_filled()", tagIcons::bookmark_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "bookmark (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.BOOKMARK)",
-            tagIcons::bookmark_filled));
+            "bookmarks", "TablerIcons.bookmarks_filled()", tagIcons::bookmarks_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "bookmarks (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.BOOKMARKS)",
-            tagIcons::bookmarks_filled));
+            "clipboard", "TablerIcons.clipboard_filled()", tagIcons::clipboard_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.CLIPBOARD)",
-            tagIcons::clipboard_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "clipboard-check (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.CLIPBOARD_CHECK)",
+            "clipboard-check",
+            "TablerIcons.clipboard_check_filled()",
             tagIcons::clipboard_check_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-data (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.CLIPBOARD_DATA)",
+            "clipboard-data",
+            "TablerIcons.clipboard_data_filled()",
             tagIcons::clipboard_data_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-list (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.CLIPBOARD_LIST)",
+            "clipboard-list",
+            "TablerIcons.clipboard_list_filled()",
             tagIcons::clipboard_list_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-plus (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.CLIPBOARD_PLUS)",
+            "clipboard-plus",
+            "TablerIcons.clipboard_plus_filled()",
             tagIcons::clipboard_plus_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-smile (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.CLIPBOARD_SMILE)",
+            "clipboard-smile",
+            "TablerIcons.clipboard_smile_filled()",
             tagIcons::clipboard_smile_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-text (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.CLIPBOARD_TEXT)",
+            "clipboard-text",
+            "TablerIcons.clipboard_text_filled()",
             tagIcons::clipboard_text_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-typography (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.CLIPBOARD_TYPOGRAPHY)",
+            "clipboard-typography",
+            "TablerIcons.clipboard_typography_filled()",
             tagIcons::clipboard_typography_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "clipboard-x (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.CLIPBOARD_X)",
+            "clipboard-x",
+            "TablerIcons.clipboard_x_filled()",
             tagIcons::clipboard_x_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE)",
-            tagIcons::file_filled));
+            "file", "TablerIcons.file_filled()", tagIcons::file_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-analytics (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_ANALYTICS)",
+            "file-analytics",
+            "TablerIcons.file_analytics_filled()",
             tagIcons::file_analytics_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-check (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_CHECK)",
-            tagIcons::file_check_filled));
+            "file-check", "TablerIcons.file_check_filled()", tagIcons::file_check_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-code (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_CODE)",
-            tagIcons::file_code_filled));
+            "file-code", "TablerIcons.file_code_filled()", tagIcons::file_code_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-code-2 (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_CODE_2)",
+            "file-code-2",
+            "TablerIcons.file_code_2_filled()",
             tagIcons::file_code_2_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-cv (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_CV)",
-            tagIcons::file_cv_filled));
+            "file-cv", "TablerIcons.file_cv_filled()", tagIcons::file_cv_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-delta (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_DELTA)",
-            tagIcons::file_delta_filled));
+            "file-delta", "TablerIcons.file_delta_filled()", tagIcons::file_delta_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-description (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_DESCRIPTION)",
+            "file-description",
+            "TablerIcons.file_description_filled()",
             tagIcons::file_description_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-diff (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_DIFF)",
-            tagIcons::file_diff_filled));
+            "file-diff", "TablerIcons.file_diff_filled()", tagIcons::file_diff_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-digit (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_DIGIT)",
-            tagIcons::file_digit_filled));
+            "file-digit", "TablerIcons.file_digit_filled()", tagIcons::file_digit_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-dollar (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_DOLLAR)",
+            "file-dollar",
+            "TablerIcons.file_dollar_filled()",
             tagIcons::file_dollar_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-dots (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_DOTS)",
-            tagIcons::file_dots_filled));
+            "file-dots", "TablerIcons.file_dots_filled()", tagIcons::file_dots_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-download (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_DOWNLOAD)",
+            "file-download",
+            "TablerIcons.file_download_filled()",
             tagIcons::file_download_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-euro (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_EURO)",
-            tagIcons::file_euro_filled));
+            "file-euro", "TablerIcons.file_euro_filled()", tagIcons::file_euro_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-function (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_FUNCTION)",
+            "file-function",
+            "TablerIcons.file_function_filled()",
             tagIcons::file_function_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-horizontal (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_HORIZONTAL)",
+            "file-horizontal",
+            "TablerIcons.file_horizontal_filled()",
             tagIcons::file_horizontal_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-info (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_INFO)",
-            tagIcons::file_info_filled));
+            "file-info", "TablerIcons.file_info_filled()", tagIcons::file_info_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-invoice (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_INVOICE)",
+            "file-invoice",
+            "TablerIcons.file_invoice_filled()",
             tagIcons::file_invoice_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-lambda (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_LAMBDA)",
+            "file-lambda",
+            "TablerIcons.file_lambda_filled()",
             tagIcons::file_lambda_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-minus (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_MINUS)",
-            tagIcons::file_minus_filled));
+            "file-minus", "TablerIcons.file_minus_filled()", tagIcons::file_minus_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-music (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_MUSIC)",
-            tagIcons::file_music_filled));
+            "file-music", "TablerIcons.file_music_filled()", tagIcons::file_music_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-neutral (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_NEUTRAL)",
+            "file-neutral",
+            "TablerIcons.file_neutral_filled()",
             tagIcons::file_neutral_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-pencil (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_PENCIL)",
+            "file-pencil",
+            "TablerIcons.file_pencil_filled()",
             tagIcons::file_pencil_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-percent (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_PERCENT)",
+            "file-percent",
+            "TablerIcons.file_percent_filled()",
             tagIcons::file_percent_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-phone (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_PHONE)",
-            tagIcons::file_phone_filled));
+            "file-phone", "TablerIcons.file_phone_filled()", tagIcons::file_phone_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-power (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_POWER)",
-            tagIcons::file_power_filled));
+            "file-power", "TablerIcons.file_power_filled()", tagIcons::file_power_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-rss (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_RSS)",
-            tagIcons::file_rss_filled));
+            "file-rss", "TablerIcons.file_rss_filled()", tagIcons::file_rss_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-sad (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_SAD)",
-            tagIcons::file_sad_filled));
+            "file-sad", "TablerIcons.file_sad_filled()", tagIcons::file_sad_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-scissors (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_SCISSORS)",
+            "file-scissors",
+            "TablerIcons.file_scissors_filled()",
             tagIcons::file_scissors_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-settings (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_SETTINGS)",
+            "file-settings",
+            "TablerIcons.file_settings_filled()",
             tagIcons::file_settings_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-signal (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_SIGNAL)",
+            "file-signal",
+            "TablerIcons.file_signal_filled()",
             tagIcons::file_signal_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-smile (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_SMILE)",
-            tagIcons::file_smile_filled));
+            "file-smile", "TablerIcons.file_smile_filled()", tagIcons::file_smile_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-star (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_STAR)",
-            tagIcons::file_star_filled));
+            "file-star", "TablerIcons.file_star_filled()", tagIcons::file_star_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-text (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_TEXT)",
-            tagIcons::file_text_filled));
+            "file-text", "TablerIcons.file_text_filled()", tagIcons::file_text_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-time (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_TIME)",
-            tagIcons::file_time_filled));
+            "file-time", "TablerIcons.file_time_filled()", tagIcons::file_time_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-typography (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_TYPOGRAPHY)",
+            "file-typography",
+            "TablerIcons.file_typography_filled()",
             tagIcons::file_typography_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-unknown (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_UNKNOWN)",
+            "file-unknown",
+            "TablerIcons.file_unknown_filled()",
             tagIcons::file_unknown_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-upload (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_UPLOAD)",
+            "file-upload",
+            "TablerIcons.file_upload_filled()",
             tagIcons::file_upload_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-vector (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_VECTOR)",
+            "file-vector",
+            "TablerIcons.file_vector_filled()",
             tagIcons::file_vector_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "file-x (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILE_X)",
-            tagIcons::file_x_filled));
+            "file-x", "TablerIcons.file_x_filled()", tagIcons::file_x_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "files (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FILES)",
-            tagIcons::files_filled));
+            "files", "TablerIcons.files_filled()", tagIcons::files_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "folder (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FOLDER)",
-            tagIcons::folder_filled));
+            "folder", "TablerIcons.folder_filled()", tagIcons::folder_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "folder-open (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FOLDER_OPEN)",
+            "folder-open",
+            "TablerIcons.folder_open_filled()",
             tagIcons::folder_open_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "folders (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.FOLDERS)",
-            tagIcons::folders_filled));
+            "folders", "TablerIcons.folders_filled()", tagIcons::folders_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "manual-gearbox (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.MANUAL_GEARBOX)",
+            "manual-gearbox",
+            "TablerIcons.manual_gearbox_filled()",
             tagIcons::manual_gearbox_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "presentation (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.PRESENTATION)",
+            "presentation",
+            "TablerIcons.presentation_filled()",
             tagIcons::presentation_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "presentation-analytics (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.PRESENTATION_ANALYTICS)",
+            "presentation-analytics",
+            "TablerIcons.presentation_analytics_filled()",
             tagIcons::presentation_analytics_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.RECEIPT)",
-            tagIcons::receipt_filled));
+            "receipt", "TablerIcons.receipt_filled()", tagIcons::receipt_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "receipt-dollar (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.RECEIPT_DOLLAR)",
+            "receipt-dollar",
+            "TablerIcons.receipt_dollar_filled()",
             tagIcons::receipt_dollar_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "report-analytics (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.REPORT_ANALYTICS)",
+            "report-analytics",
+            "TablerIcons.report_analytics_filled()",
             tagIcons::report_analytics_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "report-money (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.REPORT_MONEY)",
+            "report-money",
+            "TablerIcons.report_money_filled()",
             tagIcons::report_money_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "ticket (filled)",
-            "TablerIcon.create(TablerDocument.FilledIcon.TICKET)",
-            tagIcons::ticket_filled));
+            "ticket", "TablerIcons.ticket_filled()", tagIcons::ticket_filled));
   }
 
   public List<IconCatalogEntry<TablerIcon>> icons() {

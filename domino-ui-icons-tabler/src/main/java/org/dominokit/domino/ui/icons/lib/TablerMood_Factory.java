@@ -33,314 +33,199 @@ public final class TablerMood_Factory {
   private static void addIcons0() {
     icons.add(
         new IconCatalogEntry<>(
-            "mood-angry (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_ANGRY)",
-            tagIcons::mood_angry));
+            "mood-angry", "TablerIcons.mood_angry()", tagIcons::mood_angry));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-annoyed (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_ANNOYED)",
-            tagIcons::mood_annoyed));
+            "mood-annoyed", "TablerIcons.mood_annoyed()", tagIcons::mood_annoyed));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-annoyed-2 (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_ANNOYED_2)",
-            tagIcons::mood_annoyed_2));
+            "mood-annoyed-2", "TablerIcons.mood_annoyed_2()", tagIcons::mood_annoyed_2));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-bitcoin (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_BITCOIN)",
-            tagIcons::mood_bitcoin));
+            "mood-bitcoin", "TablerIcons.mood_bitcoin()", tagIcons::mood_bitcoin));
+    icons.add(
+        new IconCatalogEntry<>("mood-boy", "TablerIcons.mood_boy()", tagIcons::mood_boy));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-boy (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_BOY)",
-            tagIcons::mood_boy));
+            "mood-check", "TablerIcons.mood_check()", tagIcons::mood_check));
+    icons.add(
+        new IconCatalogEntry<>("mood-cog", "TablerIcons.mood_cog()", tagIcons::mood_cog));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-check (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_CHECK)",
-            tagIcons::mood_check));
+            "mood-confused", "TablerIcons.mood_confused()", tagIcons::mood_confused));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-cog (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_COG)",
-            tagIcons::mood_cog));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mood-confused (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_CONFUSED)",
-            tagIcons::mood_confused));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mood-crazy-happy (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_CRAZY_HAPPY)",
+            "mood-crazy-happy",
+            "TablerIcons.mood_crazy_happy()",
             tagIcons::mood_crazy_happy));
     icons.add(
-        new IconCatalogEntry<>(
-            "mood-cry (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_CRY)",
-            tagIcons::mood_cry));
+        new IconCatalogEntry<>("mood-cry", "TablerIcons.mood_cry()", tagIcons::mood_cry));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-dollar (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_DOLLAR)",
-            tagIcons::mood_dollar));
+            "mood-dollar", "TablerIcons.mood_dollar()", tagIcons::mood_dollar));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-edit (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_EDIT)",
-            tagIcons::mood_edit));
+            "mood-edit", "TablerIcons.mood_edit()", tagIcons::mood_edit));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-empty (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_EMPTY)",
-            tagIcons::mood_empty));
+            "mood-empty", "TablerIcons.mood_empty()", tagIcons::mood_empty));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-happy (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_HAPPY)",
-            tagIcons::mood_happy));
+            "mood-happy", "TablerIcons.mood_happy()", tagIcons::mood_happy));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-heart (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_HEART)",
-            tagIcons::mood_heart));
+            "mood-heart", "TablerIcons.mood_heart()", tagIcons::mood_heart));
+    icons.add(
+        new IconCatalogEntry<>("mood-kid", "TablerIcons.mood_kid()", tagIcons::mood_kid));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-kid (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_KID)",
-            tagIcons::mood_kid));
+            "mood-look-down", "TablerIcons.mood_look_down()", tagIcons::mood_look_down));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-look-down (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_LOOK_DOWN)",
-            tagIcons::mood_look_down));
+            "mood-look-left", "TablerIcons.mood_look_left()", tagIcons::mood_look_left));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-look-left (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_LOOK_LEFT)",
-            tagIcons::mood_look_left));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mood-look-right (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_LOOK_RIGHT)",
+            "mood-look-right",
+            "TablerIcons.mood_look_right()",
             tagIcons::mood_look_right));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-look-up (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_LOOK_UP)",
-            tagIcons::mood_look_up));
+            "mood-look-up", "TablerIcons.mood_look_up()", tagIcons::mood_look_up));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-minus (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_MINUS)",
-            tagIcons::mood_minus));
+            "mood-minus", "TablerIcons.mood_minus()", tagIcons::mood_minus));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-nerd (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_NERD)",
-            tagIcons::mood_nerd));
+            "mood-nerd", "TablerIcons.mood_nerd()", tagIcons::mood_nerd));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-nervous (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_NERVOUS)",
-            tagIcons::mood_nervous));
+            "mood-nervous", "TablerIcons.mood_nervous()", tagIcons::mood_nervous));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-neutral (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_NEUTRAL)",
-            tagIcons::mood_neutral));
+            "mood-neutral", "TablerIcons.mood_neutral()", tagIcons::mood_neutral));
+    icons.add(
+        new IconCatalogEntry<>("mood-off", "TablerIcons.mood_off()", tagIcons::mood_off));
+    icons.add(
+        new IconCatalogEntry<>("mood-pin", "TablerIcons.mood_pin()", tagIcons::mood_pin));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-off (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_OFF)",
-            tagIcons::mood_off));
+            "mood-plus", "TablerIcons.mood_plus()", tagIcons::mood_plus));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-pin (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_PIN)",
-            tagIcons::mood_pin));
+            "mood-puzzled", "TablerIcons.mood_puzzled()", tagIcons::mood_puzzled));
+    icons.add(
+        new IconCatalogEntry<>("mood-sad", "TablerIcons.mood_sad()", tagIcons::mood_sad));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-plus (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_PLUS)",
-            tagIcons::mood_plus));
+            "mood-sad-2", "TablerIcons.mood_sad_2()", tagIcons::mood_sad_2));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-puzzled (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_PUZZLED)",
-            tagIcons::mood_puzzled));
+            "mood-sad-dizzy", "TablerIcons.mood_sad_dizzy()", tagIcons::mood_sad_dizzy));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-sad (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_SAD)",
-            tagIcons::mood_sad));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mood-sad-2 (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_SAD_2)",
-            tagIcons::mood_sad_2));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mood-sad-dizzy (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_SAD_DIZZY)",
-            tagIcons::mood_sad_dizzy));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mood-sad-squint (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_SAD_SQUINT)",
+            "mood-sad-squint",
+            "TablerIcons.mood_sad_squint()",
             tagIcons::mood_sad_squint));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-search (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_SEARCH)",
-            tagIcons::mood_search));
+            "mood-search", "TablerIcons.mood_search()", tagIcons::mood_search));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-share (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_SHARE)",
-            tagIcons::mood_share));
+            "mood-share", "TablerIcons.mood_share()", tagIcons::mood_share));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-sick (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_SICK)",
-            tagIcons::mood_sick));
+            "mood-sick", "TablerIcons.mood_sick()", tagIcons::mood_sick));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-silence (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_SILENCE)",
-            tagIcons::mood_silence));
+            "mood-silence", "TablerIcons.mood_silence()", tagIcons::mood_silence));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-sing (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_SING)",
-            tagIcons::mood_sing));
+            "mood-sing", "TablerIcons.mood_sing()", tagIcons::mood_sing));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-smile (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_SMILE)",
-            tagIcons::mood_smile));
+            "mood-smile", "TablerIcons.mood_smile()", tagIcons::mood_smile));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-smile-beam (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_SMILE_BEAM)",
+            "mood-smile-beam",
+            "TablerIcons.mood_smile_beam()",
             tagIcons::mood_smile_beam));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-smile-dizzy (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_SMILE_DIZZY)",
+            "mood-smile-dizzy",
+            "TablerIcons.mood_smile_dizzy()",
             tagIcons::mood_smile_dizzy));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-spark (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_SPARK)",
-            tagIcons::mood_spark));
+            "mood-spark", "TablerIcons.mood_spark()", tagIcons::mood_spark));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-surprised (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_SURPRISED)",
-            tagIcons::mood_surprised));
+            "mood-surprised", "TablerIcons.mood_surprised()", tagIcons::mood_surprised));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-tongue (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_TONGUE)",
-            tagIcons::mood_tongue));
+            "mood-tongue", "TablerIcons.mood_tongue()", tagIcons::mood_tongue));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-tongue-wink (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_TONGUE_WINK)",
+            "mood-tongue-wink",
+            "TablerIcons.mood_tongue_wink()",
             tagIcons::mood_tongue_wink));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-tongue-wink-2 (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_TONGUE_WINK_2)",
+            "mood-tongue-wink-2",
+            "TablerIcons.mood_tongue_wink_2()",
             tagIcons::mood_tongue_wink_2));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-unamused (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_UNAMUSED)",
-            tagIcons::mood_unamused));
+            "mood-unamused", "TablerIcons.mood_unamused()", tagIcons::mood_unamused));
+    icons.add(
+        new IconCatalogEntry<>("mood-up", "TablerIcons.mood_up()", tagIcons::mood_up));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-up (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_UP)",
-            tagIcons::mood_up));
+            "mood-wink", "TablerIcons.mood_wink()", tagIcons::mood_wink));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-wink (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_WINK)",
-            tagIcons::mood_wink));
+            "mood-wink-2", "TablerIcons.mood_wink_2()", tagIcons::mood_wink_2));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-wink-2 (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_WINK_2)",
-            tagIcons::mood_wink_2));
+            "mood-wrrr", "TablerIcons.mood_wrrr()", tagIcons::mood_wrrr));
+    icons.add(new IconCatalogEntry<>("mood-x", "TablerIcons.mood_x()", tagIcons::mood_x));
+    icons.add(
+        new IconCatalogEntry<>("mood-xd", "TablerIcons.mood_xd()", tagIcons::mood_xd));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-wrrr (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_WRRR)",
-            tagIcons::mood_wrrr));
+            "mood-angry", "TablerIcons.mood_angry_filled()", tagIcons::mood_angry_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-x (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_X)",
-            tagIcons::mood_x));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mood-xd (outline)",
-            "TablerIcon.create(TablerMood.OutlineIcon.MOOD_XD)",
-            tagIcons::mood_xd));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mood-angry (filled)",
-            "TablerIcon.create(TablerMood.FilledIcon.MOOD_ANGRY)",
-            tagIcons::mood_angry_filled));
-    icons.add(
-        new IconCatalogEntry<>(
-            "mood-confused (filled)",
-            "TablerIcon.create(TablerMood.FilledIcon.MOOD_CONFUSED)",
+            "mood-confused",
+            "TablerIcons.mood_confused_filled()",
             tagIcons::mood_confused_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-crazy-happy (filled)",
-            "TablerIcon.create(TablerMood.FilledIcon.MOOD_CRAZY_HAPPY)",
+            "mood-crazy-happy",
+            "TablerIcons.mood_crazy_happy_filled()",
             tagIcons::mood_crazy_happy_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-empty (filled)",
-            "TablerIcon.create(TablerMood.FilledIcon.MOOD_EMPTY)",
-            tagIcons::mood_empty_filled));
+            "mood-empty", "TablerIcons.mood_empty_filled()", tagIcons::mood_empty_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-happy (filled)",
-            "TablerIcon.create(TablerMood.FilledIcon.MOOD_HAPPY)",
-            tagIcons::mood_happy_filled));
+            "mood-happy", "TablerIcons.mood_happy_filled()", tagIcons::mood_happy_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-kid (filled)",
-            "TablerIcon.create(TablerMood.FilledIcon.MOOD_KID)",
-            tagIcons::mood_kid_filled));
+            "mood-kid", "TablerIcons.mood_kid_filled()", tagIcons::mood_kid_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-neutral (filled)",
-            "TablerIcon.create(TablerMood.FilledIcon.MOOD_NEUTRAL)",
+            "mood-neutral",
+            "TablerIcons.mood_neutral_filled()",
             tagIcons::mood_neutral_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-sad (filled)",
-            "TablerIcon.create(TablerMood.FilledIcon.MOOD_SAD)",
-            tagIcons::mood_sad_filled));
+            "mood-sad", "TablerIcons.mood_sad_filled()", tagIcons::mood_sad_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-smile (filled)",
-            "TablerIcon.create(TablerMood.FilledIcon.MOOD_SMILE)",
-            tagIcons::mood_smile_filled));
+            "mood-smile", "TablerIcons.mood_smile_filled()", tagIcons::mood_smile_filled));
     icons.add(
         new IconCatalogEntry<>(
-            "mood-wrrr (filled)",
-            "TablerIcon.create(TablerMood.FilledIcon.MOOD_WRRR)",
-            tagIcons::mood_wrrr_filled));
+            "mood-wrrr", "TablerIcons.mood_wrrr_filled()", tagIcons::mood_wrrr_filled));
   }
 
   public List<IconCatalogEntry<TablerIcon>> icons() {
