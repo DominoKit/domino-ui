@@ -95,8 +95,7 @@ final class StaticDynamicCssUtility {
   private static final DynamicCssDefinition COLUMN_END =
       directDefinition("dui-col-end", "grid-column-end");
 
-  private static final DynamicCssDefinition ROW_SPAN =
-      directDefinition("dui-row-span", "grid-row");
+  private static final DynamicCssDefinition ROW_SPAN = directDefinition("dui-row-span", "grid-row");
 
   private static final DynamicCssDefinition ROW_START =
       directDefinition("dui-row-start", "grid-row-start");
@@ -314,20 +313,34 @@ final class StaticDynamicCssUtility {
   private static CssClass resolveRadiusUtility(
       DynamicCssRegistry registry, String staticClassName) {
     String[] prefixes = {
-      "dui-rounded-tl", "dui-rounded-tr", "dui-rounded-br", "dui-rounded-bl",
-      "dui-rounded-t", "dui-rounded-r", "dui-rounded-b", "dui-rounded-l", "dui-rounded"
+      "dui-rounded-tl",
+      "dui-rounded-tr",
+      "dui-rounded-br",
+      "dui-rounded-bl",
+      "dui-rounded-t",
+      "dui-rounded-r",
+      "dui-rounded-b",
+      "dui-rounded-l",
+      "dui-rounded"
     };
     DynamicCssDefinition[] definitions = {
-      DynamicRadius.TOP_LEFT, DynamicRadius.TOP_RIGHT, DynamicRadius.BOTTOM_RIGHT,
-      DynamicRadius.BOTTOM_LEFT, DynamicRadius.TOP, DynamicRadius.RIGHT, DynamicRadius.BOTTOM,
-      DynamicRadius.LEFT, DynamicRadius.RADIUS
+      DynamicRadius.TOP_LEFT,
+      DynamicRadius.TOP_RIGHT,
+      DynamicRadius.BOTTOM_RIGHT,
+      DynamicRadius.BOTTOM_LEFT,
+      DynamicRadius.TOP,
+      DynamicRadius.RIGHT,
+      DynamicRadius.BOTTOM,
+      DynamicRadius.LEFT,
+      DynamicRadius.RADIUS
     };
     for (int index = 0; index < prefixes.length; index++) {
       String prefix = prefixes[index];
       if (!staticClassName.equals(prefix) && !staticClassName.startsWith(prefix + "-")) {
         continue;
       }
-      String token = staticClassName.equals(prefix) ? "1" : staticClassName.substring(prefix.length() + 1);
+      String token =
+          staticClassName.equals(prefix) ? "1" : staticClassName.substring(prefix.length() + 1);
       if (!contains(RADIUS_TOKENS, token) && !contains(SPACING_TOKENS, token)) {
         return null;
       }
@@ -348,22 +361,32 @@ final class StaticDynamicCssUtility {
 
   private static String radiusValue(String token) {
     switch (token) {
-      case "none": return "var(--dui-spc-0)";
-      case "sm": return "var(--dui-spc-0_5)";
-      case "md": return "var(--dui-spc-1_5)";
-      case "lg": return "var(--dui-spc-2)";
-      case "xl": return "var(--dui-spc-3)";
-      case "2xl": return "var(--dui-spc-4)";
-      case "3xl": return "var(--dui-spc-6)";
-      case "full": return "9999px";
-      case "circle": return "50%";
-      case "inherit": return "inherit";
-      default: return "var(--dui-spc-" + token + ")";
+      case "none":
+        return "var(--dui-spc-0)";
+      case "sm":
+        return "var(--dui-spc-0_5)";
+      case "md":
+        return "var(--dui-spc-1_5)";
+      case "lg":
+        return "var(--dui-spc-2)";
+      case "xl":
+        return "var(--dui-spc-3)";
+      case "2xl":
+        return "var(--dui-spc-4)";
+      case "3xl":
+        return "var(--dui-spc-6)";
+      case "full":
+        return "9999px";
+      case "circle":
+        return "50%";
+      case "inherit":
+        return "inherit";
+      default:
+        return "var(--dui-spc-" + token + ")";
     }
   }
 
-  private static CssClass resolveSpaceUtility(
-      DynamicCssRegistry registry, String staticClassName) {
+  private static CssClass resolveSpaceUtility(DynamicCssRegistry registry, String staticClassName) {
     String prefix;
     String property;
     if (staticClassName.startsWith("dui-space-x-")) {
@@ -408,7 +431,8 @@ final class StaticDynamicCssUtility {
       return null;
     }
 
-    String classToken = staticClassName.equals(prefix) ? "px" : staticClassName.substring(prefix.length() + 1);
+    String classToken =
+        staticClassName.equals(prefix) ? "px" : staticClassName.substring(prefix.length() + 1);
     String spacingToken;
     if (classToken.equals("px")) {
       spacingToken = "px";
@@ -840,19 +864,18 @@ final class StaticDynamicCssUtility {
   }
 
   private static Utility grid(
-      String prefix,
-      DynamicCssDefinition definition,
-      ValueType valueType,
-      String[] staticTokens) {
+      String prefix, DynamicCssDefinition definition, ValueType valueType, String[] staticTokens) {
     return new Utility(prefix, definition, valueType, null, staticTokens);
   }
 
   private static Utility utility(
-      String prefix,
-      DynamicCssDefinition definition,
-      ValueType valueType,
-      String bareClassToken) {
+      String prefix, DynamicCssDefinition definition, ValueType valueType, String bareClassToken) {
     return new Utility(prefix, definition, valueType, bareClassToken);
+  }
+
+  private static Utility utility(
+      String prefix, DynamicCssDefinition definition, ValueType valueType) {
+    return new Utility(prefix, definition, valueType);
   }
 
   private static Utility opacity(String prefix, DynamicCssDefinition definition) {

@@ -69,8 +69,7 @@ public class DynamicCssRegistryTest extends GWTTestCase {
 
     assertEquals("var(--dui-spc-0_5)", styleSheet.property(".dui.dui-top-0\\.5", "top"));
     assertEquals("var(--dui-spc-1_2p)", styleSheet.property(".dui.dui-top-1_2", "top"));
-    assertEquals(
-        "var(--dui-spc-1_2p)", styleSheet.property(".dui.dui-inset-x-2_4", "left"));
+    assertEquals("var(--dui-spc-1_2p)", styleSheet.property(".dui.dui-inset-x-2_4", "left"));
   }
 
   public void testSynchronousBudgetResetsAfterEachFrame() {
@@ -187,7 +186,9 @@ public class DynamicCssRegistryTest extends GWTTestCase {
     }
 
     assertEquals("var(--dui-clr-coral-l-5)", styleSheet.property(".dui.dui-fg-coral-l-5", "color"));
-    assertEquals("var(--dui-clr-coral-d-4)", styleSheet.property(".dui.dui-outline-coral-d-4", "outline-color"));
+    assertEquals(
+        "var(--dui-clr-coral-d-4)",
+        styleSheet.property(".dui.dui-outline-coral-d-4", "outline-color"));
     assertEquals(10, styleSheet.maxBatchSize());
   }
 
@@ -410,19 +411,40 @@ public class DynamicCssRegistryTest extends GWTTestCase {
 
   public void testPreloadingResolvesEveryMigratedStaticUtilityExactlyOnce() {
     InMemoryStyleSheet styleSheet = new InMemoryStyleSheet();
-    DynamicCssRegistry registry = new DynamicCssRegistry(styleSheet);
+    QueuedFrameScheduler scheduler = new QueuedFrameScheduler();
+    DynamicCssRegistry registry = new DynamicCssRegistry(styleSheet, scheduler);
 
     StaticDynamicCssUtility.preloadAll(registry);
+    flushFrames(scheduler);
+    int preloadedRuleCount = styleSheet.ruleCount();
     StaticDynamicCssUtility.preloadAll(registry);
+    flushFrames(scheduler);
 
-    assertEquals(1826, styleSheet.ruleCount());
+    assertEquals(preloadedRuleCount, styleSheet.ruleCount());
     assertEquals("var(--dui-spc-4)", styleSheet.property(".dui.dui-p-x-4", "padding-left"));
     assertEquals("var(--dui-spc-4)", styleSheet.property(".dui.dui-p-x-4", "padding-right"));
     assertEquals("auto", styleSheet.property(".dui.dui-m-x-auto", "margin-left"));
     assertEquals("auto", styleSheet.property(".dui.dui-m-x-auto", "margin-right"));
     assertEquals("100vw", styleSheet.property(".dui.dui-w-screen", "width"));
     assertEquals("10", styleSheet.property(".dui.dui-z-10", "z-index"));
+    assertEquals("var(--dui-opacity-50)", styleSheet.property(".dui.dui-opacity-50", "opacity"));
+    assertEquals("var(--dui-spc-2)", styleSheet.property(".dui.dui-rounded-lg", "border-radius"));
+    assertEquals(
+        "repeat(3, minmax(0, 1fr))",
+        styleSheet.property(".dui.dui-grid-cols-3", "grid-template-columns"));
+    assertEquals("hidden", styleSheet.property(".dui.dui-overflow-x-hidden", "overflow-x"));
+    assertEquals(
+        "contain", styleSheet.property(".dui.dui-overscroll-y-contain", "overscroll-behavior-y"));
+    assertEquals(
+        "4px", styleSheet.property(".dui.dui-underline-offset-4", "text-underline-offset"));
+    assertEquals("var(--dui-spc-2px)", styleSheet.property(".dui.dui-outline-2", "outline-width"));
     assertEquals("dui-grow-2", registry.cssClass(DynamicFlex.GROW, "2").getCssClass());
+  }
+
+  private static void flushFrames(QueuedFrameScheduler scheduler) {
+    while (scheduler.pendingCount() > 0) {
+      scheduler.runNext();
+    }
   }
 
   public void testStaticUtilityPreloadingIsLimitedToSuperDevMode() {

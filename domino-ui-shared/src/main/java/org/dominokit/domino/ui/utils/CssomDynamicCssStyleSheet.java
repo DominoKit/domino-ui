@@ -92,9 +92,7 @@ final class CssomDynamicCssStyleSheet implements DynamicCssStyleSheet {
     for (List<CSSStyleRule> rules : accessibleRules.values()) {
       for (CSSStyleRule rule : rules) {
         if (!rule.style.getPropertyValue(property).isEmpty()) {
-          accessiblePropertyRules
-              .computeIfAbsent(property, ignored -> new HashSet<>())
-              .add(rule);
+          accessiblePropertyRules.computeIfAbsent(property, ignored -> new HashSet<>()).add(rule);
           return true;
         }
       }
@@ -122,8 +120,7 @@ final class CssomDynamicCssStyleSheet implements DynamicCssStyleSheet {
             CSSStyleRule styleRule = Js.uncheckedCast(rule);
             for (int propertyIndex = 0; propertyIndex < styleRule.style.length; propertyIndex++) {
               accessiblePropertyRules
-                  .computeIfAbsent(
-                      styleRule.style.item(propertyIndex), ignored -> new HashSet<>())
+                  .computeIfAbsent(styleRule.style.item(propertyIndex), ignored -> new HashSet<>())
                   .add(styleRule);
             }
             for (String selector : styleRule.selectorText.split(",")) {

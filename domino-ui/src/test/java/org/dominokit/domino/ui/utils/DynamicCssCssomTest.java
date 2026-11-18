@@ -61,8 +61,7 @@ public class DynamicCssCssomTest extends GWTTestCase {
 
     assertTrue(styleSheet.hasRule(".dui.dui-test-cached"));
     assertEquals("green", styleSheet.getPropertyValue(".dui.dui-test-cached", "color"));
-    assertEquals(
-        "blue", styleSheet.getPropertyValue(".dui.dui-test-cached", "background-color"));
+    assertEquals("blue", styleSheet.getPropertyValue(".dui.dui-test-cached", "background-color"));
     assertEquals(1, countRules(".dui.dui-test-cached"));
   }
 

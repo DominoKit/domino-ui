@@ -394,5 +394,4 @@ final class DynamicCssRegistry {
 
     synchronousDeclarations += processed;
   }
-
 }
